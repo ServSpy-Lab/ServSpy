@@ -218,7 +218,7 @@ int main()
     unsigned char *decrypted_msg = NULL;
 
     printf("Enter message to encrypt: ");
-    scanf("%2047s", msg);
+    scanf("%2048s", msg);
 
     printf("Original msg: %s\n", msg);
 
