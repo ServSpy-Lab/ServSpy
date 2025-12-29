@@ -55,13 +55,12 @@ jobs:
 
       - name: Check Python code formatting
         run: |
-          black --check src/python/ tests/
+          black --check ./src/
 
       - name: Run Python linter
         run: |
-          flake8 src/python/ tests/
+          flake8 ./src/
 
       - name: Run Python type checking
         run: |
-          mypy src/python/
-
+          mypy ./src/
