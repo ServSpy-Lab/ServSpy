@@ -3,7 +3,7 @@ import time
 import socket
 import threading
 from datetime import datetime
-class TCPServer_Base:
+class TCPServer_Base:  # TCP server class
     def __init__(self, host='127.0.0.1', port=65432, max_clients=10):
         self.host = host
         self.port = port
@@ -121,8 +121,7 @@ class TCPServer_Base:
             print(f"Server error: {e}")
         finally:
             self.stop()
-    def console_input(self):
-        """处理控制台输入"""
+    def console_input(self):  # deal consule input
         while self.running:
             try:
                 cmd = input().strip().lower()
@@ -139,54 +138,38 @@ class TCPServer_Base:
                             print(f"  {info['id']} - connection time: {info['connected_time']}")
             except:
                 break
-                
-    def stop(self):
-        """停止服务器"""
+    def stop(self):  # shutting down the server
         self.running = False
-        
-        # 关闭所有客户端连接
-        with self.client_lock:
+        with self.client_lock:  # close all clients connections
             for client_info in self.clients.values():
                 try:
                     client_info['socket'].close()
                 except:
                     pass
             self.clients.clear()
-            
-        # 关闭服务器套接字
-        if self.server_socket:
+        if self.server_socket:  # close server socket
             self.server_socket.close()
             print("server stopped")
-
-
-
-class TCPClient_Base:
-    def __init__(self, host='127.0.0.1', port=65432):
+class TCPClient_Base:  # TCP client class
+    def __init__(self, host='127.0.0.1', port=65432, timeout=5):
         self.host = host
         self.port = port
+        self.timeout = timeout
         self.client_socket = None
         self.running = False
         self.receive_thread = None
-        
-    def connect(self):
-        """连接到服务器"""
+    def connect(self):  # connect to server
         try:
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.client_socket.settimeout(5)  # 连接超时5秒
-            
+            self.client_socket.settimeout(self.timeout)  # connect over 5 seconds timeout
             print(f"connecting to {self.host}:{self.port}...")
             self.client_socket.connect((self.host, self.port))
-            
             self.running = True
-            
-            # 启动接收消息线程
-            self.receive_thread = threading.Thread(target=self.receive_messages)
+            self.receive_thread = threading.Thread(target=self.receive_messages)  # set up get msg thread
             self.receive_thread.daemon = True
             self.receive_thread.start()
-            
             print("connect success! type '/help' to get help.\n")
             return True
-            
         except socket.timeout:
             print("outof time, unable to connect to server")
             return False
@@ -196,9 +179,7 @@ class TCPClient_Base:
         except Exception as e:
             print(f"connection error: {e}")
             return False
-            
-    def receive_messages(self):
-        """接收服务器消息"""
+    def receive_messages(self):  # get server msg
         buffer = ""
         while self.running:
             try:
@@ -207,15 +188,11 @@ class TCPClient_Base:
                     print("\nbreak the connection from server")
                     self.running = False
                     break
-                    
                 buffer += data.decode('utf-8')
-                
-                # 处理可能的分行消息
-                while '\n' in buffer:
+                while '\n' in buffer:  # deal with multiple messages in buffer
                     line, buffer = buffer.split('\n', 1)
                     if line.strip():
                         print(f"\n[server] {line}")
-                        
             except socket.timeout:
                 continue
             except ConnectionResetError:
@@ -226,36 +203,25 @@ class TCPClient_Base:
                 print(f"\nget msg error: {e}")
                 self.running = False
                 break
-                
-    def send_message(self, message):
-        """发送消息到服务器"""
+    def send_message(self, message):  # send msg to server
         if not self.running or not self.client_socket:
             print("disable the connect to server")
             return False
-            
-        try:
-            # 添加换行符以便服务器区分消息
+        try:  # add newline character for server to distinguish messages
             if not message.endswith('\n'):
                 message += '\n'
-                
             self.client_socket.sendall(message.encode('utf-8'))
             return True
-            
         except Exception as e:
             print(f"send msg error: {e}")
             return False
-            
-    def interactive_mode(self):
-        """交互式模式"""
+    def interactive_mode(self):  # 交互式模式
         try:
             while self.running:
-                try:
-                    # 获取用户输入
+                try:  # get user input
                     message = input()
-                    
                     if not self.running:
                         break
-                        
                     if message.strip():
                         if message.lower() == '/quit':
                             self.send_message('/quit')
@@ -263,7 +229,6 @@ class TCPClient_Base:
                             break
                         else:
                             self.send_message(message)
-                            
                 except KeyboardInterrupt:
                     print("\nshutting down...")
                     self.send_message('/quit')
@@ -271,51 +236,36 @@ class TCPClient_Base:
                     break
                 except EOFError:
                     break
-                    
         finally:
             self.close()
-            
-    def file_transfer_mode(self, filename):
-        """文件传输模式（简单示例）"""
+    def file_transfer_mode(self, filename):  # file send mode
         try:
-            with open(filename, 'rb') as file:
-                # 发送文件名和大小
+            with open(filename, 'rb') as file:  # send file name and size header
                 file_data = file.read()
                 header = f"/file {filename} {len(file_data)}\n"
                 self.client_socket.sendall(header.encode('utf-8'))
                 time.sleep(0.1)
-                
-                # 发送文件数据
-                self.client_socket.sendall(file_data)
+                self.client_socket.sendall(file_data)  # send file data
                 print(f"file {filename} sended successfully")
-                
         except FileNotFoundError:
             print(f"file {filename} not exist")
         except Exception as e:
             print(f"send error: {e}")
-            
-    def close(self):
-        """关闭连接"""
+    def close(self):  # close connection
         self.running = False
         if self.client_socket:
             self.client_socket.close()
-        print("连接已关闭")
-
+        print("connection closed")
     def start_TCP_client():
         import argparse
-        
         parser = argparse.ArgumentParser(description='TCP client')
         parser.add_argument('--host', default='127.0.0.1', help='server address')
         parser.add_argument('--port', type=int, default=65432, help='server port')
         parser.add_argument('--file', help='send file')
-        
         args = parser.parse_args()
-        
         client = TCPClient_Base(host=args.host, port=args.port)
-        
         if not client.connect():
             sys.exit(1)
-            
         try:
             if args.file:
                 client.file_transfer_mode(args.file)
