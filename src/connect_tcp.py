@@ -275,6 +275,3 @@ class TCPClient_Base:  # TCP client class
             print("\nclient shutting down...")
         finally:
             self.close()
-
-
-
