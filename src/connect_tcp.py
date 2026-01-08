@@ -1,6 +1,7 @@
 import sys
 import time
 import socket
+import argparse
 import threading
 from datetime import datetime
 class TCPServer_Base:  # TCP server class
@@ -13,8 +14,7 @@ class TCPServer_Base:  # TCP server class
         self.running = False
         self.client_lock = threading.Lock()
         self.start_TCP_Server()
-    def broadcast(self, message, exclude_client=None):
-        """广播消息给所有客户端"""
+    def broadcast(self, message, exclude_client=None): # broadcast message to all clients except exclude_client
         with self.client_lock:
             disconnected_clients = []
             for addr, client_info in self.clients.items():
@@ -158,6 +158,7 @@ class TCPClient_Base:  # TCP client class
         self.client_socket = None
         self.running = False
         self.receive_thread = None
+        self.start_TCP_client()
     def connect(self):  # connect to server
         try:
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -215,7 +216,7 @@ class TCPClient_Base:  # TCP client class
         except Exception as e:
             print(f"send msg error: {e}")
             return False
-    def interactive_mode(self):  # 交互式模式
+    def interactive_mode(self):  # Interactive mode
         try:
             while self.running:
                 try:  # get user input
@@ -256,26 +257,24 @@ class TCPClient_Base:  # TCP client class
         if self.client_socket:
             self.client_socket.close()
         print("connection closed")
-    def start_TCP_client():
-        import argparse
+    def start_TCP_client(self):  # start client
         parser = argparse.ArgumentParser(description='TCP client')
         parser.add_argument('--host', default='127.0.0.1', help='server address')
         parser.add_argument('--port', type=int, default=65432, help='server port')
         parser.add_argument('--file', help='send file')
         args = parser.parse_args()
-        client = TCPClient_Base(host=args.host, port=args.port)
-        if not client.connect():
+        if not self.connect():
             sys.exit(1)
         try:
             if args.file:
-                client.file_transfer_mode(args.file)
+                self.file_transfer_mode(args.file)
                 time.sleep(2)
             else:
-                client.interactive_mode()
+                self.interactive_mode()
         except KeyboardInterrupt:
             print("\nclient shutting down...")
         finally:
-            client.close()
+            self.close()
 
 
 
