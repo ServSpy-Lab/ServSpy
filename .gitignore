@@ -12,6 +12,9 @@ _deps
 CMakeUserPresets.json
 .vscode/
 .vs/
+.test/build/
+.test/venv/
+.src/__pycache__/
 
 # CLion
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
