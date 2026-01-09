@@ -12,7 +12,7 @@ class TCPServer_Base:  # TCP server class
         self.server_socket = None
         self.clients = {}  # store client info
         self.running = False
-        self.client_lock = threading.Lock()
+        self.client_lock = threading.Lock()  # add the threading lock
         self.start_TCP_Server()
     def broadcast(self, message, exclude_client=None): # broadcast message to all clients except exclude_client
         with self.client_lock:
