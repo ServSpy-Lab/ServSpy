@@ -7,7 +7,3 @@ from src import connect_tcp
 def test_TCP_client():
     connect_tcp.TCPClient_Base()
 test_TCP_client()
-
-
-
-
