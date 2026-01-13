@@ -124,15 +124,19 @@ class TCPServer_Base:  # TCP server class
     def console_input(self):  # deal consule input
         while self.running:
             try:
-                cmd = input().strip().lower()
-                if cmd == 'stop':
+                deal_cmd=""
+                cmd = list(input())
+                del cmd[0]
+                for i in range(len(cmd)):
+                    deal_cmd += cmd[i]
+                if deal_cmd == 'stop':
                     print("shutting down...")
                     self.running = False
                     self.stop()
-                elif cmd == 'status':
+                elif deal_cmd == 'status':
                     print(f"current connection count: {len(self.clients)}")
                     print(f"server running: {self.running}")
-                elif cmd == 'clients':
+                elif deal_cmd == 'clients':
                     with self.client_lock:
                         for addr, info in self.clients.items():
                             print(f"  {info['id']} - connection time: {info['connected_time']}")
