@@ -43,7 +43,6 @@ class TCPServer_Base:  # TCP server class
         client_socket.sendall(welcome_msg.encode('utf-8'))
         try:
             while True:
-                
                 data = client_socket.recv(4096)  # get msg from client
                 if not data:
                     break
@@ -129,6 +128,7 @@ class TCPServer_Base:  # TCP server class
                 del cmd[0]
                 for i in range(len(cmd)):
                     deal_cmd += cmd[i]
+                deal_cmd = deal_cmd.lower()
                 if deal_cmd == 'stop':
                     print("shutting down...")
                     self.running = False
