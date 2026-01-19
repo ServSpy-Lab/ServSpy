@@ -53,8 +53,6 @@ class TCPServer_Base:  # TCP server class
                     timestamp = datetime.now().strftime("%H:%M:%S")  # deal with normal message
                     log_msg = f"[{timestamp}] {client_id}: {message}"
                     print(log_msg)
-                    # broadcast_msg = f"[{timestamp}] client {client_id}: {message}"  # send broadcast message
-                    # self.broadcast(broadcast_msg, exclude_client=client_address)
                     response = f"msg send: {message}"
                 if response:  # send response to client
                     client_socket.sendall(response.encode('utf-8'))
@@ -80,24 +78,23 @@ class TCPServer_Base:  # TCP server class
             /clients - display connected clients
             /quit - disconnect
             """
-            return help_text
+            send_str=help_text+"\n"
+            return send_str
         elif command == '/time':
-            send_str=f"server time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-            client_socket.sendall(send_str.encode('utf-8'))
+            send_str=(
+                f"server time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"+"\n")
             return send_str
         elif command == '/clients':
             with self.client_lock:
                 client_list = [info['id'] for info in self.clients.values()]
-                send_str=f"online clients ({len(client_list)}): {', '.join(client_list)}"
-                client_socket.sendall(send_str.encode('utf-8'))
+                send_str=(
+                    f"online clients ({len(client_list)}): {', '.join(client_list)}"+"\n")
                 return send_str
         elif command == '/quit':
-            send_str="Bye!"
-            client_socket.sendall(send_str.encode('utf-8'))
+            send_str="Bye!"+"\n"
             return send_str
         else:
-            send_str=f"unknow: {command}"
-            client_socket.sendall(send_str.encode('utf-8'))
+            send_str=f"unknow: {command}"+"\n"
             return send_str
     def start_TCP_Server(self):  # set up server socket
         try:
