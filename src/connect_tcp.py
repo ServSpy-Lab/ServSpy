@@ -17,6 +17,7 @@ class TCPServer_Base:  # TCP server class
         self.clients = {}  # store client info
         self.running = False
         self.client_lock = threading.Lock()  # add the threading lock
+        self.receive_data_from_client = ""
         self.command_decode_table_str=None
         with open(self.decode_command_table_file_path, 'r', encoding='utf-8') as f:
             self.command_decode_table_str = f.read()
@@ -56,6 +57,7 @@ class TCPServer_Base:  # TCP server class
                 if not data:
                     break
                 message = data.decode('utf-8').strip()  # decode msg
+                self.receive_data_from_client=message
                 if message.startswith('/'):  # deal with special command
                     response = self.handle_command(
                         client_socket, client_address, message)
@@ -108,13 +110,20 @@ class TCPServer_Base:  # TCP server class
             send_str=f"unknow: {command}"+"\n"
             return send_str
         if command.split(" ")[0]=="/file":
+            filename=""
+            filedata=""
             while True:
-                if (command==self.command_decode_table[0][
-                    "file_send_server_header"]):
+                try:
+                    filename = command.split(" ")[1]
+                except:
+                    pass
+                if (self.receive_data_from_client==
+                    self.command_decode_table[0]["file_send_server_header"]):
                     break
             client_socket.sendall(
                 self.command_decode_table[0][
                     "file_resieve_client_header"].encode('utf-8'))
+            # ...
     def start_TCP_Server(self):  # set up server socket
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -270,8 +279,11 @@ class TCPClient_Base:  # TCP client class
                             time.sleep(0.5)
                             break
                         elif message.lower().split(" ")[0]=="/file":
-                            filename = message.split(" ")[1]
-                            self.file_transfer_mode(filename)
+                            try:
+                                filename = message.split(" ")[1]
+                                self.file_transfer_mode(filename)
+                            except IndexError:
+                                print("invalid command, please use '/file <filename>'")
                         else:
                             self.send_message(message)
                 except KeyboardInterrupt:
@@ -289,16 +301,27 @@ class TCPClient_Base:  # TCP client class
                 self.command_decode_table[0]["file_send_server_header"])
             self.send_file_data_sign=(
                 self.command_decode_table[0]["file_send_server_data"])
+            self.server_reseived_file_header_sign=(
+                self.command_decode_table[0]["file_resieve_client_header"])
+            self.server_reseived_file_data_sign=(
+                self.command_decode_table[0]["file_resieve_client_data"])
             with open(filename, 'rb') as file:  # send file name and size header
                 file_data = file.read()
                 header = f"file {filename} {len(file_data)}\n"
                 self.client_socket.sendall(header.encode('utf-8'))
                 self.client_socket.sendall(
                     self.send_file_header_sign.encode('utf-8'))
-                # ...
+                while True:
+                    if (self.receive_data_from_server==
+                        self.server_reseived_file_header_sign):
+                        break
                 self.client_socket.sendall(file_data)  # send file data
                 self.client_socket.sendall(
                     self.send_file_data_sign.encode('utf-8'))
+                while True:
+                    if (self.receive_data_from_server==
+                        self.server_reseived_file_data_sign):
+                        break
                 print(f"file {filename} sended successfully")
         except FileNotFoundError:
             print(f"file {filename} not exist")
