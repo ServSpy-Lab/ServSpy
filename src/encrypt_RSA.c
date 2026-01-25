@@ -3,7 +3,7 @@
 #include <openssl/rsa.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
-#include "encrypt_RSA.h"
+#include "include/encrypt_RSA.h"
 
 EVP_PKEY *RSA_generate_keys(EVP_PKEY *rtrn_key)
 {
@@ -181,13 +181,4 @@ unsigned char *RSA_priv_decrypt(EVP_PKEY *RSA_key, const unsigned char *encrypte
     EVP_PKEY_CTX_free(ctx);
     return decrypted_msg;
 }
-
-
-
-
-
-
-
-
-
 

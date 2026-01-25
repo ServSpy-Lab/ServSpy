@@ -7,22 +7,5 @@
 #include <openssl/pem.h>
 #include <openssl/ecdsa.h>
 #include <openssl/obj_mac.h>
-#include "encrypt_ECC.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "encrypt_ECDH.h"
 
