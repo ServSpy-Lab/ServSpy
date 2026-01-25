@@ -1,0 +1,14 @@
+[{
+    "file_send_server_header": "/FILE_SEND_SERVER_HEADER",
+    "file_resieve_server_header": "/FILE_RESIEVE_SERVER_HEADER",
+    "file_send_client_header": "/FILE_SEND_CLIENT_HEADER",
+    "file_resieve_client_header": "/FILE_RESIEVE_CLIENT_HEADER",
+    "file_send_server_data": "/FILE_SEND_SERVER_DATA",
+    "file_resieve_server_data": "/FILE_RESIEVE_SERVER_DATA",
+    "file_send_client_data": "/FILE_SEND_CLIENT_DATA",
+    "file_resieve_client_data": "/FILE_RESIEVE_CLIENT_DATA"
+}]
+
+
+
+
