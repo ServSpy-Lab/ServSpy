@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <openssl/evp.h>
-#include <openssl/rsa.h>
-#include <openssl/err.h>
-#include <openssl/pem.h>
 #include "include/encrypt_RSA.h"
 
 EVP_PKEY *RSA_generate_keys(EVP_PKEY *rtrn_key)
@@ -51,14 +46,14 @@ int RSA_write(EVP_PKEY *RSA_key, const char *pubkey_file, const char *privkey_fi
     FILE *fp = NULL;
     if ((fp = fopen(pubkey_file, "wb")) == NULL)
     {
-        printf("Failed to open public key file for writing.\n");
+        printf("[ERROR]: Failed to open public key file for writing.\n");
         return -1;
     }
     PEM_write_PUBKEY(fp, RSA_key);
     fclose(fp);
     if ((fp = fopen(privkey_file, "wb")) == NULL)
     {
-        printf("Failed to open private key file for writing.\n");
+        printf("[ERROR]: Failed to open private key file for writing.\n");
         return -1;
     }
     PEM_write_PrivateKey(fp, RSA_key, NULL, NULL, 0, NULL, NULL);
@@ -71,26 +66,26 @@ EVP_PKEY *RSA_read(const char *pubkey_file, const char *privkey_file)
     EVP_PKEY *RSA_key = NULL;
     if ((fp = fopen(pubkey_file, "rb")) == NULL)
     {
-        printf("Failed to open public key file for reading.\n");
+        printf("[ERROR]: Failed to open public key file for reading.\n");
         return NULL;
     }
     RSA_key = PEM_read_PUBKEY(fp, NULL, NULL, NULL);
     fclose(fp);
     if (!RSA_key)
     {
-        printf("Failed to read public key from file.\n");
+        printf("[ERROR]: Failed to read public key from file.\n");
         return NULL;
     }
     if ((fp = fopen(privkey_file, "rb")) == NULL)
     {
-        printf("Failed to open private key file for reading.\n");
+        printf("[ERROR]: Failed to open private key file for reading.\n");
         return NULL;
     }
     RSA_key = PEM_read_PrivateKey(fp, NULL, NULL, NULL);
     fclose(fp);
     if (!RSA_key)
     {
-        printf("Failed to read private key from file.\n");
+        printf("[ERROR]: [ERROR]: Failed to read private key from file.\n");
         return NULL;
     }
     return RSA_key;
@@ -104,32 +99,32 @@ unsigned char *RSA_pub_encrypt(EVP_PKEY *RSA_key, const unsigned char *msg, size
     ctx = EVP_PKEY_CTX_new(RSA_key, NULL);
     if (!ctx)
     {
-        printf("Failed to create EVP_PKEY_CTX.\n");
+        printf("[ERROR]: Failed to create EVP_PKEY_CTX.\n");
         return NULL;
     }
 
     if (EVP_PKEY_encrypt_init(ctx) <= 0)
     {
-        printf("Failed to initialize EVP_PKEY_CTX for encryption.\n");
+        printf("[ERROR]: Failed to initialize EVP_PKEY_CTX for encryption.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     if (EVP_PKEY_encrypt(ctx, NULL, &outlen, msg, strlen((const char *)msg)) <= 0)
     {
-        printf("Failed to get encrypted message length.\n");
+        printf("[ERROR]: Failed to get encrypted message length.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     encrypted_msg = (unsigned char *)malloc(outlen);
     if (!encrypted_msg)
     {
-        printf("Failed to allocate memory for encrypted message.\n");
+        printf("[ERROR]: Failed to allocate memory for encrypted message.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     if (EVP_PKEY_encrypt(ctx, encrypted_msg, &outlen, msg, strlen((const char *)msg)) <= 0)
     {
-        printf("Failed to encrypt message.\n");
+        printf("[ERROR]: Failed to encrypt message.\n");
         free(encrypted_msg);
         EVP_PKEY_CTX_free(ctx);
         return NULL;
@@ -148,31 +143,31 @@ unsigned char *RSA_priv_decrypt(EVP_PKEY *RSA_key, const unsigned char *encrypte
     ctx = EVP_PKEY_CTX_new(RSA_key, NULL);
     if (!ctx)
     {
-        printf("Failed to create EVP_PKEY_CTX.\n");
+        printf("[ERROR]: Failed to create EVP_PKEY_CTX.\n");
         return NULL;
     }
     if (EVP_PKEY_decrypt_init(ctx) <= 0)
     {
-        printf("Failed to initialize EVP_PKEY_CTX for decryption.\n");
+        printf("[ERROR]: Failed to initialize EVP_PKEY_CTX for decryption.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     if (EVP_PKEY_decrypt(ctx, NULL, &outlen, encrypted_msg, encrypted_msg_length) <= 0)
     {
-        printf("Failed to get decrypted message length.\n");
+        printf("[ERROR]: Failed to get decrypted message length.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     decrypted_msg = (unsigned char *)malloc(outlen);
     if (!decrypted_msg)
     {
-        printf("Failed to allocate memory for decrypted message.\n");
+        printf("[ERROR]: Failed to allocate memory for decrypted message.\n");
         EVP_PKEY_CTX_free(ctx);
         return NULL;
     }
     if (EVP_PKEY_decrypt(ctx, decrypted_msg, &outlen, encrypted_msg, encrypted_msg_length) <= 0)
     {
-        printf("Failed to decrypt message.\n");
+        printf("[ERROR]: Failed to decrypt message.\n");
         free(decrypted_msg);
         EVP_PKEY_CTX_free(ctx);
         return NULL;
@@ -181,4 +176,3 @@ unsigned char *RSA_priv_decrypt(EVP_PKEY *RSA_key, const unsigned char *encrypte
     EVP_PKEY_CTX_free(ctx);
     return decrypted_msg;
 }
-

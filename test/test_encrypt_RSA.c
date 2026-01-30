@@ -35,24 +35,24 @@ int main()
     {
         printf("Failed to read RSA key pair from files.\n");
     }
-    
     unsigned char msg[2048];
     unsigned char *encrypted_msg = NULL;
     unsigned char *decrypted_msg = NULL;
 
     printf("Enter message to encrypt (max 245 characters for 2048-bit RSA): ");
-    scanf("%244s", msg);  // 限制输入长度为244字符，为安全起见
+    scanf("%244s", msg); // 限制输入长度为244字符，为安全起见
 
     // 检查消息长度
-    if (strlen((char*)msg) > 245) {
+    if (strlen((char *)msg) > 245)
+    {
         printf("Error: Message too long! Maximum length for 2048-bit RSA is 245 characters.\n");
-        printf("Your message length: %lu characters\n", strlen((char*)msg));
+        printf("Your message length: %lu characters\n", strlen((char *)msg));
         EVP_PKEY_free(key);
         return 1;
     }
 
     printf("Original msg: %s\n", msg);
-    printf("Message length: %lu characters\n", strlen((char*)msg));
+    printf("Message length: %lu characters\n", strlen((char *)msg));
 
     size_t encrypted_msg_length = 0;
     encrypted_msg = RSA_pub_encrypt(key, msg, &encrypted_msg_length);
