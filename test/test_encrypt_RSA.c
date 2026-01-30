@@ -35,7 +35,6 @@ int main()
     {
         printf("Failed to read RSA key pair from files.\n");
     }
-
     unsigned char msg[2048];
     unsigned char *encrypted_msg = NULL;
     unsigned char *decrypted_msg = NULL;
