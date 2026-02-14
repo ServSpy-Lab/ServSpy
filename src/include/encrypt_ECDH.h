@@ -1,8 +1,7 @@
-#define EC_name NID_X9_62_prime256v1
-
 #ifndef ENCRYPT_ECDH_H
 #define ENCRYPT_ECDH_H
 
+#include "encrypt_manage.h"
 #include <openssl/evp.h>
 #include <stdio.h>
 #include <stdlib.h>
