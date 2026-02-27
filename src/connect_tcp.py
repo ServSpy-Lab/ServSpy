@@ -14,8 +14,6 @@ class TCPServer_Base:  # TCP server class
             self.project_dir, 'received_files')
         self.host = host
         self.port = port
-        self.port_add_step=port_add_step
-        self.latest_port=self.port
         self.max_clients = max_clients
         self.server_socket = None
         self.clients = {}  # store client info
@@ -24,7 +22,6 @@ class TCPServer_Base:  # TCP server class
         self.file_running=None
         self.file_server_started = False
         self.file_server_lock = threading.Lock()  # lock for file server start
-        
         self.receive_data_from_client = ""
         self.command_decode_table_str=None
         with open(self.decode_command_table_file_path, 'r', encoding='utf-8') as f:
@@ -119,8 +116,8 @@ class TCPServer_Base:  # TCP server class
             send_str="Bye!"+"\n"
             return send_str
         elif command.lower().split(" ")[0] == "/file":
-            self.file_transfer_client_recv_server_start(client_id)
-    def file_transfer_client_recv_server_start(self, client_id):
+            self.file_transfer_client_recv_server_start(client_id, command)
+    def file_transfer_client_recv_server_start(self, client_id, command):
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
@@ -133,22 +130,22 @@ class TCPServer_Base:  # TCP server class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
+        latest_port=None
         with self.file_server_lock:
             if not self.file_server_started:
                 self.file_server_started = True
-                self.latest_port+= self.port_add_step
+                latest_port=int(command.split(" ")[2])
                 file_transfer_mode_recv_thread=threading.Thread(
                     target=self.file_transfer_mode_recv, 
-                    args=(self.host, self.latest_port, client_id), 
+                    args=(self.host, latest_port, client_id), 
                     daemon=True)
                 file_transfer_mode_recv_thread.start()
             while True:
                 # breakpoint()
                 time.sleep(0.1)
                 if self.file_server_started==False:
-                    self.latest_port-=self.port_add_step
                     print(
-                        "releasing file transfer port, current latest port:", self.latest_port)
+                        "releasing file transfer port, current latest port:", latest_port-1)
                     file_transfer_mode_recv_thread.join()
                     break
     def file_transfer_mode_recv(self, server_file_address, server_file_port, client_id):
@@ -481,11 +478,14 @@ class TCPClient_Base:  # TCP client class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
-        self.send_message(message)
+        send_msg=message
+        while send_msg[len(send_msg)-1]==" ":
+            send_msg=send_msg[:-1]
         try:
             filename = message.split(" ")[1]
             with self.file_transfer_port_lock:
                 self.latest_port+= self.port_add_step
+            self.send_message(send_msg+" "+str(self.latest_port))
             file_transfer_mode_thread=threading.Thread(
                     target=self.file_transfer_mode, 
                     args=(filename, self.host, self.latest_port), 
