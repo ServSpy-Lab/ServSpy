@@ -11,5 +11,5 @@
     "file_resieve_server_start_file_transfer": "/FILE_RESIEVE_SERVER_START_FILE_TRANSFER",
     "file_send_client_start_file_transfer": "/FILE_SEND_CLIENT_START_FILE_TRANSFER",
     "file_resieve_client_start_file_transfer": "/FILE_RESIEVE_CLIENT_START_FILE_TRANSFER",
-    "file_send_resieve_error": "/FILE_SEND_RESIEVE_ERROR"
+    "file_send_resieve_error": "/FER"
 }]
