@@ -18,6 +18,8 @@ class TestConnect:
                 subprocess.Popen(
                     ["python", os.path.join(os.path.dirname(__file__), 'test_TCP_client.py')], 
                     creationflags=subprocess.CREATE_NEW_CONSOLE)
+                # subprocess.Popen(
+                #     ["python", os.path.join(os.path.dirname(__file__), 'test_TCP_client.py')])
         else:
             cmd = [
                 'gnome-terminal', '--', 'bash', '-c', "python3.14 {}".format( 
