@@ -1,37 +1,34 @@
 import os
 import sys
 import time
-import multiprocessing
+import subprocess
 package_dictionary=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if package_dictionary not in os.sys.path:
     sys.path.insert(0, package_dictionary)
-from src import connect_tcp
 class TestConnect:
     def __init__(self):
-        client_processes=[]
-        setup_client_times=int(input())
-        TCP_server_process=multiprocessing.Process(target=connect_tcp.TCPServer_Base)
-        TCP_server_process.daemon=False
-        TCP_server_process.start()
-        time.sleep(2)
-        for i in range(setup_client_times):
-            TCP_client_process=multiprocessing.Process(target=connect_tcp.TCPClient_Base)
-            TCP_client_process.daemon=False
-            TCP_client_process.start()
-            time.sleep(0.5)
-        try:
-            TCP_server_process.join()
-            for client in client_processes:
-                if client.is_alive():
-                    client.terminate()
-                    client.join()
-        except KeyboardInterrupt:
-            print("\n程序被用户中断")
-            for client in client_processes:
-                if client.is_alive():
-                    client.terminate()
-            TCP_server_process.terminate()
-    # def test_TCP_server(self):
-    #     pass
+        create_tcp_client_amount=int(input())
+        if sys.platform.startswith('win'):
+            self.TCP_server_process=subprocess.Popen(
+                ["python", os.path.join(os.path.dirname(__file__), 'test_TCP_server.py')], 
+                creationflags=subprocess.CREATE_NEW_CONSOLE)
+            time.sleep(2)
+            for i in range(create_tcp_client_amount):
+                time.sleep(0.5)
+                subprocess.Popen(
+                    ["python", os.path.join(os.path.dirname(__file__), 'test_TCP_client.py')], 
+                    creationflags=subprocess.CREATE_NEW_CONSOLE)
+        else:
+            cmd = [
+                'gnome-terminal', '--', 'bash', '-c', "python3.14 {}".format( 
+                os.path.join(os.path.dirname(__file__), 'test_TCP_server.py'))]
+            self.TCP_server_process=subprocess.Popen(cmd)
+            time.sleep(2)
+            for i in range(create_tcp_client_amount):
+                cmd=[
+                    'gnome-terminal', '--', 'bash', '-c', "python3.14 {}".format(
+                    os.path.join(os.path.dirname(__file__), 'test_TCP_client.py'))]
+                time.sleep(0.5)
+                subprocess.Popen(cmd)
 if __name__=="__main__":
     TestConnect()

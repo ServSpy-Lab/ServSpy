@@ -1,6 +1,11 @@
 #ifndef ENCRYPT_RSA_H
 #define ENCRYPT_RSA_H
 
+#include <stdio.h>
+#include <openssl/evp.h>
+#include <openssl/rsa.h>
+#include <openssl/err.h>
+#include <openssl/pem.h>
 #include <openssl/evp.h>
 
 EVP_PKEY *RSA_generate_keys(EVP_PKEY *rtrn_key);
