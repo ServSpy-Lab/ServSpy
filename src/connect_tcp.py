@@ -7,7 +7,8 @@ import threading
 from datetime import datetime
 class TCPServer_Base:  # TCP server class
     def __init__(self, host='127.0.0.1', port=65432, 
-                 max_clients=10, port_add_step=1, port_range_num=100):
+                 max_clients=10, port_add_step=1, port_range_num=100, 
+                 is_hand_alloc_port=False):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.project_info_dir=os.path.join(self.project_dir, '.ServSpy')
         if os.path.exists(self.project_info_dir)==False:
@@ -16,8 +17,6 @@ class TCPServer_Base:  # TCP server class
             self.project_info_dir, 'temp_info')
         if os.path.exists(self.project_temp_info_dir)==False:
             os.mkdir(self.project_temp_info_dir)
-        self.port_temp_info_path=os.path.join(
-            self.project_temp_info_dir, 'server_port_info.log')
         self.decode_command_table_file_path=os.path.join(
             self.project_dir, 'decode_command_table.json')
         self.file_transfer_dir=os.path.join(
@@ -26,44 +25,9 @@ class TCPServer_Base:  # TCP server class
         self.host = host
         self.port = port
         self.max_clients = max_clients
-        self.port_add_step = port_add_step
-        self.port_range_num = port_range_num
-        self.add_latest_port=self.port
-        self.minus_latest_port=self.port
-        self.alloc_add_port_lock=threading.Lock()
-        self.alloc_minus_port_lock=threading.Lock()
-        self.each_client_port_range=int(self.port_range_num/self.max_clients)
-        if os.path.exists(self.port_temp_info_path)==False:
-            self.server_num=0
-            self.server_port_info=[]
-            self.min_port=self.port-self.port_add_step*self.port_range_num
-            self.max_port=self.port+self.port_add_step*self.port_range_num
-            each_server_info={
-                "server_id": self.server_num,
-                "host": self.host,
-                "port": self.port,
-                "min_port": self.min_port,
-                "max_port": self.max_port
-            }
-            self.server_port_info.append(each_server_info)
-            with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
-                f.write(str(self.server_port_info))
-        else:
-            with open(self.port_temp_info_path, 'r', encoding='utf-8') as f:
-                self.server_port_info=ast.literal_eval(f.read())
-            self.server_num=self.server_port_info[len(self.server_port_info)-1]["server_id"]+1
-            self.min_port=self.port-self.port_add_step*self.port_range_num
-            self.max_port=self.port+self.port_add_step*self.port_range_num
-            each_server_info={
-                "server_id": self.server_num,
-                "host": self.host,
-                "port": self.port,
-                "min_port": self.min_port,
-                "max_port": self.max_port
-            }
-            self.server_port_info.append(each_server_info)
-            with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
-                f.write(str(self.server_port_info))
+        self.is_hand_alloc_port=is_hand_alloc_port
+        if self.is_hand_alloc_port==False:
+            self.hand_alloc_port(port_add_step, port_range_num)
         self.server_socket = None
         self.clients = {}  # store client info
         self.running = False
@@ -78,6 +42,54 @@ class TCPServer_Base:  # TCP server class
         self.command_decode_table=(
             ast.literal_eval(self.command_decode_table_str))
         self.start_TCP_Server()
+    def hand_alloc_port(self, port_add_step, port_range_num):
+        self.port_temp_info_path=os.path.join(
+            self.project_temp_info_dir, 'server_port_info.log')
+        self.port_add_step = port_add_step
+        self.port_range_num = port_range_num
+        self.add_latest_port=self.port+1
+        self.minus_latest_port=self.port
+        self.alloc_add_port_lock=threading.Lock()
+        self.alloc_minus_port_lock=threading.Lock()
+        self.each_client_port_range=int(self.port_range_num/self.max_clients)
+        if os.path.exists(self.port_temp_info_path)==False:
+            self.server_num=0
+            self.server_port_info=[]
+            self.min_port=self.port-self.port_add_step*self.port_range_num
+            self.max_port=self.port+1+self.port_add_step*self.port_range_num
+            each_server_info={
+                "server_id": self.server_num,
+                "host": self.host,
+                "port": self.port,
+                "min_port": self.min_port,
+                "max_port": self.max_port}
+            self.server_port_info.append(each_server_info)
+            with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
+                f.write(str(self.server_port_info))
+        else:
+            with open(self.port_temp_info_path, 'r', encoding='utf-8') as f:
+                self.server_port_info=ast.literal_eval(f.read())
+            self.server_num=(
+                self.server_port_info[len(self.server_port_info)-1]["server_id"]+1)
+            auto_port_add=(
+                self.server_port_info[len(self.server_port_info)-1]["max_port"]+
+                self.port_add_step*self.port_range_num+1)
+            auto_port_minus=(
+                self.server_port_info[len(self.server_port_info)-1]["min_port"]-
+                self.port_add_step*self.port_range_num-1)
+            if self.port>auto_port_minus and self.port<auto_port_add:
+                self.port=auto_port_add
+            self.min_port=self.port-self.port_add_step*self.port_range_num
+            self.max_port=self.port+1+self.port_add_step*self.port_range_num
+            each_server_info={
+                "server_id": self.server_num,
+                "host": self.host,
+                "port": self.port,
+                "min_port": self.min_port,
+                "max_port": self.max_port}
+            self.server_port_info.append(each_server_info)
+            with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
+                f.write(str(self.server_port_info))
     def file_palloc(self):
         with self.alloc_add_port_lock:
             if self.add_latest_port + self.port_add_step > self.max_port:
@@ -207,24 +219,34 @@ class TCPServer_Base:  # TCP server class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
-        latest_port=None
         with self.file_server_lock:
             if not self.file_server_started:
                 self.file_server_started = True
-                latest_port=int(command.split(" ")[2])
+                file_transfer_client_port=int(command.split(" ")[2])
+                file_transfer_server_port=0
+                if self.hand_alloc_port==True:
+                    file_transfer_server_port=self.file_palloc()
+                    if file_transfer_server_port==None:
+                        return False
+                else:
+                    file_transfer_server_port=0
                 file_transfer_mode_recv_thread=threading.Thread(
                     target=self.file_transfer_mode_recv, 
-                    args=(self.host, latest_port, client_id), 
+                    args=(self.host, file_transfer_server_port, 
+                          file_transfer_client_port, client_id), 
                     daemon=True)
                 file_transfer_mode_recv_thread.start()
             while True:
                 time.sleep(0.1)
                 if self.file_server_started==False:
-                    print(
-                        "releasing file transfer port, current latest port:", latest_port-1)
+                    if self.is_hand_alloc_port==True:
+                        self.file_pfree()
+                        print(
+                            "releasing file transfer port, current latest port:", self.latest_port)
                     file_transfer_mode_recv_thread.join()
                     break
-    def file_transfer_mode_recv(self, server_file_address, server_file_port, client_id):
+    def file_transfer_mode_recv(self, server_file_address, server_file_port, 
+                                client_file_port, client_id):
         self.file_running=True
         server_file_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_file_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
