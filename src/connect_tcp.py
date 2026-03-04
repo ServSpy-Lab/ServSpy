@@ -70,30 +70,29 @@ class TCPServer_Base:  # TCP server class
         else:
             with open(self.port_temp_info_path, 'r', encoding='utf-8') as f:
                 self.server_port_info=ast.literal_eval(f.read())
-            for is_running in len(self.server_port_info):
-                if self.server_port_info[is_running]["is_running"]==True:
-                    self.server_num=(
-                        self.server_port_info[len(self.server_port_info)-1]["server_id"]+1)
-                    auto_port_add=(
-                        self.server_port_info[len(self.server_port_info)-1]["max_port"]+
-                        self.port_add_step*self.port_range_num+1)
-                    auto_port_minus=(
-                        self.server_port_info[len(self.server_port_info)-1]["min_port"]-
-                        self.port_add_step*self.port_range_num-1)
-                    if self.port>auto_port_minus and self.port<auto_port_add:
-                        self.port=auto_port_add
-                    self.min_port=self.port-self.port_add_step*self.port_range_num
-                    self.max_port=self.port+1+self.port_add_step*self.port_range_num
-                    each_server_info={
-                        "server_id": self.server_num,
-                        "host": self.host,
-                        "port": self.port,
-                        "min_port": self.min_port,
-                        "max_port": self.max_port,
-                        "is_running": self.running}
-                    self.server_port_info.append(each_server_info)
-                    pass
-# .........
+            self.server_num=(
+                self.server_port_info[len(self.server_port_info)-1]["server_id"]+1)
+            auto_port_add=(
+                self.server_port_info[len(self.server_port_info)-1]["max_port"]+
+                self.port_add_step*self.port_range_num+1)
+            auto_port_minus=(
+                self.server_port_info[len(self.server_port_info)-1]["min_port"]-
+                self.port_add_step*self.port_range_num-1)
+            if self.port>auto_port_minus and self.port<auto_port_add:
+                self.port=auto_port_add
+            self.min_port=self.port-self.port_add_step*self.port_range_num
+            self.max_port=self.port+1+self.port_add_step*self.port_range_num
+            each_server_info={
+                "server_id": self.server_num,
+                "host": self.host,
+                "port": self.port,
+                "min_port": self.min_port,
+                "max_port": self.max_port,
+                "is_running": self.running}
+            self.server_port_info.append(each_server_info)
+            for is_running in range(len(self.server_port_info)):
+                if self.server_port_info[is_running]["is_running"]==False:
+                    del self.server_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
                 f.write(str(self.server_port_info))
     def file_palloc(self):
@@ -250,7 +249,11 @@ class TCPServer_Base:  # TCP server class
                 if self.hand_alloc_port==True:
                     file_transfer_server_port=self.file_palloc()
                     if file_transfer_server_port==None:
-                        return False
+                        while True:
+                            time.sleep(0.1)
+                            file_transfer_client_port=self.file_palloc()
+                            if file_transfer_client_port!=None:
+                                break
                 else:
                     file_transfer_server_port=0
                 file_transfer_mode_recv_thread=threading.Thread(
@@ -478,6 +481,7 @@ class TCPClient_Base:  # TCP client class
         self.is_hand_alloc_port=None
         self.file_transfer_mode_running=False
         self.file_transfer_server_port=None
+        self.file_server_port_list=[]
         self.file_transfer_server_port_lock=threading.Lock()
         self.client_ports_list=[]
         self.client_ports=client_ports
@@ -543,6 +547,9 @@ class TCPClient_Base:  # TCP client class
                 "max_port": self.max_port,
                 "is_running": self.running}
             self.client_port_info.append(each_client_info)
+            for is_running in range(len(self.client_port_info)):
+                if self.client_port_info[is_running]["is_running"]==False:
+                    del self.client_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
                 f.write(str(self.client_port_info))
     def file_palloc(self):
@@ -663,6 +670,7 @@ class TCPClient_Base:  # TCP client class
         elif command.lower().split(" ")[0] == "/server_file_transfer_port":
             with self.file_transfer_server_port_lock:
                 self.file_transfer_server_port=(int(command.split(" ")[1]))
+                self.file_server_port_list.append(self.file_transfer_server_port)
     def interactive_mode(self):  # Interactive mode
         try:
             while self.running:
@@ -710,7 +718,7 @@ class TCPClient_Base:  # TCP client class
             self.send_message(send_msg)
             while True:
                 time.sleep(0.1)
-                if self.file_transfer_server_port!=None:
+                if len(self.file_server_port_list)>0:
                     break
                 waiting_time+=0.1
                 if waiting_time>=10:
@@ -721,16 +729,24 @@ class TCPClient_Base:  # TCP client class
             if self.is_hand_alloc_port==True:
                 file_transfer_client_port=self.file_palloc()
                 if file_transfer_client_port==None:
-                    print("ErrorWhileAllocFileTransferClientPort: no available port for file transfer, file sending failed")
-                    return False
+                    while True:
+                        time.sleep(0.1)
+                        file_transfer_client_port=self.file_palloc()
+                        if file_transfer_client_port!=None:
+                            break
             else:
                 file_transfer_client_port=0
-            file_transfer_mode_thread=threading.Thread(
-                target=self.file_transfer_mode, 
-                args=(filename, self.host, 
-                      self.file_transfer_server_port, file_transfer_client_port), 
-                daemon=True)
-            file_transfer_mode_thread.start()
+            with self.file_transfer_server_port_lock:
+                file_server_port=(
+                    self.file_server_port_list[len(self.file_server_port_list)-1])
+                file_transfer_mode_thread=threading.Thread(
+                    target=self.file_transfer_mode, 
+                    args=(filename, self.host, 
+                        file_server_port, 
+                        file_transfer_client_port), 
+                    daemon=True)
+                file_transfer_mode_thread.start()
+                self.file_server_port_list.remove(file_server_port)
             while True:
                 time.sleep(0.1)
                 if self.file_transfer_mode_running==False:
