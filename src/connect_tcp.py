@@ -17,6 +17,8 @@ class TCPServer_Base:  # TCP server class
             self.project_info_dir, 'temp_info')
         if os.path.exists(self.project_temp_info_dir)==False:
             os.mkdir(self.project_temp_info_dir)
+        self.server_port_lock_file=os.path.join(
+            self.project_temp_info_dir, 'server_port_lock.lock')
         self.decode_command_table_file_path=os.path.join(
             self.project_dir, 'decode_command_table.json')
         self.file_transfer_dir=os.path.join(
@@ -26,8 +28,7 @@ class TCPServer_Base:  # TCP server class
         self.port = port
         self.max_clients = max_clients
         self.is_hand_alloc_port=is_hand_alloc_port
-        if self.is_hand_alloc_port==False:
-            self.hand_alloc_port(port_add_step, port_range_num)
+        self.alloc_port(port_add_step, port_range_num)
         self.server_socket = None
         self.clients = {}  # store client info
         self.running = False
@@ -42,9 +43,38 @@ class TCPServer_Base:  # TCP server class
         self.command_decode_table=(
             ast.literal_eval(self.command_decode_table_str))
         self.start_TCP_Server()
+    def alloc_port(self, port_add_step, port_range_num):
+        if self.is_hand_alloc_port==True:
+            while self.is_server_port_temp_info_file_locked():
+                time.sleep(0.1)
+            self.server_port_temp_info_file_lock()
+            self.hand_alloc_port(port_add_step, port_range_num)
+            self.server_port_temp_info_file_unlock()
+    def free_port(self):
+         if self.is_hand_alloc_port==True:
+            while self.is_server_port_temp_info_file_locked():
+                time.sleep(0.1)
+            self.server_port_temp_info_file_lock()
+            self.hand_free_port()
+            self.server_port_temp_info_file_unlock()
+    def server_port_temp_info_file_lock(self):
+        with open(self.server_port_lock_file, 'w', encoding='utf-8') as f:
+            f.write("locked")
+    def is_server_port_temp_info_file_locked(self):
+        if os.path.exists(self.server_port_lock_file):
+            return True
+        else:
+            return False
+    def server_port_temp_info_file_unlock(self):
+        if os.path.exists(self.server_port_lock_file):
+            os.remove(self.server_port_lock_file)
     def hand_alloc_port(self, port_add_step, port_range_num):
         self.port_temp_info_path=os.path.join(
             self.project_temp_info_dir, 'server_port_info.log')
+        client_port_temp_info_file_path=os.path.join(
+            self.project_temp_info_dir, 'clients_port_info.log')
+        if os.path.exists(client_port_temp_info_file_path):
+            print("Warning: client port info file exists, means the client has already allocated a port, may cause port conflict!")
         self.port_add_step = port_add_step
         self.port_range_num = port_range_num
         self.add_latest_port=self.port+1
@@ -95,6 +125,20 @@ class TCPServer_Base:  # TCP server class
                     del self.server_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
                 f.write(str(self.server_port_info))
+    def hand_free_port(self):
+        self.port_temp_info_path=os.path.join(
+            self.project_temp_info_dir, 'server_port_info.log')
+        if os.path.exists(self.port_temp_info_path):
+            with open(self.port_temp_info_path, 'r', encoding='utf-8') as f:
+                self.server_port_info=ast.literal_eval(f.read())
+            for server_num in range(len(self.server_port_info)):
+                if self.server_port_info[server_num]["server_id"]==self.server_num:
+                    del self.server_port_info[server_num]
+            if len(self.server_port_info)==0:
+                os.remove(self.port_temp_info_path)
+            else:
+                with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
+                    f.write(str(self.server_port_info))
     def file_palloc(self):
         with self.alloc_add_port_lock:
             if self.add_latest_port + self.port_add_step > self.max_port:
@@ -440,6 +484,7 @@ class TCPServer_Base:  # TCP server class
                 if deal_cmd == 'stop':
                     print("shutting down...")
                     self.running = False
+                    self.free_port()
                     self.stop()
                 elif deal_cmd == 'status':
                     print(f"current connection count: {len(self.clients)}")
@@ -454,6 +499,7 @@ class TCPServer_Base:  # TCP server class
                 break
     def stop(self):  # shutting down the server
         self.running = False
+        self.free_port()
         with self.client_lock:  # close all clients connections
             for client_info in self.clients.values():
                 try:
@@ -475,6 +521,8 @@ class TCPClient_Base:  # TCP client class
             os.mkdir(self.project_info_dir)
         self.project_temp_info_dir=os.path.join(
             self.project_info_dir, 'temp_info')
+        self.client_port_lock_file=os.path.join(
+            self.project_temp_info_dir, 'client_port_lock.lock')
         if os.path.exists(self.project_temp_info_dir)==False:
             os.mkdir(self.project_temp_info_dir)
         self.all_alloced_ports_list=[]
@@ -500,9 +548,38 @@ class TCPClient_Base:  # TCP client class
         self.command_decode_table=(
             ast.literal_eval(self.command_decode_table_str))
         self.start_TCP_client()
+    def alloc_port(self, port_add_step, port_range_num):
+        if self.is_hand_alloc_port==True:
+            while self.is_client_port_temp_info_file_locked():
+                time.sleep(0.1)
+            self.client_port_temp_info_file_lock()
+            self.hand_alloc_port(port_add_step, port_range_num)
+            self.client_port_temp_info_file_unlock()
+    def free_port(self):
+         if self.is_hand_alloc_port==True:
+            while self.is_client_port_temp_info_file_locked():
+                time.sleep(0.1)
+            self.client_port_temp_info_file_lock()
+            self.hand_free_port()
+            self.client_port_temp_info_file_unlock()
+    def client_port_temp_info_file_lock(self):
+        with open(self.client_port_lock_file, 'w', encoding='utf-8') as f:
+            f.write("locked")
+    def is_client_port_temp_info_file_locked(self):
+        if os.path.exists(self.client_port_lock_file):
+            return True
+        else:
+            return False
+    def client_port_temp_info_file_unlock(self):
+        if os.path.exists(self.client_port_lock_file):
+            os.remove(self.client_port_lock_file)
     def hand_alloc_port(self, port_add_step, port_range_num):
         self.port_temp_info_path=os.path.join(
             self.project_temp_info_dir, 'clients_port_info.log')
+        server_port_temp_info_file_path=os.path.join(
+            self.project_temp_info_dir, 'server_port_info.log')
+        if os.path.exists(server_port_temp_info_file_path)==True:
+            print("Warning: server port info file exists, means the server has already allocated a port, may cause port conflict!")
         self.port_add_step = port_add_step
         self.port_range_num = port_range_num
         self.add_latest_port=self.port+1
@@ -552,6 +629,20 @@ class TCPClient_Base:  # TCP client class
                     del self.client_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
                 f.write(str(self.client_port_info))
+    def hand_free_port(self):
+        self.port_temp_info_path=os.path.join(
+            self.project_temp_info_dir, 'clients_port_info.log')
+        if os.path.exists(self.port_temp_info_path):
+            with open(self.port_temp_info_path, 'r', encoding='utf-8') as f:
+                self.client_port_info=ast.literal_eval(f.read())
+            for client_num in range(len(self.client_port_info)):
+                if self.client_port_info[client_num]["client_id"]==self.client_num:
+                    del self.client_port_info[client_num]
+            if len(self.client_port_info)==0:
+                os.remove(self.port_temp_info_path)
+            else:
+                with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
+                    f.write(str(self.client_port_info))
     def file_palloc(self):
         with self.alloc_add_port_lock:
             if self.add_latest_port + self.port_add_step > self.max_port:
@@ -628,6 +719,7 @@ class TCPClient_Base:  # TCP client class
                 if not data:
                     print("\nbreak the connection from server")
                     self.running = False
+                    self.free_port()
                     break
                 buffer += data.decode('utf-8')
                 while '\n' in buffer:  # deal with multiple messages in buffer
@@ -639,10 +731,12 @@ class TCPClient_Base:  # TCP client class
             except ConnectionResetError:
                 print("\nReset by server, connection closed")
                 self.running = False
+                self.free_port()
                 break
             except Exception as e:
                 print(f"\nget msg error: {e}")
                 self.running = False
+                self.free_port()
                 break
     def send_message(self, message):  # send msg to server
         if not self.running or not self.client_socket:
@@ -664,7 +758,7 @@ class TCPClient_Base:  # TCP client class
             else:
                 self.is_hand_alloc_port=True
                 self.each_client_port_range=int(command.split(" ")[1])
-                self.hand_alloc_port(
+                self.alloc_port(
                     self.port_add_step, self.each_client_port_range)
                 print(f"server allocated port range for each client: {self.each_client_port_range}")
         elif command.lower().split(" ")[0] == "/server_file_transfer_port":
@@ -914,6 +1008,7 @@ class TCPClient_Base:  # TCP client class
             return False
     def close(self):  # close connection
         self.running = False
+        self.free_port()
         if self.client_socket:
             self.client_socket.close()
         print("connection closed")
