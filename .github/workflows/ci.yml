@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  test:
+  C_test:
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -34,7 +34,7 @@ jobs:
         cd build
         make test
 
-  lint:
+  Pylint:
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -55,7 +55,7 @@ jobs:
       - name: Install linting tools
         run: |
           python -m pip install --upgrade pip
-          pip install black flake8 mypy
+          pip install pylint flake8 mypy black
 
       - name: Check Python code formatting
         run: |
@@ -64,6 +64,10 @@ jobs:
       - name: Run Python linter
         run: |
           flake8 ./src/
+
+      - name: Run python lint score
+        run: |
+          pylint ./src/
 
       - name: Run Python type checking
         run: |
