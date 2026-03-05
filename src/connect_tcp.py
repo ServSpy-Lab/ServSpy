@@ -23,9 +23,9 @@ class TCPServer_Base:  # TCP server class
             self.project_dir, 'decode_command_table.json')
         self.file_transfer_dir=os.path.join(
             self.project_dir, 'received_files')
-        self.all_alloced_ports_list=[self.port]
         self.host = host
         self.port = port
+        self.all_alloced_ports_list=[self.port]
         self.max_clients = max_clients
         self.is_hand_alloc_port=is_hand_alloc_port
         self.alloc_port(port_add_step, port_range_num)
@@ -120,7 +120,7 @@ class TCPServer_Base:  # TCP server class
                 "max_port": self.max_port,
                 "is_running": self.running}
             self.server_port_info.append(each_server_info)
-            for is_running in range(len(self.server_port_info)):
+            for is_running in range(len(self.server_port_info)-1, -1, -1):
                 if self.server_port_info[is_running]["is_running"]==False:
                     del self.server_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
@@ -272,7 +272,11 @@ class TCPServer_Base:  # TCP server class
             send_str="Bye!"+"\n"
             return send_str
         elif command.lower().split(" ")[0] == "/file":
-            self.file_transfer_client_recv_server_start(client_id, client_socket)
+            file_transfer_client_recv_server_start_thread=threading.Thread(
+                target=self.file_transfer_client_recv_server_start, 
+                args=(client_id, client_socket), 
+                daemon=True)
+            file_transfer_client_recv_server_start_thread.start()
     def file_transfer_client_recv_server_start(self, client_id, client_socket):
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
@@ -290,30 +294,23 @@ class TCPServer_Base:  # TCP server class
             if not self.file_server_started:
                 self.file_server_started = True
                 file_transfer_server_port=0
-                if self.hand_alloc_port==True:
-                    file_transfer_server_port=self.file_palloc()
-                    if file_transfer_server_port==None:
-                        while True:
-                            time.sleep(0.1)
-                            file_transfer_client_port=self.file_palloc()
-                            if file_transfer_client_port!=None:
-                                break
+                if self.is_hand_alloc_port==True:
+                    while True:
+                        time.sleep(0.1)
+                        file_transfer_server_port=self.file_palloc()
+                        if file_transfer_server_port!=None:
+                            break
                 else:
                     file_transfer_server_port=0
-                file_transfer_mode_recv_thread=threading.Thread(
-                    target=self.file_transfer_mode_recv, 
-                    args=(self.host, file_transfer_server_port, 
-                          client_socket, client_id), 
-                    daemon=True)
-                file_transfer_mode_recv_thread.start()
+                self.file_transfer_mode_recv(
+                    self.host, file_transfer_server_port, client_socket, client_id)
             while True:
                 time.sleep(0.1)
                 if self.file_server_started==False:
                     if self.is_hand_alloc_port==True:
-                        self.file_pfree()
+                        self.file_pfree(file_transfer_server_port)
                         print(
                             "releasing file transfer port, current latest port:", self.latest_port)
-                    file_transfer_mode_recv_thread.join()
                     break
     def file_transfer_mode_recv(self, server_file_address, server_file_port, 
                                 client_socket, client_id):
@@ -624,7 +621,7 @@ class TCPClient_Base:  # TCP client class
                 "max_port": self.max_port,
                 "is_running": self.running}
             self.client_port_info.append(each_client_info)
-            for is_running in range(len(self.client_port_info)):
+            for is_running in range(len(self.client_port_info)-1, -1, -1):
                 if self.client_port_info[is_running]["is_running"]==False:
                     del self.client_port_info[is_running]
             with open(self.port_temp_info_path, 'w', encoding='utf-8') as f:
@@ -847,8 +844,8 @@ class TCPClient_Base:  # TCP client class
                     file_transfer_mode_thread.join()
                     if self.is_hand_alloc_port==True:
                         self.file_pfree(file_transfer_client_port)
-                    print(
-                        "releasing file transfer port, current latest port:", self.latest_port)
+                        print(
+                            "releasing file transfer port, current latest port:", self.latest_port)
                     break
         except IndexError:
             print("invalid command, please use '/file <filename>'")        
