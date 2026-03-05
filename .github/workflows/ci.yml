@@ -53,9 +53,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install linting tools
+        # run: |
+        #   python -m pip install --upgrade pip
+        #   - name: Install linting tools (strict)
         run: |
-          python -m pip install --upgrade pip
-          pip install pylint flake8 mypy black
+          pip install --no-deps pylint flake8 mypy black
+          pip install astroid pycodestyle pyflakes mypy_extensions pathspec click packaging typing_extensions tomlkit platformdirs isort mccabe dill
 
       - name: Check Python code formatting
         run: |
