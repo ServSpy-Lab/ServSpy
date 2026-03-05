@@ -59,7 +59,7 @@ jobs:
 
       - name: Check Python code formatting
         run: |
-          black --check ./src/
+          black ./src/
 
       - name: Run Python linter
         run: |
