@@ -310,7 +310,7 @@ class TCPServer_Base:  # TCP server class
                     if self.is_hand_alloc_port==True:
                         self.file_pfree(file_transfer_server_port)
                         print(
-                            "releasing file transfer port, current latest port:", self.latest_port)
+                            "releasing file transfer port, current latest port:", file_transfer_server_port)
                     break
     def file_transfer_mode_recv(self, server_file_address, server_file_port, 
                                 client_socket, client_id):
@@ -331,7 +331,8 @@ class TCPServer_Base:  # TCP server class
                     args=(client_file_socket, client_file_address, client_id), 
                     daemon=True).start()
             except Exception as e:
-                self.file_server_started=False # ...........
+                self.file_server_started=False
+                self.file_running=False
                 print(f"\nget file transfer msg error: {e}")
                 break
         self.file_server_started=False
@@ -481,7 +482,6 @@ class TCPServer_Base:  # TCP server class
                 if deal_cmd == 'stop':
                     print("shutting down...")
                     self.running = False
-                    self.free_port()
                     self.stop()
                 elif deal_cmd == 'status':
                     print(f"current connection count: {len(self.clients)}")
@@ -775,7 +775,12 @@ class TCPClient_Base:  # TCP client class
                             time.sleep(0.5)
                             break
                         elif message.lower().split(" ")[0]=="/file":
-                            self.file_transfer_client_recv_client_start(message)
+                            self.file_transfer_client_recv_client_start_thread=(
+                                threading.Thread(
+                                target=self.file_transfer_client_recv_client_start, 
+                                args=(message, ), 
+                                daemon=True))
+                            self.file_transfer_client_recv_client_start_thread.start()
                         else:
                             self.send_message(message)
                 except KeyboardInterrupt:
@@ -830,18 +835,13 @@ class TCPClient_Base:  # TCP client class
             with self.file_transfer_server_port_lock:
                 file_server_port=(
                     self.file_server_port_list[len(self.file_server_port_list)-1])
-                file_transfer_mode_thread=threading.Thread(
-                    target=self.file_transfer_mode, 
-                    args=(filename, self.host, 
-                        file_server_port, 
-                        file_transfer_client_port), 
-                    daemon=True)
-                file_transfer_mode_thread.start()
+                self.file_transfer_mode(filename, self.host, 
+                    file_server_port, 
+                    file_transfer_client_port)
                 self.file_server_port_list.remove(file_server_port)
             while True:
                 time.sleep(0.1)
                 if self.file_transfer_mode_running==False:
-                    file_transfer_mode_thread.join()
                     if self.is_hand_alloc_port==True:
                         self.file_pfree(file_transfer_client_port)
                         print(
@@ -850,6 +850,10 @@ class TCPClient_Base:  # TCP client class
         except IndexError:
             print("invalid command, please use '/file <filename>'")        
     def file_transfer_mode(self, filename, server_address, server_port, client_port):
+        def close_socket():
+            self.file_running = False
+            self.client_file_socket.close()
+            self.file_transfer_mode_running=False
         self.file_transfer_mode_running=True
         print(f"start to send file: {filename}")
         self.client_file_socket = None
@@ -864,8 +868,7 @@ class TCPClient_Base:  # TCP client class
             except Exception as e:
                 print(f"file transfer connection error: {e}")
                 if reset_time >= 20:
-                    self.client_file_socket.close()
-                    self.file_transfer_mode_running=False
+                    close_socket()
                     print("unable to connect to file transfer server, file sending failed")
                     return False
                 reset_time += 1
@@ -878,33 +881,27 @@ class TCPClient_Base:  # TCP client class
                     data = self.client_file_socket.recv(4096)
                     if not data:
                         print("\nbreak the file transfer connection from server")
-                        self.file_running = False
                         try:
                             self.client_file_socket.sendall(
                                 self.error_sign.encode('utf-8'))
                         except:
                             pass
-                        self.client_file_socket.close()
-                        self.file_transfer_mode_running=False
+                        close_socket()
                         break
                     if data==self.error_sign.encode('utf-8'):
                         print("\nError sign received from server, file transfer may have failed")
-                        self.file_running = False
-                        self.client_file_socket.close()
-                        self.file_transfer_mode_running=False
+                        close_socket()
                         break
                     self.file_receive_data_from_server=(
                         data.decode('utf-8').strip())
                 except Exception as e:
                     print(f"\nget file transfer msg error: {e}")
-                    self.file_running = False
                     try:
                         self.client_file_socket.sendall(
                             self.error_sign.encode('utf-8'))
                     except:
                         pass
-                    self.client_file_socket.close()
-                    self.file_transfer_mode_running=False
+                    close_socket()
                     break
         receive_thread = threading.Thread(
             target=receive_file_transfer_messages, daemon=True)
@@ -917,9 +914,7 @@ class TCPClient_Base:  # TCP client class
                     break
                 if (self.file_receive_data_from_server == 
                     self.error_sign):
-                    self.file_running=False
-                    self.client_file_socket.close()
-                    self.file_transfer_mode_running=False
+                    close_socket()
                     break
                 time.sleep(1)
                 waiting_time += 1
@@ -929,12 +924,10 @@ class TCPClient_Base:  # TCP client class
                             self.error_sign.encode('utf-8'))
                     except:
                         pass
-                    self.file_running=False
-                    self.client_file_socket.close()
                     print(f"ErrorWhileSendFile: \
                           Wait file transfer function start sign timeout, \
                           file {filename} sending failed")
-                    self.file_transfer_mode_running=False
+                    close_socket()
                     return False
             waiting_time = 0
             file_size = os.path.getsize(filename)
@@ -957,9 +950,7 @@ class TCPClient_Base:  # TCP client class
                     break
                 if (self.file_receive_data_from_server == 
                     self.error_sign):
-                    self.file_running=False
-                    self.client_file_socket.close()
-                    self.file_transfer_mode_running=False
+                    close_socket()
                     break
                 time.sleep(1)
                 waiting_time += 1
@@ -969,17 +960,13 @@ class TCPClient_Base:  # TCP client class
                             self.error_sign.encode('utf-8'))
                     except:
                         pass
-                    self.file_running=False
-                    self.client_file_socket.close()
+                    close_socket()
                     print(f"ErrorWhileSendFileData: \
                           wait file transfer confirmation sign timeout, \
                           file {filename} sending may have failed")
-                    self.file_transfer_mode_running=False
                     return False
             print(f"Success: file {filename} sent successfully")
-            self.file_running=False
-            self.client_file_socket.close()
-            self.file_transfer_mode_running=False
+            close_socket()
             return True
         except FileNotFoundError:
             try:
@@ -987,10 +974,8 @@ class TCPClient_Base:  # TCP client class
                     self.error_sign.encode('utf-8'))
             except:
                 pass
-            self.file_running=False
-            self.client_file_socket.close()
+            close_socket()
             print(f"file {filename} not exist")
-            self.file_transfer_mode_running=False
             return False
         except Exception as e:
             try:
@@ -998,10 +983,8 @@ class TCPClient_Base:  # TCP client class
                     self.error_sign.encode('utf-8'))
             except:
                 pass
-            self.file_running=False
-            self.client_file_socket.close()
+            close_socket()
             print(f"send error: {e}")
-            self.file_transfer_mode_running=False
             return False
     def close(self):  # close connection
         self.running = False
