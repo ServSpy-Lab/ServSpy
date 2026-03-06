@@ -330,7 +330,6 @@ class TCPServer_Base:  # TCP server class
                     args=(client_file_socket, server_file_socket, client_id),
                     daemon=True).start()
             except Exception as e:
-                
                 print(f"\nget file transfer msg error: {e}")
                 break
             finally:
