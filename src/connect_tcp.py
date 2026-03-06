@@ -835,7 +835,7 @@ class TCPClient_Base:  # TCP client class
             with self.file_transfer_server_port_lock:
                 file_server_port=(
                     self.file_server_port_list[len(self.file_server_port_list)-1])
-                self.file_transfer_mode(filename, self.host, 
+                self.file_transfer_mode(filename, self.host,
                     file_server_port,
                     file_transfer_client_port)
                 self.file_server_port_list.remove(file_server_port)
