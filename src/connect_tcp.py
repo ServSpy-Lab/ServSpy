@@ -526,7 +526,6 @@ class TCPClient_Base:  # TCP client class
             os.mkdir(self.project_temp_info_dir)
         self.all_alloced_ports_list=[]
         self.is_hand_alloc_port=None
-        self.file_transfer_mode_running=False
         self.file_transfer_server_port=None
         self.file_server_port_list=[]
         self.file_transfer_server_port_lock=threading.Lock()
@@ -763,7 +762,6 @@ class TCPClient_Base:  # TCP client class
                 print(f"server allocated port range for each client: {self.each_client_port_range}")
         elif command.lower().split(" ")[0] == "/server_file_transfer_port":
             with self.file_transfer_server_port_lock:
-                # breakpoint()
                 self.file_transfer_server_port=int(command.split(" ")[1])
                 self.file_server_port_list.append(self.file_transfer_server_port)
     def interactive_mode(self):  # Interactive mode
@@ -779,12 +777,9 @@ class TCPClient_Base:  # TCP client class
                             time.sleep(0.5)
                             break
                         elif message.lower().split(" ")[0]=="/file":
-                            self.file_transfer_client_recv_client_start_thread=(
-                                threading.Thread(
-                                target=self.file_transfer_client_recv_client_start,
-                                args=(message, ),
-                                daemon=True))
-                            self.file_transfer_client_recv_client_start_thread.start()
+                            self.file_transfer_client_recv_client_start_thread(message)
+                        elif message.lower().split(" ")[0]=="/multiple_file":
+                            self.multiple_file_transfer_client_recv_client_start(message)
                         else:
                             self.send_message(message)
                 except KeyboardInterrupt:
@@ -796,7 +791,23 @@ class TCPClient_Base:  # TCP client class
                     break
         finally:
             self.close()
+    def multiple_file_transfer_client_recv_client_start(self, message):
+        file_list=message.split(" ")[1:]
+        for file in file_list:
+            each_file_transfer_command_message=(
+                "/file {}".format(file))
+            self.file_transfer_client_recv_client_start_thread(
+                each_file_transfer_command_message)
+            print(f"start to send file command: {each_file_transfer_command_message}")
+    def file_transfer_client_recv_client_start_thread(self, message):
+        file_transfer_client_recv_client_start_thread=(
+            threading.Thread(
+            target=self.file_transfer_client_recv_client_start,
+            args=(message, ),
+            daemon=True))
+        file_transfer_client_recv_client_start_thread.start()
     def file_transfer_client_recv_client_start(self, message):
+        self.file_transfer_mode_running=False
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
@@ -816,16 +827,6 @@ class TCPClient_Base:  # TCP client class
             waiting_time=0
             filename = message.split(" ")[1]
             self.send_message(send_msg)
-            while True:
-                time.sleep(0.1)
-                print(len(self.file_server_port_list))
-                if len(self.file_server_port_list)>0:
-                    break
-                waiting_time+=0.1
-                if waiting_time>=10:
-                    print(
-                        "ErrorWhileRecieveFileServerPort: transfer port waitting timeout, file sending failed")
-                    return False
             file_transfer_client_port=None
             if self.is_hand_alloc_port==True:
                 file_transfer_client_port=self.file_palloc()
@@ -837,13 +838,22 @@ class TCPClient_Base:  # TCP client class
                             break
             else:
                 file_transfer_client_port=0
+            while True:
+                time.sleep(0.1)
+                if len(self.file_server_port_list)>0:
+                    break
+                waiting_time+=0.1
+                if waiting_time>=10:
+                    print(
+                        "ErrorWhileRecieveFileServerPort: transfer port waitting timeout, file sending failed")
+                    return False
             with self.file_transfer_server_port_lock:
                 file_server_port=(
                     self.file_server_port_list[len(self.file_server_port_list)-1])
+                self.file_server_port_list.remove(file_server_port)
                 self.file_transfer_mode(filename, self.host,
                     file_server_port,
                     file_transfer_client_port)
-                self.file_server_port_list.remove(file_server_port)
             while True:
                 time.sleep(0.1)
                 if self.file_transfer_mode_running==False:
