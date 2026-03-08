@@ -847,13 +847,14 @@ class TCPClient_Base:  # TCP client class
                     print(
                         "ErrorWhileRecieveFileServerPort: transfer port waitting timeout, file sending failed")
                     return False
+            file_server_port=None
             with self.file_transfer_server_port_lock:
                 file_server_port=(
                     self.file_server_port_list[len(self.file_server_port_list)-1])
                 self.file_server_port_list.remove(file_server_port)
-                self.file_transfer_mode(filename, self.host,
-                    file_server_port,
-                    file_transfer_client_port)
+            self.file_transfer_mode(filename, self.host,
+                                    file_server_port,
+                                    file_transfer_client_port)
             while True:
                 time.sleep(0.1)
                 if self.file_transfer_mode_running==False:
