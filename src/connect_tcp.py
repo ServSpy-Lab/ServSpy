@@ -3,6 +3,7 @@ import ast
 import sys
 import time
 import copy
+import shlex
 import socket
 import threading
 from datetime import datetime
@@ -272,17 +273,17 @@ class TCPServer_Base:  # TCP server class
         elif command == '/quit':
             send_str="Bye!"+"\n"
             return send_str
-        elif command.lower().split(" ")[0] == "/file":
+        elif shlex.split(command.lower())[0] == "/file":
             self.file_transfer_client_recv_client_start_thread(
                 client_id, client_socket, command)
-        elif command.lower().split(" ")[0] == "/file_folder":
+        elif shlex.split(command.lower())[0] == "/file_folder":
             self.file_folder_transfer_client_recv_client_start_thread(
                 command, client_id, client_socket)
     def file_folder_transfer_client_recv_client_start_thread(
             self, command, client_id, client_socket):
-        relative_folder_path=command.split(" ")[1]
+        relative_folder_path=shlex.split(command)[1]
         try:
-            file_name=command.split(" ")[2]
+            file_name=shlex.split(command)[2]
             folder_transfer_client_recv_server_start_thread=threading.Thread(
                 target=self.file_transfer_client_recv_server_start,
                 args=(client_id, client_socket, command, relative_folder_path, file_name),
@@ -470,7 +471,7 @@ class TCPServer_Base:  # TCP server class
         server_file_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_file_socket.bind((server_file_address, server_file_port))
         file_transfer_server_port=server_file_socket.getsockname()[1]
-        command_part=command.split(" ")
+        command_part=shlex.split(command)
         file_client_id=command_part[len(command_part)-1]
         transfer_server_port_msg=(
             "/server_file_transfer_port {} {}\n".format(
@@ -833,11 +834,12 @@ class TCPClient_Base:  # TCP client class
                             self.send_message('/quit')
                             time.sleep(0.5)
                             break
-                        elif message.lower().split(" ")[0]=="/file":
+                        elif shlex.split(message.lower())[0]=="/file":
                             self.file_transfer_client_recv_client_start_thread(message)
-                        elif message.lower().split(" ")[0]=="/multiple_file":
+                        elif shlex.split(message.lower())[0]=="/multiple_file":
                             self.multiple_file_transfer_client_recv_client_start(message)
-                        elif message.lower().split(" ")[0]=="/file_folder":
+                        elif shlex.split(message.lower())[0]=="/file_folder":
+                            breakpoint()
                             self.folder_file_transfer_client_recv_client_start(message)
                         else:
                             self.send_message(message)
@@ -851,7 +853,7 @@ class TCPClient_Base:  # TCP client class
         finally:
             self.close()
     def folder_file_transfer_client_recv_client_start(self, message):
-        folder_path=message.split(" ")[1]
+        folder_path=shlex.split(message)[1]
         if os.path.isdir(folder_path)==False:
             print(f"{folder_path} is not a valid folder path")
             return False
@@ -870,10 +872,11 @@ class TCPClient_Base:  # TCP client class
             return '/' + rel
         def send_folder_transfer_command(folder_path, file_name=None, abspath=None):
             folder_transfer_command_message=(
-                "/file_folder {}".format(folder_path))
+                "/file_folder {}".format(shlex.quote(folder_path)))
             if file_name:
                 each_file_transfer_command_message=(
-                    "/file_folder {} {}".format(folder_path, file_name))
+                    "/file_folder {} {}".format(
+                        shlex.quote(folder_path), shlex.quote(file_name)))
                 self.file_transfer_client_recv_client_start_thread(
                     each_file_transfer_command_message, abspath)
                 print(f"start to send folder command: {each_file_transfer_command_message}")
@@ -884,6 +887,7 @@ class TCPClient_Base:  # TCP client class
             nonlocal folder_node_stack
             nonlocal base_path
             nonlocal folder_path
+            dir_index=0
             while folder_node_stack:
                 for dirpath, dirnames, filename in os.walk(
                     folder_node_stack[len(folder_node_stack)-1],
@@ -896,25 +900,28 @@ class TCPClient_Base:  # TCP client class
                             send_folder_transfer_command(transfer_path, file, dirpath)
                         else:
                             print(f"{absfilepath} is not a valid file path")
-                    for dirname in dirnames:
+                    for dirname in dirnames[dir_index]:
+                        dir_index+=1
                         absdirpath=os.path.join(dirpath, dirname)
                         if os.path.isdir(absdirpath):
                             folder_node_stack.append(absdirpath)
                             transfer_path=get_relative_path(base_path, absdirpath)
+                            print(transfer_path, "..........................")
                             send_folder_transfer_command(transfer_path)
                             get_all_files_in_folder()
                         else:
                             print(f"{absdirpath} is not a valid file or folder path")
                     del folder_node_stack[len(folder_node_stack)-1]
+                    dir_index=0
             print(f"finished sending all files in folder {folder_path}")
         transfer_path=get_relative_path(base_path, folder_path)
         send_folder_transfer_command(transfer_path)
         get_all_files_in_folder()
     def multiple_file_transfer_client_recv_client_start(self, message):
-        file_list=message.split(" ")[1:]
+        file_list=shlex.split(message)[1:]
         for file in file_list:
             each_file_transfer_command_message=(
-                "/file {}".format(file))
+                "/file {}".format(shlex.quote(file)))
             self.file_transfer_client_recv_client_start_thread(
                 each_file_transfer_command_message)
             print(f"start to send file command: {each_file_transfer_command_message}")
@@ -945,11 +952,11 @@ class TCPClient_Base:  # TCP client class
             self.file_client_id+=1
         try:
             waiting_time=0
-            if message.lower().split(" ")[0]=="/file_folder":
+            if shlex.split(message.lower())[0]=="/file_folder":
                 filename=os.path.join(
-                    file_folder_abspath, message.split(" ")[2])
+                    file_folder_abspath, shlex.split(message)[2])
             else:
-                filename = message.split(" ")[1]
+                filename = shlex.split(message)[1]
             self.send_message(send_msg)
             file_transfer_client_port=None
             if self.is_hand_alloc_port==True:
