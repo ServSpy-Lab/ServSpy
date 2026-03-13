@@ -562,7 +562,7 @@ class TCPServer_Base:  # TCP server class
             print("server stopped")
 class TCPClient_Base:  # TCP client class
     def __init__(self, host=None, client_host='127.0.0.1',
-                 port=65432, client_ports=None, timeout=5, port_add_step=1):
+                 port=65432, client_ports=None, timeout=5, port_add_step=1, max_thread_num=10):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.decode_command_table_file_path=os.path.join(
             self.project_dir, 'decode_command_table.json')
@@ -592,6 +592,7 @@ class TCPClient_Base:  # TCP client class
         self.running = False
         self.receive_thread = None
         self.command_decode_table_str=None
+        self.max_thread_num=max_thread_num
         self.file_client_id=0
         self.file_client_id_lock=threading.Lock()
         with open(self.decode_command_table_file_path, 'r', encoding='utf-8') as f:
@@ -839,7 +840,6 @@ class TCPClient_Base:  # TCP client class
                         elif shlex.split(message.lower())[0]=="/multiple_file":
                             self.multiple_file_transfer_client_recv_client_start(message)
                         elif shlex.split(message.lower())[0]=="/file_folder":
-                            breakpoint()
                             self.folder_file_transfer_client_recv_client_start(message)
                         else:
                             self.send_message(message)
@@ -858,7 +858,6 @@ class TCPClient_Base:  # TCP client class
             print(f"{folder_path} is not a valid folder path")
             return False
         base_path=os.path.dirname(folder_path)
-        folder_node_stack=[folder_path]
         def get_relative_path(base_path, abs_path):
             base = os.path.normpath(base_path)
             abs_ = os.path.normpath(abs_path)
@@ -883,36 +882,26 @@ class TCPClient_Base:  # TCP client class
             else:
                 self.send_message(folder_transfer_command_message.strip())
                 print(f"start to send folder command: {folder_transfer_command_message}")
+        MAX_CONCURRENT_FILES = self.max_thread_num
+        file_semaphore = threading.Semaphore(MAX_CONCURRENT_FILES)
+        def start_file_transfer_with_limit(rel_dir, file, root):
+            cmd = f"/file_folder {shlex.quote(rel_dir)} {shlex.quote(file)}"
+            def limited_transfer():
+                file_semaphore.acquire()
+                try:
+                    self.file_transfer_client_recv_client_start(cmd, root)
+                finally:
+                    file_semaphore.release()
+            thread = threading.Thread(target=limited_transfer, daemon=True)
+            thread.start()
+            print(f"start to send file: {cmd} (limit {MAX_CONCURRENT_FILES})")
         def get_all_files_in_folder():
-            nonlocal folder_node_stack
-            nonlocal base_path
-            nonlocal folder_path
-            dir_index=0
-            while folder_node_stack:
-                for dirpath, dirnames, filename in os.walk(
-                    folder_node_stack[len(folder_node_stack)-1],
-                    topdown=True):
-                    print(dirpath, dirnames, filename)
-                    for file in filename:
-                        absfilepath=os.path.join(dirpath, file)
-                        if os.path.isfile(absfilepath):
-                            transfer_path=get_relative_path(base_path, dirpath)
-                            send_folder_transfer_command(transfer_path, file, dirpath)
-                        else:
-                            print(f"{absfilepath} is not a valid file path")
-                    for dirname in dirnames[dir_index]:
-                        dir_index+=1
-                        absdirpath=os.path.join(dirpath, dirname)
-                        if os.path.isdir(absdirpath):
-                            folder_node_stack.append(absdirpath)
-                            transfer_path=get_relative_path(base_path, absdirpath)
-                            print(transfer_path, "..........................")
-                            send_folder_transfer_command(transfer_path)
-                            get_all_files_in_folder()
-                        else:
-                            print(f"{absdirpath} is not a valid file or folder path")
-                    del folder_node_stack[len(folder_node_stack)-1]
-                    dir_index=0
+            for root, dirs, files in os.walk(folder_path):
+                rel_dir = get_relative_path(base_path, root)
+                if root != folder_path:
+                    send_folder_transfer_command(rel_dir)
+                for file in files:
+                    start_file_transfer_with_limit(rel_dir, file, root)
             print(f"finished sending all files in folder {folder_path}")
         transfer_path=get_relative_path(base_path, folder_path)
         send_folder_transfer_command(transfer_path)
@@ -1000,6 +989,13 @@ class TCPClient_Base:  # TCP client class
         print(f"start to send file: {filename}")
         client_file_socket = None
         reset_time=0
+        def close_socket():
+            nonlocal file_running
+            nonlocal client_file_socket
+            file_running = False
+            client_file_socket.close()
+            with self.file_client_id_lock:
+                self.file_client_id-=1
         while True:
             try:
                 client_file_socket = socket.socket(
@@ -1017,13 +1013,6 @@ class TCPClient_Base:  # TCP client class
                 time.sleep(1)
         file_running = True
         file_receive_data_from_server=""
-        def close_socket():
-            nonlocal file_running
-            nonlocal client_file_socket
-            file_running = False
-            client_file_socket.close()
-            with self.file_client_id_lock:
-                self.file_client_id-=1
         def receive_file_transfer_messages():
             nonlocal file_running
             nonlocal client_file_socket
