@@ -278,10 +278,10 @@ class TCPServer_Base:  # TCP server class
             send_str="Bye!"+"\n"
             return send_str
         elif shlex.split(command.lower())[0] == "/file":
-            self.file_transfer_client_recv_client_start_thread(
+            self.file_transfer_server_recv_server_start_thread(
                 client_id, client_socket, command)
         elif shlex.split(command.lower())[0] == "/file_folder":
-            self.file_folder_transfer_client_recv_client_start_thread(
+            self.file_folder_transfer_server_recv_server_start_thread(
                 command, client_id, client_socket)
         elif shlex.split(command.lower())[0] == "/server_file_transfer_port":
             with self.file_transfer_server_port_lock:
@@ -292,30 +292,30 @@ class TCPServer_Base:  # TCP server class
                         [self.file_transfer_server_port, file_client_id])
                 except:
                     pass
-    def file_folder_transfer_client_recv_client_start_thread(
+    def file_folder_transfer_server_recv_server_start_thread(  # start a file folder server thread on server
             self, command, client_id, client_socket):
         relative_folder_path=shlex.split(command)[1]
         try:
             file_name=shlex.split(command)[2]
-            folder_transfer_client_recv_server_start_thread=threading.Thread(
-                target=self.file_transfer_client_recv_server_start,
+            folder_transfer_server_recv_server_start_thread=threading.Thread(
+                target=self.file_transfer_server_recv_server_start,
                 args=(client_id, client_socket, command, relative_folder_path, file_name),
                 daemon=True)
-            folder_transfer_client_recv_server_start_thread.start()
+            folder_transfer_server_recv_server_start_thread.start()
         except:
-            folder_transfer_client_recv_server_start_thread=threading.Thread(
-                target=self.file_transfer_client_recv_server_start,
+            folder_transfer_server_recv_server_start_thread=threading.Thread(
+                target=self.file_transfer_server_recv_server_start,
                 args=(client_id, client_socket, command, relative_folder_path),
                 daemon=True)
-            folder_transfer_client_recv_server_start_thread.start()
-    def file_transfer_client_recv_client_start_thread(
+            folder_transfer_server_recv_server_start_thread.start()
+    def file_transfer_server_recv_server_start_thread(  # start a file server thread on server
             self, client_id, client_socket, command):
-        file_transfer_client_recv_server_start_thread=threading.Thread(
-                target=self.file_transfer_client_recv_server_start,
+        file_transfer_server_recv_server_start_thread=threading.Thread(
+                target=self.file_transfer_server_recv_server_start,
                 args=(client_id, client_socket, command),
                 daemon=True)
-        file_transfer_client_recv_server_start_thread.start()
-    def file_transfer_client_recv_server_start(
+        file_transfer_server_recv_server_start_thread.start()
+    def file_transfer_server_recv_server_start(  # deal with file transfer request server on server from client and receive file from client
             self, client_id, client_socket, command, new_save_path=None, file_name=None):
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
@@ -505,14 +505,15 @@ class TCPServer_Base:  # TCP server class
             close_socket()
         finally:
             server_file_socket.close()
-    def file_transfer_client_recv_client_start_thread(self, message, file_folder_abspath=None):
+    def file_transfer_server_recv_client_start_thread(self, message, file_folder_abspath=None):
         file_transfer_client_recv_client_start_thread=(
             threading.Thread(
-            target=self.file_transfer_client_recv_client_start,
+            target=self.file_transfer_server_recv_client_start,
             args=(message, file_folder_abspath),
             daemon=True))
         file_transfer_client_recv_client_start_thread.start()
-    def file_transfer_client_recv_client_start(self, message, file_folder_abspath):
+    def file_transfer_server_recv_client_start(self, message, file_folder_abspath):
+        breakpoint()
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
@@ -541,7 +542,7 @@ class TCPServer_Base:  # TCP server class
                     file_folder_abspath, shlex.split(message)[2])
             else:
                 filename = shlex.split(message)[1]
-            client_socket.sendall(send_msg)
+            client_socket.sendall(send_msg.encode('utf-8'))
             file_transfer_client_port=None
             if self.is_hand_alloc_port==True:
                 file_transfer_client_port=self.file_palloc()
@@ -767,8 +768,8 @@ class TCPServer_Base:  # TCP server class
                     with self.client_lock:
                         for addr, info in self.clients.items():
                             print(f"  {info['id']} - connection time: {info['connected_time']}")
-                elif deal_cmd == '/file':
-                    pass
+                elif shlex.split(deal_cmd)[0] == '/file':
+                    self.file_transfer_server_recv_client_start_thread(deal_cmd)
             except:
                 break
     def stop(self):  # shutting down the server
@@ -1032,6 +1033,7 @@ class TCPClient_Base:  # TCP client class
             print(f"send msg error: {e}")
             return False
     def handle_server_command(self, command):  # deal with special command from server
+        breakpoint()
         client_id = f"{self.client_host}:{self.client_ports}"
         if command.lower().split(" ")[0] == "/client_alloc_port_range":
             if command.lower().split(" ")[1]=="no_limit":
@@ -1053,10 +1055,10 @@ class TCPClient_Base:  # TCP client class
                 except:
                     pass
         elif shlex.split(command.lower())[0] == "/file":
-            self.file_transfer_client_recv_client_start_thread(
+            self.file_transfer_client_recv_server_start_thread(
                 client_id, self.client_socket, command)
         elif shlex.split(command.lower())[0] == "/file_folder":
-            self.file_folder_transfer_client_recv_client_start_thread(
+            self.file_folder_transfer_client_recv_server_start_thread(
                 command, client_id, self.client_socket)
     def interactive_mode(self):  # Interactive mode
         try:
@@ -1376,7 +1378,7 @@ class TCPClient_Base:  # TCP client class
             close_socket()
             print(f"send error: {e}")
             return False
-    def file_folder_transfer_client_recv_client_start_thread(
+    def file_folder_transfer_client_recv_server_start_thread(
             self, command, client_id, client_socket):
         relative_folder_path=shlex.split(command)[1]
         try:
@@ -1392,7 +1394,7 @@ class TCPClient_Base:  # TCP client class
                 args=(client_id, client_socket, command, relative_folder_path),
                 daemon=True)
             folder_transfer_client_recv_server_start_thread.start()
-    def file_transfer_client_recv_client_start_thread(
+    def file_transfer_client_recv_server_start_thread(
             self, client_id, client_socket, command):
         file_transfer_client_recv_server_start_thread=threading.Thread(
                 target=self.file_transfer_client_recv_server_start,
