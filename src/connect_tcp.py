@@ -513,7 +513,6 @@ class TCPServer_Base:  # TCP server class
             daemon=True))
         file_transfer_client_recv_client_start_thread.start()
     def file_transfer_server_recv_client_start(self, message, file_folder_abspath):
-        breakpoint()
         self.send_file_header_sign = (
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
@@ -530,10 +529,15 @@ class TCPServer_Base:  # TCP server class
         command_part=shlex.split(message)
         client_ip=ast.literal_eval(command_part[len(command_part)-1])
         client_address=client_ip[0]
-        client_socket=self.clients[client_ip]["socket"]
+        try:
+            client_socket=self.clients[client_ip]["socket"]
+        except:
+            print("ErrorWhileSerchingClientSocket: can not find the client socket, file sending failed")
+            return False
+        print(client_socket, client_address, message)
         with self.file_client_id_lock:
             client_id=copy.copy(self.file_client_id)
-            send_msg=message.strip()+" "+str(self.file_client_id)
+            send_msg=message.strip()+" "+str(self.file_client_id)+"\n"
             self.file_client_id+=1
         try:
             waiting_time=0
@@ -1033,7 +1037,6 @@ class TCPClient_Base:  # TCP client class
             print(f"send msg error: {e}")
             return False
     def handle_server_command(self, command):  # deal with special command from server
-        breakpoint()
         client_id = f"{self.client_host}:{self.client_ports}"
         if command.lower().split(" ")[0] == "/client_alloc_port_range":
             if command.lower().split(" ")[1]=="no_limit":
