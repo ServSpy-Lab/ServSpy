@@ -843,6 +843,8 @@ class TCPClient_Base:  # TCP client class
                             self.multiple_file_transfer_client_recv_client_start(message)
                         elif shlex.split(message.lower())[0]=="/file_folder":
                             self.folder_file_transfer_client_recv_client_start(message)
+                        elif shlex.split(message.lower())[0]=="/multiple_file_folder":
+                            self.multiple_folder_file_transfer_client_recv_client_start(message)
                         else:
                             self.send_message(message)
                 except KeyboardInterrupt:
@@ -854,6 +856,16 @@ class TCPClient_Base:  # TCP client class
                     break
         finally:
             self.close()
+    def multiple_folder_file_transfer_client_recv_client_start(self, message):
+        transfer_folder_file_list=shlex.split(message)[1:]
+        for transfer_folder_file in transfer_folder_file_list:
+            command="/file_folder {}".format(shlex.quote(transfer_folder_file))
+            folder_file_transfer_client_recv_client_start_thread=(
+                threading.Thread(
+                target=self.folder_file_transfer_client_recv_client_start,
+                args=(command, ),
+                daemon=True))
+            folder_file_transfer_client_recv_client_start_thread.start()
     def folder_file_transfer_client_recv_client_start(self, message):
         folder_path=shlex.split(message)[1]
         if os.path.isdir(folder_path)==False:
