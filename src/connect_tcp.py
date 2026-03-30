@@ -592,7 +592,7 @@ class TCPServer_Base:  # TCP server class
                     self.file_semaphore.release()
             thread = threading.Thread(target=limited_transfer, daemon=True)
             thread.start()
-            print(f"start to send file: {cmd} (limit {self.max_thread_num})")
+            print(f"start to send file: {cmd} (limit {self.max_file_transfer_thread_num})")
         def get_all_files_in_folder():
             for root, dirs, files in os.walk(folder_path):
                 rel_dir = get_relative_path(base_path, root)
