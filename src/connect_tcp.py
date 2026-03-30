@@ -681,7 +681,7 @@ class TCPServer_Base:  # TCP server class
             if self.is_hand_alloc_port==True:
                 self.file_pfree(file_transfer_client_port)
                 print(
-                    "releasing file transfer port, current latest port:", self.latest_port)
+                    "releasing file transfer port, current latest port:", file_transfer_client_port)
         except IndexError:
             print("invalid command, please use '/file <filename>'")
             traceback.print_exc()
