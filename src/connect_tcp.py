@@ -5,12 +5,14 @@ import time
 import copy
 import shlex
 import socket
+import traceback
 import threading
 from datetime import datetime
-class TCPServer_Base:  # TCP server class
+class TCP_Server_Base:  # TCP server class
     def __init__(self, host='127.0.0.1', port=65432,
                  max_clients=10, port_add_step=1, port_range_num=100,
-                 is_hand_alloc_port=False):
+                 max_file_transfer_thread_num=10, is_hand_alloc_port=False,
+                 is_input_command_in_console=True):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.project_info_dir=os.path.join(self.project_dir, '.ServSpy')
         if os.path.exists(self.project_info_dir)==False:
@@ -30,6 +32,7 @@ class TCPServer_Base:  # TCP server class
         self.all_alloced_ports_list=[self.port]
         self.max_clients = max_clients
         self.is_hand_alloc_port=is_hand_alloc_port
+        self.is_input_command_in_console=is_input_command_in_console
         self.alloc_port(port_add_step, port_range_num)
         self.server_socket = None
         self.clients = {}  # store client info
@@ -39,11 +42,26 @@ class TCPServer_Base:  # TCP server class
         self.file_client_id=0
         self.running = False
         self.client_lock = threading.Lock()  # add the threading lock
+        self.max_file_transfer_thread_num=max_file_transfer_thread_num
+        MAX_CONCURRENT_FILES = self.max_file_transfer_thread_num
+        self.file_semaphore = threading.Semaphore(MAX_CONCURRENT_FILES)
         self.command_decode_table_str=None
         with open(self.decode_command_table_file_path, 'r', encoding='utf-8') as f:
             self.command_decode_table_str = f.read()
         self.command_decode_table=(
             ast.literal_eval(self.command_decode_table_str))
+        self.send_file_header_sign = (
+            self.command_decode_table[0]["file_send_server_header"])
+        self.send_file_data_sign = (
+            self.command_decode_table[0]["file_send_server_data"])
+        self.server_reseived_file_header_sign = (
+            self.command_decode_table[0]["file_resieve_client_header"])
+        self.server_reseived_file_data_sign = (
+            self.command_decode_table[0]["file_resieve_client_data"])
+        self.server_start_file_transfer_sign = (
+            self.command_decode_table[0]["file_send_server_start_file_transfer"])
+        self.error_sign=(
+            self.command_decode_table[0]["file_send_resieve_error"])
         self.start_TCP_Server()
     def alloc_port(self, port_add_step, port_range_num):
         if self.is_hand_alloc_port==True:
@@ -186,14 +204,77 @@ class TCPServer_Base:  # TCP server class
                 if exclude_client and addr == exclude_client:
                     continue
                 try:
-                    client_info['socket'].sendall((message+'\n').encode('utf-8'))
+                    self.send_message(client_info['socket'], message)
                 except:
                     disconnected_clients.append(addr)
+                    traceback.print_exc()
             for addr in disconnected_clients:  # del disconnected clients
                 if addr in self.clients:
                     print(f"deleting the disconnected client: {addr}")
                     self.clients[addr]['socket'].close()
                     del self.clients[addr]
+    def send_msg_to_specific_client(self, message):  # send message to specific client by client address
+        command_part=shlex.split(message)
+        del command_part[0]
+        client_message_pair_list=[]
+        client_list=[]
+        msg_list=[]
+        client_addr_times=0
+        for command_part_index in range(len(command_part)):
+            part=command_part[command_part_index]
+            if part.startswith("(") and part.endswith(")"):
+                try:
+                    client_addr=ast.literal_eval(part)
+                    client_list.append(client_addr)
+                    client_addr_times+=1
+                    if command_part_index==len(command_part)-1:
+                        client_message_pair=[client_list, msg_list]
+                        client_message_pair_list.append(client_message_pair)
+                except:
+                    traceback.print_exc()
+                    print(f"ErrorWhileParsingClientAddress: {part} is not a valid client address, skipped")
+            else:
+                if client_addr_times!=0:
+                    client_message_pair=[client_list, msg_list]
+                    client_message_pair_list.append(client_message_pair)
+                    client_list=[]
+                    msg_list=[]
+                    msg_list.append(part)
+                    client_addr_times=0
+                else:
+                    msg_list.append(part)
+        for each_client_message_pair in client_message_pair_list:
+            for client_addr in each_client_message_pair[0]:
+                for msg in each_client_message_pair[1]:
+                    if client_addr in self.clients:
+                        client_socket=self.clients[client_addr]['socket']
+                        self.send_message(client_socket, msg)
+                    else:
+                        print(f"Client {client_addr} not found, cannot send message: {msg}")
+    def send_message(self, client_socket, message):  # send message to specific client
+        if not self.running or not client_socket:
+            print("disable the connect to server")
+            return False
+        try:  # add newline character for server to distinguish messages
+            if isinstance(message, str):
+                deal_msg = message.strip()
+                if not deal_msg.endswith('\n'):
+                    deal_msg += '\n'
+                data = deal_msg.encode('utf-8')
+            elif isinstance(message, bytes):
+                data = message
+            else:
+                print(f"Unsupported message type: {type(message)}")
+                return False
+            client_socket.sendall(data)
+            return True
+        except Exception as e:
+            print(f"send msg error: {e}")
+            traceback.print_exc()
+            return False
+    def recieve_message(self, client_socket, msg_length):  # receive message
+        data=client_socket.recv(msg_length)
+        return data
     def handle_client(self, client_socket, client_address):  # deal with each client
         client_id = f"{client_address[0]}:{client_address[1]}"
         with self.client_lock: # add new client
@@ -205,7 +286,7 @@ class TCPServer_Base:  # TCP server class
         print(f"new connection: {client_id}")
         print(f"connection count mount: {len(self.clients)}")
         welcome_msg = f"Welcome!: {client_id}\n"  # send welcome message
-        client_socket.sendall(welcome_msg.encode('utf-8'))
+        self.send_message(client_socket, welcome_msg)
         if self.is_hand_alloc_port==True:
             broadcast_clients_port_alloc_range_msg="/client_alloc_port_range {}".format(
                 self.each_client_port_range)
@@ -217,7 +298,7 @@ class TCPServer_Base:  # TCP server class
         buffer=""
         try:
             while True:
-                data = client_socket.recv(4096)  # get msg from client
+                data = self.recieve_message(client_socket, 4096)  # get msg from client
                 print(data)
                 if not data:
                     break
@@ -237,11 +318,13 @@ class TCPServer_Base:  # TCP server class
                         print(log_msg)
                         response = f"msg send: {message}"
                     if response:  # send response to client
-                        client_socket.sendall(response.encode('utf-8'))
+                        self.send_message(client_socket, response)
         except ConnectionResetError:
             print(f"client disconnected: {client_id}")
+            traceback.print_exc()
         except Exception as e:
             print(f"error while deal with client {client_id} : {e}")
+            traceback.print_exc()
         finally:
             with self.client_lock:
                 if client_address in self.clients:
@@ -254,15 +337,18 @@ class TCPServer_Base:  # TCP server class
         client_id = f"{client_address[0]}:{client_address[1]}"
         send_str=None
         if command == '/help':
-            help_text = """
-            avalable commands:
-            /help - print help meg
-            /time - display server time
-            /clients - display connected clients
-            /file - send file to server
-            /quit - disconnect
-            """
-            send_str=help_text+"\n"
+            help_text=["avalable commands:",
+                        "/help - print help meg\n",
+                        "\t/time - display server time\n",
+                        "\t/clients - display connected clients\n",
+                        "\t/file <file_path> - send file to server\n",
+                        "\t/multiple_file <file1> <file2> ... ",
+                        "- send multiple files to server\n",
+                        "\t/file_folder <folder_path> - send folder to server\n",
+                        "\t/multiple_file_folder <folder1> <folder2> ... ",
+                        "- send multiple folders to server\n",
+                        "\t/quit - disconnect"]
+            send_str=" ".join(help_text)+"\n"
             return send_str
         elif command == '/time':
             send_str=(
@@ -291,6 +377,7 @@ class TCPServer_Base:  # TCP server class
                     self.file_server_port_list.append(
                         [self.file_transfer_server_port, file_client_id])
                 except:
+                    traceback.print_exc()
                     pass
     def file_folder_transfer_server_recv_server_start_thread(  # start a file folder server thread on server
             self, command, client_id, client_socket):
@@ -317,18 +404,6 @@ class TCPServer_Base:  # TCP server class
         file_transfer_server_recv_server_start_thread.start()
     def file_transfer_server_recv_server_start(  # deal with file transfer request server on server from client and receive file from client
             self, client_id, client_socket, command, new_save_path=None, file_name=None):
-        self.send_file_header_sign = (
-            self.command_decode_table[0]["file_send_server_header"])
-        self.send_file_data_sign = (
-            self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
-        self.server_start_file_transfer_sign = (
-            self.command_decode_table[0]["file_send_server_start_file_transfer"])
-        self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
         file_transfer_server_port=0
         if self.is_hand_alloc_port==True:
             while True:
@@ -377,43 +452,48 @@ class TCPServer_Base:  # TCP server class
             nonlocal server_file_socket
             nonlocal save_path
             filename = None
-            client_file_socket.sendall(
-                self.server_start_file_transfer_sign.encode('utf-8'))
+            self.send_message(client_file_socket,
+                              self.server_start_file_transfer_sign)
             try:
                 name_len_bytes = b''
                 while len(name_len_bytes) < 4:
-                    chunk = client_file_socket.recv(4 - len(name_len_bytes))
+                    chunk = self.recieve_message(
+                        client_file_socket, 4 - len(name_len_bytes))
                     print(chunk)
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket,
+                                              self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileNameLength: client disconnected")
                     name_len_bytes += chunk
-                    if name_len_bytes == self.error_sign.encode('utf-8'):
+                    if (name_len_bytes.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileNameLength: client reported error and disconnected")
                 name_len = int.from_bytes(name_len_bytes, 'big')
                 file_name_encoded = b''
                 while len(file_name_encoded) < name_len:
-                    chunk = client_file_socket.recv(
-                        name_len - len(file_name_encoded))
+                    chunk = self.recieve_message(
+                        client_file_socket, name_len - len(file_name_encoded))
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket,
+                                              self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileName: client disconnected")
                     file_name_encoded += chunk
-                    if file_name_encoded == self.error_sign.encode('utf-8'):
+                    if (file_name_encoded.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileName: client reported error and disconnected")
@@ -422,25 +502,27 @@ class TCPServer_Base:  # TCP server class
                 filename = os.path.basename(filename)
                 size_bytes = b''
                 while len(size_bytes) < 8:
-                    chunk = client_file_socket.recv(
-                        8 - len(size_bytes))
+                    chunk = self.recieve_message(
+                        client_file_socket, 8 - len(size_bytes))
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket,
+                                              self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileSize: client disconnected")
                     size_bytes += chunk
-                    if size_bytes == self.error_sign.encode('utf-8'):
+                    if (size_bytes.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileSize: client reported error and disconnected")
                 file_size = int.from_bytes(size_bytes, 'big')
-                client_file_socket.sendall(
-                    self.server_reseived_file_header_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                                  self.server_reseived_file_header_sign)
                 original_filename = filename
                 if file_name:
                     final_filename = file_name.strip()
@@ -451,27 +533,31 @@ class TCPServer_Base:  # TCP server class
                 with open(full_path.strip(), 'wb') as f:
                     remaining = file_size
                     while remaining > 0:
-                        chunk = client_file_socket.recv(min(65536, remaining))
+                        chunk = self.recieve_message(
+                            client_file_socket, min(65536, remaining))
                         if not chunk:
                             try:
-                                client_file_socket.sendall(
-                                    self.error_sign.encode('utf-8'))
+                                self.send_message(client_file_socket,
+                                                  self.error_sign)
                             except:
+                                traceback.print_exc()
                                 pass
                             close_socket()
                             raise ConnectionError(
                                 "ErrorWhileReceivingFileData: client disconnected")
                         f.write(chunk)
                         remaining -= len(chunk)
-                client_file_socket.sendall(
-                    self.server_reseived_file_data_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                                  self.server_reseived_file_data_sign)
                 print(f"file {filename} received from {client_id}, size {file_size} bytes")
                 close_socket()
             except Exception as e:
+                traceback.print_exc()
                 try:
-                    client_file_socket.sendall(
-                        self.error_sign.encode('utf-8'))
+                    self.send_message(client_file_socket,
+                                      self.error_sign)
                 except:
+                    traceback.print_exc()
                     pass
                 close_socket()
                 print(f"ErrorWhileReceiveFile: {e}")
@@ -488,7 +574,8 @@ class TCPServer_Base:  # TCP server class
         transfer_server_port_msg=(
             "/server_file_transfer_port {} {}\n".format(
                 file_transfer_server_port, file_client_id))
-        client_socket.sendall(transfer_server_port_msg.encode('utf-8'))
+        self.send_message(client_socket,
+                          transfer_server_port_msg)
         server_file_socket.listen(1)
         try:
             client_file_socket, client_file_address = server_file_socket.accept()
@@ -502,29 +589,173 @@ class TCPServer_Base:  # TCP server class
                     daemon=True).start()
         except Exception as e:
             print(f"\nget file transfer msg error: {e}")
+            traceback.print_exc()
             close_socket()
         finally:
             server_file_socket.close()
+    def diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start(self, message):
+        command_part=shlex.split(message)
+        del command_part[0]
+        file_client_pair_list=[]
+        file_list=[]
+        client_list=[]
+        command_part_addr_times=0
+        for command_part_index in range(len(command_part)):
+            part=command_part[command_part_index]
+            if part.startswith("(") and part.endswith(")"):
+                try:
+                    client_addr=ast.literal_eval(part)
+                    client_list.append(client_addr)
+                    command_part_addr_times+=1
+                    if command_part_index==len(command_part)-1:
+                        file_client_pair=[client_list, file_list]
+                        file_client_pair_list.append(file_client_pair)
+                except:
+                    traceback.print_exc()
+            else:
+                if command_part_addr_times!=0:
+                    file_client_pair=[client_list, file_list]
+                    file_client_pair_list.append(file_client_pair)
+                    file_list=[]
+                    client_list=[]
+                    file_list.append(part)
+                    command_part_addr_times=0
+                else:
+                    file_list.append(part)
+        for each_file_client_pair in file_client_pair_list:
+            file_transfer_command_message=""
+            file_folder_transfer_command_message=""
+            for file in each_file_client_pair[1]:
+                try:
+                    if os.path.isfile(file):
+                        if file_transfer_command_message=="":
+                            file_transfer_command_message="/file {}".format(
+                                shlex.quote(file))
+                        else:
+                            file_transfer_command_message+=" {}".format(
+                                shlex.quote(file))
+                    elif os.path.isdir(file):
+                        if file_folder_transfer_command_message=="":
+                            file_folder_transfer_command_message="/file_folder {}".format(
+                                shlex.quote(file))
+                        else:
+                            file_folder_transfer_command_message+=" {}".format(
+                                shlex.quote(file))
+                except:
+                    traceback.print_exc()
+                    print(f"ErrorWhileParsingFilePath: {file} is not a valid file or folder path, skipped")
+                    pass
+            for client_addr in each_file_client_pair[0]:
+                if file_transfer_command_message!="":
+                    file_transfer_command_message+=" {}".format(
+                        shlex.quote(str(client_addr)))
+                if file_folder_transfer_command_message!="":
+                    file_folder_transfer_command_message+=" {}".format(
+                        shlex.quote(str(client_addr)))
+            if file_transfer_command_message!="":
+                self.multiple_file_multiple_client_transfer_server_recv_client_start(
+                    file_transfer_command_message)
+            if file_folder_transfer_command_message!="":
+                self.multiple_file_multiple_client_transfer_server_recv_client_start(
+                    file_folder_transfer_command_message)
+    def multiple_file_multiple_client_transfer_server_recv_client_start(self, message):
+        command_part=shlex.split(message)
+        command_type=command_part[0]
+        del command_part[0]
+        transfer_file_list=[]
+        client_addr_list=[]
+        for part in command_part:
+            if part.startswith("(") and part.endswith(")"):
+                try:
+                    client_addr=ast.literal_eval(part)
+                    client_addr_list.append(client_addr)
+                except:
+                    traceback.print_exc()
+            else:
+                transfer_file_list.append(part)
+        for client_addr in client_addr_list:
+            for transfer_file in transfer_file_list:
+                if command_type=="/file":
+                    file_transfer_command_message=(
+                        "/file {} {}".format(shlex.quote(transfer_file), 
+                                            shlex.quote(str(client_addr))))
+                    self.file_transfer_server_recv_client_start_thread(
+                        file_transfer_command_message)
+                    print(f"start to send file command: {file_transfer_command_message}")
+                elif command_type=="/file_folder":
+                    folder_transfer_command_message=(
+                        "/file_folder {} {}".format(shlex.quote(transfer_file), 
+                                            shlex.quote(str(client_addr))))
+                    self.folder_file_transfer_server_recv_client_start(
+                        folder_transfer_command_message)
+                    print(f"start to send folder command: {folder_transfer_command_message}")
+    def folder_file_transfer_server_recv_client_start(self, message):
+        command_part=shlex.split(message)
+        folder_path=command_part[1]
+        client_addr=ast.literal_eval(command_part[len(command_part)-1])
+        client_socket=self.clients[client_addr]['socket']
+        if os.path.isdir(folder_path)==False:
+            print(f"{folder_path} is not a valid folder path")
+            return False
+        base_path=os.path.dirname(folder_path)
+        def get_relative_path(base_path, abs_path):
+            base = os.path.normpath(base_path)
+            abs_ = os.path.normpath(abs_path)
+            common = os.path.commonpath([base, abs_])
+            if common != base:
+                raise ValueError(f"'{abs_path}' is not a subpath of '{base_path}'")
+            rel = os.path.relpath(abs_, base)
+            if rel == '.':
+                return ''
+            rel = rel.replace(os.sep, '/')
+            return '/' + rel
+        def send_folder_transfer_command(folder_path, file_name=None, abspath=None):
+            folder_transfer_command_message=(
+                "/file_folder {}".format(shlex.quote(folder_path)))
+            if file_name:
+                each_file_transfer_command_message=(
+                    "/file_folder {} {} {}".format(
+                        shlex.quote(folder_path), shlex.quote(file_name),
+                        shlex.quote(str(client_addr))))
+                self.file_transfer_server_recv_client_start_thread(
+                    each_file_transfer_command_message, abspath)
+                print(f"start to send folder command: {each_file_transfer_command_message}")
+            else:
+                self.send_message(client_socket,
+                                  folder_transfer_command_message.strip())
+                print(f"start to send folder command: {folder_transfer_command_message}")
+        def start_file_transfer_with_limit(rel_dir, file, root):
+            cmd = "/file_folder {} {} {}".format(
+                shlex.quote(rel_dir), shlex.quote(file),
+                shlex.quote(str(client_addr)))
+            def limited_transfer():
+                self.file_semaphore.acquire()
+                try:
+                    self.file_transfer_server_recv_client_start(cmd, root)
+                finally:
+                    self.file_semaphore.release()
+            thread = threading.Thread(target=limited_transfer, daemon=True)
+            thread.start()
+            print(f"start to send file: {cmd} (limit {self.max_file_transfer_thread_num})")
+        def get_all_files_in_folder():
+            for root, dirs, files in os.walk(folder_path):
+                rel_dir = get_relative_path(base_path, root)
+                if root != folder_path:
+                    send_folder_transfer_command(rel_dir)
+                for file in files:
+                    start_file_transfer_with_limit(rel_dir, file, root)
+            print(f"finished sending all files in folder {folder_path}")
+        transfer_path=get_relative_path(base_path, folder_path)
+        send_folder_transfer_command(transfer_path)
+        get_all_files_in_folder()
     def file_transfer_server_recv_client_start_thread(self, message, file_folder_abspath=None):
-        file_transfer_client_recv_client_start_thread=(
+        file_transfer_server_recv_client_start_thread=(
             threading.Thread(
             target=self.file_transfer_server_recv_client_start,
             args=(message, file_folder_abspath),
             daemon=True))
-        file_transfer_client_recv_client_start_thread.start()
+        file_transfer_server_recv_client_start_thread.start()
     def file_transfer_server_recv_client_start(self, message, file_folder_abspath):
-        self.send_file_header_sign = (
-            self.command_decode_table[0]["file_send_server_header"])
-        self.send_file_data_sign = (
-            self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
-        self.server_start_file_transfer_sign = (
-            self.command_decode_table[0]["file_send_server_start_file_transfer"])
-        self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
         client_id=None
         command_part=shlex.split(message)
         client_ip=ast.literal_eval(command_part[len(command_part)-1])
@@ -533,6 +764,7 @@ class TCPServer_Base:  # TCP server class
             client_socket=self.clients[client_ip]["socket"]
         except:
             print("ErrorWhileSerchingClientSocket: can not find the client socket, file sending failed")
+            traceback.print_exc()
             return False
         print(client_socket, client_address, message)
         with self.file_client_id_lock:
@@ -546,7 +778,7 @@ class TCPServer_Base:  # TCP server class
                     file_folder_abspath, shlex.split(message)[2])
             else:
                 filename = shlex.split(message)[1]
-            client_socket.sendall(send_msg.encode('utf-8'))
+            self.send_message(client_socket, send_msg)
             file_transfer_client_port=None
             if self.is_hand_alloc_port==True:
                 file_transfer_client_port=self.file_palloc()
@@ -581,9 +813,10 @@ class TCPServer_Base:  # TCP server class
             if self.is_hand_alloc_port==True:
                 self.file_pfree(file_transfer_client_port)
                 print(
-                    "releasing file transfer port, current latest port:", self.latest_port)
+                    "releasing file transfer port, current latest port:", file_transfer_client_port)
         except IndexError:
             print("invalid command, please use '/file <filename>'")
+            traceback.print_exc()
     def file_transfer_mode(self, filename, server_address, server_port, client_port):
         print(f"start to send file: {filename}")
         client_file_socket = None
@@ -604,6 +837,7 @@ class TCPServer_Base:  # TCP server class
                 break
             except Exception as e:
                 print(f"file transfer connection error: {e}")
+                traceback.print_exc()
                 if reset_time >= 20:
                     close_socket()
                     print("unable to connect to file transfer server, file sending failed")
@@ -618,28 +852,32 @@ class TCPServer_Base:  # TCP server class
             nonlocal file_receive_data_from_server
             while file_running:
                 try:
-                    data = client_file_socket.recv(4096)
+                    data = self.recieve_message(
+                        client_file_socket, 4096)
                     if not data:
                         print("\nbreak the file transfer connection from server")
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket,
+                                              self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
-                        close_socket()
-                        break
-                    if data==self.error_sign.encode('utf-8'):
-                        print("\nError sign received from server, file transfer may have failed")
                         close_socket()
                         break
                     file_receive_data_from_server=(
                         data.decode('utf-8').strip())
+                    if file_receive_data_from_server==self.error_sign:
+                        print("\nError sign received from server, file transfer may have failed")
+                        close_socket()
+                        break
                 except Exception as e:
                     print(f"\nget file transfer msg error: {e}")
+                    traceback.print_exc()
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket,
+                                          self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     close_socket()
                     break
@@ -660,9 +898,10 @@ class TCPServer_Base:  # TCP server class
                 waiting_time += 1
                 if waiting_time >= 10:
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket,
+                                          self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     print(f"ErrorWhileSendFile: \
                           Wait file transfer function start sign timeout, \
@@ -673,15 +912,15 @@ class TCPServer_Base:  # TCP server class
             file_size = os.path.getsize(filename)
             file_name_encoded = filename.encode('utf-8')
             name_len = len(file_name_encoded)
-            client_file_socket.sendall(name_len.to_bytes(4, 'big'))
-            client_file_socket.sendall(file_name_encoded)
-            client_file_socket.sendall(file_size.to_bytes(8, 'big'))
+            self.send_message(client_file_socket, name_len.to_bytes(4, 'big'))
+            self.send_message(client_file_socket, file_name_encoded)
+            self.send_message(client_file_socket, file_size.to_bytes(8, 'big'))
             with open(filename, 'rb') as f:
                 while True:
                     file_data = f.read(65536)
                     if not file_data:
                         break
-                    client_file_socket.sendall(file_data)
+                    self.send_message(client_file_socket, file_data)
             extra_time = (file_size // (100 * 1024 * 1024)) * 10
             timeout = int(30 + extra_time)
             while True:
@@ -696,9 +935,10 @@ class TCPServer_Base:  # TCP server class
                 waiting_time += 1
                 if waiting_time >= timeout:
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket,
+                                          self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     close_socket()
                     print(f"ErrorWhileSendFileData: \
@@ -709,19 +949,23 @@ class TCPServer_Base:  # TCP server class
             close_socket()
             return True
         except FileNotFoundError:
+            traceback.print_exc()
             try:
-                client_file_socket.sendall(
-                    self.error_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                                  self.error_sign)
             except:
+                traceback.print_exc()
                 pass
             close_socket()
             print(f"file {filename} not exist")
             return False
         except Exception as e:
+            traceback.print_exc()
             try:
-                client_file_socket.sendall(
-                    self.error_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                                  self.error_sign)
             except:
+                traceback.print_exc()
                 pass
             close_socket()
             print(f"send error: {e}")
@@ -736,13 +980,18 @@ class TCPServer_Base:  # TCP server class
             print(f"TCP server deployed on {self.host}:{self.port}")
             print(f"max clients mount: {self.max_clients}")
             print("input '/stop' to stop the server\n")
-            input_thread = threading.Thread(target=self.console_input, daemon=True)  # set up console input thread
-            input_thread.start()
+            if self.is_input_command_in_console:
+                input_thread = threading.Thread(
+                    target=self.console_input, daemon=True)  # set up console input thread
+                input_thread.start()
+            else:
+                pass
             while self.running:  # main loop to accept clients
                 try:
                     client_socket, client_address = self.server_socket.accept()
                     if len(self.clients) >= self.max_clients:
-                        client_socket.sendall("Max connection mount, try latter".encode('utf-8'))
+                        self.send_message(client_socket,
+                                          "Max connection mount, try latter")
                         client_socket.close()
                         continue
                     client_thread = threading.Thread(  # set up client handling thread
@@ -751,9 +1000,11 @@ class TCPServer_Base:  # TCP server class
                         daemon=True)
                     client_thread.start()
                 except OSError:
+                    traceback.print_exc()
                     break  # server socket closed, exit loop
         except Exception as e:
             print(f"Server error: {e}")
+            traceback.print_exc()
         finally:
             self.stop()
     def console_input(self):  # deal consule input
@@ -772,9 +1023,46 @@ class TCPServer_Base:  # TCP server class
                     with self.client_lock:
                         for addr, info in self.clients.items():
                             print(f"  {info['id']} - connection time: {info['connected_time']}")
+                elif shlex.split(deal_cmd)[0] == '/send_msg':
+                    self.send_msg_to_specific_client(deal_cmd)
                 elif shlex.split(deal_cmd)[0] == '/file':
-                    self.file_transfer_server_recv_client_start_thread(deal_cmd)
+                    self.file_transfer_server_recv_client_start_thread(
+                        deal_cmd)
+                elif shlex.split(deal_cmd)[0] == '/file_folder':
+                    self.folder_file_transfer_server_recv_client_start(
+                        deal_cmd)
+                elif shlex.split(deal_cmd)[0] == '/multiple_file_multiple_client':
+                    self.multiple_file_multiple_client_transfer_server_recv_client_start(
+                        deal_cmd)
+                elif shlex.split(deal_cmd)[0] == '/diff_multiple_file_diff_multiple_client':
+                    self.diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start(
+                        deal_cmd)
+                elif shlex.split(deal_cmd)[0] == '/help':
+                    help_text=["avalable commands:",
+                                "/stop - stop the server\n",
+                                "\t/status - display server status\n",
+                                "\t/clients - display connected clients\n",
+                                "\t/send_msg <message1> <message2> ... ",
+                                "<client_id1> <client_id2> ... <messageN>",
+                                " ... <client_idN> ... - send message or ",
+                                "messages to specific client or clients\n",
+                                "\t/file <file_path> <client_id> - ",
+                                "send file to specific client\n",
+                                "\t/file_folder <folder_path> <client_id> - ",
+                                "send folder to specific client\n",
+                                "\t/multiple_file_multiple_client <file1> <file2>",
+                                " ... <client_id1> <client_id2> ... <fileN> ...",
+                                " <client_idN> ... - send multiple files to multiple",
+                                " clients, files should be before clients, ",
+                                "and clients should be in format of (ip, port)\n",
+                                "\t/diff_multiple_file_diff_multiple_client <file1> <file2>",
+                                " ... <client_id1> <client_id2> ... <fileN> ...",
+                                " <client_idN> ... - send multiple files to multiple clients",
+                                " with different file list for each client, files and clients",
+                                " should be in pairs, and clients should be in format of (ip, port)"]
+                    print("\n"+" ".join(help_text)+"\n")
             except:
+                traceback.print_exc()
                 break
     def stop(self):  # shutting down the server
         self.running = False
@@ -784,14 +1072,17 @@ class TCPServer_Base:  # TCP server class
                 try:
                     client_info['socket'].close()
                 except:
+                    traceback.print_exc()
                     pass
             self.clients.clear()
         if self.server_socket:  # close server socket
             self.server_socket.close()
             print("server stopped")
-class TCPClient_Base:  # TCP client class
+class TCP_Client_Base:  # TCP client class
     def __init__(self, host=None, client_host='127.0.0.1',
-                 port=65432, client_ports=None, timeout=5, port_add_step=1, max_thread_num=10):
+                 port=65432, client_ports=None, timeout=None,
+                 port_add_step=1, max_thread_num=10,
+                 is_input_command_in_console=True, is_wait_server=True):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.file_transfer_dir=os.path.join(
             self.project_dir, 'received_files')
@@ -824,6 +1115,12 @@ class TCPClient_Base:  # TCP client class
         self.receive_thread = None
         self.command_decode_table_str=None
         self.max_thread_num=max_thread_num
+        self.is_input_command_in_console=is_input_command_in_console
+        self.is_wait_server=is_wait_server
+        if self.is_wait_server and self.timeout!=None:
+            error_msg=["wait_server_timeout is not applicable when is_wait_server is True,",
+                       "please set wait_server_timeout to None or set is_wait_server to False"]
+            raise ValueError(" ".join(error_msg))
         self.file_client_id=0
         self.file_client_id_lock=threading.Lock()
         MAX_CONCURRENT_FILES = self.max_thread_num
@@ -832,6 +1129,18 @@ class TCPClient_Base:  # TCP client class
             self.command_decode_table_str = f.read()
         self.command_decode_table=(
             ast.literal_eval(self.command_decode_table_str))
+        self.send_file_header_sign = (
+            self.command_decode_table[0]["file_send_server_header"])
+        self.send_file_data_sign = (
+            self.command_decode_table[0]["file_send_server_data"])
+        self.server_reseived_file_header_sign = (
+            self.command_decode_table[0]["file_resieve_client_header"])
+        self.server_reseived_file_data_sign = (
+            self.command_decode_table[0]["file_resieve_client_data"])
+        self.server_start_file_transfer_sign = (
+            self.command_decode_table[0]["file_send_server_start_file_transfer"])
+        self.error_sign=(
+            self.command_decode_table[0]["file_send_resieve_error"])
         self.start_TCP_client()
     def alloc_port(self, port_add_step, port_range_num):
         if self.is_hand_alloc_port==True:
@@ -967,36 +1276,53 @@ class TCPClient_Base:  # TCP client class
                 self.all_alloced_ports_list.remove(port)
             self.minus_latest_port+=self.port_add_step
     def connect(self):  # connect to server
-        try:
-            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.client_socket.settimeout(self.timeout)  # connect over 5 seconds timeout
-            print(f"connecting to {self.host}:{self.port}...")
-            if self.client_ports==None:
-                pass
-            else:
-                self.local_address=(self.client_host, self.client_ports)
-                self.client_socket.bind(self.local_address)
-            self.client_socket.connect((self.host, self.port))
-            self.running = True
-            self.receive_thread = threading.Thread(target=self.receive_messages)  # set up get msg thread
-            self.receive_thread.daemon = True
-            self.receive_thread.start()
-            print("connect success! type '/help' to get help.\n")
-            return True
-        except socket.timeout:
-            print("outof time, unable to connect to server")
-            return False
-        except ConnectionRefusedError:
-            print("connection rejected by server, please ensure the server is running")
-            return False
-        except Exception as e:
-            print(f"connection error: {e}")
-            return False
+        while True:
+            try:
+                self.client_socket = socket.socket(
+                    socket.AF_INET, socket.SOCK_STREAM)
+                if self.timeout!=None:
+                    self.client_socket.settimeout(self.timeout)  # connect over 5 seconds timeout
+                else:
+                    self.client_socket.settimeout(5)
+                print(f"connecting to {self.host}:{self.port}...")
+                if self.client_ports==None:
+                    pass
+                else:
+                    self.local_address=(self.client_host, self.client_ports)
+                    self.client_socket.bind(self.local_address)
+                self.client_socket.connect((self.host, self.port))
+                self.running = True
+                self.receive_thread = threading.Thread(target=self.receive_messages)  # set up get msg thread
+                self.receive_thread.daemon = True
+                self.receive_thread.start()
+                print("connect success! type '/help' to get help.\n")
+                return True
+            except socket.timeout:
+                if self.is_wait_server:
+                    print("waitting for server to start...")
+                    pass
+                else:
+                    print("outof time, unable to connect to server")
+                    traceback.print_exc()
+                    return False
+            except ConnectionRefusedError:
+                if self.is_wait_server:
+                    print("waitting for server to start...")
+                    pass
+                else:
+                    print("connection rejected by server, please ensure the server is running")
+                    traceback.print_exc()
+                    return False
+            except Exception as e:
+                print(f"connection error: {e}")
+                traceback.print_exc()
+                return False
     def receive_messages(self):  # get server msg
         buffer = ""
         while self.running:
             try:
-                data = self.client_socket.recv(4096)
+                data = self.recieve_message(
+                    self.client_socket, 4096)
                 if not data:
                     print("\nbreak the connection from server")
                     self.running = False
@@ -1016,26 +1342,40 @@ class TCPClient_Base:  # TCP client class
                 continue
             except ConnectionResetError:
                 print("\nReset by server, connection closed")
+                traceback.print_exc()
                 self.running = False
                 self.free_port()
                 break
             except Exception as e:
                 print(f"\nget msg error: {e}")
+                traceback.print_exc()
                 self.running = False
                 self.free_port()
                 break
-    def send_message(self, message):  # send msg to server
+    def send_message(self, client_socket, message):  # send msg to server
         if not self.running or not self.client_socket:
             print("disable the connect to server")
             return False
         try:  # add newline character for server to distinguish messages
-            if not message.endswith('\n'):
-                message += '\n'
-            self.client_socket.sendall(message.encode('utf-8'))
+            if isinstance(message, str):
+                deal_msg = message.strip()
+                if not deal_msg.endswith('\n'):
+                    deal_msg += '\n'
+                data = deal_msg.encode('utf-8')
+            elif isinstance(message, bytes):
+                data = message
+            else:
+                print(f"Unsupported message type: {type(message)}")
+                return False
+            client_socket.sendall(data)
             return True
         except Exception as e:
             print(f"send msg error: {e}")
+            traceback.print_exc()
             return False
+    def recieve_message(self, client_socket, msg_length):  # receive msg
+        data=client_socket.recv(msg_length)
+        return data
     def handle_server_command(self, command):  # deal with special command from server
         client_id = f"{self.client_host}:{self.client_ports}"
         if command.lower().split(" ")[0] == "/client_alloc_port_range":
@@ -1056,6 +1396,7 @@ class TCPClient_Base:  # TCP client class
                     self.file_server_port_list.append(
                         [self.file_transfer_server_port, file_client_id])
                 except:
+                    traceback.print_exc()
                     pass
         elif shlex.split(command.lower())[0] == "/file":
             self.file_transfer_client_recv_server_start_thread(
@@ -1072,7 +1413,7 @@ class TCPClient_Base:  # TCP client class
                         break
                     if message.strip():
                         if message.lower() == '/quit':
-                            self.send_message('/quit')
+                            self.send_message(self.client_socket, '/quit')
                             time.sleep(0.5)
                             break
                         elif shlex.split(message.lower())[0]=="/file":
@@ -1084,13 +1425,15 @@ class TCPClient_Base:  # TCP client class
                         elif shlex.split(message.lower())[0]=="/multiple_file_folder":
                             self.multiple_folder_file_transfer_client_recv_client_start(message)
                         else:
-                            self.send_message(message)
+                            self.send_message(self.client_socket, message)
                 except KeyboardInterrupt:
                     print("\nshutting down...")
-                    self.send_message('/quit')
+                    traceback.print_exc()
+                    self.send_message(self.client_socket, '/quit')
                     time.sleep(0.5)
                     break
                 except EOFError:
+                    traceback.print_exc()
                     break
         finally:
             self.close()
@@ -1132,7 +1475,7 @@ class TCPClient_Base:  # TCP client class
                     each_file_transfer_command_message, abspath)
                 print(f"start to send folder command: {each_file_transfer_command_message}")
             else:
-                self.send_message(folder_transfer_command_message.strip())
+                self.send_message(self.client_socket, folder_transfer_command_message.strip())
                 print(f"start to send folder command: {folder_transfer_command_message}")
         def start_file_transfer_with_limit(rel_dir, file, root):
             cmd = f"/file_folder {shlex.quote(rel_dir)} {shlex.quote(file)}"
@@ -1176,18 +1519,6 @@ class TCPClient_Base:  # TCP client class
             daemon=True))
         file_transfer_client_recv_client_start_thread.start()
     def file_transfer_client_recv_client_start(self, message, file_folder_abspath):
-        self.send_file_header_sign = (
-            self.command_decode_table[0]["file_send_server_header"])
-        self.send_file_data_sign = (
-            self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
-        self.server_start_file_transfer_sign = (
-            self.command_decode_table[0]["file_send_server_start_file_transfer"])
-        self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
         client_id=None
         with self.file_client_id_lock:
             client_id=copy.copy(self.file_client_id)
@@ -1200,7 +1531,7 @@ class TCPClient_Base:  # TCP client class
                     file_folder_abspath, shlex.split(message)[2])
             else:
                 filename = shlex.split(message)[1]
-            self.send_message(send_msg)
+            self.send_message(self.client_socket, send_msg)
             file_transfer_client_port=None
             if self.is_hand_alloc_port==True:
                 file_transfer_client_port=self.file_palloc()
@@ -1238,6 +1569,7 @@ class TCPClient_Base:  # TCP client class
                 print(
                     "releasing file transfer port, current latest port:", self.latest_port)
         except IndexError:
+            traceback.print_exc()
             print("invalid command, please use '/file <filename>'")
     def file_transfer_mode(self, filename, server_address, server_port, client_port):
         print(f"start to send file: {filename}")
@@ -1259,6 +1591,7 @@ class TCPClient_Base:  # TCP client class
                 break
             except Exception as e:
                 print(f"file transfer connection error: {e}")
+                traceback.print_exc()
                 if reset_time >= 20:
                     close_socket()
                     print("unable to connect to file transfer server, file sending failed")
@@ -1273,28 +1606,29 @@ class TCPClient_Base:  # TCP client class
             nonlocal file_receive_data_from_server
             while file_running:
                 try:
-                    data = client_file_socket.recv(4096)
+                    data = self.recieve_message(client_file_socket, 4096)
                     if not data:
                         print("\nbreak the file transfer connection from server")
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket, self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
-                        close_socket()
-                        break
-                    if data==self.error_sign.encode('utf-8'):
-                        print("\nError sign received from server, file transfer may have failed")
                         close_socket()
                         break
                     file_receive_data_from_server=(
                         data.decode('utf-8').strip())
+                    if file_receive_data_from_server==self.error_sign:
+                        print("\nError sign received from server, file transfer may have failed")
+                        close_socket()
+                        break
                 except Exception as e:
                     print(f"\nget file transfer msg error: {e}")
+                    traceback.print_exc()
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket, self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     close_socket()
                     break
@@ -1315,9 +1649,9 @@ class TCPClient_Base:  # TCP client class
                 waiting_time += 1
                 if waiting_time >= 10:
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket, self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     print(f"ErrorWhileSendFile: \
                           Wait file transfer function start sign timeout, \
@@ -1328,15 +1662,15 @@ class TCPClient_Base:  # TCP client class
             file_size = os.path.getsize(filename)
             file_name_encoded = filename.encode('utf-8')
             name_len = len(file_name_encoded)
-            client_file_socket.sendall(name_len.to_bytes(4, 'big'))
-            client_file_socket.sendall(file_name_encoded)
-            client_file_socket.sendall(file_size.to_bytes(8, 'big'))
+            self.send_message(client_file_socket, name_len.to_bytes(4, 'big'))
+            self.send_message(client_file_socket, file_name_encoded)
+            self.send_message(client_file_socket, file_size.to_bytes(8, 'big'))
             with open(filename, 'rb') as f:
                 while True:
                     file_data = f.read(65536)
                     if not file_data:
                         break
-                    client_file_socket.sendall(file_data)
+                    self.send_message(client_file_socket, file_data)
             extra_time = (file_size // (100 * 1024 * 1024)) * 10
             timeout = int(30 + extra_time)
             while True:
@@ -1351,9 +1685,9 @@ class TCPClient_Base:  # TCP client class
                 waiting_time += 1
                 if waiting_time >= timeout:
                     try:
-                        client_file_socket.sendall(
-                            self.error_sign.encode('utf-8'))
+                        self.send_message(client_file_socket, self.error_sign)
                     except:
+                        traceback.print_exc()
                         pass
                     close_socket()
                     print(f"ErrorWhileSendFileData: \
@@ -1364,19 +1698,21 @@ class TCPClient_Base:  # TCP client class
             close_socket()
             return True
         except FileNotFoundError:
+            traceback.print_exc()
             try:
-                client_file_socket.sendall(
-                    self.error_sign.encode('utf-8'))
+                self.send_message(client_file_socket, self.error_sign)
             except:
+                traceback.print_exc()
                 pass
             close_socket()
             print(f"file {filename} not exist")
             return False
         except Exception as e:
+            traceback.print_exc()
             try:
-                client_file_socket.sendall(
-                    self.error_sign.encode('utf-8'))
+                self.send_message(client_file_socket, self.error_sign)
             except:
+                traceback.print_exc()
                 pass
             close_socket()
             print(f"send error: {e}")
@@ -1406,18 +1742,6 @@ class TCPClient_Base:  # TCP client class
         file_transfer_client_recv_server_start_thread.start()
     def file_transfer_client_recv_server_start(
             self, client_id, client_socket, command, new_save_path=None, file_name=None):
-        self.send_file_header_sign = (
-            self.command_decode_table[0]["file_send_server_header"])
-        self.send_file_data_sign = (
-            self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
-        self.server_start_file_transfer_sign = (
-            self.command_decode_table[0]["file_send_server_start_file_transfer"])
-        self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
         file_transfer_server_port=0
         if self.is_hand_alloc_port==True:
             while True:
@@ -1466,43 +1790,46 @@ class TCPClient_Base:  # TCP client class
             nonlocal server_file_socket
             nonlocal save_path
             filename = None
-            client_file_socket.sendall(
-                self.server_start_file_transfer_sign.encode('utf-8'))
+            self.send_message(
+                client_file_socket, self.server_start_file_transfer_sign)
             try:
                 name_len_bytes = b''
                 while len(name_len_bytes) < 4:
-                    chunk = client_file_socket.recv(4 - len(name_len_bytes))
+                    chunk = self.recieve_message(
+                        client_file_socket, 4 - len(name_len_bytes))
                     print(chunk)
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket, self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileNameLength: client disconnected")
                     name_len_bytes += chunk
-                    if name_len_bytes == self.error_sign.encode('utf-8'):
+                    if (name_len_bytes.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileNameLength: client reported error and disconnected")
                 name_len = int.from_bytes(name_len_bytes, 'big')
                 file_name_encoded = b''
                 while len(file_name_encoded) < name_len:
-                    chunk = client_file_socket.recv(
-                        name_len - len(file_name_encoded))
+                    chunk = self.recieve_message(
+                        client_file_socket, name_len - len(file_name_encoded))
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket, self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileName: client disconnected")
                     file_name_encoded += chunk
-                    if file_name_encoded == self.error_sign.encode('utf-8'):
+                    if (file_name_encoded.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileName: client reported error and disconnected")
@@ -1511,25 +1838,26 @@ class TCPClient_Base:  # TCP client class
                 filename = os.path.basename(filename)
                 size_bytes = b''
                 while len(size_bytes) < 8:
-                    chunk = client_file_socket.recv(
-                        8 - len(size_bytes))
+                    chunk = self.recieve_message(
+                        client_file_socket, 8 - len(size_bytes))
                     if not chunk:
                         try:
-                            client_file_socket.sendall(
-                                self.error_sign.encode('utf-8'))
+                            self.send_message(client_file_socket, self.error_sign)
                         except:
+                            traceback.print_exc()
                             pass
                         close_socket()
                         raise ConnectionError(
                             "ErrorWhileReceivingFileSize: client disconnected")
                     size_bytes += chunk
-                    if size_bytes == self.error_sign.encode('utf-8'):
+                    if (size_bytes.strip()==
+                        self.error_sign.encode('utf-8')):
                         close_socket()
                         raise ConnectionError(
                             "ErrorSignReceivedWhileReceivingFileSize: client reported error and disconnected")
                 file_size = int.from_bytes(size_bytes, 'big')
-                client_file_socket.sendall(
-                    self.server_reseived_file_header_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                                  self.server_reseived_file_header_sign)
                 original_filename = filename
                 if file_name:
                     final_filename = file_name.strip()
@@ -1540,27 +1868,31 @@ class TCPClient_Base:  # TCP client class
                 with open(full_path.strip(), 'wb') as f:
                     remaining = file_size
                     while remaining > 0:
-                        chunk = client_file_socket.recv(min(65536, remaining))
+                        chunk = self.recieve_message(
+                            client_file_socket, min(65536, remaining))
                         if not chunk:
                             try:
-                                client_file_socket.sendall(
-                                    self.error_sign.encode('utf-8'))
+                                self.send_message(client_file_socket,
+                                    self.error_sign)
                             except:
+                                traceback.print_exc()
                                 pass
                             close_socket()
                             raise ConnectionError(
                                 "ErrorWhileReceivingFileData: client disconnected")
                         f.write(chunk)
                         remaining -= len(chunk)
-                client_file_socket.sendall(
-                    self.server_reseived_file_data_sign.encode('utf-8'))
+                self.send_message(client_file_socket,
+                    self.server_reseived_file_data_sign)
                 print(f"file {filename} received from {client_id}, size {file_size} bytes")
                 close_socket()
             except Exception as e:
+                traceback.print_exc()
                 try:
-                    client_file_socket.sendall(
-                        self.error_sign.encode('utf-8'))
+                    self.send_message(client_file_socket,
+                        self.error_sign)
                 except:
+                    traceback.print_exc()
                     pass
                 close_socket()
                 print(f"ErrorWhileReceiveFile: {e}")
@@ -1577,7 +1909,8 @@ class TCPClient_Base:  # TCP client class
         transfer_server_port_msg=(
             "/server_file_transfer_port {} {}\n".format(
                 file_transfer_server_port, file_client_id))
-        client_socket.sendall(transfer_server_port_msg.encode('utf-8'))
+        self.send_message(client_socket,
+                          transfer_server_port_msg)
         server_file_socket.listen(1)
         try:
             client_file_socket, client_file_address = server_file_socket.accept()
@@ -1591,6 +1924,7 @@ class TCPClient_Base:  # TCP client class
                     daemon=True).start()
         except Exception as e:
             print(f"\nget file transfer msg error: {e}")
+            traceback.print_exc()
             close_socket()
         finally:
             server_file_socket.close()
@@ -1604,8 +1938,12 @@ class TCPClient_Base:  # TCP client class
         if not self.connect():
             sys.exit(1)
         try:
-            self.interactive_mode()
+            if self.is_input_command_in_console:
+                self.interactive_mode()
+            else:
+                pass
         except KeyboardInterrupt:
             print("\nclient shutting down...")
+            traceback.print_exc()
         finally:
             self.close()
