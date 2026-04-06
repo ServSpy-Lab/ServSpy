@@ -232,9 +232,9 @@ class TCP_Server_Base:  # TCP server class
                 self.minus_latest_port+=self.port_add_step
         else:
             pass
-    def register_command(self, command_name, handler, run_in_thread=False):
-        self._custom_handlers[command_name] = handler
-        self._custom_handler_threaded[command_name] = run_in_thread
+    def register_command(self, command_name, handler, where_to_run, run_in_thread=False):
+        self._custom_handlers[[command_name, where_to_run]] = handler
+        self._custom_handler_threaded[[command_name, where_to_run]] = run_in_thread
     def submit_task(self, func, *args, **kwargs):
         self._task_semaphore.acquire()
         future = self._custom_executor.submit(func, *args, **kwargs)
@@ -255,7 +255,8 @@ class TCP_Server_Base:  # TCP server class
                 try:
                     server_socket.settimeout(1.0)
                     client_sock, addr = server_socket.accept()
-                    threading.Thread(target=handler, args=(client_sock, addr), daemon=True).start()
+                    threading.Thread(target=handler,
+                                     args=(client_sock, addr), daemon=True).start()
                 except socket.timeout:
                     continue
                 except Exception as e:
@@ -267,6 +268,29 @@ class TCP_Server_Base:  # TCP server class
         server_thread = threading.Thread(target=server_loop, daemon=True)
         server_thread.start()
         return port, server_thread, stop_event
+    def create_temporary_client(self, server_host, server_port, bind_port=None, on_data=None):
+        client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if bind_port is not None:
+            client_sock.bind((self.host, bind_port))
+        client_sock.connect((server_host, server_port))
+        stop_event = threading.Event()
+        def receiver():
+            while not stop_event.is_set():
+                try:
+                    client_sock.settimeout(1.0)
+                    data = self.recieve_message(client_sock, 4096)
+                    if not data:
+                        break
+                    if on_data:
+                        on_data(data, client_sock)
+                except socket.timeout:
+                    continue
+                except:
+                    break
+            client_sock.close()
+        recv_thread = threading.Thread(target=receiver, daemon=True)
+        recv_thread.start()
+        return client_sock, recv_thread, stop_event
     def broadcast(self, message, exclude_client=None): # broadcast message to all clients except exclude_client
         with self.client_lock:
             disconnected_clients = []
@@ -453,22 +477,24 @@ class TCP_Server_Base:  # TCP server class
         if not cmd_parts:
             return None
         cmd_name = cmd_parts[0].lower()
-        if cmd_name in self._custom_handlers:
-            handler = self._custom_handlers[cmd_name]
-            run_in_thread = self._custom_handler_threaded.get(cmd_name, False)
+        if ([cmd_name, "server"] in self._custom_handlers):
+            handler = self._custom_handlers[[cmd_name, "server"]]
+            run_in_thread = self._custom_handler_threaded.get(
+                [cmd_name, "server"], False)
             if run_in_thread:
                 self._custom_executor.submit(
-                    self._execute_custom_handler, handler, client_socket, client_address, command
-                )
+                    self._execute_custom_handler, handler, client_socket,
+                    client_address, command)
                 return "Command received, processing in background.\n"
             else:
-                response = self._execute_custom_handler(handler, client_socket, client_address, command)
+                response = self._execute_custom_handler(
+                    handler, client_socket, client_address, command)
                 return response
         else:
             return f"Unknown command: {command}\n"
     def _execute_custom_handler(self, handler, client_socket, client_address, command):
         try:
-            result = handler(client_socket, client_address, command, self)
+            result = handler(client_socket, client_address, command)
             if result is not None:
                 if isinstance(result, str) and not result.endswith('\n'):
                     result += '\n'
@@ -1157,7 +1183,7 @@ class TCP_Server_Base:  # TCP server class
             print("server stopped")
 class TCP_Client_Base:  # TCP client class
     def __init__(self, host=None, client_host='127.0.0.1',
-                 port=65432, client_ports=None, timeout=None,
+                 port=65432, client_port=None, timeout=None,
                  port_add_step=1, max_thread_num=10,
                  is_input_command_in_console=True, is_wait_server=True,
                  max_custom_workers=10):
@@ -1181,7 +1207,7 @@ class TCP_Client_Base:  # TCP client class
         self.file_server_port_list=[]
         self.file_transfer_server_port_lock=threading.Lock()
         self.client_ports_list=[]
-        self.client_ports=client_ports
+        self.client_port=client_port
         self.host = host
         self.client_host = client_host
         self.port = port
@@ -1397,9 +1423,40 @@ class TCP_Client_Base:  # TCP client class
         future = self._custom_executor.submit(func, *args, **kwargs)
         future.add_done_callback(lambda f: self._task_semaphore.release())
         return future
+    def create_temporary_server(self, handler, port=None, max_connections=1):
+        if port is None:
+            port = self.palloc()
+            if port is None:
+                raise RuntimeError("No available port for temporary server")
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server_socket.bind((self.client_host, port))
+        server_socket.listen(max_connections)
+        stop_event = threading.Event()
+        def server_loop():
+            while not stop_event.is_set():
+                try:
+                    server_socket.settimeout(1.0)
+                    client_sock, addr = server_socket.accept()
+                    threading.Thread(target=handler,
+                                     args=(client_sock, addr), daemon=True).start()
+                except socket.timeout:
+                    continue
+                except Exception as e:
+                    if not stop_event.is_set():
+                        print(f"Temporary server error: {e}")
+                    break
+            server_socket.close()
+            self.pfree(port)
+        server_thread = threading.Thread(target=server_loop, daemon=True)
+        server_thread.start()
+        return port, server_thread, stop_event
     def create_temporary_client(self, server_host, server_port, bind_port=None, on_data=None):
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         if bind_port is not None:
+            client_sock.bind((self.client_host, bind_port))
+        else:
+            bind_port = self.palloc()
             client_sock.bind((self.client_host, bind_port))
         client_sock.connect((server_host, server_port))
         stop_event = threading.Event()
@@ -1407,7 +1464,7 @@ class TCP_Client_Base:  # TCP client class
             while not stop_event.is_set():
                 try:
                     client_sock.settimeout(1.0)
-                    data = client_sock.recv(4096)
+                    data = self.recieve_message(client_sock, 4096)
                     if not data:
                         break
                     if on_data:
@@ -1430,10 +1487,10 @@ class TCP_Client_Base:  # TCP client class
                 else:
                     self.client_socket.settimeout(5)
                 print(f"connecting to {self.host}:{self.port}...")
-                if self.client_ports==None:
+                if self.client_port==None:
                     pass
                 else:
-                    self.local_address=(self.client_host, self.client_ports)
+                    self.local_address=(self.client_host, self.client_port)
                     self.client_socket.bind(self.local_address)
                 self.client_socket.connect((self.host, self.port))
                 self.running = True
@@ -1522,7 +1579,7 @@ class TCP_Client_Base:  # TCP client class
         data=client_socket.recv(msg_length)
         return data
     def handle_server_command(self, command):  # deal with special command from server
-        client_id = f"{self.client_host}:{self.client_ports}"
+        client_id = f"{self.client_host}:{self.client_port}"
         if command.lower().split(" ")[0] == "/client_alloc_port_range":
             if command.lower().split(" ")[1]=="no_limit":
                 self.is_hand_alloc_port=False
