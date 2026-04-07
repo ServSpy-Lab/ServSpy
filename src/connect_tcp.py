@@ -1275,8 +1275,8 @@ class TCP_Client_Base:  # TCP client class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
-        self._custom_handlers = {{}, {}}
-        self._custom_handler_threaded = {{}, {}}
+        self._custom_handlers = [{}, {}]
+        self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
         self._task_semaphore = threading.Semaphore(max_custom_workers)
         self.start_TCP_client()
