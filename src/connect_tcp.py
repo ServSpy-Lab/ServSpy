@@ -1445,11 +1445,6 @@ class TCP_Client_Base:  # TCP client class
                 self.minus_latest_port+=self.port_add_step
         else:
             pass
-    def submit_task(self, func, *args, **kwargs):
-        self._task_semaphore.acquire()
-        future = self._custom_executor.submit(func, *args, **kwargs)
-        future.add_done_callback(lambda f: self._task_semaphore.release())
-        return future
     def create_temporary_server(self, handler, port=None, max_connections=1):
         if port is None:
             port = self.palloc()
