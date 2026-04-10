@@ -63,8 +63,8 @@ class TCP_Server_Base:  # TCP server class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
-        self._custom_handlers = {}
-        self._custom_handler_threaded = {}
+        self._custom_handlers = [{}, {}]
+        self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
         self._task_semaphore = threading.Semaphore(max_custom_workers)
         self.start_TCP_Server()
@@ -233,8 +233,16 @@ class TCP_Server_Base:  # TCP server class
         else:
             pass
     def register_command(self, command_name, handler, where_to_run, run_in_thread=False):
-        self._custom_handlers[[command_name, where_to_run]] = handler
-        self._custom_handler_threaded[[command_name, where_to_run]] = run_in_thread
+        registe_index=None
+        if where_to_run=="server":
+            registe_index=0
+        elif where_to_run=="client":
+            registe_index=1
+        else:
+            print(f"Invalid where_to_run value: {where_to_run}, must be 'server' or 'client'")
+            return False
+        self._custom_handlers[registe_index][command_name] = handler
+        self._custom_handler_threaded[registe_index][command_name] = run_in_thread
     def submit_task(self, func, *args, **kwargs):
         self._task_semaphore.acquire()
         future = self._custom_executor.submit(func, *args, **kwargs)
@@ -473,38 +481,45 @@ class TCP_Server_Base:  # TCP server class
                 except:
                     traceback.print_exc()
                     pass
-        cmd_parts = shlex.split(command.strip())
-        if not cmd_parts:
-            return None
-        cmd_name = cmd_parts[0].lower()
-        if ([cmd_name, "server"] in self._custom_handlers):
-            handler = self._custom_handlers[[cmd_name, "server"]]
-            run_in_thread = self._custom_handler_threaded.get(
-                [cmd_name, "server"], False)
-            if run_in_thread:
-                self._custom_executor.submit(
-                    self._execute_custom_handler, handler, client_socket,
-                    client_address, command)
-                return "Command received, processing in background.\n"
-            else:
-                response = self._execute_custom_handler(
-                    handler, client_socket, client_address, command)
-                return response
         else:
-            return f"Unknown command: {command}\n"
-    def _execute_custom_handler(self, handler, client_socket, client_address, command):
+            cmd_parts = shlex.split(command.strip())
+            if not cmd_parts:
+                return None
+            cmd_name = cmd_parts[0].lower()
+            if (cmd_name in self._custom_handlers[0]):
+                handler = self._custom_handlers[0][cmd_name]
+                run_in_thread = self._custom_handler_threaded[0].get(
+                    cmd_name, False)
+                if run_in_thread:
+                    self._custom_executor.submit(
+                        self._execute_custom_handler, handler, command,
+                        client_socket, client_address)
+                    return "Command received, processing in background.\n"
+                else:
+                    response = self._execute_custom_handler(
+                        handler, command, client_socket, client_address)
+                    return response
+            else:
+                print(f"Unknown command: {command}")
+    def _execute_custom_handler(self, handler, command, client_socket=None, client_address=None):
         try:
             result = handler(client_socket, client_address, command)
             if result is not None:
                 if isinstance(result, str) and not result.endswith('\n'):
                     result += '\n'
-                self.send_message(client_socket, result)
+                try:
+                    self.send_message(client_socket, result)
+                except Exception as e:
+                    print(f"Error sending message: {e}")
                 return result
             return None
         except Exception as e:
             error_msg = f"Error in custom command handler: {e}\n"
             traceback.print_exc()
-            self.send_message(client_socket, error_msg)
+            try:
+                self.send_message(client_socket, error_msg)
+            except Exception as e:
+                print(f"Error sending error message: {e}")
             return error_msg
     def file_folder_transfer_server_recv_server_start_thread(  # start a file folder server thread on server
             self, command, client_id, client_socket):
@@ -1164,6 +1179,25 @@ class TCP_Server_Base:  # TCP server class
                                 " with different file list for each client, files and clients",
                                 " should be in pairs, and clients should be in format of (ip, port)"]
                     print("\n"+" ".join(help_text)+"\n")
+                else:
+                    cmd_parts = shlex.split(deal_cmd)
+                    if not cmd_parts:
+                        return None
+                    cmd_name = cmd_parts[0].lower()
+                    if (cmd_name in self._custom_handlers[1]):
+                        handler = self._custom_handlers[1][cmd_name]
+                        run_in_thread = self._custom_handler_threaded[1].get(
+                            cmd_name, False)
+                        if run_in_thread:
+                            self._custom_executor.submit(
+                                self._execute_custom_handler, handler, deal_cmd)
+                            return "Command received, processing in background.\n"
+                        else:
+                            response = self._execute_custom_handler(
+                                handler, deal_cmd)
+                            return response
+                    else:
+                        print("Unrecognized command, input '/help' for available commands")
             except:
                 traceback.print_exc()
                 break
@@ -1245,14 +1279,27 @@ class TCP_Client_Base:  # TCP client class
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
             self.command_decode_table[0]["file_send_resieve_error"])
-        self._custom_handlers = {}
-        self._custom_handler_threaded = {}
+        self._custom_handlers = [{}, {}]
+        self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
         self._task_semaphore = threading.Semaphore(max_custom_workers)
         self.start_TCP_client()
-    def register_command(self, command_name, handler, run_in_thread=False):
-        self._custom_handlers[command_name] = handler
-        self._custom_handler_threaded[command_name] = run_in_thread
+    def register_command(self, command_name, handler, where_to_run, run_in_thread=False):
+        registe_index=None
+        if where_to_run=="server":
+            registe_index=0
+        elif where_to_run=="client":
+            registe_index=1
+        else:
+            print(f"Invalid where_to_run value: {where_to_run}, must be 'server' or 'client'")
+            return False
+        self._custom_handlers[registe_index][command_name] = handler
+        self._custom_handler_threaded[registe_index][command_name] = run_in_thread
+    def submit_task(self, func, *args, **kwargs):
+        self._task_semaphore.acquire()
+        future = self._custom_executor.submit(func, *args, **kwargs)
+        future.add_done_callback(lambda f: self._task_semaphore.release())
+        return future
     def alloc_port(self, port_add_step, port_range_num):
         if self.is_hand_alloc_port==True:
             while self.is_client_port_temp_info_file_locked():
@@ -1418,11 +1465,6 @@ class TCP_Client_Base:  # TCP client class
                 self.minus_latest_port+=self.port_add_step
         else:
             pass
-    def submit_task(self, func, *args, **kwargs):
-        self._task_semaphore.acquire()
-        future = self._custom_executor.submit(func, *args, **kwargs)
-        future.add_done_callback(lambda f: self._task_semaphore.release())
-        return future
     def create_temporary_server(self, handler, port=None, max_connections=1):
         if port is None:
             port = self.palloc()
@@ -1606,20 +1648,45 @@ class TCP_Client_Base:  # TCP client class
         elif shlex.split(command.lower())[0] == "/file_folder":
             self.file_folder_transfer_client_recv_server_start_thread(
                 command, client_id, self.client_socket)
-        cmd_parts = shlex.split(command.strip())
-        if not cmd_parts:
-            return
-        cmd_name = cmd_parts[0].lower()
-        if cmd_name in self._custom_handlers:
-            handler = self._custom_handlers[cmd_name]
-            run_in_thread = self._custom_handler_threaded.get(cmd_name, False)
-            if run_in_thread:
-                self._custom_executor.submit(handler, command, self)
-            else:
-                handler(command, self)
         else:
-            print(f"Unknown server command: {command}")
+            cmd_parts = shlex.split(command.strip())
+            if not cmd_parts:
+                return
+            cmd_name = cmd_parts[0].lower()
+            if cmd_name in self._custom_handlers[0]:
+                handler = self._custom_handlers[0][cmd_name]
+                run_in_thread = self._custom_handler_threaded[0].get(
+                    cmd_name, False)
+                if run_in_thread:
+                    self.submit_task(self._execute_custom_handler,
+                                    handler, command, self.client_socket, client_id)
+                else:
+                    self._execute_custom_handler(
+                        handler, command, self.client_socket, client_id)
+            else:
+                print(f"Unknown server command: {command}")
+    def _execute_custom_handler(self, handler, command, client_socket=None, client_address=None):
+        try:
+            result = handler(client_socket, client_address, command)
+            if result is not None:
+                if isinstance(result, str) and not result.endswith('\n'):
+                    result += '\n'
+                try:
+                    self.send_message(client_socket, result)
+                except Exception as e:
+                    print(f"Error sending message: {e}")
+                return result
+            return None
+        except Exception as e:
+            error_msg = f"Error in custom command handler: {e}\n"
+            traceback.print_exc()
+            try:
+                self.send_message(client_socket, error_msg)
+            except Exception as e:
+                print(f"Error sending error message: {e}")
+            return error_msg
     def interactive_mode(self):  # Interactive mode
+        client_id = f"{self.client_host}:{self.client_port}"
         try:
             while self.running:
                 try:  # get user input
@@ -1640,7 +1707,20 @@ class TCP_Client_Base:  # TCP client class
                         elif shlex.split(message.lower())[0]=="/multiple_file_folder":
                             self.multiple_folder_file_transfer_client_recv_client_start(message)
                         else:
-                            self.send_message(self.client_socket, message)
+                            cmd_name = message[0].lower()
+                            if cmd_name in self._custom_handlers[1]:
+                                handler = self._custom_handlers[1][cmd_name]
+                                run_in_thread = self._custom_handler_threaded[1].get(
+                                    cmd_name, False)
+                                if run_in_thread:
+                                    self.submit_task(self._execute_custom_handler,
+                                                    handler, message, self.client_socket, client_id)
+                                else:
+                                    self._execute_custom_handler(
+                                        handler, message, self.client_socket, client_id)
+                            else:
+                                self.send_message(self.client_socket, message)
+                                print(f"Unknown server command: {message}")
                 except KeyboardInterrupt:
                     print("\nshutting down...")
                     traceback.print_exc()
