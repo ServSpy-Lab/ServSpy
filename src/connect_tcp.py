@@ -1196,11 +1196,11 @@ class TCP_Server_Base:  # TCP server class
                         if run_in_thread:
                             self._custom_executor.submit(
                                 self._execute_custom_handler, handler, deal_cmd)
-                            return "Command received, processing in background.\n"
+                            pass
                         else:
                             response = self._execute_custom_handler(
                                 handler, deal_cmd)
-                            return response
+                            pass
                     else:
                         print("Unrecognized command, input '/help' for available commands")
             except KeyboardInterrupt:
