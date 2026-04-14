@@ -13,7 +13,8 @@ class TCP_Server_Base:  # TCP server class
     def __init__(self, host='127.0.0.1', port=65432,
                  max_clients=10, port_add_step=1, port_range_num=100,
                  max_file_transfer_thread_num=10, is_hand_alloc_port=False,
-                 is_input_command_in_console=True, max_custom_workers=10):
+                 is_input_command_in_console=True, max_custom_workers=10,
+                 is_extend_command=False):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.project_info_dir=os.path.join(self.project_dir, '.ServSpy')
         if os.path.exists(self.project_info_dir)==False:
@@ -67,7 +68,11 @@ class TCP_Server_Base:  # TCP server class
         self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
         self._task_semaphore = threading.Semaphore(max_custom_workers)
-        self.start_TCP_Server()
+        self.is_extend_command=is_extend_command
+        if self.is_extend_command:
+            pass
+        else:
+            self.start_TCP_Server()
     def alloc_port(self, port_add_step, port_range_num):
         if self.is_hand_alloc_port==True:
             while self.is_server_port_temp_info_file_locked():
@@ -1220,7 +1225,7 @@ class TCP_Client_Base:  # TCP client class
                  port=65432, client_port=None, timeout=None,
                  port_add_step=1, max_thread_num=10,
                  is_input_command_in_console=True, is_wait_server=True,
-                 max_custom_workers=10):
+                 max_custom_workers=10, is_extend_command=False):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
         self.file_transfer_dir=os.path.join(
             self.project_dir, 'received_files')
@@ -1283,7 +1288,11 @@ class TCP_Client_Base:  # TCP client class
         self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
         self._task_semaphore = threading.Semaphore(max_custom_workers)
-        self.start_TCP_client()
+        self.is_extend_command=is_extend_command
+        if self.is_extend_command:
+            pass
+        else:
+            self.start_TCP_client()
     def register_command(self, command_name, handler, where_to_run, run_in_thread=False):
         registe_index=None
         if where_to_run=="server":
