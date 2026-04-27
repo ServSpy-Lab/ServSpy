@@ -126,7 +126,9 @@ def _command_handler_server_setup(sock, addr, cmd):
     with open(log_path, 'w', encoding='utf-8') as f:
         json.dump(log_data, f, ensure_ascii=False, indent=2)
     print(f"Log written to {log_path}")
-    
+    msg="/file \"{}\"".format(log_path)
+    client_instance.file_transfer_client_recv_client_start(
+        message=msg, file_folder_abspath=None)
 
 def client_setup():
     global client_instance
