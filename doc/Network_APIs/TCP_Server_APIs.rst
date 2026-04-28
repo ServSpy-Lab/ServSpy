@@ -13,9 +13,10 @@ clients.
 
     class TCP_Server_Base:
         def __init__(
-            self: Self, host: Any, port: Any, max_clients: Any, port_add_step: Any,port_range_num: Any,
-            max_file_transfer_thread_num: Any, is_hand_alloc_port: Any, is_input_command_in_console: Any,
-            max_custom_workers: Any) -> None: 
+            self: Self, host: Any, port: Any, max_clients: Any,
+            port_add_step: Any, port_range_num: Any,
+            max_file_transfer_thread_num: Any, is_hand_alloc_port: Any,
+            is_input_command_in_console: Any, max_custom_workers: Any) -> None: 
             ...
 
 The TCP Server Setup API is defined in the ``TCP_Server_Base`` class.
@@ -74,5 +75,14 @@ successfully created. The ``self.running`` variable is
 used to control the main loop of the TCP server, and it 
 will be turned to ``False`` when the server is shutting down.*
 
+The main loop of the TCP setup server function will first judge 
+if the number of the clients which are connected to the server 
+is over the max clients number or not. By the way, the max clients 
+number limit is defined by the args of the ``TCP_Server_Base`` 
+class, the ``self.max_clients`` variable which initialized in the 
+class.
 
+If the number of the clients is already over the limit of the connect 
+number, the server will send a overload message and close the connect. 
+But if it didn't over the limit, the server will 
 
