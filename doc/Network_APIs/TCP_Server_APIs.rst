@@ -99,6 +99,29 @@ So what can the setup function fo if the it run failed?
 
 First, the try and except code block in the main server loop 
 will detect if the error is an ``OSError``. If it is, the 
-main loop will exit directly, because the oserror is a very 
-series error with security danger.
+main loop will exit directly.
 
+Secondly, if the error is from the network socket, it will first 
+output the error message and also stop the server by calling 
+the function ``stop``. And the stop function has been defined as: 
+
+.. code-block:: python
+
+    def stop(self: Self) -> None: ...
+
+For the stop tcp server function, it first set the ``self.running`` 
+variable to False, for stop the main loop of the server. 
+After that, it calls the ``free_port`` function to free the 
+port which has been alloced. And the ``free_port`` has been 
+defined as:
+
+.. code-block:: python
+
+    def free_port(self: Self) -> None: ...
+
+*Note: For more details of ``free_port`` function, please visit ...*
+
+At the end of the operations, 
+
+TCP Server handling information API
+-----------------------------------
