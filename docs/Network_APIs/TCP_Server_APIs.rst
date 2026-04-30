@@ -206,4 +206,3 @@ It verifies the server is running and the socket is valid, then:
 These methods form the server's client I/O loop 
 and ensure reliable message exchange for connected 
 TCP clients.
-
