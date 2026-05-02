@@ -137,7 +137,7 @@ in the ``__init__`` method.*
     # client_address: tuple e.g. ('127.0.0.1', 12345)
     # client_socket: socket.socket
     # client_id = f"{client_address[0]}:{client_address[1]}"
-    self.clients[client_address: ] = {
+    self.clients[client_address] = {
         'socket': client_socket,
         'address': client_address,
         'id': client_id,
@@ -152,7 +152,7 @@ and send messages.
 
 .. code-block:: python
 
-    def handle_client(self, client_socket, client_address):
+    def handle_client(self: Self, client_socket: Any, client_address: Any) -> None:
         ...
 
 `handle_client` is the main per-client handler in 
@@ -180,7 +180,7 @@ please visit ...*
 
 .. code-block:: python
 
-    def recieve_message(self, client_socket, msg_length):
+    def recieve_message(self: Self, client_socket: Any, msg_length: Int) -> Any:
         ...
 
 `recieve_message` is a thin wrapper around socket receive operations. 
@@ -191,7 +191,7 @@ by the caller.
 
 .. code-block:: python
 
-    def send_message(self, client_socket, message):
+    def send_message(self: Self, client_socket: Any, message: Any) -> True|False:
         ...
 
 `send_message` sends data back to a specific connected client.
