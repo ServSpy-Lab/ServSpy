@@ -214,4 +214,112 @@ These methods form the server's client I/O loop
 and ensure reliable message exchange for connected 
 TCP clients.
 
-TCP Server 
+TCP Server command API
+----------------------
+
+The server supports several built-in client commands and a command dispatcher.
+The main entry point is the ``handle_command`` method, which is invoked for any
+message starting with ``/``.
+
+Built-in client commands include:
+
+- ``/help``: returns the available command list and usage hints.
+- ``/time``: returns the current server time.
+- ``/clients``: returns the list of connected client IDs.
+- ``/quit``: returns a goodbye message and disconnects the client.
+- ``/file <file_path> <client_id>``: starts a file transfer request from client to server.
+- ``/file_folder <folder_path> <client_id>``: starts a folder transfer request from client to server.
+- ``/server_file_transfer_port <port> <client_id>``: internal protocol message used to coordinate file transfer ports.
+
+If a command is not recognized by the built-in handler, ``handle_command`` will
+attempt to dispatch it to a custom registered command handler.
+
+.. code-block:: python
+
+    def register_command(
+        self: Self, command_name: Any, handler: Any,
+        where_to_run: Any, run_in_thread: Any=False) -> bool: ...
+
+This extension API allows server-side and console-side custom commands to be
+registered dynamically. Valid values for ``where_to_run`` are ``"server"`` and
+``"client"``.
+
+TCP Server console commands
+---------------------------
+
+The server console input thread accepts administrative commands when
+``is_input_command_in_console`` is ``True``. Supported console commands include:
+
+- ``/stop``: stops the server and closes all active connections.
+- ``/status``: prints the current connection count and running state.
+- ``/clients``: prints the connected clients and their connection times.
+- ``/send_msg <message...> <client_id1> <client_id2> ...``: sends one or more messages to specific clients.
+- ``/file <file_path> <client_id>``: sends a file from the server to a specific client.
+- ``/file_folder <folder_path> <client_id>``: sends a folder from the server to a specific client.
+- ``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> ...``: sends multiple files to multiple clients.
+- ``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> <client2> ...``: sends different file lists to different clients.
+- ``/help``: prints a help summary of console commands.
+
+These console commands make it easy to manage the active server and perform
+server-initiated file transfers without modifying the code.
+
+TCP Server file transfer API
+----------------------------
+
+The TCP server contains a file transfer subsystem that supports both client-to-server
+and server-to-client transfers.
+
+Client-to-server transfer flow:
+
+1. The client sends ``/file`` or ``/file_folder`` to request a transfer.
+2. ``handle_command`` starts a dedicated file-server thread using
+   ``file_transfer_server_recv_server_start_thread``.
+3. The server allocates an ephemeral transfer port with ``palloc`` and sends
+   ``/server_file_transfer_port <port> <client_id>`` back to the client.
+4. The client connects to that transfer port and sends file metadata, including
+   length-prefixed filename and file size.
+5. The server receives the file and writes it under ``received_files``.
+
+Server-to-client transfer flow:
+
+- ``file_transfer_server_recv_client_start`` is used to initiate outgoing
+  transfers from server to a connected client.
+- The server sends transfer commands to the client socket and waits for the
+  client to establish the file transfer connection.
+- Folder transfers are performed recursively, with each file transfer respecting
+  ``self.max_file_transfer_thread_num`` and the configured semaphore limit.
+
+Common file transfer helper methods include:
+
+- ``file_transfer_server_recv_server_start``: receives file data from a client.
+- ``file_transfer_server_recv_client_start``: sends a file or folder to a client.
+- ``file_transfer_mode``: performs the low-level client-side transfer handshake.
+- ``file_transfer_mode_recv``: performs the low-level receive-side transfer handshake.
+
+Port allocation API
+-------------------
+
+When ``is_hand_alloc_port`` is ``True``, the server uses manual port allocation
+and lock files to avoid conflicts across multiple server instances. The relevant
+methods are:
+
+- ``alloc_port``: allocate a port range for the server.
+- ``free_port``: release the allocated port range when the server stops.
+- ``hand_alloc_port`` and ``hand_free_port``: internal helpers used by the manual allocation flow.
+
+This mode is useful when the server must reserve a controlled range of ports
+for client-file transfers or when multiple server processes share the same host.
+
+TCP Server helper APIs
+----------------------
+
+The following helper methods are also available on ``TCP_Server_Base``:
+
+- ``broadcast(self, message, exclude_client=None)``: broadcast a message to all connected clients.
+- ``send_msg_to_specific_client(self, message)``: send a message to one or more specific clients by address.
+- ``submit_task(self, func, *args, **kwargs)``: submit work to the server's internal thread pool.
+- ``create_temporary_server(self, handler, port=None, max_connections=1)``: start a temporary TCP server for short-lived tasks.
+- ``create_temporary_client(self, server_host, server_port, bind_port=None, on_data=None)``: start a temporary client that receives data asynchronously.
+
+These APIs make it easier to extend the base TCP server for custom command handling,
+background tasks, and temporary connections.
