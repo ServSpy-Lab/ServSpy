@@ -170,17 +170,28 @@ the arguments which has been defined in the
 change are ``port_add_step``, ``port_range_num`` 
 and ``is_hand_alloc_port``.*
 
-- receiving raw bytes from the socket using ``recieve_message``
+- receiving raw bytes from the socket using `recieve_message`
 - buffering incoming data until newline-terminated messages are complete
 - splitting and processing each message line-by-line
-- routing special commands beginning with ``/`` to ``handle_command``
+- routing special commands beginning with ``/`` to `handle_command`
 
-*Note: The ``handle_command`` function is defined as:*
+The `handle_command` function is defined as: 
 
 .. code-block:: python
 
     def handle_command(self: Self, client_socket: Any, client_address: Any, command: Any) -> None:
         ...
+
+In `handle_command`, there are variable conditional 
+branches to handle built-in commands like ``/help``, 
+``/time``, ``/clients``, ``/quit``, and some file 
+transfer commands. If you already added more commands 
+by the command extension API, the function will 
+determine if the inputed message matched the extension 
+commands.
+
+*Note: For more details of the command extension API, 
+please visit ...*
 
 - logging normal chat messages and acknowledging receipt
 - removing the client from ``self.clients`` and closing the socket when the client disconnects or an error occurs
@@ -190,11 +201,12 @@ and ``is_hand_alloc_port``.*
     def recieve_message(self: Self, client_socket: Any, msg_length: Int) -> Any:
         ...
 
-`recieve_message` is a thin wrapper around socket receive operations. 
-It reads up to ``msg_length`` bytes from the given 
-``client_socket`` and returns the raw byte payload. 
-Message decoding and newline message framing are handled 
-by the caller.
+`recieve_message` is a thin wrapper around socket 
+receive operations. It reads up to ``msg_length`` 
+bytes from the given ``client_socket`` and 
+returns the raw byte payload. Message decoding 
+and newline message framing are handled by the 
+caller.
 
 .. code-block:: python
 
