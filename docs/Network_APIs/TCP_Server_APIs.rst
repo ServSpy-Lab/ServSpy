@@ -191,7 +191,7 @@ determine if the inputed message matched the extension
 commands.
 
 *Note: For more details of the command extension API, 
-please visit ...*
+and the built-in commands, please visit ...*
 
 - logging normal chat messages and acknowledging receipt
 - removing the client from ``self.clients`` and closing the socket when the client disconnects or an error occurs
@@ -229,11 +229,25 @@ TCP clients.
 TCP Server command API
 ----------------------
 
-The server supports several built-in client commands and a command dispatcher.
-The main entry point is the ``handle_command`` method, which is invoked for any
-message starting with ``/``.
+The server supports several built-in commands 
+and a command extension API. The main entry 
+point is the ``handle_command`` method, which 
+is invoked for any message starting with ``/``.
 
-Built-in client commands include:
+We support two solutions for command handling, 
+one is input a command in the console, and 
+the other is recieving a command from other 
+clients, and you can also call the functions 
+which are defined for the commands in the code.
+
+*Note: You can select the solution which you 
+want to use by changing the args of the 
+`TCP_Server_Base` class, the arg is 
+``is_input_command_in_console``. ``True`` is 
+allow the server to input the command in 
+console, while ``False`` is don't allow.*
+
+Built-in client commands include: 
 
 - ``/help``: returns the available command list and usage hints.
 - ``/time``: returns the current server time.
