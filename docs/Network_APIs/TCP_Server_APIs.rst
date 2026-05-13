@@ -231,7 +231,7 @@ TCP Server command API
 
 The server supports several built-in commands 
 and a command extension API. The main entry 
-point is the ``handle_command`` method, which 
+point is the `handle_command` method, which 
 is invoked for any message starting with ``/``.
 
 We support two solutions for command handling, 
@@ -247,7 +247,7 @@ want to use by changing the args of the
 allow the server to input the command in 
 console, while ``False`` is don't allow.*
 
-Built-in client commands include: 
+Built-in client commands include:
 
 - ``/help``: returns the available command list and usage hints.
 - ``/time``: returns the current server time.
@@ -257,8 +257,18 @@ Built-in client commands include:
 - ``/file_folder <folder_path> <client_id>``: starts a folder transfer request from client to server.
 - ``/server_file_transfer_port <port> <client_id>``: internal protocol message used to coordinate file transfer ports.
 
-If a command is not recognized by the built-in handler, ``handle_command`` will
-attempt to dispatch it to a custom registered command handler.
+In `handle_command`, the server will first 
+check if the command matches any built-in commands. 
+If it dose, the `handle_command` will call the 
+functions which are defined for the commands.
+
+If a command is not recognized by the built-in handler, 
+`handle_command` will check if it matches any 
+registered custom commands from the command extension 
+API. If the command is already registered, the 
+`handle_command` will call the function defined 
+for that command. The command extension API is 
+defined as:
 
 .. code-block:: python
 
@@ -266,9 +276,34 @@ attempt to dispatch it to a custom registered command handler.
         self: Self, command_name: Any, handler: Any,
         where_to_run: Any, run_in_thread: Any=False) -> bool: ...
 
-This extension API allows server-side and console-side custom commands to be
-registered dynamically. Valid values for ``where_to_run`` are ``"server"`` and
-``"client"``.
+The args of the `register_command` function 
+are as follows:
+
+- ``command_name``: The name of the command to register.
+
+*Note: The ``command_name`` should start with a slash 
+(e.g., ``/my_command``) to be recognized as a command.*
+
+- ``handler``: The function to call when the command is received.
+- ``where_to_run``: Specifies where the command should be executed.
+- ``run_in_thread``: A boolean indicating whether to run the command in a separate thread.
+
+This extension API allows server-side and 
+console-side custom commands to be registered 
+dynamically. Valid values for ``where_to_run`` 
+are ``"server"`` and ``"client"``. The ``"server"`` 
+means the command will be handled when a client 
+sends the command, while the ``"client"`` means 
+the command will be handled when the server input 
+the command in console.
+
+The ways to run the command will be different 
+according to the args ``run_in_thread``. If 
+``run_in_thread`` is ``True``, the command handler 
+will be executed in a separate thread from the 
+server's thread pool. If ``run_in_thread`` is 
+``False``, the command handler will be executed 
+synchronously in the main server thread.
 
 TCP Server console commands
 ---------------------------
