@@ -79,12 +79,19 @@ def _command_handler_server_setup(sock, addr, cmd):
         return
     command = cmd_parts[1]
     client_addr = cmd_parts[2]
+    log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+    command_counter_path=os.path.join(log_dir, "command_counter.txt")
     with command_counter_lock:
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+        else:
+            with open(command_counter_path, "r", encoding="utf-8") as f:
+                command_counter=int(f.read())
         command_counter += 1
         cmd_id = command_counter
-    log_dir = os.path.join(os.path.dirname(__file__), 'logs')
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
+        with open(os.path.join(log_dir, "command_counter.txt"),
+                'w', encoding='utf-8') as f:
+            f.write(str(cmd_id))
     log_filename = f"{cmd_id}.json"
     log_path = os.path.join(log_dir, log_filename)
     try:
