@@ -10,7 +10,7 @@ from . import connect_tcp
 from datetime import datetime
 server_instance=None
 client_instance=None
-command_counter=0
+command_counter={}
 command_counter_lock=threading.Lock()
 def _setup_command():
     print("Setting up server command...")
@@ -58,8 +58,11 @@ def _command_handler(sock, addr, cmd):
         clients_list=[]
         commands_list=[]
     for pair in command_client_pair:
+        client_id=0
         for msg in pair[0]:
-            command_msg="/command"+" "+shlex.quote(msg)+" "
+            command_msg=("/command"+" "+shlex.quote(msg)+" "+
+                         shlex.quote(str(len(pair[0])))+" "+
+                         shlex.quote(str(client_id))+" ")
             for client in pair[1]:
                 temp_msg=command_msg+shlex.quote(str(client))+"\n"
                 client_socket=client_class[client]["socket"]
@@ -78,21 +81,25 @@ def _command_handler_server_setup(sock, addr, cmd):
         print("Invalid command format.")
         return
     command = cmd_parts[1]
-    client_addr = cmd_parts[2]
+    client_addr = cmd_parts[4]
+    command_total_num=int(cmd_parts[2])
+    client_id=cmd_parts[3]
     log_dir = os.path.join(os.path.dirname(__file__), 'logs')
-    command_counter_path=os.path.join(log_dir, "command_counter.txt")
+    command_counter_path=os.path.join(log_dir, "command_counter.json")
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    # else:
+    #     if os.path.exists(command_counter_path):
+    #         with open(command_counter_path, "r", encoding="utf-8") as f:
+    #             command_counter=json.load(f)
+    #     command_total_num+=int(command_counter[str(client_id)])
     with command_counter_lock:
-        if not os.path.exists(log_dir):
-            os.makedirs(log_dir)
+        if str(client_id) not in command_counter:
+            command_counter[str(client_id)]=1
         else:
-            with open(command_counter_path, "r", encoding="utf-8") as f:
-                command_counter=int(f.read())
-        command_counter += 1
-        cmd_id = command_counter
-        with open(os.path.join(log_dir, "command_counter.txt"),
-                'w', encoding='utf-8') as f:
-            f.write(str(cmd_id))
-    log_filename = f"{cmd_id}.json"
+            command_counter[str(client_id)] += 1
+        cmd_id = command_counter[str(client_id)]
+    log_filename = "logs{}.json".format("_"+str(client_id))
     log_path = os.path.join(log_dir, log_filename)
     try:
         result = subprocess.run(
@@ -110,6 +117,8 @@ def _command_handler_server_setup(sock, addr, cmd):
     log_line = {
         "timestamp": datetime.now().isoformat(),
         "command": command,
+        "cmd_id": str(cmd_id),
+        "client_id": str(client_id),
         "client": client_addr,
         "from": str(addr),
         "output": output,
@@ -130,11 +139,17 @@ def _command_handler_server_setup(sock, addr, cmd):
         json.dump(log_data, f, ensure_ascii=False, indent=2)
     print(f"Log written to {log_path}")
     msg="/file \"{}\"".format(log_path)
-    client_instance.file_transfer_client_recv_client_start(
-        message=msg, file_folder_abspath=None)
-    client_instance.send_message(
-        client_socket=client_instance.client_socket,
-        message="/command_done \"{}\"".format(log_filename))
+    if command_counter[str(client_id)]==int(command_total_num):
+        print(command_counter[str(client_id)])
+        with open(command_counter_path, 'w', encoding='utf-8') as f:
+            json.dump(command_counter, f)
+        client_instance.file_transfer_client_recv_client_start(
+            message=msg, file_folder_abspath=None)
+        client_instance.send_message(
+            client_socket=client_instance.client_socket,
+            message="/command_done \"{}\"".format(log_filename))
+    else:
+        pass
     print("Dealing the command seccessfully!")
 def _command_done_dealing_server(sock, addr, cmd):
     log_filename=shlex.split(cmd)[1]
