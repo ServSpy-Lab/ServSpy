@@ -1,6 +1,7 @@
 import os
 import ast
 import json
+import copy
 import shlex
 import shutil
 import traceback
@@ -86,19 +87,21 @@ def _command_handler_server_setup(sock, addr, cmd):
     client_id=cmd_parts[3]
     log_dir = os.path.join(os.path.dirname(__file__), 'logs')
     command_counter_path=os.path.join(log_dir, "command_counter.json")
+    # pre_command_total_num=1
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     # else:
     #     if os.path.exists(command_counter_path):
     #         with open(command_counter_path, "r", encoding="utf-8") as f:
     #             command_counter=json.load(f)
-    #     command_total_num+=int(command_counter[str(client_id)])
+    #         command_total_num+=int(command_counter[str(client_id)])
+    #         pre_command_total_num=int(command_counter[str(client_id)])
     with command_counter_lock:
         if str(client_id) not in command_counter:
             command_counter[str(client_id)]=1
         else:
             command_counter[str(client_id)] += 1
-        cmd_id = command_counter[str(client_id)]
+        cmd_id = copy.copy(command_counter[str(client_id)])
     log_filename = "logs{}.json".format("_"+str(client_id))
     log_path = os.path.join(log_dir, log_filename)
     try:
@@ -139,10 +142,10 @@ def _command_handler_server_setup(sock, addr, cmd):
         json.dump(log_data, f, ensure_ascii=False, indent=2)
     print(f"Log written to {log_path}")
     msg="/file \"{}\"".format(log_path)
-    if command_counter[str(client_id)]==int(command_total_num):
-        print(command_counter[str(client_id)])
+    if cmd_id==command_total_num:
         with open(command_counter_path, 'w', encoding='utf-8') as f:
             json.dump(command_counter, f)
+        command_counter[str(client_id)]=0
         client_instance.file_transfer_client_recv_client_start(
             message=msg, file_folder_abspath=None)
         client_instance.send_message(
