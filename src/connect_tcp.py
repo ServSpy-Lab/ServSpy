@@ -496,7 +496,7 @@ class TCP_Server_Base:  # TCP server class
                 run_in_thread = self._custom_handler_threaded[0].get(
                     cmd_name, False)
                 if run_in_thread:
-                    self._custom_executor.submit(
+                    self.submit_task(
                         self._execute_custom_handler, handler, command,
                         client_socket, client_address)
                     return "Command received, processing in background.\n"
@@ -1194,7 +1194,7 @@ class TCP_Server_Base:  # TCP server class
                         run_in_thread = self._custom_handler_threaded[1].get(
                             cmd_name, False)
                         if run_in_thread:
-                            self._custom_executor.submit(
+                            self.submit_task(
                                 self._execute_custom_handler, handler, deal_cmd)
                             pass
                         else:

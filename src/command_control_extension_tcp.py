@@ -1,6 +1,7 @@
 import os
 import ast
 import json
+import copy
 import shlex
 import shutil
 import traceback
@@ -10,7 +11,7 @@ from . import connect_tcp
 from datetime import datetime
 server_instance=None
 client_instance=None
-command_counter=0
+command_counter={}
 command_counter_lock=threading.Lock()
 def _setup_command():
     print("Setting up server command...")
@@ -57,15 +58,19 @@ def _command_handler(sock, addr, cmd):
         clients_num=0
         clients_list=[]
         commands_list=[]
+    client_id=0
     for pair in command_client_pair:
         for msg in pair[0]:
-            command_msg="/command"+" "+shlex.quote(msg)+" "
+            command_msg=("/command"+" "+shlex.quote(msg)+" "+
+                         shlex.quote(str(len(pair[0])))+" ")
             for client in pair[1]:
-                temp_msg=command_msg+shlex.quote(str(client))+"\n"
+                temp_msg=(command_msg+shlex.quote(str(client_id))+
+                          " "+shlex.quote(str(client))+"\n")
                 client_socket=client_class[client]["socket"]
                 server_instance.send_message(
                     client_socket=client_socket, message=temp_msg)
                 print(f"Sending command to clients: {command_msg}")
+            client_id+=1
 def _command_handler_server_setup(sock, addr, cmd):
     global command_counter
     print(f"Received command from {addr}: {cmd}")    
@@ -78,14 +83,19 @@ def _command_handler_server_setup(sock, addr, cmd):
         print("Invalid command format.")
         return
     command = cmd_parts[1]
-    client_addr = cmd_parts[2]
-    with command_counter_lock:
-        command_counter += 1
-        cmd_id = command_counter
+    client_addr = cmd_parts[4]
+    command_total_num=int(cmd_parts[2])
+    client_id=cmd_parts[3]
     log_dir = os.path.join(os.path.dirname(__file__), 'logs')
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
-    log_filename = f"{cmd_id}.json"
+    with command_counter_lock:
+        if str(client_id) not in command_counter:
+            command_counter[str(client_id)]=1
+        else:
+            command_counter[str(client_id)] += 1
+        cmd_id = copy.copy(command_counter[str(client_id)])
+    log_filename = "logs{}.json".format("_"+str(client_id))
     log_path = os.path.join(log_dir, log_filename)
     try:
         result = subprocess.run(
@@ -103,6 +113,8 @@ def _command_handler_server_setup(sock, addr, cmd):
     log_line = {
         "timestamp": datetime.now().isoformat(),
         "command": command,
+        "cmd_id": str(cmd_id),
+        "client_id": str(client_id),
         "client": client_addr,
         "from": str(addr),
         "output": output,
@@ -123,28 +135,34 @@ def _command_handler_server_setup(sock, addr, cmd):
         json.dump(log_data, f, ensure_ascii=False, indent=2)
     print(f"Log written to {log_path}")
     msg="/file \"{}\"".format(log_path)
-    client_instance.file_transfer_client_recv_client_start(
-        message=msg, file_folder_abspath=None)
-    client_instance.send_message(
-        client_socket=client_instance.client_socket,
-        message="/command_done \"{}\"".format(log_filename))
+    if cmd_id==command_total_num:
+        command_counter[str(client_id)]=0
+        client_instance.file_transfer_client_recv_client_start(
+            message=msg, file_folder_abspath=None)
+        client_instance.send_message(
+            client_socket=client_instance.client_socket,
+            message="/command_done \"{}\" \"{}\"".format(log_filename, log_path))
+    else:
+        pass
     print("Dealing the command seccessfully!")
 def _command_done_dealing_server(sock, addr, cmd):
-    log_filename=shlex.split(cmd)[1]
+    cmd_parts = shlex.split(cmd)
+    log_filename = cmd_parts[1]
+    log_path = cmd_parts[2]
     log_dir=os.path.join(os.path.dirname(__file__), 'logs')
     if os.path.exists(log_dir):
         pass
     else:
         os.mkdir(log_dir)
     received_log_file=os.path.join(
-        server_instance.file_transfer_dir, log_filename)
+        server_instance.file_transfer_dir, log_path)
     try:
         shutil.move(
             received_log_file, os.path.join(log_dir, log_filename))
         print("Command Done!")
     except:
         traceback.print_exc()
-        print("ErrorWhileMovingTheLogFile: moving log file faled.")
+        print("ErrorWhileMovingTheLogFile: moving log file failed.")
 def client_setup():
     global client_instance
     client_instance=connect_tcp.TCP_Client_Base(
