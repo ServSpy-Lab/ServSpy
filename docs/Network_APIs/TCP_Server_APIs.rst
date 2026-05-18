@@ -179,7 +179,9 @@ The `handle_command` function is defined as:
 
 .. code-block:: python
 
-    def handle_command(self: Self, client_socket: Any, client_address: Any, command: Any) -> None:
+    def handle_command(
+        self: Self, client_socket: Any,
+        client_address: Any, command: Any) -> None:
         ...
 
 In `handle_command`, there are variable conditional 
@@ -285,6 +287,15 @@ are as follows:
 (e.g., ``/my_command``) to be recognized as a command.*
 
 - ``handler``: The function to call when the command is received.
+
+*Note: The ``handler`` function must have and only have three 
+parameters which are ``client_socket``, ``client_address``, 
+and ``command``. ``client_socket`` will be accepted as the 
+network socket object who sent the command, ``client_address`` 
+will be accepted as the address of the client that sent the 
+command, while the ``command`` parameter will contain the actual 
+command string.*
+
 - ``where_to_run``: Specifies where the command should be executed.
 - ``run_in_thread``: A boolean indicating whether to run the command in a separate thread.
 
@@ -297,6 +308,10 @@ sends the command, while the ``"client"`` means
 the command will be handled when the server input 
 the command in console.
 
+*Note: It's true that the valid values for ``where_to_run`` 
+are too strange, but we stile didn't find a better way to 
+define that.*
+
 The ways to run the command will be different 
 according to the args ``run_in_thread``. If 
 ``run_in_thread`` is ``True``, the command handler 
@@ -304,6 +319,64 @@ will be executed in a separate thread from the
 server's thread pool. If ``run_in_thread`` is 
 ``False``, the command handler will be executed 
 synchronously in the main server thread.
+
+*Note: We store the registered commands in a list variable 
+with two dictionary in its inner layer, and the list variable 
+is defined as ``self._custom_handlers`` which initialized in 
+the `__init__` method. The command and its handler will be 
+stored in the one of the dictionaries according to the value 
+of ``where_to_run``. For ``"server"``, it will be stored in 
+the first dictionary, other wise in the second dictionary. 
+And the key of the dictionaries are all the command name, 
+and the value is another dictionary containing the handler 
+function. And there is also another list variable defined as 
+``self._custom_handler_threaded`` which initialized in the 
+`__init__` method, it contains all the commands that should 
+be run in a separate thread or not.*
+
+.. code-block:: python
+
+    self._custom_handlers = [{}, {}]
+    self._custom_handler_threaded = [{}, {}]
+
+After that, the command handler will be called according to 
+the command name, and run them by a command executor which 
+is defined as:
+
+.. code-block:: python
+
+    def _execute_custom_handler(
+        self:Self, handler:Any, command:Any,
+        client_socket:Any=None, client_address:Any=None) -> Any:
+        ...
+
+In this excecutor function, there is a try and except code 
+block to catch the error when running the command handler. 
+If there is an error when running the command handler, the 
+server will log the error message and also send the error 
+message back to the client if the command is from the client 
+side. And in the try code block, the command handler will be 
+called with the command arguments, and also the client 
+socket and client address if the command is from the client 
+side.
+
+If the command don't run in the thread, the command executor 
+will be called directly in the `handle_command` function. 
+But if the command should run in a separate thread, the command 
+executor will be submitted to the server's thread pool using 
+the `submit_task` method, which is defined as:
+
+.. code-block:: python
+
+    def submit_task(self: Self, func: Any, *args: Any, **kwargs: Any) -> None:
+        ...
+
+The `submit_task` method is a helper function that submits 
+a callable to the server's internal thread pool executor. 
+It accepts a function and its arguments, and schedules it 
+for execution in a separate thread. This allows long-running 
+or blocking command handlers to run without blocking the 
+main server loop.
 
 TCP Server console commands
 ---------------------------
