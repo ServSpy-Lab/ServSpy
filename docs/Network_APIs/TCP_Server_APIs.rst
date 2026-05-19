@@ -401,8 +401,9 @@ are defined as:
 TCP Server console commands
 ---------------------------
 
-The server console input thread accepts administrative commands when
-``is_input_command_in_console`` is ``True``. Supported console commands include:
+The server console input thread accepts administrative 
+commands when ``is_input_command_in_console`` is ``True``. 
+Supported console commands include:
 
 - ``/stop``: stops the server and closes all active connections.
 - ``/status``: prints the current connection count and running state.
@@ -414,14 +415,21 @@ The server console input thread accepts administrative commands when
 - ``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> <client2> ...``: sends different file lists to different clients.
 - ``/help``: prints a help summary of console commands.
 
-These console commands make it easy to manage the active server and perform
-server-initiated file transfers without modifying the code.
+These console commands make it easy to manage the 
+active server and perform server-initiated file 
+transfers without modifying the code.
+
+*Note: There is too long to introduce all the 
+commands in the console command list, so for 
+more details of the console commands, please 
+visit ...*
 
 TCP Server file transfer API
 ----------------------------
 
-The TCP server contains a file transfer subsystem that supports both client-to-server
-and server-to-client transfers.
+The TCP server contains a file transfer subsystem 
+that supports both client-to-server and server-to-client 
+transfers.
 
 Client-to-server transfer flow:
 
@@ -453,21 +461,24 @@ Common file transfer helper methods include:
 Port allocation API
 -------------------
 
-When ``is_hand_alloc_port`` is ``True``, the server uses manual port allocation
-and lock files to avoid conflicts across multiple server instances. The relevant
+When ``is_hand_alloc_port`` is ``True``, the server 
+uses manual port allocation and lock files to avoid 
+conflicts across multiple server instances. The relevant
 methods are:
 
 - ``alloc_port``: allocate a port range for the server.
 - ``free_port``: release the allocated port range when the server stops.
 - ``hand_alloc_port`` and ``hand_free_port``: internal helpers used by the manual allocation flow.
 
-This mode is useful when the server must reserve a controlled range of ports
-for client-file transfers or when multiple server processes share the same host.
+This mode is useful when the server must reserve a 
+controlled range of ports for client-file transfers 
+or when multiple server processes share the same host.
 
 TCP Server helper APIs
 ----------------------
 
-The following helper methods are also available on ``TCP_Server_Base``:
+The following helper methods are also available 
+on ``TCP_Server_Base``:
 
 - ``broadcast(self, message, exclude_client=None)``: broadcast a message to all connected clients.
 - ``send_msg_to_specific_client(self, message)``: send a message to one or more specific clients by address.
@@ -475,5 +486,6 @@ The following helper methods are also available on ``TCP_Server_Base``:
 - ``create_temporary_server(self, handler, port=None, max_connections=1)``: start a temporary TCP server for short-lived tasks.
 - ``create_temporary_client(self, server_host, server_port, bind_port=None, on_data=None)``: start a temporary client that receives data asynchronously.
 
-These APIs make it easier to extend the base TCP server for custom command handling,
-background tasks, and temporary connections.
+These APIs make it easier to extend the base 
+TCP server for custom command handling, background 
+tasks, and temporary connections.
