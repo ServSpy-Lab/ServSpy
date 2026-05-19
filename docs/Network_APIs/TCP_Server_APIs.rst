@@ -378,6 +378,26 @@ for execution in a separate thread. This allows long-running
 or blocking command handlers to run without blocking the 
 main server loop.
 
+As a high level TCP network protocal, A temporary TCP server 
+and a client can also be created very simply. The temporary 
+TCP server or client can be satisfied for the functions which 
+need other sockets or ports for avoid to have a conflict with 
+the main server or client loop. For example, file transfer 
+functions. The APIs to create temporary TCP server and client 
+are defined as:
+
+.. code-block:: python
+
+    def create_temporary_server(
+        self: Self, handler: Any, port: Any=None,
+        max_connections: Any=1) -> Any:
+        ...
+
+    def create_temporary_client(
+        self: Self, server_host: Any, server_port: Any,
+        bind_port: Any=None, on_data: Any=None) -> Any:
+        ...
+
 TCP Server console commands
 ---------------------------
 
