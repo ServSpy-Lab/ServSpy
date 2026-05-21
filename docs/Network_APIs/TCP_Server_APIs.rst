@@ -494,16 +494,51 @@ The file transfer API for you to use includes:
         message: Any) -> None|False:
         ...
 
+    def multiple_file_multiple_client_transfer_server_recv_client_start(
+        self: Self,
+        message: Any) -> None|False:
+        ...
+    
+    def diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start(
+        self: Self,
+        message: Any) -> None|False:
+        ...
+
+We recommand you that if you want to use the mono-file 
+transfer function, use the `file_transfer_server_recv_client_start_thread` 
+function first, unless the functions which called the 
+mono-file transfer function are already in a separate 
+thread, then you can call the `file_transfer_server_recv_client_start` 
+function directly, or the file transfer functions are 
+may not very stateble. And for the other file transfer 
+functions, we don't very recommand you to use them in 
+threads, because there are already some thread control 
+mechanisms in the functions, so don't be worry about 
+the concurrent performance. And if you call them in 
+threads, there may be some unexpected errors and also 
+unessarly complexity.
+
+*Note: The file transfer API functions are designed to be 
+called from the command handlers for both client-initiated 
+and server-initiated transfers. They handle the coordination 
+of transfer ports, client connections, and the actual file 
+data transfer operations.*
+
 Client-to-server transfer flow:
 
-1. The client sends ``/file`` or ``/file_folder`` to request a transfer.
-2. ``handle_command`` starts a dedicated file-server thread using
-   ``file_transfer_server_recv_server_start_thread``.
-3. The server allocates an ephemeral transfer port with ``palloc`` and sends
-   ``/server_file_transfer_port <port> <client_id>`` back to the client.
-4. The client connects to that transfer port and sends file metadata, including
-   length-prefixed filename and file size.
-5. The server receives the file and writes it under ``received_files``.
+1. The client sends ``/file`` or ``/file_folder`` to 
+   request a transfer.
+2. ``handle_command`` starts a dedicated file-server 
+   thread using ``file_transfer_server_recv_server_start_thread``.
+3. The server allocates an ephemeral transfer port 
+   with ``palloc`` and sends 
+   ``/server_file_transfer_port <port> <client_id>`` 
+   back to the client.
+4. The client connects to that transfer port and sends 
+   file metadata, including length-prefixed filename 
+   and file size.
+5. The server receives the file and writes it under 
+   ``received_files``.
 
 Server-to-client transfer flow:
 
