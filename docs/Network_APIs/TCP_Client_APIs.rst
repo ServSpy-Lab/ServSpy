@@ -4,8 +4,9 @@ The TCP Client APIs
 TCP Client setup API
 --------------------
 
-The TCP Client Setup API is used to create a TCP client that connects to
-``TCP_Server_Base`` and supports message exchange, extension commands,
+The TCP Client Setup API is used to create a TCP 
+client that connects to ``TCP_Server_Base`` and 
+supports message exchange, extension commands, 
 interactive console input, and file transfer.
 
 .. code-block:: python
@@ -22,10 +23,11 @@ interactive console input, and file transfer.
             is_input_command_in_console: Any=True,
             is_wait_server: Any=True,
             max_custom_workers: Any=10,
-            is_extend_command: Any=False) -> None: ...
+            is_extend_command: Any=False) -> None:
+            ...
 
-The constructor initializes the client environment and internal state.
-The arguments are:
+The constructor initializes the client environment 
+and internal state. The arguments are:
 
 - ``host``: Server host to connect to. If ``None``, the client may be
   used for temporary socket modes or manual connect management.
@@ -42,41 +44,49 @@ The arguments are:
 - ``max_custom_workers``: Maximum worker threads for custom commands.
 - ``is_extend_command``: If ``True``, the client does not auto-start.
 
-The constructor also prepares the project temp directory under
-``.ServSpy/temp_info``, loads the command decode table from
-``decode_command_table.json``, initializes the thread pool, and sets up
-file-transfer state.
+The constructor also prepares the project temp directory 
+under ``.ServSpy/temp_info``, loads the command decode 
+table from ``decode_command_table.json``, initializes the 
+thread pool, and sets up file-transfer state.
 
-.. note::
-
-    When ``is_extend_command`` is ``False``, the constructor automatically
-    calls ``start_TCP_client()`` and begins the client lifecycle.
+*Note: When ``is_extend_command`` is ``False``, the 
+constructor automatically calls ``start_TCP_client()`` 
+and begins the client lifecycle.*
 
 TCP Client connection API
 -------------------------
 
 .. code-block:: python
 
-    def connect(self: Self) -> bool: ...
-    def receive_messages(self: Self) -> None: ...
-    def close(self: Self) -> None: ...
-    def start_TCP_client(self: Self) -> None: ...
+    def connect(self: Self) -> bool:
+        ...
+    def receive_messages(self: Self) -> None:
+        ...
+    def close(self: Self) -> None:
+        ...
+    def start_TCP_client(self: Self) -> None:
+        ...
 
-``connect`` creates a TCP socket, binds to ``client_host`` and
-``client_port`` if configured, and connects to ``host:port``. On
-success, it starts ``receive_messages`` on a background thread.
+``connect`` creates a TCP socket, binds to ``client_host`` 
+and ``client_port`` if configured, and connects to 
+``host:port``. On success, it starts ``receive_messages`` 
+on a background thread.
 
-If ``is_wait_server`` is ``True`` the client will keep waiting for the
-server to start when the connection is refused or times out. If
-``is_wait_server`` is ``False``, connection failures are reported and
-``connect`` returns ``False``.
+If ``is_wait_server`` is ``True`` the client will 
+keep waiting for the server to start when the 
+connection is refused or times out. If 
+``is_wait_server`` is ``False``, connection 
+failures are reported and ``connect`` returns 
+``False``.
 
-``receive_messages`` reads UTF-8 data from the server socket into a
-newline-delimited buffer. Each complete message line is printed and
-commands starting with ``/`` are passed to ``handle_server_command``.
+``receive_messages`` reads UTF-8 data from the server 
+socket into a newline-delimited buffer. Each complete 
+message line is printed and commands starting with 
+``/`` are passed to ``handle_server_command``.
 
-``close`` stops the client, closes the socket, and releases allocated
-ports if manual port allocation is enabled.
+``close`` stops the client, closes the socket, and 
+releases allocated ports if manual port allocation 
+is enabled.
 
 TCP Client I/O API
 ------------------
@@ -85,21 +95,30 @@ The client provides small helpers for socket I/O.
 
 .. code-block:: python
 
-    def send_message(self: Self, client_socket: Any, message: Any) -> bool: ...
-    def recieve_message(self: Self, client_socket: Any, msg_length: int) -> bytes: ...
+    def send_message(
+        self: Self,
+        client_socket: Any,
+        message: Any) -> bool:
+        ...
+    def recieve_message(
+        self: Self,
+        client_socket: Any,
+        msg_length: int) -> bytes:
+        ...
 
-``send_message`` accepts ``str`` or ``bytes`` payloads, appends a newline
-for text messages, encodes UTF-8, and sends the complete payload with
+``send_message`` accepts ``str`` or ``bytes`` 
+payloads, appends a newline for text messages, 
+encodes UTF-8, and sends the complete payload with
 ``sendall``.
 
-``recieve_message`` wraps ``socket.recv`` and returns raw bytes from the
-socket.
+``recieve_message`` wraps ``socket.recv`` and returns 
+raw bytes from the socket.
 
 TCP Client command API
 ----------------------
 
-The client supports built-in commands from the server and custom
-extensible commands via ``register_command``.
+The client supports built-in commands from the server 
+and custom extensible commands via ``register_command``.
 
 Built-in server-driven commands handled by
 ``handle_server_command`` include:
@@ -122,10 +141,12 @@ Built-in server-driven commands handled by
         command_name: Any,
         handler: Any,
         where_to_run: Any,
-        run_in_thread: bool=False) -> bool: ...
+        run_in_thread: bool=False) -> bool:
+        ...
 
-This API registers a custom command handler for either server-originated
-commands or console-side commands.
+This API registers a custom command handler for 
+either server-originated commands or console-side 
+commands.
 
 - ``command_name``: command string, typically starting with ``/``.
 - ``handler``: callable invoked with ``(client_socket, client_address,
@@ -145,9 +166,10 @@ error replies back to the server.
 Interactive console commands
 ----------------------------
 
-When ``is_input_command_in_console`` is ``True``, ``interactive_mode``
-reads user input and translates console commands into actions.
-Supported commands include:
+When ``is_input_command_in_console`` is ``True``, 
+``interactive_mode`` reads user input and translates 
+console commands into actions. Supported commands 
+include:
 
 - ``/quit``: send quit to the server and close the client.
 - ``/file <path>``: send a file to the server using client-side transfer.
@@ -156,14 +178,15 @@ Supported commands include:
 - ``/multiple_file_folder <folder1> <folder2> ...``: send multiple folders.
 
 If a console command is registered via ``register_command(...,
-where_to_run='client')``, it is executed instead of the default send
-behavior.
+where_to_run='client')``, it is executed instead of 
+the default send behavior.
 
 TCP Client file transfer API
 ----------------------------
 
-The client supports both outgoing transfers to the server and incoming
-transfers initiated by the server.
+The client supports both outgoing transfers to the 
+server and incoming transfers initiated by the 
+server.
 
 Client-to-server file transfer flow:
 
@@ -182,17 +205,19 @@ Client-to-server file transfer flow:
         filename: Any,
         server_address: Any,
         server_port: Any,
-        client_port: Any) -> bool: ...
+        client_port: Any) -> bool:
+        ...
 
-The client waits for the server start-sign message before sending file
-metadata. It sends:
+The client waits for the server start-sign message before 
+sending file metadata. It sends:
 
 - 4 bytes: encoded filename length
 - filename bytes
 - 8 bytes: encoded file size
 - file payload in chunks
 
-It then waits for the server confirmation sign before reporting success.
+It then waits for the server confirmation sign before 
+reporting success.
 
 Server-to-client file receive flow:
 
@@ -212,10 +237,13 @@ Server-to-client file receive flow:
         client_id: Any,
         new_save_path: Any,
         file_name: Any,
-        command: Any) -> None: ...
+        command: Any) -> None:
+        ...
 
-The receive flow writes incoming files to ``received_files`` by default
-and supports optional folder-relative save paths or explicit names.
+The receive flow writes incoming files to 
+``received_files`` by default and supports 
+optional folder-relative save paths or 
+explicit names.
 
 Port allocation API
 -------------------
