@@ -248,22 +248,26 @@ explicit names.
 Port allocation API
 -------------------
 
-The client can allocate ports manually when the server requests a client
-port range. This is controlled by ``/client_alloc_port_range`` and the
-following methods:
+The client can allocate ports manually 
+when the server requests a client port 
+range. This is controlled by ``/client_alloc_port_range`` 
+and the following methods:
 
 - ``alloc_port`` / ``free_port``: top-level manual port allocation with
   lock file coordination.
 - ``hand_alloc_port`` / ``hand_free_port``: persistent port allocation
   state under ``.ServSpy/temp_info/clients_port_info.log``.
 
-Manual allocation uses ``client_port_lock.lock`` to serialize updates,
-so multiple client processes do not conflict when writing port state.
+Manual allocation uses ``client_port_lock.lock`` 
+to serialize updates, so multiple client 
+processes do not conflict when writing port 
+state.
 
 Temporary server and client helpers
 -----------------------------------
 
-The client offers lightweight helpers for temporary connections:
+The client offers lightweight helpers for 
+temporary connections:
 
 .. code-block:: python
 
@@ -280,8 +284,9 @@ The client offers lightweight helpers for temporary connections:
         bind_port: Any=None,
         on_data: Any=None) -> Any: ...
 
-These helpers are useful for file-transfer coordination or short-lived
-peer interactions without interfering with the main client socket.
+These helpers are useful for file-transfer 
+coordination or short-lived peer interactions 
+without interfering with the main client socket.
 
 Helper APIs
 -----------
@@ -317,7 +322,7 @@ Sending a file from the client console:
 
     /file /path/to/file
 
-See also
+See Also
 --------
 
 For the server-side companion APIs and behavior, refer to
