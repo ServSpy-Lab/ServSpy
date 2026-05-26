@@ -475,6 +475,9 @@ functions, please visit ...
 
 The file transfer API for you to use includes:
 
+The basic function for the server-to-client 
+file transfer is defined as:
+
 .. code-block:: python
 
     def file_transfer_server_recv_client_start(
@@ -483,22 +486,41 @@ The file transfer API for you to use includes:
         file_folder_abspath: Any) -> None|False:
         ...
 
+The file transfer function which will run in 
+the threads is defined as:
+
+.. code-block:: python
+
     def file_transfer_server_recv_client_start_thread(
         self: Self,
         message: Any,
         file_folder_abspath: Any=None) -> None:
         ...
 
+The folder transfer function is defined as:
+
+.. code-block:: python
+
     def folder_file_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
         ...
 
+The multiple files transfer to multiple clients 
+function is defined as:
+
+.. code-block:: python
+
     def multiple_file_multiple_client_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
         ...
-    
+
+The different multiple files transfer to the 
+different multiple clients function is defined as:
+
+.. code-block:: python
+
     def diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
