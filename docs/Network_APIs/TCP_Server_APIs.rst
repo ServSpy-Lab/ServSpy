@@ -475,6 +475,9 @@ functions, please visit ...
 
 The file transfer API for you to use includes:
 
+The basic function for the server-to-client 
+file transfer is defined as:
+
 .. code-block:: python
 
     def file_transfer_server_recv_client_start(
@@ -483,22 +486,41 @@ The file transfer API for you to use includes:
         file_folder_abspath: Any) -> None|False:
         ...
 
+The file transfer function which will run in 
+the threads is defined as:
+
+.. code-block:: python
+
     def file_transfer_server_recv_client_start_thread(
         self: Self,
         message: Any,
         file_folder_abspath: Any=None) -> None:
         ...
 
+The folder transfer function is defined as:
+
+.. code-block:: python
+
     def folder_file_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
         ...
 
+The multiple files transfer to multiple clients 
+function is defined as:
+
+.. code-block:: python
+
     def multiple_file_multiple_client_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
         ...
-    
+
+The different multiple files transfer to the 
+different multiple clients function is defined as:
+
+.. code-block:: python
+
     def diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start(
         self: Self,
         message: Any) -> None|False:
@@ -559,6 +581,41 @@ Common file transfer helper methods include:
 Port allocation API
 -------------------
 
+The server allocation APIs allow you to alloc a new 
+port for another servers. There are two kinds of port 
+allocation modes.
+
+We most recommand you that to use the automaticlly port 
+allocation mode, which is the default mode of the server, 
+because the automaticlly port allocation mode is more 
+simple and also more stable than the manual port 
+allocation mode. In this mode, when calling the 
+allocation APIs, it will return ``0``.
+
+*Note: The `bind` function in standard lib `socket` 
+of the python executor, when input ``0`` to the port 
+parameter, will automatically assign an available port 
+by operating system.*
+
+The another port allocation mode is the manual port 
+allocation mode, there is a port allocation range 
+for the server. Please avoid to open other servers 
+in the same host, because in the existing version, 
+the port allocation range will be conflicted and 
+some unexpected errors may be caused.
+
+The range of the port allocation is configured in 
+the server settings. The minimum allocatable port is 
+``self.port-self.port_add_step*self.port_range_num``, 
+and the maximum allocatable port is 
+``self.port+1+self.port_add_step*self.port_range_num``.
+
+*Note: The ``self.port`` is the args ``port`` of the 
+server class. The ``self.port_add_step`` is the args 
+``port_add_step`` of the server class. And the 
+``self.port_range_num`` is the args ``port_range_num`` 
+of the server class also.*
+
 When ``is_hand_alloc_port`` is ``True``, the server 
 uses manual port allocation and lock files to avoid 
 conflicts across multiple server instances. The relevant
@@ -587,3 +644,10 @@ on ``TCP_Server_Base``:
 These APIs make it easier to extend the base 
 TCP server for custom command handling, background 
 tasks, and temporary connections.
+
+See Also
+--------
+
+For more informations about the client APIs, 
+please visit the client API documentation, at 
+:doc:`TCP_Client_APIs`.
