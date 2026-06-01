@@ -585,6 +585,12 @@ The server allocation APIs allow you to alloc a new
 port for another servers. There are two kinds of port 
 allocation modes.
 
+For change the port allocation mode, you can set the 
+args ``is_hand_alloc_port`` in the server instence class. 
+When input ``False``, the server instence will choose 
+the automaticlly port allocation mode, or input ``False`` 
+it will choose the manual allocation mode.
+
 We most recommand you that to use the automaticlly port 
 allocation mode, which is the default mode of the server, 
 because the automaticlly port allocation mode is more 
@@ -616,10 +622,17 @@ server class. The ``self.port_add_step`` is the args
 ``self.port_range_num`` is the args ``port_range_num`` 
 of the server class also.*
 
-When ``is_hand_alloc_port`` is ``True``, the server 
-uses manual port allocation and lock files to avoid 
-conflicts across multiple server instances. The relevant
-methods are:
+There are some relevant methods that can be used:
+
+.. code-block:: python
+
+    def palloc(self: Self) -> int:
+        ...
+
+The `palloc` method allow you to get a port, for 
+using this function, you don't need to worry about 
+the port allocation mode, because a allocation mode 
+detector is already be wrote in this method.
 
 - ``alloc_port``: allocate a port range for the server.
 - ``free_port``: release the allocated port range when the server stops.
