@@ -634,13 +634,26 @@ using this function, you don't need to worry about
 the port allocation mode, because a allocation mode 
 detector is already be wrote in this method.
 
-- ``alloc_port``: allocate a port range for the server.
-- ``free_port``: release the allocated port range when the server stops.
-- ``hand_alloc_port`` and ``hand_free_port``: internal helpers used by the manual allocation flow.
+.. code-block:: python
 
-This mode is useful when the server must reserve a 
-controlled range of ports for client-file transfers 
-or when multiple server processes share the same host.
+    def pfree(
+        self: Self,
+        port: int) -> None|int:
+        ...
+
+The `pfree` method allow you to free a port, as the same 
+as `palloc` method, you don't need to care about the 
+port allocation mode when using this method.
+
+And there are the main functions for you to call, and 
+for more informations about the port allocation functions, 
+please visit ...
+
+This mode is useful when you need a indvidual port for 
+the server or  must reserve a controlled range of ports 
+for client-file transfers by manual port allocation, 
+such as in a testing environment or when multiple 
+server processes share the same host.
 
 TCP Server helper APIs
 ----------------------
