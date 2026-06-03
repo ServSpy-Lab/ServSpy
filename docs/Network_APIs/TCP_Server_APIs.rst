@@ -245,6 +245,39 @@ It verifies the server is running and the socket is valid, then:
 - sends the complete message with ``client_socket.sendall(data)``
 - returns ``True`` on success, otherwise logs the error and returns ``False``
 
+And there are also some other functions which are 
+used to send message in bulk to the clients, such 
+as the `broadcast` function and the `send_msg_to_specific_client` 
+function.
+
+.. code-block:: python
+
+    def broadcast(
+        self: Self,
+        message: Any,
+        exclude_client: Any=None) -> None:
+        ...
+
+In `broadcast` function, it will send a message to all 
+the clients which are in the ``self.clients`` variable, 
+also delete the clients which are already disconnected 
+with the server. And if the ``exclude_client`` parameter 
+is not ``None``, the server will exclude the client 
+which is specified by the ``exclude_client`` parameter 
+when sending the message.
+
+.. code-block:: python
+
+    def send_msg_to_specific_client(
+        self: Self,
+        message: Any) -> None:
+        ...
+
+The `send_msg_to_specific_client` function is used to send 
+one or more message to one or more specific clients by their 
+client IDs. And the ``message`` args should be input a send 
+message command.
+
 These methods form the server's client I/O loop 
 and ensure reliable message exchange for connected 
 TCP clients.
