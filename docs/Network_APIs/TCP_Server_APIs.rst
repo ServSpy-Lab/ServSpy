@@ -688,21 +688,47 @@ for client-file transfers by manual port allocation,
 such as in a testing environment or when multiple 
 server processes share the same host.
 
-TCP Server helper APIs
+TCP Server APIs table
 ----------------------
 
-The following helper methods are also available 
-on ``TCP_Server_Base``:
+In short, the table of contents of the public APIs 
+are following as:
 
-- ``broadcast(self, message, exclude_client=None)``: broadcast a message to all connected clients.
-- ``send_msg_to_specific_client(self, message)``: send a message to one or more specific clients by address.
-- ``submit_task(self, func, *args, **kwargs)``: submit work to the server's internal thread pool.
-- ``create_temporary_server(self, handler, port=None, max_connections=1)``: start a temporary TCP server for short-lived tasks.
-- ``create_temporary_client(self, server_host, server_port, bind_port=None, on_data=None)``: start a temporary client that receives data asynchronously.
+1. The server setup APIs:
+    - `TCP_Server_Base`
+    - `start_TCP_Server`
+    - `stop`
 
-These APIs make it easier to extend the base 
-TCP server for custom command handling, background 
-tasks, and temporary connections.
+2. The server handling information APIs:
+    - `handle_client`
+    - `handle_command`
+    - `recieve_message`
+    - `send_message`
+    - `broadcast`
+    - `send_msg_to_specific_client`
+
+3. The server command APIs:
+    - `register_command`
+    - `_execute_custom_handler`
+    - `submit_task`
+
+4. The server file transfer APIs:
+    - `file_transfer_server_recv_client_start`
+    - `file_transfer_server_recv_client_start_thread`
+    - `folder_file_transfer_server_recv_client_start`
+    - `multiple_file_multiple_client_transfer_server_recv_client_start`
+    - `diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`
+
+5. The server console commands:
+    - `/stop`
+    - `/status`
+    - `/clients`
+    - `/send_msg`
+    - `/file`
+    - `/file_folder`
+    - `/multiple_file_multiple_client`
+    - `/diff_multiple_file_diff_multiple_client`
+    - `/help`
 
 See Also
 --------
