@@ -711,6 +711,8 @@ are following as:
     - `register_command`
     - `_execute_custom_handler`
     - `submit_task`
+    - `create_temporary_server`
+    - `create_temporary_client`
 
 4. The server file transfer APIs:
     - `file_transfer_server_recv_client_start`
