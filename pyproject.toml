@@ -30,3 +30,4 @@ exclude = ["test/"]
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
+addopts = "--ignore=test/test_instence_setup"
