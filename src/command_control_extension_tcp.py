@@ -39,13 +39,16 @@ def _merge_log_dicts(base_data, extra_data):
 
 def _merge_all_logs(log_dir, merged_filename='merged_logs.json'):
     merged_data = {}
-    for filename in os.listdir(log_dir):
+    abs_log_dir = os.path.abspath(log_dir)
+    for filename in os.listdir(abs_log_dir):
         if not filename.endswith('.json') or filename == merged_filename:
             continue
-        file_path = os.path.join(log_dir, filename)
+        file_path = os.path.join(abs_log_dir, filename)
         if os.path.isfile(file_path):
-            merged_data = _merge_log_dicts(merged_data, _load_json_file(file_path))
-    with open(os.path.join(log_dir, merged_filename), 'w', encoding='utf-8') as f:
+            file_data = _load_json_file(file_path)
+            if file_data:  # 仅当非空时才合并
+                merged_data = _merge_log_dicts(merged_data, file_data)
+    with open(os.path.join(abs_log_dir, merged_filename), 'w', encoding='utf-8') as f:
         json.dump(merged_data, f, ensure_ascii=False, indent=2)
 
 
@@ -57,11 +60,13 @@ def _setup_command():
     server_instance.register_command(
         command_name="/command_done", handler=_command_done_dealing_server,
         where_to_run="server", run_in_thread=True)
+
 def _setup_client_command():
     print("Setting up client command...")
     client_instance.register_command(
         command_name="/command", handler=_command_handler_server_setup,
         where_to_run="server", run_in_thread=True)
+
 def _command_handler(sock, addr, cmd):
     print(f"Received command from {addr}: {cmd}")
     client_class=server_instance.clients
@@ -107,6 +112,7 @@ def _command_handler(sock, addr, cmd):
                     client_socket=client_socket, message=temp_msg)
                 print(f"Sending command to clients: {command_msg}")
             client_id+=1
+
 def _command_handler_server_setup(sock, addr, cmd):
     global command_counter
     print(f"Received command from {addr}: {cmd}")    
@@ -181,13 +187,13 @@ def _command_handler_server_setup(sock, addr, cmd):
     else:
         pass
     print("Dealing the command seccessfully!")
+
 def _command_done_dealing_server(sock, addr, cmd):
     cmd_parts = shlex.split(cmd)
     log_filename = cmd_parts[1]
     log_path = cmd_parts[2]
     log_dir = os.path.join(os.path.dirname(__file__), 'logs')
     os.makedirs(log_dir, exist_ok=True)
-
     received_log_file = os.path.join(
         server_instance.file_transfer_dir,
         os.path.basename(log_path))
@@ -203,10 +209,22 @@ def _command_done_dealing_server(sock, addr, cmd):
         else:
             shutil.move(received_log_file, destination_log_file)
         _merge_all_logs(log_dir)
+        merged_data = {}
+        for filename in os.listdir(log_dir):
+            if not filename.endswith('.json') or filename == 'merged_logs.json':
+                continue
+            file_path = os.path.join(log_dir, filename)
+            if os.path.isfile(file_path):
+                file_data = _load_json_file(file_path)
+                merged_data = _merge_log_dicts(merged_data, file_data)
+        merged_file_path = os.path.join(log_dir, 'merged_logs.json')
+        with open(merged_file_path, 'w', encoding='utf-8') as f:
+            json.dump(merged_data, f, ensure_ascii=False, indent=2)
         print("Command Done!")
     except Exception:
         traceback.print_exc()
         print("ErrorWhileMovingTheLogFile: moving log file failed.")
+
 def client_setup():
     global client_instance
     client_instance=connect_tcp.TCP_Client_Base(
@@ -215,6 +233,7 @@ def client_setup():
         is_extend_command=True)
     _setup_client_command()
     client_instance.start_TCP_client()
+
 def server_setup():
     global server_instance
     server_instance=connect_tcp.TCP_Server_Base(
