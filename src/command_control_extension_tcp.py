@@ -36,22 +36,6 @@ def _merge_log_dicts(base_data, extra_data):
             merged[command].append(entries)
     return merged
 
-
-def _merge_all_logs(log_dir, merged_filename='merged_logs.json'):
-    merged_data = {}
-    abs_log_dir = os.path.abspath(log_dir)
-    for filename in os.listdir(abs_log_dir):
-        if not filename.endswith('.json') or filename == merged_filename:
-            continue
-        file_path = os.path.join(abs_log_dir, filename)
-        if os.path.isfile(file_path):
-            file_data = _load_json_file(file_path)
-            if file_data:
-                merged_data = _merge_log_dicts(merged_data, file_data)
-    with open(os.path.join(abs_log_dir, merged_filename), 'w', encoding='utf-8') as f:
-        json.dump(merged_data, f, ensure_ascii=False, indent=2)
-
-
 def _setup_command():
     print("Setting up server command...")
     server_instance.register_command(
@@ -208,18 +192,23 @@ def _command_done_dealing_server(sock, addr, cmd):
             os.remove(received_log_file)
         else:
             shutil.move(received_log_file, destination_log_file)
-        _merge_all_logs(log_dir)
-        merged_data = {}
+        all_logs = {}
         for filename in os.listdir(log_dir):
             if not filename.endswith('.json') or filename == 'merged_logs.json':
                 continue
             file_path = os.path.join(log_dir, filename)
             if os.path.isfile(file_path):
-                file_data = _load_json_file(file_path)
-                merged_data = _merge_log_dicts(merged_data, file_data)
+                data = _load_json_file(file_path)
+                for cmd_name, entries in data.items():
+                    if cmd_name not in all_logs:
+                        all_logs[cmd_name] = []
+                    if isinstance(entries, list):
+                        all_logs[cmd_name].extend(entries)
+                    else:
+                        all_logs[cmd_name].append(entries)
         merged_file_path = os.path.join(log_dir, 'merged_logs.json')
         with open(merged_file_path, 'w', encoding='utf-8') as f:
-            json.dump(merged_data, f, ensure_ascii=False, indent=2)
+            json.dump(all_logs, f, ensure_ascii=False, indent=2)
         print("Command Done!")
     except Exception:
         traceback.print_exc()
