@@ -46,7 +46,7 @@ def _merge_all_logs(log_dir, merged_filename='merged_logs.json'):
         file_path = os.path.join(abs_log_dir, filename)
         if os.path.isfile(file_path):
             file_data = _load_json_file(file_path)
-            if file_data:  # 仅当非空时才合并
+            if file_data:
                 merged_data = _merge_log_dicts(merged_data, file_data)
     with open(os.path.join(abs_log_dir, merged_filename), 'w', encoding='utf-8') as f:
         json.dump(merged_data, f, ensure_ascii=False, indent=2)
