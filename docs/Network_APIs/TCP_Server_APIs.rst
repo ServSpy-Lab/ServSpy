@@ -101,7 +101,8 @@ is defined as:
         self: Self, client_socket: Any, client_address: Any) -> Any:
         ...
 
-*Note: For more details of the `handle_client` function, please visit ...*
+*Note: For more details of the `handle_client` function, 
+see the :ref:`tcp-server-handling-information-api` section.*
 
 So what can the setup function do if the it run failed? 
 
@@ -129,7 +130,8 @@ defined as:
     def free_port(self: Self) -> None:
         ...
 
-*Note: For more details of the `free_port` function, please visit ...*
+*Note: For more details of the `free_port` function, 
+see the :ref:`tcp-server-port-allocation-api` section.*
 
 At the end of the operations, the TCP server will close all 
 of the sockets of clients which are accounted in the dictionary 
@@ -152,6 +154,8 @@ in the ``__init__`` method.*
         'address': client_address,
         'id': client_id,
         'connected_time': datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+
+.. _tcp-server-handling-information-api:
 
 TCP Server handling information API
 -----------------------------------
@@ -207,8 +211,8 @@ by the command extension API, the function will
 determine if the inputed message matched the extension 
 commands.
 
-*Note: For more details of the command extension API, 
-and the built-in commands, please visit ...*
+*Note: For more details of the command extension API 
+and the built-in commands, see the :ref:`tcp-server-command-api` section.*
 
 - logging normal chat messages and acknowledging receipt
 - removing the client from ``self.clients`` and closing the socket when the client disconnects or an error occurs
@@ -281,6 +285,8 @@ message command.
 These methods form the server's client I/O loop 
 and ensure reliable message exchange for connected 
 TCP clients.
+
+.. _tcp-server-command-api:
 
 TCP Server command API
 ----------------------
@@ -468,6 +474,8 @@ are defined as:
         on_data: Any=None) -> Any:
         ...
 
+.. _tcp-server-console-commands:
+
 TCP Server console commands
 ---------------------------
 
@@ -489,10 +497,8 @@ These console commands make it easy to manage the
 active server and perform server-initiated file 
 transfers without modifying the code.
 
-*Note: There is too long to introduce all the 
-commands in the console command list, so for 
-more details of the console commands, please 
-visit ...*
+*Note: There is too long to introduce all the console 
+commands, so for more details see the :ref:`tcp-server-console-commands` section.*
 
 TCP Server file transfer API
 ----------------------------
@@ -611,6 +617,8 @@ Common file transfer helper methods include:
 - ``file_transfer_mode``: performs the low-level client-side transfer handshake.
 - ``file_transfer_mode_recv``: performs the low-level receive-side transfer handshake.
 
+.. _tcp-server-port-allocation-api:
+
 Port allocation API
 -------------------
 
@@ -678,9 +686,9 @@ The `pfree` method allow you to free a port, as the same
 as `palloc` method, you don't need to care about the 
 port allocation mode when using this method.
 
-And there are the main functions for you to call, and 
-for more informations about the port allocation functions, 
-please visit ...
+And there are the main functions for you to call, 
+and for more information about the port allocation 
+functions, see the :ref:`tcp-server-port-allocation-api` section.
 
 This mode is useful when you need a indvidual port for 
 the server or  must reserve a controlled range of ports 
