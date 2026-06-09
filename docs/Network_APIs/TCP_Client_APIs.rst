@@ -130,6 +130,8 @@ close the client socket. This ensures a clean disconnection.
 side, releasing any manually allocated ports if manual 
 allocation mode is enabled.*
 
+.. _tcp-client-handling-information-api:
+
 TCP Client handling information API
 -----------------------------------
 
@@ -182,7 +184,7 @@ if the incoming command matches any registered handler
 and execute it accordingly.
 
 *Note: For more details of the command extension API, 
-please visit ...*
+see the :ref:`tcp-client-command-api` section.*
 
 - logging errors and disconnecting when the server closes the socket.
 
@@ -219,6 +221,8 @@ It verifies the client is still running and the socket is valid, then:
 The client also provides an interactive input loop (`interactive_mode`) 
 that reads user input from the console and sends messages 
 to the server.
+
+.. _tcp-client-command-api:
 
 TCP Client command API
 ----------------------
