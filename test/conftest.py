@@ -10,6 +10,7 @@ if importlib.util.find_spec("src") is None:
 
 import src.command_control_extension_tcp as ctl
 from src.connect_tcp import TCP_Client_Base, TCP_Server_Base
+from src.connect_udp import UDP
 
 SERVER_PORT = 65001
 CLIENT_PORT = 65000
@@ -62,3 +63,24 @@ def server_client(monkeypatch):
             c.close()
         finally:
             s.stop()
+
+
+@pytest.fixture
+def udp_server():
+    """A UDP endpoint with a no-op callback, actively listening on a dynamic port."""
+    s = UDP("127.0.0.1", 0)
+    s.listen(lambda data, addr: None)
+    try:
+        yield s
+    finally:
+        s.close()
+
+
+@pytest.fixture
+def udp_client():
+    """A UDP client endpoint bound to a dynamic port, not listening."""
+    c = UDP("127.0.0.1", 0)
+    try:
+        yield c
+    finally:
+        c.close()
