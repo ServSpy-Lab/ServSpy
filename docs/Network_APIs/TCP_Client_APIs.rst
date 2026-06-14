@@ -317,4 +317,5 @@ Sending a file from the client console:
 See Also
 --------
 
-The server-side companion documentation: :doc:`TCP_Server_APIs`.
+- :doc:`TCP_Server_APIs` — TCP server.
+- :doc:`UDP_APIs` — UDP endpoint.
