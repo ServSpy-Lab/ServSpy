@@ -696,7 +696,7 @@ Low‑level send function on the client side (identical to server's version).
 .. _public-api-summary:
 
 Public API Summary
-------------------
+-------------------
 
 All public APIs (including non-file-transfer methods) are
 listed below for
