@@ -1,114 +1,111 @@
-UDP API
-=======
+The UDP API
+===========
 
-A lightweight UDP endpoint for service discovery, broadcast, and
-simple request-response communication.
+UDP setup API
+-------------
+
+The UDP Setup API is used to create a UDP endpoint. The UDP
+endpoint in the protocol is usually used for service discovery,
+broadcast, and simple request-response communication.
 
 .. code-block:: python
 
     class UDP:
-        def __init__(self, host="0.0.0.0", port=0):
+        def __init__(self, host="0.0.0.0", port=0) -> None:
             ...
 
-The socket is created and bound in the constructor.
-Both ``SO_REUSEADDR`` and ``SO_BROADCAST`` are set automatically.
+The UDP endpoint is defined in the ``UDP`` class. The socket is
+created and bound in the constructor. Both ``SO_REUSEADDR`` and
+``SO_BROADCAST`` are set automatically.
 
-Parameters
-----------
+Parameters of the ``__init__`` method are as follows:
 
-- ``host``: Interface to bind to. Default ``"0.0.0.0"`` (all interfaces).
-- ``port``: Port to bind to. ``0`` lets the OS choose.
+- ``host``: The interface to bind to. Default is ``"0.0.0.0"``
+  (all interfaces).
+- ``port``: The port to bind to. Default is ``0``, which lets
+  the OS choose an available port dynamically.
 
-Properties
-----------
+Every parameter has a default value:
+
+- ``host``: Default is ``"0.0.0.0"``
+- ``port``: Default is ``0``
+
+*Note: The public API of the UDP endpoint is based on IPv4 form.*
+
+UDP endpoint API
+----------------
+
+The public methods available on a ``UDP`` instance are:
+
+.. code-block:: python
+
+    def send(self, data: bytes, addr: tuple) -> None:
+        ...
+    def broadcast(self, data: bytes, port: int) -> None:
+        ...
+    def listen(self, handler) -> None:
+        ...
+    def close(self) -> None:
+        ...
+
+``send``
+    Sends a datagram to the specified address. The ``addr``
+    parameter should be a ``(host, port)`` tuple. This method
+    will raise ``OSError`` on network failure.
+
+``broadcast``
+    Sends a datagram to the subnet broadcast address on the
+    given port. This is implemented by calling ``send`` with
+    the address ``("255.255.255.255", port)``.
+
+``listen``
+    Starts a daemon thread that receives incoming datagrams.
+    The ``handler`` is a callable ``handler(data, addr)`` that
+    is invoked for each datagram received. Handler exceptions
+    are logged via the ``logging`` module rather than propagated,
+    so a faulty handler does not terminate the receive loop.
+    This method is idempotent: calling it while the receive
+    thread is already running does nothing.
+
+``close``
+    Signals the receive loop to exit and closes the underlying
+    socket. The ``_closed`` flag is set to ``True`` and the
+    socket's ``close()`` method is called to interrupt any
+    blocking ``recvfrom`` call. This method is idempotent:
+    calling it multiple times does not raise an error.
+
+*Note: When ``listen`` is called after ``close``, a*
+*``RuntimeError`` *with the message "endpoint is closed" is*
+*raised, because the underlying socket is no longer available.*
 
 .. code-block:: python
 
     @property
-    def port(self) -> int
+    def port(self) -> int:
+        ...
     @property
-    def local_addr(self) -> tuple[str, int]
+    def local_addr(self) -> tuple[str, int]:
+        ...
 
-Methods
--------
+``port``
+    Returns the port number the socket is bound to. Useful when
+    ``port=0`` was passed to the constructor and the OS assigned
+    a dynamic port.
+
+``local_addr``
+    Returns the full ``(host, port)`` tuple that the socket is
+    bound to.
+
+The ``UDP`` class also supports the context manager protocol,
+so it can be used in a ``with`` statement:
 
 .. code-block:: python
 
-    def send(self, data: bytes, addr: tuple) -> None
-    def broadcast(self, data: bytes, port: int) -> None
-    def listen(self, handler) -> None
-    def close(self) -> None
+    with UDP("127.0.0.1", 65000) as u:
+        ...
 
-``send(data, addr)``
-    Send a datagram. Raises ``OSError`` on network failure.
-
-``broadcast(data, port)``
-    Broadcast a datagram to the subnet.
-
-``listen(handler)``
-    Start receiving datagrams in a daemon thread. Calls
-    ``handler(data, addr)`` for each incoming datagram until
-    ``close()`` is called. Handler exceptions are logged, not
-    raised. Idempotent.
-
-``close()``
-    Signal the receive loop to exit and close the socket. Idempotent.
-
-``UDP`` supports the ``with`` statement: ``with UDP(...) as u: ...``
-
-Usage patterns
---------------
-
-Echo server::
-
-    from src.connect_udp import UDP
-
-    s = UDP("127.0.0.1", 65000)
-    s.listen(lambda data, addr: s.send(data, addr))
-    # Ctrl+C to exit
-
-Client with reply (using raw socket for synchronous receive)::
-
-    import socket
-    from src.connect_udp import UDP
-
-    srv = UDP("127.0.0.1", 65000)
-    srv.listen(lambda data, addr: srv.send(b"pong", addr))
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(("127.0.0.1", 0))
-    sock.sendto(b"/ping", ("127.0.0.1", 65000))
-    sock.settimeout(2)
-    try:
-        data, addr = sock.recvfrom(65535)
-        print(data.decode())  # "pong"
-    except TimeoutError:
-        print("no reply")
-    finally:
-        sock.close()
-    srv.close()
-
-Broadcast discovery::
-
-    from src.connect_udp import UDP
-
-    srv = UDP("0.0.0.0", 65000)
-    srv.listen(lambda data, addr: print(f"recv from {addr}: {data.decode()}"))
-
-    c = UDP()
-    c.broadcast(b"/who", 65000)
-    c.close()
-    srv.close()
-
-Blocking mode (user-managed thread)::
-
-    import threading
-    from src.connect_udp import UDP
-
-    s = UDP("127.0.0.1", 65000)
-    s.listen(lambda d, a: print(d))
-    # thread runs until close()
-    s.close()
+*Note: The context manager calls ``close`` automatically when*
+*the ``with`` block exits.*
 
 Key differences from TCP
 ------------------------
