@@ -49,14 +49,15 @@ The public methods available on a ``UDP`` instance are:
         ...
 
 ``send``
-    Sends a datagram to the specified address. The ``addr``
-    parameter should be a ``(host, port)`` tuple. This method
-    will raise ``OSError`` on network failure.
+    Wraps ``socket.sendto(data, addr)``. The ``addr`` parameter
+    should be a ``(host, port)`` tuple. Raises ``OSError`` if
+    the socket is closed or the address is invalid. Note that
+    a successful return does not confirm delivery.
 
 ``broadcast``
-    Sends a datagram to the subnet broadcast address on the
-    given port. This is implemented by calling ``send`` with
-    the address ``("255.255.255.255", port)``.
+    Sends a datagram to the limited broadcast address
+    ``255.255.255.255`` on the given port. This is implemented
+    by calling ``send`` with the address ``("255.255.255.255", port)``.
 
 ``listen``
     Starts a daemon thread that receives incoming datagrams.
