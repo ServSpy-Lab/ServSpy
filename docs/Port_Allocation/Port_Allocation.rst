@@ -168,7 +168,7 @@ When manual mode is enabled, the server or client must
 remember allocated port
 ranges across multiple instances to avoid conflicts. This
 is achieved through
-persistent log files stored in the ``.ServSpy/temp_info/``
+persistent log files stored in the ``.Flow/temp_info/``
 directory.
 
 - **Server**: ``server_port_info.log`` stores a list of

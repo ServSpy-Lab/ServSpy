@@ -1,9 +1,9 @@
-.. ServSpy documentation master file, created by
+.. PyFlow documentation master file, created by
    sphinx-quickstart on Thu Apr 30 12:25:46 2026.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ServSpy documentation
+PyFlow documentation
 =====================
 
 Add your content using ``reStructuredText`` syntax. See the
