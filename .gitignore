@@ -16,6 +16,12 @@ test/build/
 test/venv/
 test/src/
 **/__pycache__/
+docs/_build/
+docs/build/
+docs/.doctrees/
+docs/locale/*/LC_MESSAGES/*.mo
+*.bak
+*~
 
 # CLion
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
