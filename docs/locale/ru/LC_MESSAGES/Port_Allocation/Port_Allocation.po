@@ -1,0 +1,627 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ru <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../Port_Allocation/Port_Allocation.rst:2
+#: ad59f49685664ccb9d502f0a4a375d7e
+msgid "TCP Port Allocation Mechanism"
+msgstr "Механизм распределения TCP-портов"
+
+#: ../../Port_Allocation/Port_Allocation.rst:4
+#: 65e9d6bc01074c69bf89f2e91d650848
+msgid ""
+"This document describes the port allocation subsystem implemented in both "
+"the ``TCP_Server_Base`` and ``TCP_Client_Base`` classes. The port allocation"
+" mechanism provides a unified interface for obtaining ephemeral ports, "
+"supporting both **automatic** (OS‑assigned) and **manual** (range‑based) "
+"allocation modes."
+msgstr ""
+"В этом документе описывается подсистема распределения портов, реализованная "
+"как в классах TCP_Server_Base, так и в классах TCP_Client_Base. Механизм "
+"выделения портов обеспечивает унифицированный интерфейс для получения "
+"временных портов, поддерживая как **автоматический** (назначаемый ОС), так и"
+" **ручной** (на основе диапазона) режимы выделения."
+
+#: ../../Port_Allocation/Port_Allocation.rst:13
+#: 8cbc9424907c42128a8f44ac1dce8da3
+msgid ""
+"Port allocation is used primarily for file transfer secondary connections, "
+"temporary servers, and temporary clients. The design ensures that ports are "
+"allocated and released without conflicts, even when multiple server or "
+"client instances run on the same host."
+msgstr ""
+"Распределение портов используется в основном для вторичных подключений для "
+"передачи файлов, временных серверов и временных клиентов. Такая конструкция "
+"гарантирует, что порты выделяются и освобождаются без конфликтов, даже если "
+"на одном хосте работает несколько экземпляров сервера или клиента."
+
+#: ../../Port_Allocation/Port_Allocation.rst:21
+#: c72dd0dd42ba4409b94712a6cc90b3d3
+msgid ""
+"For a high‑level overview of the server and client classes, please refer to "
+":doc:`../Network_APIs/TCP_Server_APIs` and "
+":doc:`../Network_APIs/TCP_Client_APIs`."
+msgstr ""
+"Общий обзор классов сервера и клиента см. в "
+":doc:`../Network_APIs/TCP_Server_APIs` и "
+":doc:`../Network_APIs/TCP_Client_APIs`."
+
+#: ../../Port_Allocation/Port_Allocation.rst:28
+#: b7fdf5a6bb254d5f8b2db741a1be4e19
+msgid "Overview"
+msgstr "Обзор"
+
+#: ../../Port_Allocation/Port_Allocation.rst:30
+#: 309184d907a14ad2b46ac4c8843c4ef0
+msgid "The port allocation API consists of two core methods:"
+msgstr "API распределения портов состоит из двух основных методов:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:32
+#: cf55e0f2bd6e49fea945e987d10b534d
+msgid "``palloc()`` – obtain an available port."
+msgstr "``palloc()`` – получить доступный порт."
+
+#: ../../Port_Allocation/Port_Allocation.rst:33
+#: 63170bcaa5344e86a6232264cbec8ab8
+msgid "``pfree(port)`` – release a previously allocated port."
+msgstr "``pfree(port)`` – освободить ранее выделенный порт."
+
+#: ../../Port_Allocation/Port_Allocation.rst:35
+#: 72a0dc9d1b1a434da527a7bfe8da5c4f
+msgid ""
+"The behaviour of these methods depends on the value of the "
+"``is_hand_alloc_port`` flag passed to the class constructor:"
+msgstr ""
+"Поведение этих методов зависит от значения флага is_hand_alloc_port, "
+"передаваемого конструктору класса:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:39
+#: 136e8ea008d9437fb18b464f90c0f534
+msgid ""
+"**Automatic mode** (``is_hand_alloc_port=False``, default): ``palloc()`` "
+"returns ``0``. When used in a socket ``bind()`` call, the operating system "
+"automatically assigns a free ephemeral port. ``pfree()`` does nothing."
+msgstr ""
+"**Автоматический режим** (``is_hand_alloc_port=False``, по умолчанию): "
+"``palloc()`` возвращает ``0``. При использовании в вызове сокета ``bind()`` "
+"операционная система автоматически назначает свободный временный порт. "
+"``pfree()`` ничего не делает."
+
+#: ../../Port_Allocation/Port_Allocation.rst:45
+#: 45d292c35d0b40ff893ac2453b41e05b
+msgid ""
+"**Manual mode** (``is_hand_alloc_port=True``): Ports are drawn from a "
+"configurable numeric range. The caller must eventually release each "
+"allocated port with ``pfree()``."
+msgstr ""
+"**Ручной режим** (``is_hand_alloc_port=True``): порты выбираются из "
+"настраиваемого числового диапазона. Вызывающая сторона должна в конечном "
+"итоге освободить каждый выделенный порт с помощью pfree()."
+
+#: ../../Port_Allocation/Port_Allocation.rst:51
+#: 712955281ffd4575864bf7681fa51226
+msgid ""
+"Automatic mode is strongly recommended for most applications because it "
+"avoids port conflicts and simplifies code. Manual mode is provided for "
+"environments where port ranges must be strictly controlled (e.g., firewalls,"
+" testing, or multiple processes sharing the same host)."
+msgstr ""
+"Автоматический режим настоятельно рекомендуется для большинства приложений, "
+"поскольку он позволяет избежать конфликтов портов и упрощает код. Ручной "
+"режим предусмотрен для сред, где диапазоны портов должны строго "
+"контролироваться (например, брандмауэры, тестирование или несколько "
+"процессов, использующих один и тот же хост)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:62
+#: 04ff70a01f5e4299b100e09cf1ac1dc7
+msgid "Manual Allocation Range"
+msgstr "Диапазон ручного распределения"
+
+#: ../../Port_Allocation/Port_Allocation.rst:64
+#: f004764a38fd42c59578269e09cf9f93
+msgid ""
+"When manual mode is enabled, the allocatable port range is determined by "
+"three parameters set during class initialisation:"
+msgstr ""
+"Когда включен ручной режим, диапазон выделяемых портов определяется тремя "
+"параметрами, установленными во время инициализации класса:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:68
+#: d1250edb29b34acab53641864f7265dc
+msgid "``port`` – the main server or client port (e.g., 65432)."
+msgstr "``port`` — основной порт сервера или клиента (например, 65432)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:70
+#: f39861b9ce1442c6bea10edaaf642ce5
+msgid "``port_add_step`` – the step size for incrementing/decrementing ports."
+msgstr "``port_add_step`` – размер шага увеличения/уменьшения портов."
+
+#: ../../Port_Allocation/Port_Allocation.rst:72
+#: 0a2640ff8b814cd8ad4cbb5d918ad26f
+msgid ""
+"``port_range_num`` – the total number of steps to scan in each direction."
+msgstr ""
+"``port_range_num`` – общее количество шагов сканирования в каждом "
+"направлении."
+
+#: ../../Port_Allocation/Port_Allocation.rst:75
+#: 933da7468e8c484a9d66485cec0273eb
+msgid ""
+"From these, the minimum and maximum allocatable ports are calculated as:"
+msgstr ""
+"Исходя из них, минимальное и максимальное выделяемые порты рассчитываются "
+"как:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:78
+#: a4265571caf14e70808f0c16b83bd7a2
+msgid "``min_port = port - port_add_step * port_range_num``"
+msgstr "``min_port = порт - port_add_step * port_range_num``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:79
+#: 60c81dfd85c040519b241e686679881c
+msgid "``max_port = port + 1 + port_add_step * port_range_num``"
+msgstr "``max_port = порт + 1 + port_add_step * port_range_num``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:82
+#: 053694548cde4787bf573d5245129c14
+msgid ""
+"For example, with ``port=65432``, ``port_add_step=1``, "
+"``port_range_num=100``, the allocatable ports range from ``65432 - 100 = "
+"64332`` up to ``65432 + 1 + 100 = 65533``."
+msgstr ""
+"Например, с ``port=65432``, ``port_add_step=1``, ``port_range_num=100``, "
+"диапазон выделяемых портов варьируется от ``65432 - 100 = 64332`` до ``65432"
+" + 1 + 100 = 65533``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:88
+#: 356f6f51faed48c7959fef3848d8acac
+msgid "Two independent allocation “directions” are maintained:"
+msgstr "Поддерживаются два независимых «направления» распределения:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:90
+#: 31b5c97c5de24c11ae6d601acfa7571c
+msgid ""
+"**Additive allocation** – starts from ``port+1`` and moves upward by "
+"``port_add_step`` each time, up to (but not including) ``max_port``."
+msgstr ""
+"**Аддитивное распределение** — начинается с ``port+1`` и каждый раз "
+"увеличивается на ``port_add_step``, вплоть до (но не включая) ``max_port``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:94
+#: e81bd92e0a8749cb982b15ad7c87e50c
+msgid ""
+"**Subtractive allocation** – starts from ``port`` and moves downward by "
+"``port_add_step`` each time, down to (but not including) ``min_port``."
+msgstr ""
+"**Вычитающее распределение** — начинается с ``port`` и каждый раз "
+"перемещается вниз на ``port_add_step``, вплоть до (но не включая) "
+"``min_port``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:99
+#: de313668a0934560a613ce8a854c47c1
+msgid ""
+"The two directions use separate locks and separate current position "
+"pointers, allowing two concurrent allocations to proceed in opposite "
+"directions without colliding, thereby reducing contention."
+msgstr ""
+"В двух направлениях используются отдельные блокировки и отдельные указатели "
+"текущей позиции, что позволяет двум параллельным выделениям выполняться в "
+"противоположных направлениях без конфликтов, тем самым уменьшая конфликты."
+
+#: ../../Port_Allocation/Port_Allocation.rst:108
+#: 5a447e63cd4e4544ae8b29597e84b425
+msgid "palloc() Behaviour in Manual Mode"
+msgstr "Поведение palloc() в ручном режиме"
+
+#: ../../Port_Allocation/Port_Allocation.rst:110
+#: e273d1ce18424f739b7feec6a27c0840
+msgid ""
+"When ``palloc()`` is called in manual mode, it first tries additive "
+"allocation. If additive allocation returns a port, that port is returned "
+"immediately. Otherwise, it tries subtractive allocation. If subtractive "
+"allocation also fails (meaning no ports are available in either direction), "
+"the method sleeps for 0.1 seconds and then retries from the beginning. This "
+"loop continues indefinitely until a port becomes free."
+msgstr ""
+"Когда palloc() вызывается в ручном режиме, он сначала пытается аддитивное "
+"распределение. Если аддитивное распределение возвращает порт, этот порт "
+"возвращается немедленно. В противном случае он пытается вычитающее "
+"распределение. Если вычитающее выделение также завершается неудачно (то есть"
+" порты недоступны в любом направлении), метод приостанавливается на 0,1 "
+"секунды, а затем повторяет попытку с самого начала. Этот цикл продолжается "
+"бесконечно, пока порт не станет свободным."
+
+#: ../../Port_Allocation/Port_Allocation.rst:122
+#: 64bd9b9eef6d42118e9ce9787966945d
+msgid "Additive allocation works as follows:"
+msgstr "Аддитивное распределение работает следующим образом:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:124
+#: 9c924cec8fd4455fad8bfaa09f247606
+msgid ""
+"If the next additive step would exceed the maximum allowed value, the "
+"allocator scans all remaining ports in the additive direction (starting from"
+" ``port+1``, stepping by ``port_add_step``, up to but not including "
+"``max_port``). The first port that is not already in the global allocated "
+"list is returned. If none is found, additive allocation fails."
+msgstr ""
+"Если следующий аддитивный шаг превысит максимально допустимое значение, "
+"распределитель сканирует все оставшиеся порты в аддитивном направлении "
+"(начиная с ``port+1``, шагая по ``port_add_step``, до, но не включая "
+"``max_port``). Возвращается первый порт, которого еще нет в глобальном "
+"распределенном списке. Если ничего не найдено, аддитивное распределение "
+"завершается неудачно."
+
+#: ../../Port_Allocation/Port_Allocation.rst:134
+#: b9ba29d714b84d198662c862b1dbf690
+msgid ""
+"Otherwise, the additive pointer is advanced by ``port_add_step``, the new "
+"port is added to the global allocated list, and the port is returned."
+msgstr ""
+"В противном случае аддитивный указатель перемещается на «port_add_step», "
+"новый порт добавляется в глобальный выделенный список, и порт возвращается."
+
+#: ../../Port_Allocation/Port_Allocation.rst:139
+#: 55fe37b754be4eaab992693ce9d65167
+msgid ""
+"Subtractive allocation works symmetrically, scanning downward from ``port`` "
+"to (but not including) ``min_port``."
+msgstr ""
+"Вычитающее распределение работает симметрично, просматривая вниз от ``port``"
+" до ``min_port`` (но не включая его)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:146
+#: d61960a69381463cbae715135f26a4ba
+msgid "pfree() Behaviour in Manual Mode"
+msgstr "Поведение pfree() в ручном режиме"
+
+#: ../../Port_Allocation/Port_Allocation.rst:148
+#: 9bee159b94984da084a840c33fff37bb
+msgid "When a port is released via ``pfree(port)``:"
+msgstr "Когда порт освобождается через ``pfree(port)``:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:150
+#: a99b67dea472406aa57da75467bc733d
+msgid "The port is removed from the global allocated list (if present)."
+msgstr "Порт удаляется из глобального выделенного списка (если он есть)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:152
+#: 3ecf77c0d3c343cc91f753438d647caa
+msgid "The additive pointer is **decremented** by ``port_add_step``."
+msgstr "Аддитивный указатель **уменьшается** на ``port_add_step``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:154
+#: a0c7408fbb574209b0dfa2d3ac465a9a
+msgid "The subtractive pointer is **incremented** by ``port_add_step``."
+msgstr "Вычитающий указатель **увеличивается** на ``port_add_step``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:157
+#: f66211ffdc77499ba8b58f281c863f94
+msgid ""
+"These pointer adjustments occur regardless of which direction originally "
+"allocated the port. This allows freed ports to be reused in future "
+"allocations."
+msgstr ""
+"Эти корректировки указателя происходят независимо от того, в каком "
+"направлении изначально был назначен порт. Это позволяет повторно "
+"использовать освобожденные порты при будущих выделениях."
+
+#: ../../Port_Allocation/Port_Allocation.rst:165
+#: b701a4ec86a240ee88c3ff37627a3c0e
+msgid "Persistence and File Locks (Manual Mode Only)"
+msgstr "Сохранение и блокировка файлов (только в ручном режиме)"
+
+#: ../../Port_Allocation/Port_Allocation.rst:167
+#: 261dd8297d484005aa5e376e75f71818
+msgid ""
+"When manual mode is enabled, the server or client must remember allocated "
+"port ranges across multiple instances to avoid conflicts. This is achieved "
+"through persistent log files stored in the ``.Flow/temp_info/`` directory."
+msgstr ""
+"Если включен ручной режим, сервер или клиент должен запомнить выделенные "
+"диапазоны портов для нескольких экземпляров, чтобы избежать конфликтов. Это "
+"достигается за счет постоянных файлов журналов, хранящихся в каталоге "
+"``.Flow/temp_info/``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:174
+#: 6686458391b24ae1a403ab51323f9b05
+msgid ""
+"**Server**: ``server_port_info.log`` stores a list of dictionaries, each "
+"describing a server instance (server_id, host, port, min_port, max_port, "
+"is_running)."
+msgstr ""
+"**Сервер**: ``server_port_info.log`` хранит список словарей, каждый из "
+"которых описывает экземпляр сервера (server_id, хост, порт, min_port, "
+"max_port, is_running)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:179
+#: 150a944d55534f1698eaa2eb9f870301
+msgid ""
+"**Client**: ``clients_port_info.log`` stores similar information for client "
+"instances."
+msgstr ""
+"**Клиент**: ``clients_port_info.log`` хранит аналогичную информацию для "
+"экземпляров клиента."
+
+#: ../../Port_Allocation/Port_Allocation.rst:183
+#: 692c9f98eaac48c89ee00a82ec1438fb
+msgid ""
+"Before reading or writing these files, a lock file "
+"(``server_port_lock.lock`` or ``client_port_lock.lock``) is used to prevent "
+"concurrent access. The lock is implemented by simply creating the file; the "
+"existence of the file indicates that another process is currently modifying "
+"the port information."
+msgstr ""
+"Перед чтением или записью этих файлов используется файл блокировки "
+"(server_port_lock.lock или client_port_lock.lock) для предотвращения "
+"одновременного доступа. Блокировка реализуется путем простого создания "
+"файла; существование файла указывает на то, что другой процесс в настоящее "
+"время изменяет информацию о порте."
+
+#: ../../Port_Allocation/Port_Allocation.rst:192
+#: 8dd06df723054127a85bf2e64f6fef70
+msgid ""
+"When a new server or client instance is created with manual allocation "
+"enabled, its range is initialised using the persistent log:"
+msgstr ""
+"Когда создается новый экземпляр сервера или клиента с включенным ручным "
+"выделением, его диапазон инициализируется с использованием постоянного "
+"журнала:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:196
+#: 7d8301b78ca04dec80458b837d78e855
+msgid ""
+"If the log file does not exist, a new list is created with the current "
+"instance as the first entry."
+msgstr ""
+"Если файл журнала не существует, создается новый список с текущим "
+"экземпляром в качестве первой записи."
+
+#: ../../Port_Allocation/Port_Allocation.rst:199
+#: 6432e95a09c749ab9243f61700863dcf
+msgid ""
+"If the log file exists, the list of previous instances is read. The next "
+"instance ID is the previous ID + 1."
+msgstr ""
+"Если файл журнала существует, считывается список предыдущих экземпляров. "
+"Следующий идентификатор экземпляра — это предыдущий идентификатор + 1."
+
+#: ../../Port_Allocation/Port_Allocation.rst:202
+#: e6cf92040b1f42c09af74b7294064874
+msgid ""
+"If the user‑supplied port falls inside the range of the last recorded "
+"instance, it is automatically advanced to the next available value to "
+"prevent overlap."
+msgstr ""
+"Если указанный пользователем порт попадает в диапазон последнего записанного"
+" экземпляра, он автоматически увеличивается до следующего доступного "
+"значения, чтобы предотвратить перекрытие."
+
+#: ../../Port_Allocation/Port_Allocation.rst:207
+#: ed9c93eb4fa742d7bc9bceebe58778e5
+msgid ""
+"The new instance’s information is appended to the list, stale entries "
+"(``is_running=False``) are removed, and the list is written back."
+msgstr ""
+"Информация о новом экземпляре добавляется к списку, устаревшие записи "
+"(is_running=False) удаляются, а список записывается обратно."
+
+#: ../../Port_Allocation/Port_Allocation.rst:212
+#: 2fc9ab2d851c4d43bd086d1a99656043
+msgid ""
+"When the server or client stops, its own entry is removed from the log file."
+" If the list becomes empty, the log file is deleted."
+msgstr ""
+"Когда сервер или клиент останавливается, его собственная запись удаляется из"
+" файла журнала. Если список становится пустым, файл журнала удаляется."
+
+#: ../../Port_Allocation/Port_Allocation.rst:219
+#: adad1929426c4ebebe1e8657b133585e
+msgid "Client‑Side Range Configuration"
+msgstr "Конфигурация диапазона на стороне клиента"
+
+#: ../../Port_Allocation/Port_Allocation.rst:221
+#: a97d3540a0024f4eb0e047279b16da77
+msgid ""
+"The client’s manual allocation mode is enabled not by a constructor argument"
+" directly, but by a **broadcast from the server**. When the server starts "
+"with ``is_hand_alloc_port=True``, it sends a command to all clients:"
+msgstr ""
+"Режим ручного выделения клиента включается не напрямую аргументом "
+"конструктора, а посредством **трансляции с сервера**. Когда сервер "
+"запускается с ``is_hand_alloc_port=True``, он отправляет команду всем "
+"клиентам:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:228
+#: 9bd212a5bb3c4d68934cc420881672e0
+msgid "``/client_alloc_port_range <each_client_port_range>``"
+msgstr "``/client_alloc_port_range <each_client_port_range>``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:230
+#: 6f25281bac68477db87047b1ad574e14
+msgid "where ``each_client_port_range = port_range_num // max_clients``."
+msgstr "где ``each_client_port_range = port_range_num // max_clients``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:233
+#: da313b544ac84c3986803fe0f15bf637
+msgid "The client’s ``handle_server_command`` processes this:"
+msgstr "Клиентская команда handle_server_command обрабатывает это:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:235
+#: 8264d8701b6c4596b5fe96153a83a3ae
+msgid ""
+"If the value is ``\"NO_LIMIT\"``, the client sets "
+"``is_hand_alloc_port=False`` (automatic mode)."
+msgstr ""
+"Если значение равно ``NO_LIMIT'`, клиент устанавливает "
+"``is_hand_alloc_port=False`` (автоматический режим)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:238
+#: 6afe48afdc96475e85a797a2c03477e0
+msgid ""
+"Otherwise, it sets ``is_hand_alloc_port=True`` and calls its internal "
+"initialisation routine with the received range, using its own ``port`` (the "
+"server port it connected to) as the base."
+msgstr ""
+"В противном случае он устанавливает ``is_hand_alloc_port=True`` и вызывает "
+"свою внутреннюю процедуру инициализации с полученным диапазоном, используя "
+"свой собственный ``port`` (порт сервера, к которому он подключен) в качестве"
+" базового."
+
+#: ../../Port_Allocation/Port_Allocation.rst:244
+#: 7d07da528aa1453b8e1e8ab2f028f15e
+msgid ""
+"This allows the server to control the port‑allocation policy for all "
+"connected clients uniformly."
+msgstr ""
+"Это позволяет серверу единообразно контролировать политику распределения "
+"портов для всех подключенных клиентов."
+
+#: ../../Port_Allocation/Port_Allocation.rst:251
+#: cc5894c825d54e3598a223c277a91922
+msgid "Public API Definitions"
+msgstr "Определения общедоступных API"
+
+#: ../../Port_Allocation/Port_Allocation.rst:253
+#: 46ceaf5776074ff2af00caf34b66d5a3
+msgid "### Server‑Side Port Allocation APIs"
+msgstr "### API распределения портов на стороне сервера"
+
+#: ../../Port_Allocation/Port_Allocation.rst:259
+#: 05be78c4ce624ec98cc1c8e6f66510d7
+msgid ""
+"Returns an available port number. In automatic mode, returns ``0``. In "
+"manual mode, it returns a concrete port from the configured range, retrying "
+"indefinitely until a port becomes available."
+msgstr ""
+"Возвращает доступный номер порта. В автоматическом режиме возвращает ``0``. "
+"В ручном режиме он возвращает конкретный порт из настроенного диапазона, "
+"повторяя попытки бесконечно, пока порт не станет доступным."
+
+#: ../../Port_Allocation/Port_Allocation.rst:268
+#: 201788faa82d4da9853c343248e563f7
+msgid ""
+"Releases a port previously obtained by ``palloc()``. In automatic mode, this"
+" does nothing. In manual mode, it removes the port from the internal "
+"allocated list and adjusts the allocation pointers."
+msgstr ""
+"Освобождает порт, ранее полученный с помощью palloc(). В автоматическом "
+"режиме это ничего не дает. В ручном режиме он удаляет порт из внутреннего "
+"списка выделенных портов и корректирует указатели выделения."
+
+#: ../../Port_Allocation/Port_Allocation.rst:273
+#: 1111e89e27d74a3e8923164e8c11015d
+msgid "### Client‑Side Port Allocation APIs"
+msgstr "### API распределения портов на стороне клиента"
+
+#: ../../Port_Allocation/Port_Allocation.rst:275
+#: 5ed73a55d9e64699981b9876e0a22a97
+msgid "The client provides the identical set of methods:"
+msgstr "Клиент предоставляет идентичный набор методов:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:277
+#: 1ee9c63df441404cb0fb77c1604a71bb
+msgid "``palloc()``"
+msgstr "``palloc()``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:278
+#: c9f034cacf8b44b7a0884ee2aa593b88
+msgid "``pfree(port)``"
+msgstr "``pfree(порт)``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:280
+#: 88ba63acfb0e4efda8a3ce914efba8ea
+msgid ""
+"Additionally, the client receives the range from the server via the "
+"``/client_alloc_port_range`` command."
+msgstr ""
+"Кроме того, клиент получает диапазон от сервера с помощью команды "
+"``/client_alloc_port_range``."
+
+#: ../../Port_Allocation/Port_Allocation.rst:287
+#: 5fe116507216417d8733d59c196eed02
+msgid "Public API Summary"
+msgstr "Сводка общедоступного API"
+
+#: ../../Port_Allocation/Port_Allocation.rst:289
+#: 901516f18c1d4e3bbcadbd7e647ca02a
+msgid ""
+"All public port‑allocation related APIs are listed below. For a complete "
+"list of all public APIs, please see the respective server and client "
+"documentation."
+msgstr ""
+"Все API, связанные с распределением общедоступных портов, перечислены ниже. "
+"Полный список всех общедоступных API см. в документации по соответствующему "
+"серверу и клиенту."
+
+#: ../../Port_Allocation/Port_Allocation.rst:294
+#: 03a1e0db9a3541e0bf9f85dd919ec573
+msgid "### TCP_Server_Base"
+msgstr "### TCP_Server_Base"
+
+#: ../../Port_Allocation/Port_Allocation.rst:296
+#: ../../Port_Allocation/Port_Allocation.rst:301
+#: 3ca51b147151429fa7d45d3bb034bb64 7cfd5220254948abafb4022552837bde
+msgid "``palloc``"
+msgstr "``паллок``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:297
+#: ../../Port_Allocation/Port_Allocation.rst:302
+#: 92cc6c5c9d8b4741a78b96ba47b5f538 dbafe19d56d24119af62a7eb7532ddbf
+msgid "``pfree``"
+msgstr "``pfree``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:299
+#: 7e4e29b58a714351a8e8e540a7877350
+msgid "### TCP_Client_Base"
+msgstr "### TCP_Client_Base"
+
+#: ../../Port_Allocation/Port_Allocation.rst:305
+#: 116139c968464f90a5da9b8684940433
+msgid "See Also"
+msgstr "См. также"
+
+#: ../../Port_Allocation/Port_Allocation.rst:307
+#: f750c04e494449de995acc730747de10
+msgid ""
+"For more information about the TCP server and client base classes, please "
+"refer to:"
+msgstr ""
+"Дополнительные сведения о базовых классах TCP-сервера и клиента см. по "
+"адресу:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:311
+#: c94397d1d2754aedaad151a08373dbdc
+msgid ":doc:`../Network_APIs/TCP_Server_APIs`"
+msgstr ":doc:`../Network_APIs/TCP_Server_APIs`"
+
+#: ../../Port_Allocation/Port_Allocation.rst:312
+#: 5a58e0e9f8564fa9adf42c2ddc909c69
+msgid ":doc:`../Network_APIs/TCP_Client_APIs`"
+msgstr ":doc:`../Network_APIs/TCP_Client_APIs`"
+
+#: ../../Port_Allocation/Port_Allocation.rst:314
+#: ded2d25ff45a45e5a332670bdd6c8ef1
+msgid ""
+"For details on the file transfer mechanism that uses these port allocation "
+"APIs, see :doc:`../File_Transfer/File_Transfer`."
+msgstr ""
+"Подробную информацию о механизме передачи файлов, использующем эти API "
+"выделения портов, см. в документе :doc:`../File_Transfer/File_Transfer`."

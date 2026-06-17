@@ -16,9 +16,10 @@ release = '0.0.1-alpha'
 
 extensions = []
 
+locale_dirs = ['locale/']
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
+language='en'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -26,3 +27,5 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+gettext_uuid = True
+gettext_compact = False

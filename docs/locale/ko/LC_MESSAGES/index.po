@@ -1,0 +1,39 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ko <LL@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../index.rst:14
+msgid "Contents:"
+msgstr "내용물:"
+
+#: ../../index.rst:7 5fa4a34f0bc047d8bd99c5f42384ce9c
+msgid "PyFlow documentation"
+msgstr "파이플로우 문서"
+
+#: ../../index.rst:9 e8cc24c602e64298937f0e24c61872fa
+msgid ""
+"Add your content using ``reStructuredText`` syntax. See the "
+"`reStructuredText <https://www.sphinx-"
+"doc.org/en/master/usage/restructuredtext/index.html>`_ documentation for "
+"details."
+msgstr ""
+"``reStructuredText`` 구문을 사용하여 콘텐츠를 추가하세요. 자세한 내용은 `reStructuredText "
+"<https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_ "
+"문서를 참조하세요."

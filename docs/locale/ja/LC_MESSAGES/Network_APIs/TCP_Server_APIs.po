@@ -1,0 +1,1215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:2 5a421ef24110475b899096cc43e2ac88
+msgid "The TCP Server APIs"
+msgstr "TCP サーバー API"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:5 a3228124931944298a9e5aad0cb6086a
+msgid "TCP Server setup API"
+msgstr "TCPサーバーセットアップAPI"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:7 0ce0967d488143b9af0043046c9c55b1
+msgid ""
+"The TCP Server Setup API is used to create a TCP server. The server in the "
+"protocal is usually used to connect and listen to the TCP clients and handle"
+" the data from the clients."
+msgstr ""
+"TCP サーバー セットアップ API は、TCP サーバーを作成するために使用されます。プロトコル内のサーバーは通常、TCP "
+"クライアントに接続してリッスンし、クライアントからのデータを処理するために使用されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:28 1a8c9d662af04ef2bf18e690089edcef
+msgid ""
+"The TCP Server Setup API is defined in the ``TCP_Server_Base`` class. The "
+"parameters of the ``__init__`` method are as follows:"
+msgstr ""
+"TCP サーバー設定 API は ``TCP_Server_Base`` クラスで定義されます。 ``__init__`` "
+"メソッドのパラメータは次のとおりです。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:31 403b6a6ed777425a8f0a8601978a5772
+msgid "``host``: The host IP address to bind the TCP server to."
+msgstr "``host``: TCP サーバーをバインドするホストの IP アドレス。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:32 3ca57bd587d44434ba5b8b213acfc022
+msgid "``port``: The port number to bind the TCP server to."
+msgstr "``port``: TCP サーバーをバインドするポート番号。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:33 2eecd5ed457b4ac0974719d4fd85a685
+msgid ""
+"``max_clients``: The maximum number of concurrent clients the server can "
+"handle."
+msgstr "``max_clients``: サーバーが処理できる同時クライアントの最大数。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:34 a2a2732c83ea4fbc856c15027a8d3088
+msgid "``port_add_step``: The step size for incrementing the port number."
+msgstr "``port_add_step``: ポート番号をインクリメントするステップ サイズ。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:35 2a39c5900ac54d66880ffc017eed17cb
+msgid "``port_range_num``: The number of ports to check in the range."
+msgstr "``port_range_num``: 範囲内でチェックするポートの数。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:36 cbf650430e6e4e71ba4167f9414b0158
+msgid ""
+"``max_file_transfer_thread_num``: The maximum number of threads for file "
+"transfer operations."
+msgstr "``max_file_transfer_thread_num``: ファイル転送操作の最大スレッド数。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:37 286b105e545647a5a756f181c1065d6a
+msgid ""
+"``is_hand_alloc_port``: A flag indicating whether to manually allocate the "
+"port."
+msgstr "``is_hand_alloc_port``: ポートを手動で割り当てるかどうかを示すフラグ。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:38 750df664c049460ba9051a611c3af425
+msgid ""
+"``is_input_command_in_console``: A flag indicating whether to input commands"
+" in the console."
+msgstr "``is_input_command_in_console``: コンソールにコマンドを入力するかどうかを示すフラグ。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:39 93a6c66af686404a9d5287e61679e642
+msgid "``max_custom_workers``: The maximum number of custom worker threads."
+msgstr "``max_custom_workers``: カスタム ワーカー スレッドの最大数。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:41 6fadaa0fd92243e293cce702c069356e
+msgid "Every parameters are all have default values:"
+msgstr "すべてのパラメータにはデフォルト値があります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:43 54a71bc8046f4e6092f26e4151e66b8a
+msgid "``host``: Default is ``'127.0.0.1'``"
+msgstr "``host``: デフォルトは ``'127.0.0.1'`` です。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:44 e925e2d0a915486e8430fc531e3c8942
+msgid "``port``: Default is ``65432``"
+msgstr "``ポート'': デフォルトは ``65432`` です"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:45 830de1cad2824b738a17ba714732a670
+msgid "``max_clients``: Default is ``10``"
+msgstr "``max_clients``: デフォルトは ``10``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:46 8a1dd20e256348efbacfb96adb619622
+msgid "``port_add_step``: Default is ``1``"
+msgstr "``port_add_step``: デフォルトは ``1`` です"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:47 1610aebbfe1b431fa196ece0bcea7f25
+msgid "``port_range_num``: Default is ``100``"
+msgstr "``port_range_num``: デフォルトは ``100``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:48 949c322e7db742e99b6bfe412ca1ecb7
+msgid "``max_file_transfer_thread_num``: Default is ``10``"
+msgstr "``max_file_transfer_thread_num``: デフォルトは ``10``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:49 b4651c3b171c46fba5d316737821af9d
+msgid "``is_hand_alloc_port``: Default is ``False``"
+msgstr "``is_hand_alloc_port``: デフォルトは ``False``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:50 b0f005ffef314ddc81850270d682a60f
+msgid "``is_input_command_in_console``: Default is ``True``"
+msgstr "``is_input_command_in_console``: デフォルトは ``True``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:51 f0eee7c71caf462b966c45498520ab9d
+msgid "``max_custom_workers``: Default is ``10``"
+msgstr "``max_custom_workers``: デフォルトは ``10``"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:53 9e401989a51f403a94b1032bcaaef8ee
+msgid ""
+"The TCP Server Setup API will initialize all the necessary parameters and "
+"resources for the TCP server."
+msgstr "TCP サーバー セットアップ API は、TCP サーバーに必要なすべてのパラメータとリソースを初期化します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:56 1ac1631a523941638ecf3edeca3674e6
+msgid ""
+"*Note: In the main class of the TCP server setup API, we initialize the "
+"`start_TCP_Server` method to setup all functions which are needed in the TCP"
+" server, including the server socket or handle clients etc..*"
+msgstr ""
+"*注意: TCP サーバー セットアップ API のメイン クラスで、`start_TCP_Server` メソッドを初期化し、サーバー "
+"ソケットやハンドル クライアントなど、TCP サーバーで必要なすべての機能をセットアップします。*"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:66 899a05f0223748a4bb24b76b5f25f48d
+msgid ""
+"In the `start_TCP_Server` method, we first create a TCP server socket and "
+"bind it to the ``self.host`` and ``self.port`` which are initialized in the "
+"``__init__`` method."
+msgstr ""
+"`start_TCP_Server` メソッドでは、まず TCP サーバーソケットを作成し、それを `__init__` メソッドで初期化される "
+"`self.host` と `self.port` にバインドします。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:70 3059fbadc662418d8ea571638f1bec19
+msgid ""
+"*Note: The server socket which is set up in the `start_TCP_Server` method is"
+" based on IPv4 form.*"
+msgstr "*注意: `start_TCP_Server` メソッドで設定されるサーバー ソケットは IPv4 形式に基づいています。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:73 01230c44e5e147a495292f10c25af0db
+msgid ""
+"Secondly, according to the ``self.is_input_command_in_console`` parameter, "
+"we will start a thread to listen to the console input of the server or not."
+msgstr ""
+"次に、``self.is_input_command_in_console`` "
+"パラメータに従って、サーバーのコンソール入力をリッスンするかどうかを監視するスレッドを開始します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:77 84c82a4ced7546309c58a528c635bae2
+msgid "After that, a main loop to accept clients will be started."
+msgstr "その後、クライアントを受け入れるメインループが開始されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:79 bf84e3afce77402286e6fba63df9b0b9
+msgid ""
+"*Note: there is another gloable variable ``self.running`` which is turned to"
+" ``True`` after the server socket is successfully created. The "
+"``self.running`` variable is used to control the main loop of the TCP "
+"server, and it will be turned to ``False`` when the server is shutting "
+"down.*"
+msgstr ""
+"*注意: 別のグローバル変数 ``self.running`` があります。これは、サーバーソケットが正常に作成された後に ``True`` "
+"に変わります。 ``self.running`` 変数は、TCP サーバーのメインループを制御するために使用され、サーバーがシャットダウンするときに "
+"``False`` に設定されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:85 fd5c8fac322b4d89af8a773d9da1b203
+msgid ""
+"The main loop of the TCP setup server function will first judge if the "
+"number of the clients which are connected to the server is over the max "
+"clients number or not. By the way, the max clients number limit is defined "
+"by the args of the `TCP_Server_Base` class, the ``self.max_clients`` "
+"variable which initialized in the class."
+msgstr ""
+"TCP "
+"セットアップサーバー関数のメインループでは、まずサーバーに接続されているクライアント数が最大クライアント数を超えているかどうかを判断します。ちなみに、最大クライアント数の制限は、`TCP_Server_Base`"
+" クラスの引数、クラス内で初期化される ``self.max_clients`` 変数によって定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:92 11d4441c1daa4a259bac9ea6bd4cc5df
+msgid ""
+"If the number of the clients is already over the limit of the connect "
+"number, the server will send a overload message and close the connect. But "
+"if it didn't over the limit, the server will setup a clients handlers "
+"function `handle_client` and the server handler function is defined as:"
+msgstr ""
+"クライアントの数がすでに接続数の制限を超えている場合、サーバーは過負荷メッセージを送信し、接続を閉じます。しかし、制限を超えていない場合、サーバーはクライアント"
+" ハンドラー関数 `handle_client` をセットアップし、サーバー ハンドラー関数は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:104 61ee15fc7596460b98b70060509c7151
+msgid ""
+"*Note: For more details of the `handle_client` function, see the :ref:`tcp-"
+"server-handling-information-api` section.*"
+msgstr ""
+"*注意: `handle_client` 関数の詳細については、:ref:`tcp-server-handling-information-api` "
+"セクションを参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:107 ddee83c45291484493d3ebc5eb0dba07
+msgid "So what can the setup function do if the it run failed?"
+msgstr "では、セットアップ関数の実行が失敗した場合、セットアップ関数は何ができるのでしょうか?"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:109 9fdccf4f47bf4c399cacedd29e616f64
+msgid ""
+"First, the try and except code block in the main server loop will detect if "
+"the error is an ``OSError``. If it is, the main loop will exit directly."
+msgstr ""
+"まず、メインサーバーループの try および else コードブロックは、エラーが ``OSError`` "
+"であるかどうかを検出します。そうであれば、メインループは直接終了します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:113 d2e58e7450e045b6a51a7930ac10fbda
+msgid ""
+"Secondly, if the error is from the network socket, it will first output the "
+"error message and also stop the server by calling the function `stop`. And "
+"the stop function has been defined as:"
+msgstr ""
+"次に、エラーがネットワークソケットからのものである場合、最初にエラーメッセージを出力し、関数 `stop` "
+"を呼び出してサーバーを停止します。そして、停止関数は次のように定義されています。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:122 87133f48deab49178aa0f1357f1d5c85
+msgid ""
+"For the stop tcp server function, it first set the ``self.running`` variable"
+" to False, for stop the main loop of the server. After that, it calls the "
+"`free_port` function to free the port which has been alloced. And the "
+"`free_port` has been defined as:"
+msgstr ""
+"TCP サーバーの停止関数では、サーバーのメインループを停止するために、まず ``self.running`` 変数を False "
+"に設定します。その後、`free_port` "
+"関数を呼び出して、割り当てられたポートを解放します。そして、「free_port」は次のように定義されています。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:133 ddd2cf5489784ada989595ece231e071
+msgid ""
+"*Note: For more details of the `free_port` function, see the :ref:`tcp-"
+"server-port-allocation-api` section.*"
+msgstr ""
+"*注意: `free_port` 関数の詳細については、:ref:`tcp-server-port-allocation-api` "
+"セクションを参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:136 129653913769472f8dccb88c7afa0d72
+msgid ""
+"At the end of the operations, the TCP server will close all of the sockets "
+"of clients which are accounted in the dictionary variable ``self.clients`` "
+"and also close the server socket."
+msgstr ""
+"操作の終了時に、TCP サーバーは辞書変数 ``self.clients`` に含まれるクライアントのソケットをすべて閉じ、サーバー "
+"ソケットも閉じます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:140 f562e30fd99747f88daf50c4bb7e9ae5
+msgid ""
+"*Note: The ``self.clients`` variable is a dictionary which is used to store "
+"the client sockets and their corresponding addresses. The key of the "
+"dictionary is the client socket, and the value is the client address. It has"
+" been defined in the ``__init__`` method.*"
+msgstr ""
+"*注意: ``self.clients`` "
+"変数は、クライアントソケットとそれに対応するアドレスを格納するために使用される辞書です。ディクショナリのキーはクライアント "
+"ソケットであり、値はクライアント アドレスです。これは ``__init__`` メソッドで定義されています。*"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:161 070355e1835f421d8b702f543790193d
+msgid "TCP Server handling information API"
+msgstr "TCPサーバー取り扱い情報API"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:163 6bdeec5a0fbc4fdfad7e8e4c5080ea42
+msgid ""
+"The server handling information API documents the core TCP server methods "
+"that manage client sockets, receive raw data, and send messages."
+msgstr ""
+"サーバー処理情報 API は、クライアント ソケットの管理、生データの受信、メッセージの送信を行うコア TCP サーバー メソッドを文書化します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:175 bf29af8fe2234688985a8e46f31e98fd
+msgid ""
+"`handle_client` is the main per-client handler in ``TCP_Server_Base``. It is"
+" invoked after a client connection is accepted and is responsible for:"
+msgstr ""
+"`handle_client` は、 `TCP_Server_Base` "
+"のメインのクライアントごとのハンドラです。これはクライアント接続が受け入れられた後に呼び出され、次の役割を果たします。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:179 515a6bdc07ff49a98c6ff9d24c0b1cb0
+msgid ""
+"adding the client entry into ``self.clients`` with socket, address, id, and "
+"connected time"
+msgstr "ソケット、アドレス、ID、接続時刻を含むクライアントエントリを「self.clients」に追加します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:180 facc3962428144b08b4a6cf92c814516
+msgid "printing connection information and current client count"
+msgstr "接続情報と現在のクライアント数を出力する"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:181 ecf6098bbcb84fe685cbfc1d396ae7b7
+msgid "sending a welcome message to the client"
+msgstr "クライアントにウェルカムメッセージを送信する"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:182 de747640fa9b4621a648edf96bf7ac25
+msgid ""
+"broadcasting ``/client_alloc_port_range`` information to all clients "
+"depending on port allocation mode"
+msgstr "ポート割り当てモードに応じて、「/client_alloc_port_range」情報をすべてのクライアントにブロードキャストします。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:184 2e1b606db2b045848f542e132684b205
+msgid ""
+"*Note: You can specify the port allocation mode in the arguments which has "
+"been defined in the ``TCP_Server_Base`` class. The args which you can change"
+" are ``port_add_step``, ``port_range_num`` and ``is_hand_alloc_port``.*"
+msgstr ""
+"*注意: ``TCP_Server_Base`` クラスで定義された引数でポート割り当てモードを指定できます。変更できる引数は "
+"``port_add_step``、``port_range_num``、および ``is_hand_alloc_port`` です。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:190 34fdceba026a4d05b1cc55db8268c470
+msgid "receiving raw bytes from the socket using `recieve_message`"
+msgstr "「recieve_message」を使用してソケットから生のバイトを受信する"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:191 62e632417dc74e8f918dcdbc53cf7d33
+msgid "buffering incoming data until newline-terminated messages are complete"
+msgstr "改行で終わるメッセージが完了するまで受信データをバッファリングする"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:192 b8be4e68312d40cfb23e8b4a903f18a6
+msgid "splitting and processing each message line-by-line"
+msgstr "各メッセージを行ごとに分割して処理する"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:193 b3c9b6c0edf34ae78535e51ae6cf478e
+msgid "routing special commands beginning with ``/`` to `handle_command`"
+msgstr "`/` で始まる特殊コマンドを `handle_command` にルーティングする"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:195 d2cfbcec1e60482b8e6455caeafb6647
+msgid "The `handle_command` function is defined as:"
+msgstr "`handle_command` 関数は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:206 a952daec8aca4b72b02d6d40b25e15f7
+msgid ""
+"In `handle_command`, there are variable conditional branches to handle "
+"built-in commands like ``/help``, ``/time``, ``/clients``, ``/quit``, and "
+"some file transfer commands. If you already added more commands by the "
+"command extension API, the function will determine if the inputed message "
+"matched the extension commands."
+msgstr ""
+"`handle_command` "
+"には、`/help`、`/time`、`/clients`、`/quit`、およびいくつかのファイル転送コマンドなどの組み込みコマンドを処理するための変数条件分岐があります。コマンド拡張"
+" API によってすでにコマンドを追加している場合、関数は入力されたメッセージが拡張コマンドと一致するかどうかを判断します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:214 c4d5c00ef1494d338870fa7c99311500
+msgid ""
+"*Note: For more details of the command extension API and the built-in "
+"commands, see the :ref:`tcp-server-command-api` section.*"
+msgstr ""
+"*注意: コマンド拡張 API と組み込みコマンドの詳細については、:ref:`tcp-server-command-api` "
+"セクションを参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:217 9069336255824efda2f64d583b230659
+msgid "logging normal chat messages and acknowledging receipt"
+msgstr "通常のチャットメッセージのログ記録と受信確認"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:218 eba4add974374bb094e7e782912d4246
+msgid ""
+"removing the client from ``self.clients`` and closing the socket when the "
+"client disconnects or an error occurs"
+msgstr "クライアントが切断されるかエラーが発生したときに、クライアントを「self.clients」から削除し、ソケットを閉じる"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:228 c1c340a5e5584ee7a7119ebe7d1c306b
+msgid ""
+"`recieve_message` is a thin wrapper around socket receive operations. It "
+"reads up to ``msg_length`` bytes from the given ``client_socket`` and "
+"returns the raw byte payload. Message decoding and newline message framing "
+"are handled by the caller."
+msgstr ""
+"`recieve_message` はソケット受信操作の薄いラッパーです。指定された `client_socket` から最大 `msg_length`"
+" バイトを読み取り、生のバイト ペイロードを返します。メッセージのデコードと改行メッセージのフレーム化は呼び出し元によって処理されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:243 9d5693a2ac394fa8b159378a13a235ec
+msgid ""
+"`send_message` sends data back to a specific connected client. It verifies "
+"the server is running and the socket is valid, then:"
+msgstr ""
+"`send_message` "
+"は、接続されている特定のクライアントにデータを送り返します。サーバーが実行中であり、ソケットが有効であることを確認してから、次のようにします。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:246 87916d18ee3b42f8ae50d51ddf1bccbd
+msgid "accepts both ``str`` and ``bytes`` message payloads"
+msgstr "``str`` と ``bytes`` の両方のメッセージペイロードを受け入れます"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:247 ecfd10c187d64a48848792292c8480aa
+msgid "trims string payloads and appends a newline if missing"
+msgstr "文字列ペイロードをトリミングし、欠落している場合は改行を追加します"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:248 ed83940c588a48ab8c62b3701e1ca7d6
+msgid "encodes string payloads as UTF-8"
+msgstr "文字列ペイロードを UTF-8 としてエンコードします"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:249 236a9ae0cb68449dab8bf35c5a882ad3
+msgid "sends the complete message with ``client_socket.sendall(data)``"
+msgstr "`client_socket.sendall(data)` を使用して完全なメッセージを送信します"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:250 ca17aaf273e9454aa1f021c22bb2fa60
+msgid ""
+"returns ``True`` on success, otherwise logs the error and returns ``False``"
+msgstr "成功した場合は ``True`` を返し、それ以外の場合はエラーをログに記録して ``False`` を返します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:252 9805ae426a764cab83a5a4e569a0a7bd
+msgid ""
+"And there are also some other functions which are used to send message in "
+"bulk to the clients, such as the `broadcast` function and the "
+"`send_msg_to_specific_client` function."
+msgstr ""
+"また、「broadcast」関数や「send_msg_to_specific_client」関数など、クライアントにメッセージを一括送信するために使用される関数もいくつかあります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:265 b52547de04fa46698820c9b6df576653
+msgid ""
+"In `broadcast` function, it will send a message to all the clients which are"
+" in the ``self.clients`` variable, also delete the clients which are already"
+" disconnected with the server. And if the ``exclude_client`` parameter is "
+"not ``None``, the server will exclude the client which is specified by the "
+"``exclude_client`` parameter when sending the message."
+msgstr ""
+"`broadcast` 関数では、`self.clients` "
+"変数にあるすべてのクライアントにメッセージを送信し、すでにサーバーとの接続が切断されているクライアントも削除します。また、 "
+"``exclude_client`` パラメータが ``None`` でない場合、サーバーはメッセージ送信時に ``exclude_client`` "
+"パラメータで指定されたクライアントを除外します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:280 6c9ab282617242d8bf8f48d782916b11
+msgid ""
+"The `send_msg_to_specific_client` function is used to send one or more "
+"message to one or more specific clients by their client IDs. And the "
+"``message`` args should be input a send message command."
+msgstr ""
+"`send_msg_to_specific_client` 関数は、クライアント ID によって 1 つ以上の特定のクライアントに 1 "
+"つ以上のメッセージを送信するために使用されます。そして、メッセージ送信コマンドには ``message`` 引数を入力する必要があります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:285 f3b03ebf0f3c4c7ba7a8806cdddf27c3
+msgid ""
+"These methods form the server's client I/O loop and ensure reliable message "
+"exchange for connected TCP clients."
+msgstr ""
+"これらのメソッドはサーバーのクライアント I/O ループを形成し、接続された TCP クライアントに対する信頼性の高いメッセージ交換を保証します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:292 1fc13aa10e3a4b03a36643995e3ba056
+msgid "TCP Server command API"
+msgstr "TCPサーバーコマンドAPI"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:294 165d8a3c005b48afb74ae189b4a46306
+msgid ""
+"The server supports several built-in commands and a command extension API. "
+"The main entry point is the `handle_command` method, which is invoked for "
+"any message starting with ``/``."
+msgstr ""
+"サーバーは、いくつかの組み込みコマンドとコマンド拡張 API をサポートしています。メインのエントリ ポイントは `handle_command` "
+"メソッドで、これは `/` で始まるメッセージに対して呼び出されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:299 5ca7babc4de4465e9eaf33533ddb30e5
+msgid ""
+"We support two solutions for command handling, one is input a command in the"
+" console, and the other is recieving a command from other clients, and you "
+"can also call the functions which are defined for the commands in the code."
+msgstr ""
+"コマンド処理には 2 つのソリューションがサポートされています。1 つはコンソールにコマンドを入力する方法、もう 1 "
+"つは他のクライアントからコマンドを受信する方法です。また、コード内でコマンドに定義されている関数を呼び出すこともできます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:305 88e467b424694779867a52068a7ba74f
+msgid ""
+"*Note: You can select the solution which you want to use by changing the "
+"args of the `TCP_Server_Base` class, the arg is "
+"``is_input_command_in_console``. ``True`` is allow the server to input the "
+"command in console, while ``False`` is don't allow.*"
+msgstr ""
+"*注意: `TCP_Server_Base` クラスの引数を変更することで、使用するソリューションを選択できます。引数は "
+"`is_input_command_in_console` です。 ``True`` はサーバーがコンソールにコマンドを入力することを許可しますが、 "
+"``False`` は許可しません。*"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:312 f4d25c3417554dcdb36b1012c7acbf23
+msgid "Built-in client commands include:"
+msgstr "組み込みのクライアント コマンドには次のものが含まれます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:314 18424caf652742f380600485e2581c61
+msgid "``/help``: returns the available command list and usage hints."
+msgstr "``/help``: 利用可能なコマンドのリストと使用法のヒントを返します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:315 273f4d0ef6554961bcbd37407cff3c3a
+msgid "``/time``: returns the current server time."
+msgstr "``/time``: 現在のサーバー時刻を返します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:316 1b57543ac372476d991bf15948cba94e
+msgid "``/clients``: returns the list of connected client IDs."
+msgstr "``/clients``: 接続されているクライアント ID のリストを返します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:317 250e94649821406583d8673b164f3d82
+msgid "``/quit``: returns a goodbye message and disconnects the client."
+msgstr "``/quit``: 別れのメッセージを返し、クライアントを切断します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:318 a0ca6a21294b428584c46c7f90c25d58
+msgid ""
+"``/file <file_path> <client_id>``: starts a file transfer request from "
+"client to server."
+msgstr "``/file <file_path> <client_id>``: クライアントからサーバーへのファイル転送リクエストを開始します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:319 185ce5d8089345e4b98e35349e5e57ff
+msgid ""
+"``/file_folder <folder_path> <client_id>``: starts a folder transfer request"
+" from client to server."
+msgstr ""
+"``/file_folder <folder_path> <client_id>``: クライアントからサーバーへのフォルダ転送リクエストを開始します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:320 dbf9a8905fae492690e443ed9f6cb35a
+msgid ""
+"``/server_file_transfer_port <port> <client_id>``: internal protocol message"
+" used to coordinate file transfer ports."
+msgstr ""
+"``/server_file_transfer_port <port> <client_id>``: "
+"ファイル転送ポートを調整するために使用される内部プロトコル メッセージ。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:322 f9e1c4772cea466d8423154e4cf9f416
+msgid ""
+"In `handle_command`, the server will first check if the command matches any "
+"built-in commands. If it dose, the `handle_command` will call the functions "
+"which are defined for the commands."
+msgstr ""
+"`handle_command` "
+"では、サーバーはまずコマンドが組み込みコマンドと一致するかどうかを確認します。実行すると、`handle_command` "
+"はコマンドに定義されている関数を呼び出します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:327 ad51d8bdab054358b6eefd6c0d615cbf
+msgid ""
+"If a command is not recognized by the built-in handler, `handle_command` "
+"will check if it matches any registered custom commands from the command "
+"extension API. If the command is already registered, the `handle_command` "
+"will call the function defined for that command. The command extension API "
+"is defined as:"
+msgstr ""
+"コマンドが組み込みハンドラーで認識されない場合、「handle_command」はコマンド拡張 API から登録されているカスタム "
+"コマンドと一致するかどうかをチェックします。コマンドがすでに登録されている場合、「handle_command」はそのコマンドに定義された関数を呼び出します。コマンド拡張"
+" API は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:345 ba982fcb2a03487c96decb630edb3659
+msgid "The args of the `register_command` function are as follows:"
+msgstr "`register_command` 関数の引数は次のとおりです。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:348 9fcc4048307b4bcf9871c0165ac9dc9c
+msgid "``command_name``: The name of the command to register."
+msgstr "``command_name``: 登録するコマンドの名前。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:350 822ff8eb774647debd8dd9dfe6e8cc2b
+msgid ""
+"*Note: The ``command_name`` should start with a slash (e.g., "
+"``/my_command``) to be recognized as a command.*"
+msgstr ""
+"*注意: コマンドとして認識されるように、``command_name`` はスラッシュで始まる必要があります (例: "
+"``/my_command``)。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:353 b2b58f69e9f448b7a21f64c9abeb5162
+msgid "``handler``: The function to call when the command is received."
+msgstr "``handler``: コマンドを受信したときに呼び出す関数。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:355 004fdd84d8884315944f5ae383f43443
+msgid ""
+"*Note: The ``handler`` function must have and only have three parameters "
+"which are ``client_socket``, ``client_address``, and ``command``. "
+"``client_socket`` will be accepted as the network socket object who sent the"
+" command, ``client_address`` will be accepted as the address of the client "
+"that sent the command, while the ``command`` parameter will contain the "
+"actual command string.*"
+msgstr ""
+"*注意: ``handler`` 関数には、``client_socket``、``client_address``、および ``command`` の"
+" 3 つのパラメータが必要です。 ``client_socket`` はコマンドを送信したネットワークソケットオブジェクトとして受け入れられ、 "
+"``client_address`` はコマンドを送信したクライアントのアドレスとして受け入れられます。一方、 ``command`` "
+"パラメータには実際のコマンド文字列が含まれます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:363 0ad91c46e6974c24b69523e952899e10
+msgid "``where_to_run``: Specifies where the command should be executed."
+msgstr "``where_to_run``: コマンドを実行する場所を指定します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:364 55bc43997c794d8daf309862b4a68a77
+msgid ""
+"``run_in_thread``: A boolean indicating whether to run the command in a "
+"separate thread."
+msgstr "``run_in_thread``: コマンドを別のスレッドで実行するかどうかを示すブール値。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:366 cd7017af3ce448b3aeae63584d74f616
+msgid ""
+"This extension API allows server-side and console-side custom commands to be"
+" registered dynamically. Valid values for ``where_to_run`` are "
+"``\"server\"`` and ``\"client\"``. The ``\"server\"`` means the command will"
+" be handled when a client sends the command, while the ``\"client\"`` means "
+"the command will be handled when the server input the command in console."
+msgstr ""
+"この拡張 API を使用すると、サーバー側とコンソール側のカスタム コマンドを動的に登録できます。 ``where_to_run`` の有効な値は "
+"``\"server\"`` と ``\"client\"`` です。 ``\"server\"`` "
+"は、クライアントがコマンドを送信したときにコマンドが処理されることを意味し、一方、``\"client\"`` "
+"は、サーバがコンソールにコマンドを入力したときにコマンドが処理されることを意味します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:375 88c585e04a674fc4bef74fe5de86ebbd
+msgid ""
+"*Note: It's true that the valid values for ``where_to_run`` are too strange,"
+" but we stile didn't find a better way to define that.*"
+msgstr "*注意: ``where_to_run`` の有効な値が奇妙すぎるのは事実ですが、それを定義するより良い方法が見つかりませんでした。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:379 f895a02c6ed741f28928770cafc149ab
+msgid ""
+"The ways to run the command will be different according to the args "
+"``run_in_thread``. If ``run_in_thread`` is ``True``, the command handler "
+"will be executed in a separate thread from the server's thread pool. If "
+"``run_in_thread`` is ``False``, the command handler will be executed "
+"synchronously in the main server thread."
+msgstr ""
+"コマンドの実行方法は引数 ``run_in_thread`` によって異なります。 run_in_thread が True の場合、コマンド "
+"ハンドラはサーバーのスレッド プールとは別のスレッドで実行されます。 run_in_thread が False の場合、コマンド ハンドラはメイン "
+"サーバー スレッドで同期的に実行されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:387 5c246f84fab2441ea1bb1c545ce68e59
+msgid ""
+"*Note: We store the registered commands in a list variable with two "
+"dictionary in its inner layer, and the list variable is defined as "
+"``self._custom_handlers`` which initialized in the `__init__` method. The "
+"command and its handler will be stored in the one of the dictionaries "
+"according to the value of ``where_to_run``. For ``\"server\"``, it will be "
+"stored in the first dictionary, other wise in the second dictionary. And the"
+" key of the dictionaries are all the command name, and the value is another "
+"dictionary containing the handler function. And there is also another list "
+"variable defined as ``self._custom_handler_threaded`` which initialized in "
+"the `__init__` method, it contains all the commands that should be run in a "
+"separate thread or not.*"
+msgstr ""
+"*注意: 登録されたコマンドは、内層に 2 つの辞書を持つリスト変数に格納されます。リスト変数は `__init__` メソッドで初期化される "
+"``self._custom_handlers`` として定義されます。コマンドとそのハンドラは、 ``where_to_run`` の値に従って辞書の"
+" 1 つに保存されます。 ``\"server\"`` の場合は最初の辞書に格納され、それ以外の場合は 2 "
+"番目の辞書に格納されます。そして、辞書のキーはすべてコマンド名で、値はハンドラー関数を含む別の辞書です。また、`self._custom_handler_threaded`"
+" として定義された別のリスト変数もあります。これは `__init__` "
+"メソッドで初期化され、別のスレッドで実行する必要があるかどうかに関係なく、すべてのコマンドが含まれています。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:406 995661a3dbef417fba60d3c35c15ff84
+msgid ""
+"After that, the command handler will be called according to the command "
+"name, and run them by a command executor which is defined as:"
+msgstr ""
+"その後、コマンド名に従ってコマンド ハンドラーが呼び出され、次のように定義されたコマンド エグゼキューターによってコマンド ハンドラーが実行されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:420 beca566245f34903aeb8724846eed5b2
+msgid ""
+"In this excecutor function, there is a try and except code block to catch "
+"the error when running the command handler. If there is an error when "
+"running the command handler, the server will log the error message and also "
+"send the error message back to the client if the command is from the client "
+"side. And in the try code block, the command handler will be called with the"
+" command arguments, and also the client socket and client address if the "
+"command is from the client side."
+msgstr ""
+"このエグゼキューター関数には、コマンド ハンドラーの実行時にエラーを捕捉するための try and else コード ブロックがあります。コマンド "
+"ハンドラーの実行中にエラーが発生した場合、サーバーはエラー メッセージをログに記録し、コマンドがクライアント側からのものである場合はエラー "
+"メッセージをクライアントに送り返します。また、try コード ブロックでは、コマンド "
+"ハンドラーがコマンド引数を使用して呼び出されます。また、コマンドがクライアント側からのものである場合は、クライアント ソケットとクライアント "
+"アドレスも使用されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:430 cdeb61f1177746d6a876c34952fd19fa
+msgid ""
+"If the command don't run in the thread, the command executor will be called "
+"directly in the `handle_command` function. But if the command should run in "
+"a separate thread, the command executor will be submitted to the server's "
+"thread pool using the `submit_task` method, which is defined as:"
+msgstr ""
+"コマンドがスレッド内で実行されない場合、コマンド実行プログラムは `handle_command` "
+"関数内で直接呼び出されます。ただし、コマンドを別のスレッドで実行する必要がある場合、コマンド実行プログラムは、次のように定義される "
+"`submit_task` メソッドを使用してサーバーのスレッド プールに送信されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:445 28e003d4cb4d4bf9b2e86761a627ceb8
+msgid ""
+"The `submit_task` method is a helper function that submits a callable to the"
+" server's internal thread pool executor. It accepts a function and its "
+"arguments, and schedules it for execution in a separate thread. This allows "
+"long-running or blocking command handlers to run without blocking the main "
+"server loop."
+msgstr ""
+"`submit_task` メソッドは、サーバーの内部スレッド プール "
+"エグゼキュータに呼び出し可能ファイルを送信するヘルパー関数です。関数とその引数を受け取り、それを別のスレッドで実行するようにスケジュールします。これにより、メイン"
+" サーバー ループをブロックすることなく、長時間実行またはブロックされているコマンド ハンドラーを実行できます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:452 f6c27cd90e544030b491071dd75f57ba
+msgid ""
+"As a high level TCP network protocal, A temporary TCP server and a client "
+"can also be created very simply. The temporary TCP server or client can be "
+"satisfied for the functions which need other sockets or ports for avoid to "
+"have a conflict with the main server or client loop. For example, file "
+"transfer functions. The APIs to create temporary TCP server and client are "
+"defined as:"
+msgstr ""
+"高レベルの TCP ネットワーク プロトコルとして、一時的な TCP サーバーとクライアントも非常に簡単に作成できます。一時的な TCP "
+"サーバーまたはクライアントは、メイン サーバーまたはクライアント "
+"ループとの競合を避けるために他のソケットまたはポートを必要とする機能に対応できます。たとえば、ファイル転送機能です。一時的な TCP "
+"サーバーとクライアントを作成する API は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:480 03472fb1d6504791b0c258649120fb4e
+msgid "TCP Server console commands"
+msgstr "TCPサーバーコンソールコマンド"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:482 160f4a5ffb92405d87eefd2715f63a85
+msgid ""
+"The server console input thread accepts administrative commands when "
+"``is_input_command_in_console`` is ``True``. Supported console commands "
+"include:"
+msgstr ""
+"サーバーコンソール入力スレッドは、 ``is_input_command_in_console`` が ``True`` "
+"の場合に管理コマンドを受け入れます。サポートされているコンソール コマンドは次のとおりです。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:486 ff3c0e8e24c64b37be6989a02e74424e
+msgid "``/stop``: stops the server and closes all active connections."
+msgstr "``/stop``: サーバーを停止し、アクティブな接続をすべて閉じます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:487 bacd7486794245838af07e976011acd2
+msgid "``/status``: prints the current connection count and running state."
+msgstr "``/status``: 現在の接続数と実行状態を出力します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:488 dfa0f284b18344dfbc77bd6ea5c12186
+msgid "``/clients``: prints the connected clients and their connection times."
+msgstr "``/clients``: 接続されているクライアントとその接続時間を出力します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:489 c04b7b915a284b438b0dc3a012daa5df
+msgid ""
+"``/send_msg <message...> <client_id1> <client_id2> ...``: sends one or more "
+"messages to specific clients."
+msgstr ""
+"``/send_msg <message...> <client_id1> <client_id2> ...``: 1 "
+"つ以上のメッセージを特定のクライアントに送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:490 d01fc9ec1cad4c2d8e86c209437470d5
+msgid ""
+"``/file <file_path> <client_id>``: sends a file from the server to a "
+"specific client."
+msgstr "``/file <file_path> <client_id>``: サーバーから特定のクライアントにファイルを送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:491 8078013bfbb048268f7bd541a7c8217b
+msgid ""
+"``/file_folder <folder_path> <client_id>``: sends a folder from the server "
+"to a specific client."
+msgstr ""
+"``/file_folder <folder_path> <client_id>``: フォルダをサーバーから特定のクライアントに送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:492 1badd171c83b436ca1831e77eb53ce4d
+msgid ""
+"``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
+"...``: sends multiple files to multiple clients."
+msgstr ""
+"``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
+"...``: 複数のファイルを複数のクライアントに送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:493 d4bfff6ebe0f4323a368631d99b70110
+msgid ""
+"``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
+"<client2> ...``: sends different file lists to different clients."
+msgstr ""
+"``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
+"<client2> ...``: 異なるファイルリストを異なるクライアントに送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:494 1019b8f7b8bf4f7e99c353ec5ad41056
+msgid "``/help``: prints a help summary of console commands."
+msgstr "``/help``: コンソールコマンドのヘルプ概要を出力します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:496 4d6ed7e47b6e4b5090f31d546f96b1d9
+msgid ""
+"These console commands make it easy to manage the active server and perform "
+"server-initiated file transfers without modifying the code."
+msgstr ""
+"これらのコンソール コマンドを使用すると、コードを変更せずに、アクティブ サーバーの管理とサーバー開始のファイル転送の実行が簡単になります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:500 7bfa13e1317b4e4087e0d4e8e67ad3e9
+msgid ""
+"*Note: There is too long to introduce all the console commands, so for more "
+"details see the :ref:`tcp-server-console-commands` section.*"
+msgstr ""
+"*注意: すべてのコンソール コマンドを紹介するには長すぎるため、詳細については、:ref:`tcp-server-console-commands` "
+"セクションを参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:504 a3ac35fb445b4a9da29da7acd0ca9253
+msgid "TCP Server file transfer API"
+msgstr "TCPサーバーファイル転送API"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:506 5997261b65bd4afebd3490c4c85542cb
+msgid ""
+"The TCP server contains a file transfer subsystem that supports both client-"
+"to-server and server-to-client transfers."
+msgstr ""
+"TCP サーバーには、クライアントからサーバーへの転送とサーバーからクライアントへの転送の両方をサポートするファイル転送サブシステムが含まれています。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:510 6a4303df7cfb4c36a0431dca3e1975fb
+msgid ""
+"It's too long to introduce all the file transfer functions, so there are "
+"only the list of APIs for the file transfer functions, and for more detatils"
+" of the file transfer functions, please visit ..."
+msgstr ""
+"すべてのファイル転送機能を紹介するには長すぎるため、ファイル転送機能の API "
+"のリストのみを示します。ファイル転送機能の詳細については、以下を参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:515 fdaf074c3893458489af7f2b517df69f
+msgid "The file transfer API for you to use includes:"
+msgstr "使用できるファイル転送 API には次のものが含まれます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:517 3698381e5d544c7d8afdf662941225aa
+msgid ""
+"The basic function for the server-to-client file transfer is defined as:"
+msgstr "サーバーからクライアントへのファイル転送の基本機能は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:528 9d08bcb691774e73995d2f2e0647eaa9
+msgid ""
+"The file transfer function which will run in the threads is defined as:"
+msgstr "スレッド内で実行されるファイル転送関数は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:539 93fa90f9588b415b8153c36eab025461
+msgid "The folder transfer function is defined as:"
+msgstr "フォルダー転送関数は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:548 a02e9e5d0caa4e91add6480273c2c42f
+msgid ""
+"The multiple files transfer to multiple clients function is defined as:"
+msgstr "複数のファイルを複数のクライアントに転送する機能は次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:558 02161728b70346598249cdfef72d1f26
+msgid ""
+"The different multiple files transfer to the different multiple clients "
+"function is defined as:"
+msgstr "異なる複数のファイルを異なる複数のクライアントに転送する関数は、次のように定義されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:568 98d8a31794944316abe50c4555265298
+msgid ""
+"We recommand you that if you want to use the mono-file transfer function, "
+"use the `file_transfer_server_recv_client_start_thread` function first, "
+"unless the functions which called the mono-file transfer function are "
+"already in a separate thread, then you can call the "
+"`file_transfer_server_recv_client_start` function directly, or the file "
+"transfer functions are may not very stateble. And for the other file "
+"transfer functions, we don't very recommand you to use them in threads, "
+"because there are already some thread control mechanisms in the functions, "
+"so don't be worry about the concurrent performance. And if you call them in "
+"threads, there may be some unexpected errors and also unessarly complexity."
+msgstr ""
+"モノファイル転送関数を使用したい場合は、最初に `file_transfer_server_recv_client_start_thread` "
+"関数を使用することをお勧めします。ただし、モノファイル転送関数を呼び出した関数がすでに別のスレッドにある場合を除き、その後で "
+"`file_transfer_server_recv_client_start` "
+"関数を直接呼び出すことができます。そうでない場合、ファイル転送関数はあまりステートブルではない可能性があります。また、他のファイル転送関数については、スレッドで使用することはあまりお勧めしません。関数にはすでにいくつかのスレッド制御メカニズムが組み込まれているため、同時パフォーマンスについては心配する必要はありません。また、スレッド内でそれらを呼び出すと、予期しないエラーが発生したり、過度に複雑になったりする可能性があります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:582 d3f9165db6124b80bf57bf0cb5f26e9e
+msgid ""
+"*Note: The file transfer API functions are designed to be called from the "
+"command handlers for both client-initiated and server-initiated transfers. "
+"They handle the coordination of transfer ports, client connections, and the "
+"actual file data transfer operations.*"
+msgstr ""
+"*注意: ファイル転送 API 関数は、クライアント開始転送とサーバー開始転送の両方のコマンド "
+"ハンドラーから呼び出されるように設計されています。これらは、転送ポート、クライアント接続、および実際のファイル データ転送操作の調整を処理します。*"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:588 e138890a93f84710b0c6411668de350c
+msgid "Client-to-server transfer flow:"
+msgstr "クライアントからサーバーへの転送フロー:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:590 df090c467cb64f9cb567336969092443
+msgid "The client sends ``/file`` or ``/file_folder`` to request a transfer."
+msgstr "クライアントは、転送をリクエストするために ``/file`` または ``/file_folder`` を送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:592 a17755bc1f374ec9a520b09b8ede17d3
+msgid ""
+"``handle_command`` starts a dedicated file-server thread using "
+"``file_transfer_server_recv_server_start_thread``."
+msgstr ""
+"``handle_command`` は ``file_transfer_server_recv_server_start_thread`` "
+"を使用して専用のファイルサーバースレッドを開始します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:594 5c47ae452b7e442c930303ba39abc9a4
+msgid ""
+"The server allocates an ephemeral transfer port with ``palloc`` and sends "
+"``/server_file_transfer_port <port> <client_id>`` back to the client."
+msgstr ""
+"サーバーは ``palloc`` で一時転送ポートを割り当て、``/server_file_transfer_port <port> "
+"<client_id>`` をクライアントに送り返します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:598 4451beeea4e94f54b1858f725aa9b8cb
+msgid ""
+"The client connects to that transfer port and sends file metadata, including"
+" length-prefixed filename and file size."
+msgstr "クライアントはその転送ポートに接続し、長さの接頭辞が付いたファイル名やファイル サイズなどのファイル メタデータを送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:601 a564b3a183464693974574995e854c5a
+msgid "The server receives the file and writes it under ``received_files``."
+msgstr "サーバーはファイルを受信し、それを ``received_files`` の下に書き込みます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:604 459e778150884f89914d6b7601307f65
+msgid "Server-to-client transfer flow:"
+msgstr "サーバーからクライアントへの転送フロー:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:606 7ef36ab55a75400dbcde93b9f89465fd
+msgid ""
+"``file_transfer_server_recv_client_start`` is used to initiate outgoing "
+"transfers from server to a connected client."
+msgstr ""
+"``file_transfer_server_recv_client_start`` "
+"は、サーバから接続されたクライアントへの送信転送を開始するために使用されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:608 a9f71275fe7c4b98a5f0d38aa57c9b8c
+msgid ""
+"The server sends transfer commands to the client socket and waits for the "
+"client to establish the file transfer connection."
+msgstr "サーバーは転送コマンドをクライアント ソケットに送信し、クライアントがファイル転送接続を確立するのを待ちます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:610 b238217053744b82b81aded101cd43d1
+msgid ""
+"Folder transfers are performed recursively, with each file transfer "
+"respecting ``self.max_file_transfer_thread_num`` and the configured "
+"semaphore limit."
+msgstr ""
+"フォルダー転送は再帰的に実行され、各ファイル転送は ``self.max_file_transfer_thread_num`` "
+"と設定されたセマフォ制限に従って行われます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:613 d7a6960cd4ae43dfb42b4f8e69b965d7
+msgid "Common file transfer helper methods include:"
+msgstr "一般的なファイル転送ヘルパー メソッドには次のものがあります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:615 23cb257977b54bd087bc15419455086c
+msgid ""
+"``file_transfer_server_recv_server_start``: receives file data from a "
+"client."
+msgstr "``file_transfer_server_recv_server_start``: クライアントからファイルデータを受け取ります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:616 a8ca3493e4164bf59745b835710fb010
+msgid ""
+"``file_transfer_server_recv_client_start``: sends a file or folder to a "
+"client."
+msgstr "``file_transfer_server_recv_client_start``: ファイルまたはフォルダをクライアントに送信します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:617 bc5d6dfe4f6f4f4591553b4728356e54
+msgid ""
+"``file_transfer_mode``: performs the low-level client-side transfer "
+"handshake."
+msgstr "``file_transfer_mode``: 低レベルのクライアント側転送ハンドシェイクを実行します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:618 b1eebf39b4e24858b9f65f62958a0a97
+msgid ""
+"``file_transfer_mode_recv``: performs the low-level receive-side transfer "
+"handshake."
+msgstr "``file_transfer_mode_recv``: 低レベルの受信側転送ハンドシェイクを実行します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:623 ae07c5e8c8af466d8aab8eb360f8ecec
+msgid "Port allocation API"
+msgstr "ポート割り当てAPI"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:625 08071868b4e743e6935f800b6fbe5f44
+msgid ""
+"The server allocation APIs allow you to alloc a new port for another "
+"servers. There are two kinds of port allocation modes."
+msgstr ""
+"サーバー割り当て API を使用すると、別のサーバーに新しいポートを割り当てることができます。ポート割り当てモードには 2 種類があります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:629 47add20f21ae4cb781a12c85017a50d9
+msgid ""
+"For change the port allocation mode, you can set the args "
+"``is_hand_alloc_port`` in the server instence class. When input ``False``, "
+"the server instence will choose the automaticlly port allocation mode, or "
+"input ``False`` it will choose the manual allocation mode."
+msgstr ""
+"ポート割り当てモードを変更するには、サーバーインスタンスクラスに引数 ``is_hand_alloc_port`` を設定します。 "
+"「False」を入力するとサーバーインスタンスは自動ポート割り当てモードを選択し、「False」を入力すると手動割り当てモードを選択します。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:635 58b7d1ef00f5464581f61417932a2bc5
+msgid ""
+"We most recommand you that to use the automaticlly port allocation mode, "
+"which is the default mode of the server, because the automaticlly port "
+"allocation mode is more simple and also more stable than the manual port "
+"allocation mode. In this mode, when calling the allocation APIs, it will "
+"return ``0``."
+msgstr ""
+"自動ポート割り当てモードは手動ポート割り当てモードよりもシンプルで安定しているため、サーバーのデフォルト "
+"モードである自動ポート割り当てモードを使用することを最もお勧めします。このモードでは、割り当て API を呼び出すと、「0」が返されます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:642 c2ea6f63d89744c4a5e23bb92f70b8e6
+msgid ""
+"*Note: The `bind` function in standard lib `socket` of the python executor, "
+"when input ``0`` to the port parameter, will automatically assign an "
+"available port by operating system.*"
+msgstr ""
+"*注意: Python エグゼキュータの標準ライブラリ `socket` の `bind` 関数は、ポート パラメータに `0` "
+"を入力すると、オペレーティング システムによって利用可能なポートを自動的に割り当てます。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:647 b3f467b006c24c198355bba84566bcb5
+msgid ""
+"The another port allocation mode is the manual port allocation mode, there "
+"is a port allocation range for the server. Please avoid to open other "
+"servers in the same host, because in the existing version, the port "
+"allocation range will be conflicted and some unexpected errors may be "
+"caused."
+msgstr ""
+"もう 1 "
+"つのポート割り当てモードは手動ポート割り当てモードで、サーバーに対するポート割り当て範囲があります。既存のバージョンではポートの割り当て範囲が競合し、予期せぬエラーが発生する可能性があるため、同一ホスト内で他のサーバをオープンすることは避けてください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:654 fcd9f7cb2f07435da45429c438e327cd
+msgid ""
+"The range of the port allocation is configured in the server settings. The "
+"minimum allocatable port is ``self.port-"
+"self.port_add_step*self.port_range_num``, and the maximum allocatable port "
+"is ``self.port+1+self.port_add_step*self.port_range_num``."
+msgstr ""
+"ポート割り当ての範囲はサーバー設定で構成されます。割り当て可能な最小ポートは ``self.port-"
+"self.port_add_step*self.port_range_num``、割り当て可能な最大ポートは "
+"``self.port+1+self.port_add_step*self.port_range_num`` です。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:660 3fb39cdf6b6b45f898434906b07686ac
+msgid ""
+"*Note: The ``self.port`` is the args ``port`` of the server class. The "
+"``self.port_add_step`` is the args ``port_add_step`` of the server class. "
+"And the ``self.port_range_num`` is the args ``port_range_num`` of the server"
+" class also.*"
+msgstr ""
+"*注意: ``self.port`` はサーバークラスの引数 ``port`` です。 ``self.port_add_step`` "
+"はサーバークラスの引数 ``port_add_step`` です。そして ``self.port_range_num`` はサーバークラスの引数 "
+"``port_range_num`` でもあります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:666 aae092cda1d54f5483ef0f11197c61ca
+msgid "There are some relevant methods that can be used:"
+msgstr "使用できる関連する方法がいくつかあります。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:673 4abeea57e0254835a731259b36d437e8
+msgid ""
+"The `palloc` method allow you to get a port, for using this function, you "
+"don't need to worry about the port allocation mode, because a allocation "
+"mode detector is already be wrote in this method."
+msgstr ""
+"`palloc` "
+"メソッドを使用すると、ポートを取得できます。この関数を使用する場合、割り当てモード検出器がこのメソッドにすでに書き込まれているため、ポート割り当てモードについて心配する必要はありません。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:685 6e1a96440603473482e7fec41712ed43
+msgid ""
+"The `pfree` method allow you to free a port, as the same as `palloc` method,"
+" you don't need to care about the port allocation mode when using this "
+"method."
+msgstr ""
+"`pfree` メソッドを使用すると、`p​​alloc` "
+"メソッドと同様にポートを解放できます。このメソッドを使用するときにポート割り当てモードを気にする必要はありません。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:689 d73e972f42ef48c5a645607ccf5bce9c
+msgid ""
+"And there are the main functions for you to call, and for more information "
+"about the port allocation functions, see the :ref:`tcp-server-port-"
+"allocation-api` section."
+msgstr ""
+"呼び出すことができる主な関数もあります。ポート割り当て関数の詳細については、「tcp-server-port-allocation-"
+"api」セクションを参照してください。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:693 2b9b20eb947841a68769f2b536968cbd
+msgid ""
+"This mode is useful when you need a indvidual port for the server or  must "
+"reserve a controlled range of ports for client-file transfers by manual port"
+" allocation, such as in a testing environment or when multiple server "
+"processes share the same host."
+msgstr ""
+"このモードは、テスト環境や複数のサーバー "
+"プロセスが同じホストを共有する場合など、サーバーに個別のポートが必要な場合、または手動ポート割り当てによってクライアント "
+"ファイル転送用に制御された範囲のポートを予約する必要がある場合に便利です。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:700 8f2f35b60ca743c490b4bbf99b297a78
+msgid "TCP Server APIs table"
+msgstr "TCP サーバー API テーブル"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:702 20b0e9d904b547ae823f510645f7d97f
+msgid "In short, the table of contents of the public APIs are following as:"
+msgstr "つまり、パブリック API の目次は次のとおりです。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:705 5ff85748585d46278172ef398e262759
+msgid "The server setup APIs:"
+msgstr "サーバーセットアップ API:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:706 b613ebf542fc4c10b3db1d4c9811ef3a
+msgid "`TCP_Server_Base`"
+msgstr "`TCP_サーバー_ベース`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:707 e4cb32ffa1a3401e89c7d63cd439ef02
+msgid "`start_TCP_Server`"
+msgstr "`start_TCP_Server`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:708 d5c8307bb43c4f78b942a78f8100c2bf
+msgid "`stop`"
+msgstr "「やめて」"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:710 8b410315becc4dee8ee136e410154dbd
+msgid "The server handling information APIs:"
+msgstr "サーバー処理情報 API:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:711 283a386b60b24c5a92e2453c195452fd
+msgid "`handle_client`"
+msgstr "`ハンドル_クライアント`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:712 bb2da75c5d5f406183ad3449e27b89d9
+msgid "`handle_command`"
+msgstr "`ハンドルコマンド`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:713 565aa08b59a8455496931d414a4e26bf
+msgid "`recieve_message`"
+msgstr "`受信メッセージ`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:714 8f805abe7646460898a77048190f5ea2
+msgid "`send_message`"
+msgstr "`send_message`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:715 5ede936aa8984770852c58d54261920f
+msgid "`broadcast`"
+msgstr "「放送」"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:716 c97becc140b447aa9224dd882b948b37
+msgid "`send_msg_to_specific_client`"
+msgstr "「特定のクライアントにメッセージを送信」"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:718 10580118e35142eaa5d3ac8b74cc2308
+msgid "The server command APIs:"
+msgstr "サーバーコマンド API:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:719 dd0fc783ad794fd5a7429ceca0fb9b13
+msgid "`register_command`"
+msgstr "`register_command`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:720 d0e8f2a1a67843428c16dd56d275cfbb
+msgid "`_execute_custom_handler`"
+msgstr "`_execute_custom_handler`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:721 b1064bc554ad4fcd84c3f4e8c3ac1300
+msgid "`submit_task`"
+msgstr "`submit_task`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:722 64fbf59a6a2442d4a2f1f73fa49c9bec
+msgid "`create_temporary_server`"
+msgstr "「一時サーバーの作成」"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:723 811676a1a7e1456eb31d65a360e57611
+msgid "`create_temporary_client`"
+msgstr "`create_temporary_client`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:725 46dcf5ef45b148d59c079ac425fd0639
+msgid "The server file transfer APIs:"
+msgstr "サーバー ファイル転送 API:"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:726 c5b74b75d2be476790ed90a407b4082c
+msgid "`file_transfer_server_recv_client_start`"
+msgstr "`file_transfer_server_recv_client_start`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:727 68259e5588e34b9db62e4e2f1e16c395
+msgid "`file_transfer_server_recv_client_start_thread`"
+msgstr "`file_transfer_server_recv_client_start_thread`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:728 2f72e47dae90440b824a088e96aef0ab
+msgid "`folder_file_transfer_server_recv_client_start`"
+msgstr "`folder_file_transfer_server_recv_client_start`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:729 83096aaef82e46afacd6aeda6d24cdc6
+msgid "`multiple_file_multiple_client_transfer_server_recv_client_start`"
+msgstr "`multiple_file_multiple_client_transfer_server_recv_client_start`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:730 d55613c49c7444a285933b8b79d15619
+msgid ""
+"`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
+msgstr ""
+"`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:732 eba6298d68234f5fa91f19b07eafc1ac
+msgid "The server console commands:"
+msgstr "サーバーコンソールのコマンドは次のとおりです。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:733 8d76b88a5ea54eb1bdabee253af5b32a
+msgid "`/stop`"
+msgstr "`/停止`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:734 cc19861327ec41f7b1534117b21be438
+msgid "`/status`"
+msgstr "`/ステータス`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:735 0ba8452dba3b42f4b34f3a38c8a98ca2
+msgid "`/clients`"
+msgstr "`/クライアント`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:736 703b87e58e6949c18885db51d4d7ea54
+msgid "`/send_msg`"
+msgstr "`/send_msg`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:737 436592f3767c40eeb2660a91b81f4b61
+msgid "`/file`"
+msgstr "`/ファイル`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:738 a89456c362a74d3589d19ca956ddf988
+msgid "`/file_folder`"
+msgstr "`/ファイルフォルダー`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:739 de6b4ba533e24fe1a759a53b5d12a0b2
+msgid "`/multiple_file_multiple_client`"
+msgstr "`/multiple_file_multiple_client`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:740 a3922d63e130462e96499aa2f6e69686
+msgid "`/diff_multiple_file_diff_multiple_client`"
+msgstr "`/diff_multiple_file_diff_multiple_client`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:741 2b497bd8b81b484ab27e02dabc76d90e
+msgid "`/help`"
+msgstr "`/ヘルプ`"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:744 5321930d5b24434fb2b39a180226cc93
+msgid "See Also"
+msgstr "関連項目"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:746 b383207a815c49ec9596489f812bdde0
+msgid ""
+"For more informations about the client APIs, please visit the client API "
+"documentation, at :doc:`TCP_Client_APIs`."
+msgstr ""
+"クライアント API の詳細については、クライアント API ドキュメント (:doc:`TCP_Client_APIs`) を参照してください。"

@@ -1,0 +1,560 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ko <LL@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../Port_Allocation/Port_Allocation.rst:2
+#: ad59f49685664ccb9d502f0a4a375d7e
+msgid "TCP Port Allocation Mechanism"
+msgstr "TCP 포트 할당 메커니즘"
+
+#: ../../Port_Allocation/Port_Allocation.rst:4
+#: 65e9d6bc01074c69bf89f2e91d650848
+msgid ""
+"This document describes the port allocation subsystem implemented in both "
+"the ``TCP_Server_Base`` and ``TCP_Client_Base`` classes. The port allocation"
+" mechanism provides a unified interface for obtaining ephemeral ports, "
+"supporting both **automatic** (OS‑assigned) and **manual** (range‑based) "
+"allocation modes."
+msgstr ""
+"이 문서에서는 ``TCP_Server_Base`` 및 ``TCP_Client_Base`` 클래스 모두에 구현된 포트 할당 하위 시스템을 "
+"설명합니다. 포트 할당 메커니즘은 임시 포트를 확보하기 위한 통합 인터페이스를 제공하며 **자동**(OS 할당) 및 **수동**(범위 "
+"기반) 할당 모드를 모두 지원합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:13
+#: 8cbc9424907c42128a8f44ac1dce8da3
+msgid ""
+"Port allocation is used primarily for file transfer secondary connections, "
+"temporary servers, and temporary clients. The design ensures that ports are "
+"allocated and released without conflicts, even when multiple server or "
+"client instances run on the same host."
+msgstr ""
+"포트 할당은 주로 파일 전송 보조 연결, 임시 서버 및 임시 클라이언트에 사용됩니다. 여러 서버 또는 클라이언트 인스턴스가 동일한 "
+"호스트에서 실행되는 경우에도 충돌 없이 포트가 할당되고 해제되도록 설계되었습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:21
+#: c72dd0dd42ba4409b94712a6cc90b3d3
+msgid ""
+"For a high‑level overview of the server and client classes, please refer to "
+":doc:`../Network_APIs/TCP_Server_APIs` and "
+":doc:`../Network_APIs/TCP_Client_APIs`."
+msgstr ""
+"서버 및 클라이언트 클래스에 대한 높은 수준의 개요는 :doc:`../Network_APIs/TCP_Server_APIs` 및 "
+":doc:`../Network_APIs/TCP_Client_APIs`를 참조하세요."
+
+#: ../../Port_Allocation/Port_Allocation.rst:28
+#: b7fdf5a6bb254d5f8b2db741a1be4e19
+msgid "Overview"
+msgstr "개요"
+
+#: ../../Port_Allocation/Port_Allocation.rst:30
+#: 309184d907a14ad2b46ac4c8843c4ef0
+msgid "The port allocation API consists of two core methods:"
+msgstr "포트 할당 API는 두 가지 핵심 방법으로 구성됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:32
+#: cf55e0f2bd6e49fea945e987d10b534d
+msgid "``palloc()`` – obtain an available port."
+msgstr "``palloc()`` – 사용 가능한 포트를 얻습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:33
+#: 63170bcaa5344e86a6232264cbec8ab8
+msgid "``pfree(port)`` – release a previously allocated port."
+msgstr "``pfree(port)`` – 이전에 할당된 포트를 해제합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:35
+#: 72a0dc9d1b1a434da527a7bfe8da5c4f
+msgid ""
+"The behaviour of these methods depends on the value of the "
+"``is_hand_alloc_port`` flag passed to the class constructor:"
+msgstr "이 메소드의 동작은 클래스 생성자에 전달된 ``is_hand_alloc_port`` 플래그 값에 따라 달라집니다:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:39
+#: 136e8ea008d9437fb18b464f90c0f534
+msgid ""
+"**Automatic mode** (``is_hand_alloc_port=False``, default): ``palloc()`` "
+"returns ``0``. When used in a socket ``bind()`` call, the operating system "
+"automatically assigns a free ephemeral port. ``pfree()`` does nothing."
+msgstr ""
+"**자동 모드** (``is_hand_alloc_port=False``, 기본값): ``palloc()``는 ``0``을 반환합니다. "
+"소켓 ``bind()`` 호출에 사용될 때 운영 체제는 자동으로 사용 가능한 임시 포트를 할당합니다. ``pfree()``는 아무것도 "
+"하지 않습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:45
+#: 45d292c35d0b40ff893ac2453b41e05b
+msgid ""
+"**Manual mode** (``is_hand_alloc_port=True``): Ports are drawn from a "
+"configurable numeric range. The caller must eventually release each "
+"allocated port with ``pfree()``."
+msgstr ""
+"**수동 모드** (``is_hand_alloc_port=True``): 포트는 구성 가능한 숫자 범위에서 그려집니다. 호출자는 결국 "
+"``pfree()``를 사용하여 할당된 각 포트를 해제해야 합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:51
+#: 712955281ffd4575864bf7681fa51226
+msgid ""
+"Automatic mode is strongly recommended for most applications because it "
+"avoids port conflicts and simplifies code. Manual mode is provided for "
+"environments where port ranges must be strictly controlled (e.g., firewalls,"
+" testing, or multiple processes sharing the same host)."
+msgstr ""
+"자동 모드는 포트 충돌을 방지하고 코드를 단순화하므로 대부분의 애플리케이션에 강력히 권장됩니다. 포트 범위를 엄격하게 제어해야 하는 "
+"환경(예: 방화벽, 테스트 또는 동일한 호스트를 공유하는 여러 프로세스)에는 수동 모드가 제공됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:62
+#: 04ff70a01f5e4299b100e09cf1ac1dc7
+msgid "Manual Allocation Range"
+msgstr "수동 할당 범위"
+
+#: ../../Port_Allocation/Port_Allocation.rst:64
+#: f004764a38fd42c59578269e09cf9f93
+msgid ""
+"When manual mode is enabled, the allocatable port range is determined by "
+"three parameters set during class initialisation:"
+msgstr "수동 모드가 활성화되면 할당 가능한 포트 범위는 클래스 초기화 중에 설정된 세 가지 매개변수에 의해 결정됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:68
+#: d1250edb29b34acab53641864f7265dc
+msgid "``port`` – the main server or client port (e.g., 65432)."
+msgstr "``port`` – 메인 서버 또는 클라이언트 포트(예: 65432)."
+
+#: ../../Port_Allocation/Port_Allocation.rst:70
+#: f39861b9ce1442c6bea10edaaf642ce5
+msgid "``port_add_step`` – the step size for incrementing/decrementing ports."
+msgstr "``port_add_step`` – 포트 증가/감소를 위한 단계 크기입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:72
+#: 0a2640ff8b814cd8ad4cbb5d918ad26f
+msgid ""
+"``port_range_num`` – the total number of steps to scan in each direction."
+msgstr "``port_range_num`` – 각 방향으로 스캔할 총 단계 수입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:75
+#: 933da7468e8c484a9d66485cec0273eb
+msgid ""
+"From these, the minimum and maximum allocatable ports are calculated as:"
+msgstr "이로부터 할당 가능한 최소 및 최대 포트는 다음과 같이 계산됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:78
+#: a4265571caf14e70808f0c16b83bd7a2
+msgid "``min_port = port - port_add_step * port_range_num``"
+msgstr "``min_port = 포트 - port_add_step * port_range_num``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:79
+#: 60c81dfd85c040519b241e686679881c
+msgid "``max_port = port + 1 + port_add_step * port_range_num``"
+msgstr "``max_port = 포트 + 1 + port_add_step * port_range_num``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:82
+#: 053694548cde4787bf573d5245129c14
+msgid ""
+"For example, with ``port=65432``, ``port_add_step=1``, "
+"``port_range_num=100``, the allocatable ports range from ``65432 - 100 = "
+"64332`` up to ``65432 + 1 + 100 = 65533``."
+msgstr ""
+"예를 들어, ``port=65432``, ``port_add_step=1``, ``port_range_num=100``인 경우 할당 "
+"가능한 포트 범위는 ``65432 - 100 = 64332``에서 ``65432 + 1 + 100 = 65533``까지입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:88
+#: 356f6f51faed48c7959fef3848d8acac
+msgid "Two independent allocation “directions” are maintained:"
+msgstr "두 가지 독립적인 할당 \"방향\"이 유지됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:90
+#: 31b5c97c5de24c11ae6d601acfa7571c
+msgid ""
+"**Additive allocation** – starts from ``port+1`` and moves upward by "
+"``port_add_step`` each time, up to (but not including) ``max_port``."
+msgstr ""
+"**추가 할당** – ``port+1``에서 시작하여 매번 ``port_add_step``씩 ``max_port``까지(포함하지 않음) "
+"위로 이동합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:94
+#: e81bd92e0a8749cb982b15ad7c87e50c
+msgid ""
+"**Subtractive allocation** – starts from ``port`` and moves downward by "
+"``port_add_step`` each time, down to (but not including) ``min_port``."
+msgstr ""
+"**감산적 할당** – ``port``에서 시작하여 매번 ``port_add_step``씩 아래로 이동하고 "
+"``min_port``까지(포함하지 않음) 아래로 이동합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:99
+#: de313668a0934560a613ce8a854c47c1
+msgid ""
+"The two directions use separate locks and separate current position "
+"pointers, allowing two concurrent allocations to proceed in opposite "
+"directions without colliding, thereby reducing contention."
+msgstr ""
+"두 방향은 별도의 잠금과 별도의 현재 위치 포인터를 사용하여 두 개의 동시 할당이 충돌 없이 반대 방향으로 진행될 수 있도록 하여 경합을"
+" 줄입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:108
+#: 5a447e63cd4e4544ae8b29597e84b425
+msgid "palloc() Behaviour in Manual Mode"
+msgstr "수동 모드의 palloc() 동작"
+
+#: ../../Port_Allocation/Port_Allocation.rst:110
+#: e273d1ce18424f739b7feec6a27c0840
+msgid ""
+"When ``palloc()`` is called in manual mode, it first tries additive "
+"allocation. If additive allocation returns a port, that port is returned "
+"immediately. Otherwise, it tries subtractive allocation. If subtractive "
+"allocation also fails (meaning no ports are available in either direction), "
+"the method sleeps for 0.1 seconds and then retries from the beginning. This "
+"loop continues indefinitely until a port becomes free."
+msgstr ""
+"수동 모드에서 ``palloc()``이 호출되면 먼저 추가 할당을 시도합니다. 추가 할당이 포트를 반환하면 해당 포트가 즉시 반환됩니다."
+" 그렇지 않으면 빼기 할당을 시도합니다. 빼기 할당도 실패하면(어느 방향에서든 사용할 수 있는 포트가 없음을 의미) 메서드는 0.1초 "
+"동안 휴면 상태를 유지한 다음 처음부터 다시 시도합니다. 이 루프는 포트가 해제될 때까지 무한정 계속됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:122
+#: 64bd9b9eef6d42118e9ce9787966945d
+msgid "Additive allocation works as follows:"
+msgstr "추가 할당은 다음과 같이 작동합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:124
+#: 9c924cec8fd4455fad8bfaa09f247606
+msgid ""
+"If the next additive step would exceed the maximum allowed value, the "
+"allocator scans all remaining ports in the additive direction (starting from"
+" ``port+1``, stepping by ``port_add_step``, up to but not including "
+"``max_port``). The first port that is not already in the global allocated "
+"list is returned. If none is found, additive allocation fails."
+msgstr ""
+"다음 추가 단계가 최대 허용 값을 초과하는 경우 할당자는 추가 방향으로 나머지 모든 포트를 검색합니다(``port+1``에서 시작하여 "
+"``port_add_step`` 단위로 단계적으로 최대 ``max_port``까지). 아직 전역 할당 목록에 없는 첫 번째 포트가 "
+"반환됩니다. 아무 것도 발견되지 않으면 추가 할당이 실패합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:134
+#: b9ba29d714b84d198662c862b1dbf690
+msgid ""
+"Otherwise, the additive pointer is advanced by ``port_add_step``, the new "
+"port is added to the global allocated list, and the port is returned."
+msgstr ""
+"그렇지 않으면 추가 포인터가 ``port_add_step``에 의해 전진되고 새 포트가 전역 할당 목록에 추가되고 해당 포트가 "
+"반환됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:139
+#: 55fe37b754be4eaab992693ce9d65167
+msgid ""
+"Subtractive allocation works symmetrically, scanning downward from ``port`` "
+"to (but not including) ``min_port``."
+msgstr "빼기 할당은 대칭적으로 작동하며 ``port``에서 ``min_port``까지(포함하지 않음) 아래로 스캔합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:146
+#: d61960a69381463cbae715135f26a4ba
+msgid "pfree() Behaviour in Manual Mode"
+msgstr "수동 모드의 pfree() 동작"
+
+#: ../../Port_Allocation/Port_Allocation.rst:148
+#: 9bee159b94984da084a840c33fff37bb
+msgid "When a port is released via ``pfree(port)``:"
+msgstr "``pfree(port)``를 통해 포트가 해제되는 경우:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:150
+#: a99b67dea472406aa57da75467bc733d
+msgid "The port is removed from the global allocated list (if present)."
+msgstr "포트가 전역 할당 목록(있는 경우)에서 제거됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:152
+#: 3ecf77c0d3c343cc91f753438d647caa
+msgid "The additive pointer is **decremented** by ``port_add_step``."
+msgstr "추가 포인터는 ``port_add_step``에 의해 **감소**됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:154
+#: a0c7408fbb574209b0dfa2d3ac465a9a
+msgid "The subtractive pointer is **incremented** by ``port_add_step``."
+msgstr "빼기 포인터는 ``port_add_step``만큼 **증가**됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:157
+#: f66211ffdc77499ba8b58f281c863f94
+msgid ""
+"These pointer adjustments occur regardless of which direction originally "
+"allocated the port. This allows freed ports to be reused in future "
+"allocations."
+msgstr ""
+"이러한 포인터 조정은 원래 포트에 할당된 방향에 관계없이 발생합니다. 이렇게 하면 해제된 포트를 향후 할당에 재사용할 수 있습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:165
+#: b701a4ec86a240ee88c3ff37627a3c0e
+msgid "Persistence and File Locks (Manual Mode Only)"
+msgstr "지속성 및 파일 잠금(수동 모드에만 해당)"
+
+#: ../../Port_Allocation/Port_Allocation.rst:167
+#: 261dd8297d484005aa5e376e75f71818
+msgid ""
+"When manual mode is enabled, the server or client must remember allocated "
+"port ranges across multiple instances to avoid conflicts. This is achieved "
+"through persistent log files stored in the ``.Flow/temp_info/`` directory."
+msgstr ""
+"수동 모드가 활성화되면 서버 또는 클라이언트는 충돌을 피하기 위해 여러 인스턴스에 걸쳐 할당된 포트 범위를 기억해야 합니다. 이는 "
+"``.Flow/temp_info/`` 디렉토리에 저장된 영구 로그 파일을 통해 달성됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:174
+#: 6686458391b24ae1a403ab51323f9b05
+msgid ""
+"**Server**: ``server_port_info.log`` stores a list of dictionaries, each "
+"describing a server instance (server_id, host, port, min_port, max_port, "
+"is_running)."
+msgstr ""
+"**서버**: ``server_port_info.log``는 각각 서버 인스턴스(server_id, 호스트, 포트, min_port, "
+"max_port, is_running)를 설명하는 사전 목록을 저장합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:179
+#: 150a944d55534f1698eaa2eb9f870301
+msgid ""
+"**Client**: ``clients_port_info.log`` stores similar information for client "
+"instances."
+msgstr "**클라이언트**: ``clients_port_info.log``는 클라이언트 인스턴스에 대한 유사한 정보를 저장합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:183
+#: 692c9f98eaac48c89ee00a82ec1438fb
+msgid ""
+"Before reading or writing these files, a lock file "
+"(``server_port_lock.lock`` or ``client_port_lock.lock``) is used to prevent "
+"concurrent access. The lock is implemented by simply creating the file; the "
+"existence of the file indicates that another process is currently modifying "
+"the port information."
+msgstr ""
+"이러한 파일을 읽거나 쓰기 전에 잠금 파일(``server_port_lock.lock`` 또는 "
+"``client_port_lock.lock``)을 사용하여 동시 액세스를 방지합니다. 잠금은 파일을 생성하는 것만으로 구현됩니다. 파일이"
+" 존재한다는 것은 다른 프로세스가 현재 포트 정보를 수정하고 있음을 나타냅니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:192
+#: 8dd06df723054127a85bf2e64f6fef70
+msgid ""
+"When a new server or client instance is created with manual allocation "
+"enabled, its range is initialised using the persistent log:"
+msgstr "수동 할당이 활성화된 상태에서 새 서버 또는 클라이언트 인스턴스가 생성되면 해당 범위는 영구 로그를 사용하여 초기화됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:196
+#: 7d8301b78ca04dec80458b837d78e855
+msgid ""
+"If the log file does not exist, a new list is created with the current "
+"instance as the first entry."
+msgstr "로그 파일이 없으면 현재 인스턴스를 첫 번째 항목으로 사용하여 새 목록이 생성됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:199
+#: 6432e95a09c749ab9243f61700863dcf
+msgid ""
+"If the log file exists, the list of previous instances is read. The next "
+"instance ID is the previous ID + 1."
+msgstr "로그 파일이 있으면 이전 인스턴스 목록을 읽습니다. 다음 인스턴스 ID는 이전 ID + 1입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:202
+#: e6cf92040b1f42c09af74b7294064874
+msgid ""
+"If the user‑supplied port falls inside the range of the last recorded "
+"instance, it is automatically advanced to the next available value to "
+"prevent overlap."
+msgstr ""
+"사용자 제공 포트가 마지막으로 기록된 인스턴스 범위 내에 있으면 중복을 방지하기 위해 사용 가능한 다음 값으로 자동으로 진행됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:207
+#: ed9c93eb4fa742d7bc9bceebe58778e5
+msgid ""
+"The new instance’s information is appended to the list, stale entries "
+"(``is_running=False``) are removed, and the list is written back."
+msgstr "새 인스턴스의 정보가 목록에 추가되고 오래된 항목(``is_running=False``)이 제거되며 목록이 다시 작성됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:212
+#: 2fc9ab2d851c4d43bd086d1a99656043
+msgid ""
+"When the server or client stops, its own entry is removed from the log file."
+" If the list becomes empty, the log file is deleted."
+msgstr "서버나 클라이언트가 중지되면 해당 항목이 로그 파일에서 제거됩니다. 목록이 비어 있으면 로그 파일이 삭제됩니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:219
+#: adad1929426c4ebebe1e8657b133585e
+msgid "Client‑Side Range Configuration"
+msgstr "클라이언트측 범위 구성"
+
+#: ../../Port_Allocation/Port_Allocation.rst:221
+#: a97d3540a0024f4eb0e047279b16da77
+msgid ""
+"The client’s manual allocation mode is enabled not by a constructor argument"
+" directly, but by a **broadcast from the server**. When the server starts "
+"with ``is_hand_alloc_port=True``, it sends a command to all clients:"
+msgstr ""
+"클라이언트의 수동 할당 모드는 생성자 인수를 직접 사용하는 것이 아니라 **서버에서 브로드캐스트**하여 활성화됩니다. 서버가 "
+"``is_hand_alloc_port=True``로 시작되면 모든 클라이언트에 명령을 보냅니다:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:228
+#: 9bd212a5bb3c4d68934cc420881672e0
+msgid "``/client_alloc_port_range <each_client_port_range>``"
+msgstr "``/client_alloc_port_range <각_클라이언트_포트_범위>``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:230
+#: 6f25281bac68477db87047b1ad574e14
+msgid "where ``each_client_port_range = port_range_num // max_clients``."
+msgstr "여기서 ``each_client_port_range = port_range_num // max_clients``입니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:233
+#: da313b544ac84c3986803fe0f15bf637
+msgid "The client’s ``handle_server_command`` processes this:"
+msgstr "클라이언트의 ``handle_server_command``가 이를 처리합니다:"
+
+#: ../../Port_Allocation/Port_Allocation.rst:235
+#: 8264d8701b6c4596b5fe96153a83a3ae
+msgid ""
+"If the value is ``\"NO_LIMIT\"``, the client sets "
+"``is_hand_alloc_port=False`` (automatic mode)."
+msgstr "값이 ``NO_LIMIT\"``이면 클라이언트는 ``is_hand_alloc_port=False``(자동 모드)를 설정합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:238
+#: 6afe48afdc96475e85a797a2c03477e0
+msgid ""
+"Otherwise, it sets ``is_hand_alloc_port=True`` and calls its internal "
+"initialisation routine with the received range, using its own ``port`` (the "
+"server port it connected to) as the base."
+msgstr ""
+"그렇지 않으면 ``is_hand_alloc_port=True``를 설정하고 자체 ``포트``(연결된 서버 포트)를 기본으로 사용하여 "
+"수신된 범위로 내부 초기화 루틴을 호출합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:244
+#: 7d07da528aa1453b8e1e8ab2f028f15e
+msgid ""
+"This allows the server to control the port‑allocation policy for all "
+"connected clients uniformly."
+msgstr "이를 통해 서버는 연결된 모든 클라이언트에 대한 포트 할당 정책을 균일하게 제어할 수 있습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:251
+#: cc5894c825d54e3598a223c277a91922
+msgid "Public API Definitions"
+msgstr "공개 API 정의"
+
+#: ../../Port_Allocation/Port_Allocation.rst:253
+#: 46ceaf5776074ff2af00caf34b66d5a3
+msgid "### Server‑Side Port Allocation APIs"
+msgstr "### 서버측 포트 할당 API"
+
+#: ../../Port_Allocation/Port_Allocation.rst:259
+#: 05be78c4ce624ec98cc1c8e6f66510d7
+msgid ""
+"Returns an available port number. In automatic mode, returns ``0``. In "
+"manual mode, it returns a concrete port from the configured range, retrying "
+"indefinitely until a port becomes available."
+msgstr ""
+"사용 가능한 포트 번호를 반환합니다. 자동 모드에서는 '0'을 반환합니다. 수동 모드에서는 구성된 범위에서 구체적인 포트를 반환하고 "
+"포트를 사용할 수 있을 때까지 무기한 재시도합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:268
+#: 201788faa82d4da9853c343248e563f7
+msgid ""
+"Releases a port previously obtained by ``palloc()``. In automatic mode, this"
+" does nothing. In manual mode, it removes the port from the internal "
+"allocated list and adjusts the allocation pointers."
+msgstr ""
+"이전에 ``palloc()``에 의해 획득된 포트를 해제합니다. 자동 모드에서는 아무 작업도 수행되지 않습니다. 수동 모드에서는 내부 "
+"할당 목록에서 포트를 제거하고 할당 포인터를 조정합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:273
+#: 1111e89e27d74a3e8923164e8c11015d
+msgid "### Client‑Side Port Allocation APIs"
+msgstr "### 클라이언트측 포트 할당 API"
+
+#: ../../Port_Allocation/Port_Allocation.rst:275
+#: 5ed73a55d9e64699981b9876e0a22a97
+msgid "The client provides the identical set of methods:"
+msgstr "클라이언트는 동일한 메소드 세트를 제공합니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:277
+#: 1ee9c63df441404cb0fb77c1604a71bb
+msgid "``palloc()``"
+msgstr "``palloc()``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:278
+#: c9f034cacf8b44b7a0884ee2aa593b88
+msgid "``pfree(port)``"
+msgstr "``pfree(포트)``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:280
+#: 88ba63acfb0e4efda8a3ce914efba8ea
+msgid ""
+"Additionally, the client receives the range from the server via the "
+"``/client_alloc_port_range`` command."
+msgstr "추가적으로 클라이언트는 ``/client_alloc_port_range`` 명령을 통해 서버로부터 범위를 받습니다."
+
+#: ../../Port_Allocation/Port_Allocation.rst:287
+#: 5fe116507216417d8733d59c196eed02
+msgid "Public API Summary"
+msgstr "공개 API 요약"
+
+#: ../../Port_Allocation/Port_Allocation.rst:289
+#: 901516f18c1d4e3bbcadbd7e647ca02a
+msgid ""
+"All public port‑allocation related APIs are listed below. For a complete "
+"list of all public APIs, please see the respective server and client "
+"documentation."
+msgstr ""
+"모든 공용 포트 할당 관련 API는 아래에 나열되어 있습니다. 모든 공개 API의 전체 목록을 보려면 해당 서버 및 클라이언트 설명서를 "
+"참조하세요."
+
+#: ../../Port_Allocation/Port_Allocation.rst:294
+#: 03a1e0db9a3541e0bf9f85dd919ec573
+msgid "### TCP_Server_Base"
+msgstr "### TCP_Server_Base"
+
+#: ../../Port_Allocation/Port_Allocation.rst:296
+#: ../../Port_Allocation/Port_Allocation.rst:301
+#: 3ca51b147151429fa7d45d3bb034bb64 7cfd5220254948abafb4022552837bde
+msgid "``palloc``"
+msgstr "``팔록``"
+
+#: ../../Port_Allocation/Port_Allocation.rst:297
+#: ../../Port_Allocation/Port_Allocation.rst:302
+#: 92cc6c5c9d8b4741a78b96ba47b5f538 dbafe19d56d24119af62a7eb7532ddbf
+msgid "``pfree``"
+msgstr "'프리'"
+
+#: ../../Port_Allocation/Port_Allocation.rst:299
+#: 7e4e29b58a714351a8e8e540a7877350
+msgid "### TCP_Client_Base"
+msgstr "### TCP_Client_Base"
+
+#: ../../Port_Allocation/Port_Allocation.rst:305
+#: 116139c968464f90a5da9b8684940433
+msgid "See Also"
+msgstr "참조"
+
+#: ../../Port_Allocation/Port_Allocation.rst:307
+#: f750c04e494449de995acc730747de10
+msgid ""
+"For more information about the TCP server and client base classes, please "
+"refer to:"
+msgstr "TCP 서버 및 클라이언트 기본 클래스에 대한 자세한 내용은 다음을 참조하세요."
+
+#: ../../Port_Allocation/Port_Allocation.rst:311
+#: c94397d1d2754aedaad151a08373dbdc
+msgid ":doc:`../Network_APIs/TCP_Server_APIs`"
+msgstr ":doc:`../Network_APIs/TCP_Server_APIs`"
+
+#: ../../Port_Allocation/Port_Allocation.rst:312
+#: 5a58e0e9f8564fa9adf42c2ddc909c69
+msgid ":doc:`../Network_APIs/TCP_Client_APIs`"
+msgstr ":doc:`../Network_APIs/TCP_Client_APIs`"
+
+#: ../../Port_Allocation/Port_Allocation.rst:314
+#: ded2d25ff45a45e5a332670bdd6c8ef1
+msgid ""
+"For details on the file transfer mechanism that uses these port allocation "
+"APIs, see :doc:`../File_Transfer/File_Transfer`."
+msgstr ""
+"이러한 포트 할당 API를 사용하는 파일 전송 메커니즘에 대한 자세한 내용은 "
+":doc:`../File_Transfer/File_Transfer`를 참조하세요."
