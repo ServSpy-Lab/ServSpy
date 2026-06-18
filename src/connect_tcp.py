@@ -16,7 +16,7 @@ class TCP_Server_Base:  # TCP server class
                  is_input_command_in_console=True, max_custom_workers=10,
                  is_extend_command=False):
         self.project_dir=os.path.dirname(os.path.abspath(__file__))
-        self.project_info_dir=os.path.join(self.project_dir, '.ServSpy')
+        self.project_info_dir=os.path.join(self.project_dir, '.Flow')
         if os.path.exists(self.project_info_dir)==False:
             os.mkdir(self.project_info_dir)
         self.project_temp_info_dir=os.path.join(
@@ -1241,7 +1241,7 @@ class TCP_Client_Base:  # TCP client class
             self.project_dir, 'received_files')
         self.decode_command_table_file_path=os.path.join(
             self.project_dir, 'decode_command_table.json')
-        self.project_info_dir=os.path.join(self.project_dir, '.ServSpy')
+        self.project_info_dir=os.path.join(self.project_dir, '.Flow')
         if os.path.exists(self.project_info_dir)==False:
             os.mkdir(self.project_info_dir)
         self.project_temp_info_dir=os.path.join(
