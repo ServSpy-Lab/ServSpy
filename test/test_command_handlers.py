@@ -107,5 +107,5 @@ def test_command_done_merges_transferred_logs_into_one_file(server, tmp_path, mo
     merged_file = logs_dir / "merged_logs.json"
     assert merged_file.exists()
     merged = json.loads(merged_file.read_text(encoding="utf-8"))
-    assert merged["cmd1"][0] == {"error": "none"}
-    assert merged["cmd1"][1] == {"output": "ok"}
+    assert merged["cmd1"][0] == {"output": "ok"}
+    assert merged["cmd1"][1] == {"error": "none"}

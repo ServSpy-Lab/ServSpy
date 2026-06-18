@@ -39,7 +39,7 @@ def _merge_log_dicts(base_data, extra_data):
 
 def _merge_all_logs(log_dir, merged_filename='merged_logs.json'):
     merged_data = {}
-    for filename in os.listdir(log_dir):
+    for filename in sorted(os.listdir(log_dir)):
         if not filename.endswith('.json') or filename == merged_filename:
             continue
         file_path = os.path.join(log_dir, filename)
