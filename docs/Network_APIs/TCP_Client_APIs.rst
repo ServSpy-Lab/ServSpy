@@ -621,6 +621,5 @@ are as follows:
 See Also
 --------
 
-For more information about the server APIs, 
-please visit the server API documentation, at 
-:doc:`TCP_Server_APIs`.
+- :doc:`TCP_Server_APIs` — TCP server.
+- :doc:`UDP_APIs` — UDP endpoint.

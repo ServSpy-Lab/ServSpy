@@ -743,6 +743,5 @@ are following as:
 See Also
 --------
 
-For more informations about the client APIs, 
-please visit the client API documentation, at 
-:doc:`TCP_Client_APIs`.
+- :doc:`TCP_Client_APIs` — TCP client.
+- :doc:`UDP_APIs` — UDP endpoint.
