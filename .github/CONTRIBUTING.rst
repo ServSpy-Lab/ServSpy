@@ -53,7 +53,3 @@ and descriptive commit message:
    git push origin <your-branch-name>
 
 7, Finally, open a pull request to the original repository.
-
-Contributing for the core code of ServSpy:
-------------------------------------------
-
