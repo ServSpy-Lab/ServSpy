@@ -178,7 +178,7 @@ msgstr ""
 #: ../../Network_APIs/TCP_Client_APIs.rst:61 9bfa7bb5c0434d76bbe8d6c4737684dc
 msgid ""
 "*Note: In the main class of the TCP client setup API, we initialize the "
-"`start_TCP_client` method to setup all functions which are needed in the TCP"
+"`start_TCP_client` method to set up all functions which are needed in the TCP"
 " client, including connecting to the server, handling incoming messages, and"
 " managing user input.*"
 msgstr ""
@@ -254,10 +254,10 @@ msgstr ""
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:102 75ead842cc7841f4bfa35149fc2bf3ab
 msgid ""
-"*Note: There is a global variable ``self.running`` which is turned to "
+"*Note: There is a global variable ``self.running`` which is set to "
 "``True`` after the client successfully connects to the server. The "
 "``self.running`` variable is used to control the main receive loop, and it "
-"will be turned to ``False`` when the client is shutting down.*"
+"will be set to ``False`` when the client is shutting down.*"
 msgstr ""
 "*Примечание: существует глобальная переменная self.running, которая "
 "принимает значение True после успешного подключения клиента к серверу. "
@@ -421,7 +421,7 @@ msgstr ""
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:188 4af524d146654f3aa498d8e8d9b723c2
 msgid ""
-"``/client_alloc_port_range``: configures the clients manual port allocation "
+"``/client_alloc_port_range``: configures the client's manual port allocation "
 "range based on server broadcast."
 msgstr ""
 "``/client_alloc_port_range``: настраивает диапазон ручного выделения портов "
@@ -1011,7 +1011,7 @@ msgid "TCP Client APIs table"
 msgstr "Таблица API-интерфейсов TCP-клиента"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:593 87f94971d9eb4aedabd77da2e39c5a54
-msgid "In short, the table of contents of the public APIs are as follows:"
+msgid "In short, the table of contents of the public APIs is as follows:"
 msgstr "Вкратце, содержание общедоступных API выглядит следующим образом:"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:596 3ef9e8bdf0de4dd6bf1f7fab94791ef0

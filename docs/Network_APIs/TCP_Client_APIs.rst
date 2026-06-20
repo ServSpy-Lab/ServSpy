@@ -59,7 +59,7 @@ The TCP Client Setup API will initialize all the necessary
 parameters and resources for the TCP client.
 
 *Note: In the main class of the TCP client setup API, 
-we initialize the `start_TCP_client` method to setup 
+we initialize the `start_TCP_client` method to set up 
 all functions which are needed in the TCP client, 
 including connecting to the server, handling incoming 
 messages, and managing user input.* 
@@ -100,10 +100,10 @@ will read user input from the console and send messages
 to the server until the connection is closed.
 
 *Note: There is a global variable ``self.running`` 
-which is turned to ``True`` after the client successfully 
+which is set to ``True`` after the client successfully 
 connects to the server. The ``self.running`` variable is 
 used to control the main receive loop, and it will be 
-turned to ``False`` when the client is shutting down.*
+set to ``False`` when the client is shutting down.*
 
 The `connect` method will try to establish a TCP connection 
 to the server. If a ``client_port`` is specified, the client 
@@ -185,7 +185,7 @@ connection and is responsible for:
 In `handle_server_command`, the client processes built-in 
 commands sent by the server, such as:
 
-- ``/client_alloc_port_range``: configures the clients manual 
+- ``/client_alloc_port_range``: configures the client's manual 
   port allocation range based on server broadcast.
 - ``/server_file_transfer_port``: receives the file transfer 
   port assigned by the server for an ongoing file operation.
@@ -590,8 +590,8 @@ controlled (e.g., firewalls or testing).
 TCP Client APIs table
 ---------------------
 
-In short, the table of contents of the public APIs 
-are as follows:
+In short, the table of contents of the public APIs
+is as follows:
 
 1. The client setup APIs:
     - `TCP_Client_Base`

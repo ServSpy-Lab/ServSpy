@@ -81,22 +81,20 @@ input of the server or not.
 After that, a main loop to accept clients will be started.
 
 *Note: there is another global variable ``self.running`` 
-which is turned to ``True`` after the server socket is 
+which is set to ``True`` after the server socket is 
 successfully created. The ``self.running`` variable is 
 used to control the main loop of the TCP server, and it 
-will be turned to ``False`` when the server is shutting down.*
+will be set to ``False`` when the server is shutting down.*
 
-The main loop of the TCP setup server function will first judge 
-if the number of the clients which are connected to the server 
-is over the max clients number or not. By the way, the max clients 
-number limit is defined by the args of the `TCP_Server_Base` 
-class, the ``self.max_clients`` variable which initialized in the 
-class.
+The main loop of the TCP server setup function first checks whether the number
+of connected clients exceeds the maximum number of clients. The maximum number
+of clients is defined by the ``self.max_clients`` argument of the
+`TCP_Server_Base` class, which is initialized in ``__init__``.
 
 If the number of the clients is already over the limit of the connect 
 number, the server will send an overload message and close the connection. 
-But if it does not exceed the limit, the server will setup a clients 
-handlers function `handle_client` and the server handler function 
+But if it does not exceed the limit, the server will set up a client
+handler function `handle_client` and the server handler function 
 is defined as:
 
 .. code-block:: python
@@ -110,12 +108,12 @@ see the :ref:`tcp-server-handling-information-api` section.*
 
 So what can the setup function do if it fails? 
 
-First, the try and except code block in the main server loop 
-will detect if the error is an ``OSError``. If it is, the 
+First, the try-except block in the main server loop checks whether the
+error is an ``OSError``. If it is, the
 main loop will exit directly.
 
-Secondly, if the error is from the network socket, it will first 
-output the error message and also stop the server by calling 
+Secondly, if the error is from the network socket, it first logs the error
+message and also stops the server by calling 
 the function `stop`. And the stop function has been defined as: 
 
 .. code-block:: python
@@ -123,8 +121,8 @@ the function `stop`. And the stop function has been defined as:
     def stop(self: Self) -> None:
         ...
 
-For the stop tcp server function, it first set the ``self.running`` 
-variable to False, for stop the main loop of the server. 
+To stop the TCP server, it first sets the ``self.running``
+variable to False, to stop the main loop of the server. 
 After that, it calls the `free_port` function to free the 
 port which has been allocated. And the `free_port` has been 
 defined as:
@@ -137,9 +135,8 @@ defined as:
 *Note: For more details of the `free_port` function, 
 see the :ref:`tcp-server-port-allocation-api` section.*
 
-At the end of the operations, the TCP server will close all 
-of the sockets of clients which are accounted in the dictionary 
-variable ``self.clients`` and also close the server socket.
+At the end of the operations, the TCP server closes all client sockets stored in the
+``self.clients`` dictionary and also closes the server socket.
 
 *Note: The ``self.clients`` variable is a dictionary that 
 maps client address tuples to an info dictionary. The 
@@ -187,7 +184,7 @@ connection is accepted and is responsible for:
 - broadcasting ``/client_alloc_port_range`` information to all clients depending on port allocation mode
 
 *Note: You can specify the port allocation mode in 
-the arguments which has been defined in the 
+the arguments which have been defined in the 
 ``TCP_Server_Base`` class. The args which you can 
 change are ``port_add_step``, ``port_range_num`` 
 and ``is_hand_alloc_port``.*
@@ -267,10 +264,9 @@ function.
         exclude_client: Any=None) -> None:
         ...
 
-In `broadcast` function, it will send a message to all 
-the clients which are in the ``self.clients`` variable, 
-also delete the clients which are already disconnected 
-with the server. And if the ``exclude_client`` parameter 
+The `broadcast` function sends a message to all clients in the
+``self.clients`` dictionary and removes clients that are already
+disconnected from the server. And if the ``exclude_client`` parameter 
 is not ``None``, the server will exclude the client 
 which is specified by the ``exclude_client`` parameter 
 when sending the message.
@@ -282,10 +278,9 @@ when sending the message.
         message: Any) -> None:
         ...
 
-The `send_msg_to_specific_client` function is used to send 
-one or more message to one or more specific clients by their 
-client IDs. And the ``message`` args should be input a send 
-message command.
+The `send_msg_to_specific_client` function sends one or more messages to
+one or more specific clients by their client IDs. The ``message`` argument
+should contain a command message to send.
 
 These methods form the server's client I/O loop 
 and ensure reliable message exchange for connected 
@@ -301,11 +296,10 @@ and a command extension API. The main entry
 point is the `handle_command` method, which 
 is invoked for any message starting with ``/``.
 
-We support two solutions for command handling, 
-one is input a command in the console, and 
-the other is receiving a command from other 
-clients, and you can also call the functions 
-which are defined for the commands in the code.
+We support two solutions for command handling:
+inputting a command in the console or
+receiving a command from other clients. You can also call the
+functions defined for each command in the code.
 
 *Note: You can select the solution which you 
 want to use by changing the args of the 
@@ -357,10 +351,10 @@ are as follows:
 
 - ``handler``: The function to call when the command is received.
 
-*Note: The ``handler`` function must have and only have three 
-parameters which are ``client_socket``, ``client_address``, 
+*Note: The ``handler`` function must have exactly three parameters:
+``client_socket``, ``client_address``, 
 and ``command``. ``client_socket`` will be accepted as the 
-network socket object who sent the command, ``client_address`` 
+network socket object that sent the command, ``client_address`` 
 will be accepted as the address of the client that sent the 
 command, while the ``command`` parameter will contain the actual 
 command string.*
@@ -378,7 +372,7 @@ the command will be handled when the server input
 the command in console.
 
 *Note: It's true that the valid values for ``where_to_run`` 
-are too strange, but we still didn't find a better way to 
+are not ideal, but we have not yet found a better way to
 define that.*
 
 The ways to run the command will be different 
@@ -389,17 +383,17 @@ server's thread pool. If ``run_in_thread`` is
 ``False``, the command handler will be executed 
 synchronously in the main server thread.
 
-*Note: We store the registered commands in a list variable 
-with two dictionary in its inner layer, and the list variable 
-is defined as ``self._custom_handlers`` which initialized in 
-the `__init__` method. The command and its handler will be 
-stored in the one of the dictionaries according to the value 
-of ``where_to_run``. For ``"server"``, it will be stored in 
-the first dictionary, otherwise in the second dictionary. 
-And the key of the dictionaries are all the command name, 
-and the value is another dictionary containing the handler 
+*Note: We store the registered commands in a list variable
+with two dictionaries in its inner layer, and the list variable
+is defined as ``self._custom_handlers`` which is initialized in
+the `__init__` method. The command and its handler will be
+stored in one of the dictionaries according to the value
+of ``where_to_run``. For ``"server"``, it will be stored in
+the first dictionary, otherwise in the second dictionary.
+And the keys of the dictionaries are the command names,
+and the value is another dictionary containing the handler
 function. And there is also another list variable defined as 
-``self._custom_handler_threaded`` which initialized in the 
+``self._custom_handler_threaded`` which is initialized in the 
 `__init__` method, it contains all the commands that should 
 be run in a separate thread or not.*
 
@@ -422,7 +416,7 @@ is defined as:
         client_address:Any=None) -> Any:
         ...
 
-In this executor function, there is a try and except code 
+In this executor function, there is a try-except code 
 block to catch the error when running the command handler. 
 If there is an error when running the command handler, the 
 server will log the error message and also send the error 
@@ -454,10 +448,10 @@ for execution in a separate thread. This allows long-running
 or blocking command handlers to run without blocking the 
 main server loop.
 
-As a high level TCP network protocol, A temporary TCP server 
-and a client can also be created very simply. The temporary 
-TCP server or client can be satisfied for the functions which 
-need other sockets or ports for avoid to have a conflict with 
+In this high-level TCP network protocol, a temporary TCP server
+and client can also be created very simply. The temporary
+TCP server or client can be used for scenarios that need
+additional sockets or ports to avoid conflicts with
 the main server or client loop. For example, file transfer 
 functions. The APIs to create temporary TCP server and client 
 are defined as:
@@ -513,7 +507,7 @@ that supports both client-to-server and server-to-client
 transfers.
 
 It's too long to introduce all the file transfer functions, 
-so there are only the list of APIs for the file transfer 
+so there is only the list of APIs for the file transfer 
 functions, and for more details of the file transfer 
 functions, please visit ...
 
@@ -570,17 +564,17 @@ different multiple clients function is defined as:
         message: Any) -> None|False:
         ...
 
-We recommend you that if you want to use the mono-file 
+We recommend that if you want to use the mono-file 
 transfer function, use the `file_transfer_server_recv_client_start_thread` 
 function first, unless the functions which called the 
 mono-file transfer function are already in a separate 
 thread, then you can call the `file_transfer_server_recv_client_start` 
-function directly, or the file transfer functions are 
+function directly, or the file transfer functions
 may not be very stable. And for the other file transfer
-functions, we don't strongly recommend you to use them in 
+functions, we don't recommend using them in 
 threads, because there are already some thread control 
-mechanisms in the functions, so don't worry about 
-the concurrent performance. And if you call them in 
+mechanisms in the functions, so there is no need to worry about
+concurrency. And if you call them in 
 threads, there may be some unexpected errors and also 
 unnecessary complexity.
 
@@ -628,18 +622,18 @@ Port allocation API
 -------------------
 
 The server allocation APIs allow you to allocate a new 
-port for another servers. There are two kinds of port 
+port for other servers. There are two kinds of port 
 allocation modes.
 
-For change the port allocation mode, you can set the 
-args ``is_hand_alloc_port`` in the server instance class. 
-When input ``False``, the server instance will choose 
-the automatically port allocation mode, or input ``False`` 
+To change the port allocation mode, you can set the
+``is_hand_alloc_port`` argument on the server instance. 
+When set to ``False``, the server instance will choose
+the automatic port allocation mode, or set to ``True``
 it will choose the manual allocation mode.
 
-We most recommend you that to use the automatically port 
+We strongly recommend using the automatic port 
 allocation mode, which is the default mode of the server, 
-because the automatically port allocation mode is more 
+because the automatic port allocation mode is more 
 simple and also more stable than the manual port 
 allocation mode. In this mode, when calling the 
 allocation APIs, it will return ``0``.
@@ -651,10 +645,10 @@ by operating system.*
 
 The other port allocation mode is the manual port 
 allocation mode, there is a port allocation range 
-for the server. Please avoid to open other servers 
+for the server. Please avoid opening other servers 
 in the same host, because in the existing version, 
-the port allocation range will be conflicted and 
-some unexpected errors may be caused.
+the port range may conflict and may cause
+unexpected errors.
 
 The range of the port allocation is configured in 
 the server settings. The minimum allocatable port is 
@@ -662,11 +656,11 @@ the server settings. The minimum allocatable port is
 and the maximum allocatable port is 
 ``self.port+1+self.port_add_step*self.port_range_num``.
 
-*Note: The ``self.port`` is the args ``port`` of the 
-server class. The ``self.port_add_step`` is the args 
-``port_add_step`` of the server class. And the 
-``self.port_range_num`` is the args ``port_range_num`` 
-of the server class also.*
+*Note: The ``self.port`` is the ``port`` argument of the
+server class. The ``self.port_add_step`` is the
+``port_add_step`` argument. And the
+``self.port_range_num`` is the ``port_range_num``
+argument.*
 
 There are some relevant methods that can be used:
 
@@ -675,10 +669,10 @@ There are some relevant methods that can be used:
     def palloc(self: Self) -> int:
         ...
 
-The `palloc` method allow you to get a port, for 
-using this function, you don't need to worry about 
-the port allocation mode, because an allocation mode 
-detector is already be wrote in this method.
+The `palloc` method allows you to get a port. When
+using this function, you don't need to worry about
+the port allocation mode, because an allocation mode
+detector is already implemented in this method.
 
 .. code-block:: python
 
@@ -687,15 +681,15 @@ detector is already be wrote in this method.
         port: int) -> None|int:
         ...
 
-The `pfree` method allow you to free a port, as the same 
-as `palloc` method, you don't need to care about the 
+The `pfree` method allows you to free a port. Like the
+`palloc` method, you don't need to worry about the
 port allocation mode when using this method.
 
 And there are the main functions for you to call, 
 and for more information about the port allocation 
 functions, see the :ref:`tcp-server-port-allocation-api` section.
 
-This mode is useful when you need a individual port for 
+This mode is useful when you need an individual port for 
 the server or  must reserve a controlled range of ports 
 for client-file transfers by manual port allocation, 
 such as in a testing environment or when multiple 

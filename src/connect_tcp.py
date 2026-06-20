@@ -1565,7 +1565,7 @@ class TCP_Client_Base:  # TCP client class
                     print("waiting for server to start...")
                     pass
                 else:
-                    print("outof time, unable to connect to server")
+                    print("timeout, unable to connect to server")
                     traceback.print_exc()
                     return False
             except ConnectionRefusedError:
