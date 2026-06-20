@@ -9,7 +9,7 @@ efforts to help improve ServSpy.
 
 Before contributing:
 --------------------
-1, Before you start to contribute, espacially open a pull request. 
+1, Before you start to contribute, especially open a pull request. 
 Please make sure that you already opened an issue to discuss 
 the changes you want to make. This will help us understand 
 your intentions and provide feedback before you start working 

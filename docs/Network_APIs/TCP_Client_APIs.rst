@@ -168,7 +168,7 @@ raw data, and send messages.
 in ``TCP_Client_Base``. It is started after a successful 
 connection and is responsible for:
 
-- continuously receiving raw bytes from the server socket using `recieve_message`
+- continuously receiving raw bytes from the server socket using `receive_message`
 - buffering incoming data until newline-terminated messages are complete
 - splitting and processing each message line-by-line
 - routing special commands (starting with ``/``) that come from the server to `handle_server_command`
@@ -204,13 +204,13 @@ see the :ref:`tcp-client-command-api` section.*
 
 .. code-block:: python
 
-    def recieve_message(
+    def receive_message(
         self: Self,
         client_socket: Any,
         msg_length: Int) -> Any:
         ...
 
-`recieve_message` is identical to the server version: 
+`receive_message` is identical to the server version: 
 it reads up to ``msg_length`` bytes from the given 
 socket and returns the raw byte payload. Message decoding 
 and newline framing are handled by the caller.
@@ -602,7 +602,7 @@ are as follows:
 2. The client handling information APIs:
     - `receive_messages`
     - `handle_server_command`
-    - `recieve_message`
+    - `receive_message`
     - `send_message`
     - `interactive_mode`
 

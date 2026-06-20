@@ -5,7 +5,7 @@ TCP Server setup API
 --------------------
 
 The TCP Server Setup API is used to create a TCP server. 
-The server in the protocal is usually used to connect and 
+The server in the protocol is usually used to connect and 
 listen to the TCP clients and handle the data from the 
 clients.
 
@@ -39,7 +39,7 @@ The parameters of the ``__init__`` method are as follows:
 - ``is_input_command_in_console``: A flag indicating whether to input commands in the console.
 - ``max_custom_workers``: The maximum number of custom worker threads.
 
-Every parameters are all have default values:
+All parameters have default values:
 
 - ``host``: Default is ``'127.0.0.1'``
 - ``port``: Default is ``65432``
@@ -80,7 +80,7 @@ input of the server or not.
 
 After that, a main loop to accept clients will be started.
 
-*Note: there is another gloable variable ``self.running`` 
+*Note: there is another global variable ``self.running`` 
 which is turned to ``True`` after the server socket is 
 successfully created. The ``self.running`` variable is 
 used to control the main loop of the TCP server, and it 
@@ -94,8 +94,8 @@ class, the ``self.max_clients`` variable which initialized in the
 class.
 
 If the number of the clients is already over the limit of the connect 
-number, the server will send a overload message and close the connect. 
-But if it didn't over the limit, the server will setup a clients 
+number, the server will send an overload message and close the connection. 
+But if it does not exceed the limit, the server will setup a clients 
 handlers function `handle_client` and the server handler function 
 is defined as:
 
@@ -108,7 +108,7 @@ is defined as:
 *Note: For more details of the `handle_client` function, 
 see the :ref:`tcp-server-handling-information-api` section.*
 
-So what can the setup function do if the it run failed? 
+So what can the setup function do if it fails? 
 
 First, the try and except code block in the main server loop 
 will detect if the error is an ``OSError``. If it is, the 
@@ -126,7 +126,7 @@ the function `stop`. And the stop function has been defined as:
 For the stop tcp server function, it first set the ``self.running`` 
 variable to False, for stop the main loop of the server. 
 After that, it calls the `free_port` function to free the 
-port which has been alloced. And the `free_port` has been 
+port which has been allocated. And the `free_port` has been 
 defined as:
 
 .. code-block:: python
@@ -192,7 +192,7 @@ the arguments which has been defined in the
 change are ``port_add_step``, ``port_range_num`` 
 and ``is_hand_alloc_port``.*
 
-- receiving raw bytes from the socket using `recieve_message`
+- receiving raw bytes from the socket using `receive_message`
 - buffering incoming data until newline-terminated messages are complete
 - splitting and processing each message line-by-line
 - routing special commands beginning with ``/`` to `handle_command`
@@ -213,7 +213,7 @@ branches to handle built-in commands like ``/help``,
 ``/time``, ``/clients``, ``/quit``, and some file 
 transfer commands. If you already added more commands 
 by the command extension API, the function will 
-determine if the inputed message matched the extension 
+determine if the input message matches the extension 
 commands.
 
 *Note: For more details of the command extension API 
@@ -224,13 +224,13 @@ and the built-in commands, see the :ref:`tcp-server-command-api` section.*
 
 .. code-block:: python
 
-    def recieve_message(
+    def receive_message(
         self: Self,
         client_socket: Any,
         msg_length: Int) -> Any:
         ...
 
-`recieve_message` is a thin wrapper around socket 
+`receive_message` is a thin wrapper around socket 
 receive operations. It reads up to ``msg_length`` 
 bytes from the given ``client_socket`` and 
 returns the raw byte payload. Message decoding 
@@ -303,16 +303,16 @@ is invoked for any message starting with ``/``.
 
 We support two solutions for command handling, 
 one is input a command in the console, and 
-the other is recieving a command from other 
+the other is receiving a command from other 
 clients, and you can also call the functions 
 which are defined for the commands in the code.
 
 *Note: You can select the solution which you 
 want to use by changing the args of the 
 `TCP_Server_Base` class, the arg is 
-``is_input_command_in_console``. ``True`` is 
-allow the server to input the command in 
-console, while ``False`` is don't allow.*
+``is_input_command_in_console``. ``True`` allows
+the server to input the command in
+console, while ``False`` does not allow it.*
 
 Built-in client commands include:
 
@@ -326,7 +326,7 @@ Built-in client commands include:
 
 In `handle_command`, the server will first 
 check if the command matches any built-in commands. 
-If it dose, the `handle_command` will call the 
+If it does, the `handle_command` will call the 
 functions which are defined for the commands.
 
 If a command is not recognized by the built-in handler, 
@@ -378,7 +378,7 @@ the command will be handled when the server input
 the command in console.
 
 *Note: It's true that the valid values for ``where_to_run`` 
-are too strange, but we stile didn't find a better way to 
+are too strange, but we still didn't find a better way to 
 define that.*
 
 The ways to run the command will be different 
@@ -395,7 +395,7 @@ is defined as ``self._custom_handlers`` which initialized in
 the `__init__` method. The command and its handler will be 
 stored in the one of the dictionaries according to the value 
 of ``where_to_run``. For ``"server"``, it will be stored in 
-the first dictionary, other wise in the second dictionary. 
+the first dictionary, otherwise in the second dictionary. 
 And the key of the dictionaries are all the command name, 
 and the value is another dictionary containing the handler 
 function. And there is also another list variable defined as 
@@ -422,7 +422,7 @@ is defined as:
         client_address:Any=None) -> Any:
         ...
 
-In this excecutor function, there is a try and except code 
+In this executor function, there is a try and except code 
 block to catch the error when running the command handler. 
 If there is an error when running the command handler, the 
 server will log the error message and also send the error 
@@ -432,7 +432,7 @@ called with the command arguments, and also the client
 socket and client address if the command is from the client 
 side.
 
-If the command don't run in the thread, the command executor 
+If the command doesn't run in the thread, the command executor 
 will be called directly in the `handle_command` function. 
 But if the command should run in a separate thread, the command 
 executor will be submitted to the server's thread pool using 
@@ -454,7 +454,7 @@ for execution in a separate thread. This allows long-running
 or blocking command handlers to run without blocking the 
 main server loop.
 
-As a high level TCP network protocal, A temporary TCP server 
+As a high level TCP network protocol, A temporary TCP server 
 and a client can also be created very simply. The temporary 
 TCP server or client can be satisfied for the functions which 
 need other sockets or ports for avoid to have a conflict with 
@@ -502,7 +502,7 @@ These console commands make it easy to manage the
 active server and perform server-initiated file 
 transfers without modifying the code.
 
-*Note: There is too long to introduce all the console 
+*Note: It is too long to introduce all the console 
 commands, so for more details see the :ref:`tcp-server-console-commands` section.*
 
 TCP Server file transfer API
@@ -514,7 +514,7 @@ transfers.
 
 It's too long to introduce all the file transfer functions, 
 so there are only the list of APIs for the file transfer 
-functions, and for more detatils of the file transfer 
+functions, and for more details of the file transfer 
 functions, please visit ...
 
 The file transfer API for you to use includes:
@@ -570,19 +570,19 @@ different multiple clients function is defined as:
         message: Any) -> None|False:
         ...
 
-We recommand you that if you want to use the mono-file 
+We recommend you that if you want to use the mono-file 
 transfer function, use the `file_transfer_server_recv_client_start_thread` 
 function first, unless the functions which called the 
 mono-file transfer function are already in a separate 
 thread, then you can call the `file_transfer_server_recv_client_start` 
 function directly, or the file transfer functions are 
-may not very stateble. And for the other file transfer 
-functions, we don't very recommand you to use them in 
+may not be very stable. And for the other file transfer
+functions, we don't strongly recommend you to use them in 
 threads, because there are already some thread control 
-mechanisms in the functions, so don't be worry about 
+mechanisms in the functions, so don't worry about 
 the concurrent performance. And if you call them in 
 threads, there may be some unexpected errors and also 
-unessarly complexity.
+unnecessary complexity.
 
 *Note: The file transfer API functions are designed to be 
 called from the command handlers for both client-initiated 
@@ -627,19 +627,19 @@ Common file transfer helper methods include:
 Port allocation API
 -------------------
 
-The server allocation APIs allow you to alloc a new 
+The server allocation APIs allow you to allocate a new 
 port for another servers. There are two kinds of port 
 allocation modes.
 
 For change the port allocation mode, you can set the 
-args ``is_hand_alloc_port`` in the server instence class. 
-When input ``False``, the server instence will choose 
-the automaticlly port allocation mode, or input ``False`` 
+args ``is_hand_alloc_port`` in the server instance class. 
+When input ``False``, the server instance will choose 
+the automatically port allocation mode, or input ``False`` 
 it will choose the manual allocation mode.
 
-We most recommand you that to use the automaticlly port 
+We most recommend you that to use the automatically port 
 allocation mode, which is the default mode of the server, 
-because the automaticlly port allocation mode is more 
+because the automatically port allocation mode is more 
 simple and also more stable than the manual port 
 allocation mode. In this mode, when calling the 
 allocation APIs, it will return ``0``.
@@ -649,7 +649,7 @@ of the python executor, when input ``0`` to the port
 parameter, will automatically assign an available port 
 by operating system.*
 
-The another port allocation mode is the manual port 
+The other port allocation mode is the manual port 
 allocation mode, there is a port allocation range 
 for the server. Please avoid to open other servers 
 in the same host, because in the existing version, 
@@ -677,7 +677,7 @@ There are some relevant methods that can be used:
 
 The `palloc` method allow you to get a port, for 
 using this function, you don't need to worry about 
-the port allocation mode, because a allocation mode 
+the port allocation mode, because an allocation mode 
 detector is already be wrote in this method.
 
 .. code-block:: python
@@ -695,7 +695,7 @@ And there are the main functions for you to call,
 and for more information about the port allocation 
 functions, see the :ref:`tcp-server-port-allocation-api` section.
 
-This mode is useful when you need a indvidual port for 
+This mode is useful when you need a individual port for 
 the server or  must reserve a controlled range of ports 
 for client-file transfers by manual port allocation, 
 such as in a testing environment or when multiple 
@@ -705,7 +705,7 @@ TCP Server APIs table
 ----------------------
 
 In short, the table of contents of the public APIs 
-are following as:
+are as follows:
 
 1. The server setup APIs:
     - `TCP_Server_Base`
@@ -715,7 +715,7 @@ are following as:
 2. The server handling information APIs:
     - `handle_client`
     - `handle_command`
-    - `recieve_message`
+    - `receive_message`
     - `send_message`
     - `broadcast`
     - `send_msg_to_specific_client`

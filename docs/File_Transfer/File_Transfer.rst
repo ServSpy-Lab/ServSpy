@@ -49,10 +49,10 @@ loaded from
 - ``server_start_file_transfer_sign`` - sent by the
   receiver to the sender,
   indicating that the receiver is ready.
-- ``server_reseived_file_header_sign`` - sent by the
+- ``server_received_file_header_sign`` - sent by the
   receiver after it has
   successfully read the filename and file size.
-- ``server_reseived_file_data_sign`` - sent by the
+- ``server_received_file_data_sign`` - sent by the
   receiver after the complete
   file has been written to disk.
 - ``error_sign`` - sent by either side when an error
@@ -75,7 +75,7 @@ is connected:
   (big-endian).
 - Send the file content in 64 KiB chunks until EOF.
 - Wait for the completion acknowledgement
-  (``server_reseived_file_data_sign``) with a dynamic
+  (``server_received_file_data_sign``) with a dynamic
   timeout (base 30 seconds
   plus 10 seconds per 100 MiB).
 
@@ -85,10 +85,10 @@ The receiver performs the complementary steps:
 - Read the 4-byte length, then the filename, then the
   8-byte size.
 - Acknowledge the header with
-  ``server_reseived_file_header_sign``.
+  ``server_received_file_header_sign``.
 - Receive the file data in chunks and write to disk.
 - Acknowledge completion with
-  ``server_reseived_file_data_sign``.
+  ``server_received_file_data_sign``.
 
 Any error during the exchange causes the failing side to
 send ``error_sign``,

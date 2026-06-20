@@ -180,7 +180,7 @@ def _command_handler_server_setup(sock, addr, cmd):
             message="/command_done \"{}\" \"{}\"".format(log_filename, log_path))
     else:
         pass
-    print("Dealing the command seccessfully!")
+    print("Dealing the command successfully!")
 def _command_done_dealing_server(sock, addr, cmd):
     cmd_parts = shlex.split(cmd)
     log_filename = cmd_parts[1]

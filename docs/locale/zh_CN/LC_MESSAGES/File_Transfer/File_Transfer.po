@@ -87,13 +87,13 @@ msgstr "``server_start_file_transfer_sign`` - 由接收方发送给发送方，�
 
 #: ../../File_Transfer/File_Transfer.rst:52 b18c8eb1b23f42feb6e2d36bd68dbd80
 msgid ""
-"``server_reseived_file_header_sign`` - sent by the receiver after it has "
+"``server_received_file_header_sign`` - sent by the receiver after it has "
 "successfully read the filename and file size."
 msgstr "``server_reeived_file_header_sign`` - 由接收方在成功读取文件名和文件大小后发送。"
 
 #: ../../File_Transfer/File_Transfer.rst:55 139fa468bd3d407089a5d6d26d4bcce7
 msgid ""
-"``server_reseived_file_data_sign`` - sent by the receiver after the complete"
+"``server_received_file_data_sign`` - sent by the receiver after the complete"
 " file has been written to disk."
 msgstr "``server_reeived_file_data_sign`` - 在完整文件写入磁盘后由接收方发送。"
 
@@ -137,7 +137,7 @@ msgstr "以 64 KiB 块的形式发送文件内容，直到 EOF。"
 
 #: ../../File_Transfer/File_Transfer.rst:77 a7ea63bf139a40158d3bd703bfde5c65
 msgid ""
-"Wait for the completion acknowledgement (``server_reseived_file_data_sign``)"
+"Wait for the completion acknowledgement (``server_received_file_data_sign``)"
 " with a dynamic timeout (base 30 seconds plus 10 seconds per 100 MiB)."
 msgstr ""
 "等待动态超时（基本 30 秒加上每 100 MiB 10 秒）的完成确认 (``s​​erver_reeived_file_data_sign``)。"
@@ -155,7 +155,7 @@ msgid "Read the 4-byte length, then the filename, then the 8-byte size."
 msgstr "读取 4 字节长度，然后读取文件名，然后读取 8 字节大小。"
 
 #: ../../File_Transfer/File_Transfer.rst:87 cc55b5b9422b43b78ee76820347ba1d5
-msgid "Acknowledge the header with ``server_reseived_file_header_sign``."
+msgid "Acknowledge the header with ``server_received_file_header_sign``."
 msgstr "使用“server_reeived_file_header_sign”确认标头。"
 
 #: ../../File_Transfer/File_Transfer.rst:89 c3f7880955a240e8af0737f3bfbb62fc
@@ -163,7 +163,7 @@ msgid "Receive the file data in chunks and write to disk."
 msgstr "以块的形式接收文件数据并写入磁盘。"
 
 #: ../../File_Transfer/File_Transfer.rst:90 4e1e81c46ed54668ba11626b2dd3c32a
-msgid "Acknowledge completion with ``server_reseived_file_data_sign``."
+msgid "Acknowledge completion with ``server_received_file_data_sign``."
 msgstr "使用“server_reeived_file_data_sign”确认完成。"
 
 #: ../../File_Transfer/File_Transfer.rst:93 c78eee29443549389195514e46f1926e

@@ -31,7 +31,7 @@ class TCP_Server_Base:  # TCP server class
             self.project_dir, 'received_files')
         self.host = host
         self.port = port
-        self.all_alloced_ports_list=[self.port]
+        self.all_allocated_ports_list=[self.port]
         self.max_clients = max_clients
         self.is_hand_alloc_port=is_hand_alloc_port
         self.is_input_command_in_console=is_input_command_in_console
@@ -56,14 +56,14 @@ class TCP_Server_Base:  # TCP server class
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
             self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
+        self.server_received_file_header_sign = (
+            self.command_decode_table[0]["file_receive_client_header"])
+        self.server_received_file_data_sign = (
+            self.command_decode_table[0]["file_receive_client_data"])
         self.server_start_file_transfer_sign = (
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
+            self.command_decode_table[0]["file_send_receive_error"])
         self._custom_handlers = [{}, {}]
         self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
@@ -190,23 +190,23 @@ class TCP_Server_Base:  # TCP server class
             with self.alloc_add_port_lock:
                 if self.add_latest_port + self.port_add_step > self.max_port:
                     for step in range(self.port+1, self.max_port, self.port_add_step):
-                        if step in self.all_alloced_ports_list:
+                        if step in self.all_allocated_ports_list:
                             pass
                         else:
-                            alloced_port=step
-                            self.all_alloced_ports_list.append(alloced_port)
-                            return alloced_port
+                            allocated_port=step
+                            self.all_allocated_ports_list.append(allocated_port)
+                            return allocated_port
                     return None
                 self.add_latest_port += self.port_add_step
-                self.all_alloced_ports_list.append(self.add_latest_port)
+                self.all_allocated_ports_list.append(self.add_latest_port)
                 return self.add_latest_port
         else:
             return 0
     def file_pfree(self, port):
         if self.is_hand_alloc_port:
             with self.alloc_add_port_lock:
-                if port in self.all_alloced_ports_list:
-                    self.all_alloced_ports_list.remove(port)
+                if port in self.all_allocated_ports_list:
+                    self.all_allocated_ports_list.remove(port)
                     print(
                         "releasing file transfer port, current latest port:", port)
                 self.add_latest_port-=self.port_add_step
@@ -217,23 +217,23 @@ class TCP_Server_Base:  # TCP server class
             with self.alloc_minus_port_lock:
                 if self.minus_latest_port - self.port_add_step < self.min_port:
                     for step in range(self.port, self.min_port, -self.port_add_step):
-                        if step in self.all_alloced_ports_list:
+                        if step in self.all_allocated_ports_list:
                             pass
                         else:
-                            alloced_port=step
-                            self.all_alloced_ports_list.append(alloced_port)
-                            return alloced_port
+                            allocated_port=step
+                            self.all_allocated_ports_list.append(allocated_port)
+                            return allocated_port
                     return None
                 self.minus_latest_port -= self.port_add_step
-                self.all_alloced_ports_list.append(self.minus_latest_port)
+                self.all_allocated_ports_list.append(self.minus_latest_port)
                 return self.minus_latest_port
         else:
             return 0
     def spy_pfree(self, port):
         if self.is_hand_alloc_port:
             with self.alloc_minus_port_lock:
-                if port in self.all_alloced_ports_list:
-                    self.all_alloced_ports_list.remove(port)
+                if port in self.all_allocated_ports_list:
+                    self.all_allocated_ports_list.remove(port)
                 self.minus_latest_port+=self.port_add_step
         else:
             pass
@@ -291,7 +291,7 @@ class TCP_Server_Base:  # TCP server class
             while not stop_event.is_set():
                 try:
                     client_sock.settimeout(1.0)
-                    data = self.recieve_message(client_sock, 4096)
+                    data = self.receive_message(client_sock, 4096)
                     if not data:
                         break
                     if on_data:
@@ -379,7 +379,7 @@ class TCP_Server_Base:  # TCP server class
             print(f"send msg error: {e}")
             traceback.print_exc()
             return False
-    def recieve_message(self, client_socket, msg_length):  # receive message
+    def receive_message(self, client_socket, msg_length):  # receive message
         data=client_socket.recv(msg_length)
         return data
     def handle_client(self, client_socket, client_address):  # deal with each client
@@ -405,7 +405,7 @@ class TCP_Server_Base:  # TCP server class
         buffer=""
         try:
             while True:
-                data = self.recieve_message(client_socket, 4096)  # get msg from client
+                data = self.receive_message(client_socket, 4096)  # get msg from client
                 print(data)
                 if not data:
                     break
@@ -593,7 +593,7 @@ class TCP_Server_Base:  # TCP server class
             try:
                 name_len_bytes = b''
                 while len(name_len_bytes) < 4:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, 4 - len(name_len_bytes))
                     print(chunk)
                     if not chunk:
@@ -615,7 +615,7 @@ class TCP_Server_Base:  # TCP server class
                 name_len = int.from_bytes(name_len_bytes, 'big')
                 file_name_encoded = b''
                 while len(file_name_encoded) < name_len:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, name_len - len(file_name_encoded))
                     if not chunk:
                         try:
@@ -638,7 +638,7 @@ class TCP_Server_Base:  # TCP server class
                 filename = os.path.basename(filename)
                 size_bytes = b''
                 while len(size_bytes) < 8:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, 8 - len(size_bytes))
                     if not chunk:
                         try:
@@ -658,7 +658,7 @@ class TCP_Server_Base:  # TCP server class
                             "ErrorSignReceivedWhileReceivingFileSize: client reported error and disconnected")
                 file_size = int.from_bytes(size_bytes, 'big')
                 self.send_message(client_file_socket,
-                                  self.server_reseived_file_header_sign)
+                                  self.server_received_file_header_sign)
                 original_filename = filename
                 if file_name:
                     final_filename = file_name.strip()
@@ -669,7 +669,7 @@ class TCP_Server_Base:  # TCP server class
                 with open(full_path.strip(), 'wb') as f:
                     remaining = file_size
                     while remaining > 0:
-                        chunk = self.recieve_message(
+                        chunk = self.receive_message(
                             client_file_socket, min(65536, remaining))
                         if not chunk:
                             try:
@@ -684,7 +684,7 @@ class TCP_Server_Base:  # TCP server class
                         f.write(chunk)
                         remaining -= len(chunk)
                 self.send_message(client_file_socket,
-                                  self.server_reseived_file_data_sign)
+                                  self.server_received_file_data_sign)
                 print(f"file {filename} received from {client_id}, size {file_size} bytes")
                 close_socket()
             except Exception as e:
@@ -899,7 +899,7 @@ class TCP_Server_Base:  # TCP server class
         try:
             client_socket=self.clients[client_ip]["socket"]
         except:
-            print("ErrorWhileSerchingClientSocket: can not find the client socket, file sending failed")
+            print("ErrorWhileSearchingClientSocket: can not find the client socket, file sending failed")
             traceback.print_exc()
             return False
         print(client_socket, client_address, message)
@@ -932,7 +932,7 @@ class TCP_Server_Base:  # TCP server class
                 waiting_time+=1
                 if waiting_time>=20:
                     print(
-                        "ErrorWhileRecieveFileServerPort: transfer port waitting timeout, file sending failed")
+                        "ErrorWhileReceiveFileServerPort: transfer port waiting timeout, file sending failed")
                     return False
             self.file_transfer_mode(filename, client_address, file_server_port,
                                     file_transfer_client_port)
@@ -975,7 +975,7 @@ class TCP_Server_Base:  # TCP server class
             nonlocal file_receive_data_from_server
             while file_running:
                 try:
-                    data = self.recieve_message(
+                    data = self.receive_message(
                         client_file_socket, 4096)
                     if not data:
                         print("\nbreak the file transfer connection from server")
@@ -1048,7 +1048,7 @@ class TCP_Server_Base:  # TCP server class
             timeout = int(30 + extra_time)
             while True:
                 if (file_receive_data_from_server ==
-                    self.server_reseived_file_data_sign):
+                    self.server_received_file_data_sign):
                     break
                 if (file_receive_data_from_server ==
                     self.error_sign):
@@ -1250,7 +1250,7 @@ class TCP_Client_Base:  # TCP client class
             self.project_temp_info_dir, 'client_port_lock.lock')
         if os.path.exists(self.project_temp_info_dir)==False:
             os.mkdir(self.project_temp_info_dir)
-        self.all_alloced_ports_list=[]
+        self.all_allocated_ports_list=[]
         self.is_hand_alloc_port=None
         self.file_transfer_server_port=None
         self.file_server_port_list=[]
@@ -1286,14 +1286,14 @@ class TCP_Client_Base:  # TCP client class
             self.command_decode_table[0]["file_send_server_header"])
         self.send_file_data_sign = (
             self.command_decode_table[0]["file_send_server_data"])
-        self.server_reseived_file_header_sign = (
-            self.command_decode_table[0]["file_resieve_client_header"])
-        self.server_reseived_file_data_sign = (
-            self.command_decode_table[0]["file_resieve_client_data"])
+        self.server_received_file_header_sign = (
+            self.command_decode_table[0]["file_receive_client_header"])
+        self.server_received_file_data_sign = (
+            self.command_decode_table[0]["file_receive_client_data"])
         self.server_start_file_transfer_sign = (
             self.command_decode_table[0]["file_send_server_start_file_transfer"])
         self.error_sign=(
-            self.command_decode_table[0]["file_send_resieve_error"])
+            self.command_decode_table[0]["file_send_receive_error"])
         self._custom_handlers = [{}, {}]
         self._custom_handler_threaded = [{}, {}]
         self._custom_executor = ThreadPoolExecutor(max_workers=max_custom_workers)
@@ -1435,23 +1435,23 @@ class TCP_Client_Base:  # TCP client class
             with self.alloc_add_port_lock:
                 if self.add_latest_port + self.port_add_step > self.max_port:
                     for step in range(self.port+1, self.max_port, self.port_add_step):
-                        if step in self.all_alloced_ports_list:
+                        if step in self.all_allocated_ports_list:
                             pass
                         else:
-                            alloced_port=step
-                            self.all_alloced_ports_list.append(alloced_port)
-                            return alloced_port
+                            allocated_port=step
+                            self.all_allocated_ports_list.append(allocated_port)
+                            return allocated_port
                     return None
                 self.add_latest_port += self.port_add_step
-                self.all_alloced_ports_list.append(self.add_latest_port)
+                self.all_allocated_ports_list.append(self.add_latest_port)
                 return self.add_latest_port
         else:
             return 0
     def file_pfree(self, port):
         if self.is_hand_alloc_port:
             with self.alloc_add_port_lock:
-                if port in self.all_alloced_ports_list:
-                    self.all_alloced_ports_list.remove(port)
+                if port in self.all_allocated_ports_list:
+                    self.all_allocated_ports_list.remove(port)
                     print(
                         "releasing file transfer port, current latest port:", port)
                 self.add_latest_port-=self.port_add_step
@@ -1462,23 +1462,23 @@ class TCP_Client_Base:  # TCP client class
             with self.alloc_minus_port_lock:
                 if self.minus_latest_port - self.port_add_step < self.min_port:
                     for step in range(self.port, self.min_port, -self.port_add_step):
-                        if step in self.all_alloced_ports_list:
+                        if step in self.all_allocated_ports_list:
                             pass
                         else:
-                            alloced_port=step
-                            self.all_alloced_ports_list.append(alloced_port)
-                            return alloced_port
+                            allocated_port=step
+                            self.all_allocated_ports_list.append(allocated_port)
+                            return allocated_port
                     return None
                 self.minus_latest_port -= self.port_add_step
-                self.all_alloced_ports_list.append(self.minus_latest_port)
+                self.all_allocated_ports_list.append(self.minus_latest_port)
                 return self.minus_latest_port
         else:
             return 0
     def spy_pfree(self, port):
         if self.is_hand_alloc_port:
             with self.alloc_minus_port_lock:
-                if port in self.all_alloced_ports_list:
-                    self.all_alloced_ports_list.remove(port)
+                if port in self.all_allocated_ports_list:
+                    self.all_allocated_ports_list.remove(port)
                     print(
                         "releasing file transfer port, current latest port:", port)
                 self.minus_latest_port+=self.port_add_step
@@ -1525,7 +1525,7 @@ class TCP_Client_Base:  # TCP client class
             while not stop_event.is_set():
                 try:
                     client_sock.settimeout(1.0)
-                    data = self.recieve_message(client_sock, 4096)
+                    data = self.receive_message(client_sock, 4096)
                     if not data:
                         break
                     if on_data:
@@ -1562,7 +1562,7 @@ class TCP_Client_Base:  # TCP client class
                 return True
             except socket.timeout:
                 if self.is_wait_server:
-                    print("waitting for server to start...")
+                    print("waiting for server to start...")
                     pass
                 else:
                     print("outof time, unable to connect to server")
@@ -1570,7 +1570,7 @@ class TCP_Client_Base:  # TCP client class
                     return False
             except ConnectionRefusedError:
                 if self.is_wait_server:
-                    print("waitting for server to start...")
+                    print("waiting for server to start...")
                     pass
                 else:
                     print("connection rejected by server, please ensure the server is running")
@@ -1584,7 +1584,7 @@ class TCP_Client_Base:  # TCP client class
         buffer = ""
         while self.running:
             try:
-                data = self.recieve_message(
+                data = self.receive_message(
                     self.client_socket, 4096)
                 if not data:
                     print("\nbreak the connection from server")
@@ -1636,7 +1636,7 @@ class TCP_Client_Base:  # TCP client class
             print(f"send msg error: {e}")
             traceback.print_exc()
             return False
-    def recieve_message(self, client_socket, msg_length):  # receive msg
+    def receive_message(self, client_socket, msg_length):  # receive msg
         data=client_socket.recv(msg_length)
         return data
     def handle_server_command(self, command):  # deal with special command from server
@@ -1871,7 +1871,7 @@ class TCP_Client_Base:  # TCP client class
                 waiting_time+=1
                 if waiting_time>=20:
                     print(
-                        "ErrorWhileRecieveFileServerPort: transfer port waitting timeout, file sending failed")
+                        "ErrorWhileReceiveFileServerPort: transfer port waiting timeout, file sending failed")
                     return False
             self.file_transfer_mode(filename, self.host,
                                     file_server_port,
@@ -1915,7 +1915,7 @@ class TCP_Client_Base:  # TCP client class
             nonlocal file_receive_data_from_server
             while file_running:
                 try:
-                    data = self.recieve_message(client_file_socket, 4096)
+                    data = self.receive_message(client_file_socket, 4096)
                     if not data:
                         print("\nbreak the file transfer connection from server")
                         try:
@@ -1984,7 +1984,7 @@ class TCP_Client_Base:  # TCP client class
             timeout = int(30 + extra_time)
             while True:
                 if (file_receive_data_from_server ==
-                    self.server_reseived_file_data_sign):
+                    self.server_received_file_data_sign):
                     break
                 if (file_receive_data_from_server ==
                     self.error_sign):
@@ -2093,7 +2093,7 @@ class TCP_Client_Base:  # TCP client class
             try:
                 name_len_bytes = b''
                 while len(name_len_bytes) < 4:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, 4 - len(name_len_bytes))
                     print(chunk)
                     if not chunk:
@@ -2114,7 +2114,7 @@ class TCP_Client_Base:  # TCP client class
                 name_len = int.from_bytes(name_len_bytes, 'big')
                 file_name_encoded = b''
                 while len(file_name_encoded) < name_len:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, name_len - len(file_name_encoded))
                     if not chunk:
                         try:
@@ -2136,7 +2136,7 @@ class TCP_Client_Base:  # TCP client class
                 filename = os.path.basename(filename)
                 size_bytes = b''
                 while len(size_bytes) < 8:
-                    chunk = self.recieve_message(
+                    chunk = self.receive_message(
                         client_file_socket, 8 - len(size_bytes))
                     if not chunk:
                         try:
@@ -2155,7 +2155,7 @@ class TCP_Client_Base:  # TCP client class
                             "ErrorSignReceivedWhileReceivingFileSize: client reported error and disconnected")
                 file_size = int.from_bytes(size_bytes, 'big')
                 self.send_message(client_file_socket,
-                                  self.server_reseived_file_header_sign)
+                                  self.server_received_file_header_sign)
                 original_filename = filename
                 if file_name:
                     final_filename = file_name.strip()
@@ -2166,7 +2166,7 @@ class TCP_Client_Base:  # TCP client class
                 with open(full_path.strip(), 'wb') as f:
                     remaining = file_size
                     while remaining > 0:
-                        chunk = self.recieve_message(
+                        chunk = self.receive_message(
                             client_file_socket, min(65536, remaining))
                         if not chunk:
                             try:
@@ -2181,7 +2181,7 @@ class TCP_Client_Base:  # TCP client class
                         f.write(chunk)
                         remaining -= len(chunk)
                 self.send_message(client_file_socket,
-                    self.server_reseived_file_data_sign)
+                    self.server_received_file_data_sign)
                 print(f"file {filename} received from {client_id}, size {file_size} bytes")
                 close_socket()
             except Exception as e:

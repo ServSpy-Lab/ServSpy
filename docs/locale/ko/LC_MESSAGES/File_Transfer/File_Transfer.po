@@ -95,16 +95,16 @@ msgstr ""
 
 #: ../../File_Transfer/File_Transfer.rst:52 b18c8eb1b23f42feb6e2d36bd68dbd80
 msgid ""
-"``server_reseived_file_header_sign`` - sent by the receiver after it has "
+"``server_received_file_header_sign`` - sent by the receiver after it has "
 "successfully read the filename and file size."
 msgstr ""
-"``server_reseived_file_header_sign`` - 수신자가 파일 이름과 파일 크기를 성공적으로 읽은 후 전송합니다."
+"``server_received_file_header_sign`` - 수신자가 파일 이름과 파일 크기를 성공적으로 읽은 후 전송합니다."
 
 #: ../../File_Transfer/File_Transfer.rst:55 139fa468bd3d407089a5d6d26d4bcce7
 msgid ""
-"``server_reseived_file_data_sign`` - sent by the receiver after the complete"
+"``server_received_file_data_sign`` - sent by the receiver after the complete"
 " file has been written to disk."
-msgstr "``server_reseived_file_data_sign`` - 전체 파일이 디스크에 기록된 후 수신자가 전송합니다."
+msgstr "``server_received_file_data_sign`` - 전체 파일이 디스크에 기록된 후 수신자가 전송합니다."
 
 #: ../../File_Transfer/File_Transfer.rst:58 49a93159724543adbd499f6bd0db52bb
 msgid ""
@@ -146,11 +146,11 @@ msgstr "EOF까지 64KiB 청크로 파일 콘텐츠를 보냅니다."
 
 #: ../../File_Transfer/File_Transfer.rst:77 a7ea63bf139a40158d3bd703bfde5c65
 msgid ""
-"Wait for the completion acknowledgement (``server_reseived_file_data_sign``)"
+"Wait for the completion acknowledgement (``server_received_file_data_sign``)"
 " with a dynamic timeout (base 30 seconds plus 10 seconds per 100 MiB)."
 msgstr ""
 "동적 시간 제한(기본 30초 + 100MiB당 10초)을 사용하여 완료 "
-"확인(``server_reseived_file_data_sign``)을 기다립니다."
+"확인(``server_received_file_data_sign``)을 기다립니다."
 
 #: ../../File_Transfer/File_Transfer.rst:82 248f909bb710424bba6a56c1796b4df2
 msgid "The receiver performs the complementary steps:"
@@ -165,16 +165,16 @@ msgid "Read the 4-byte length, then the filename, then the 8-byte size."
 msgstr "4바이트 길이, 파일 이름, 8바이트 크기를 차례로 읽습니다."
 
 #: ../../File_Transfer/File_Transfer.rst:87 cc55b5b9422b43b78ee76820347ba1d5
-msgid "Acknowledge the header with ``server_reseived_file_header_sign``."
-msgstr "``server_reseived_file_header_sign``으로 헤더를 확인합니다."
+msgid "Acknowledge the header with ``server_received_file_header_sign``."
+msgstr "``server_received_file_header_sign``으로 헤더를 확인합니다."
 
 #: ../../File_Transfer/File_Transfer.rst:89 c3f7880955a240e8af0737f3bfbb62fc
 msgid "Receive the file data in chunks and write to disk."
 msgstr "파일 데이터를 청크로 받아 디스크에 씁니다."
 
 #: ../../File_Transfer/File_Transfer.rst:90 4e1e81c46ed54668ba11626b2dd3c32a
-msgid "Acknowledge completion with ``server_reseived_file_data_sign``."
-msgstr "``server_reseived_file_data_sign``으로 완료를 확인합니다."
+msgid "Acknowledge completion with ``server_received_file_data_sign``."
+msgstr "``server_received_file_data_sign``으로 완료를 확인합니다."
 
 #: ../../File_Transfer/File_Transfer.rst:93 c78eee29443549389195514e46f1926e
 msgid ""

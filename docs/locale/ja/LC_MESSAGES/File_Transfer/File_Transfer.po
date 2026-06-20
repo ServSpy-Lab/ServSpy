@@ -95,18 +95,18 @@ msgstr ""
 
 #: ../../File_Transfer/File_Transfer.rst:52 b18c8eb1b23f42feb6e2d36bd68dbd80
 msgid ""
-"``server_reseived_file_header_sign`` - sent by the receiver after it has "
+"``server_received_file_header_sign`` - sent by the receiver after it has "
 "successfully read the filename and file size."
 msgstr ""
-"``server_reseived_file_header_sign`` - "
+"``server_received_file_header_sign`` - "
 "ファイル名とファイルサイズを正常に読み取った後に受信者によって送信されます。"
 
 #: ../../File_Transfer/File_Transfer.rst:55 139fa468bd3d407089a5d6d26d4bcce7
 msgid ""
-"``server_reseived_file_data_sign`` - sent by the receiver after the complete"
+"``server_received_file_data_sign`` - sent by the receiver after the complete"
 " file has been written to disk."
 msgstr ""
-"``server_reseived_file_data_sign`` - 完全なファイルがディスクに書き込まれた後に受信者によって送信されます。"
+"``server_received_file_data_sign`` - 完全なファイルがディスクに書き込まれた後に受信者によって送信されます。"
 
 #: ../../File_Transfer/File_Transfer.rst:58 49a93159724543adbd499f6bd0db52bb
 msgid ""
@@ -148,11 +148,11 @@ msgstr "EOF までファイルの内容を 64 KiB のチャンクで送信しま
 
 #: ../../File_Transfer/File_Transfer.rst:77 a7ea63bf139a40158d3bd703bfde5c65
 msgid ""
-"Wait for the completion acknowledgement (``server_reseived_file_data_sign``)"
+"Wait for the completion acknowledgement (``server_received_file_data_sign``)"
 " with a dynamic timeout (base 30 seconds plus 10 seconds per 100 MiB)."
 msgstr ""
 "動的タイムアウト (基本 30 秒 + 100 MiB あたり 10 秒) で完了確認 "
-"(``s​​erver_reseived_file_data_sign``) を待ちます。"
+"(``s​​erver_received_file_data_sign``) を待ちます。"
 
 #: ../../File_Transfer/File_Transfer.rst:82 248f909bb710424bba6a56c1796b4df2
 msgid "The receiver performs the complementary steps:"
@@ -167,16 +167,16 @@ msgid "Read the 4-byte length, then the filename, then the 8-byte size."
 msgstr "4 バイトの長さを読み取り、次にファイル名、次に 8 バイトのサイズを読み取ります。"
 
 #: ../../File_Transfer/File_Transfer.rst:87 cc55b5b9422b43b78ee76820347ba1d5
-msgid "Acknowledge the header with ``server_reseived_file_header_sign``."
-msgstr "``server_reseived_file_header_sign`` でヘッダを確認します。"
+msgid "Acknowledge the header with ``server_received_file_header_sign``."
+msgstr "``server_received_file_header_sign`` でヘッダを確認します。"
 
 #: ../../File_Transfer/File_Transfer.rst:89 c3f7880955a240e8af0737f3bfbb62fc
 msgid "Receive the file data in chunks and write to disk."
 msgstr "ファイル データをチャンクで受信し、ディスクに書き込みます。"
 
 #: ../../File_Transfer/File_Transfer.rst:90 4e1e81c46ed54668ba11626b2dd3c32a
-msgid "Acknowledge completion with ``server_reseived_file_data_sign``."
-msgstr "``server_reseived_file_data_sign`` で完了を確認します。"
+msgid "Acknowledge completion with ``server_received_file_data_sign``."
+msgstr "``server_received_file_data_sign`` で完了を確認します。"
 
 #: ../../File_Transfer/File_Transfer.rst:93 c78eee29443549389195514e46f1926e
 msgid ""

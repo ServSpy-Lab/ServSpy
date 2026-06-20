@@ -107,18 +107,18 @@ msgstr ""
 
 #: ../../File_Transfer/File_Transfer.rst:52 b18c8eb1b23f42feb6e2d36bd68dbd80
 msgid ""
-"``server_reseived_file_header_sign`` - sent by the receiver after it has "
+"``server_received_file_header_sign`` - sent by the receiver after it has "
 "successfully read the filename and file size."
 msgstr ""
-"``server_reseived_file_header_sign`` — отправляется получателем после того, "
+"``server_received_file_header_sign`` — отправляется получателем после того, "
 "как он успешно прочитал имя и размер файла."
 
 #: ../../File_Transfer/File_Transfer.rst:55 139fa468bd3d407089a5d6d26d4bcce7
 msgid ""
-"``server_reseived_file_data_sign`` - sent by the receiver after the complete"
+"``server_received_file_data_sign`` - sent by the receiver after the complete"
 " file has been written to disk."
 msgstr ""
-"``server_reseived_file_data_sign`` — отправляется получателем после того, "
+"``server_received_file_data_sign`` — отправляется получателем после того, "
 "как полный файл был записан на диск."
 
 #: ../../File_Transfer/File_Transfer.rst:58 49a93159724543adbd499f6bd0db52bb
@@ -171,10 +171,10 @@ msgstr "Отправляйте содержимое файла частями п
 
 #: ../../File_Transfer/File_Transfer.rst:77 a7ea63bf139a40158d3bd703bfde5c65
 msgid ""
-"Wait for the completion acknowledgement (``server_reseived_file_data_sign``)"
+"Wait for the completion acknowledgement (``server_received_file_data_sign``)"
 " with a dynamic timeout (base 30 seconds plus 10 seconds per 100 MiB)."
 msgstr ""
-"Дождитесь подтверждения завершения (server_reseived_file_data_sign) с "
+"Дождитесь подтверждения завершения (server_received_file_data_sign) с "
 "динамическим таймаутом (базовое значение 30 секунд плюс 10 секунд на 100 "
 "МБ)."
 
@@ -191,16 +191,16 @@ msgid "Read the 4-byte length, then the filename, then the 8-byte size."
 msgstr "Прочитайте длину 4 байта, затем имя файла, затем размер 8 байт."
 
 #: ../../File_Transfer/File_Transfer.rst:87 cc55b5b9422b43b78ee76820347ba1d5
-msgid "Acknowledge the header with ``server_reseived_file_header_sign``."
-msgstr "Подтвердите заголовок с помощью ``server_reseived_file_header_sign``."
+msgid "Acknowledge the header with ``server_received_file_header_sign``."
+msgstr "Подтвердите заголовок с помощью ``server_received_file_header_sign``."
 
 #: ../../File_Transfer/File_Transfer.rst:89 c3f7880955a240e8af0737f3bfbb62fc
 msgid "Receive the file data in chunks and write to disk."
 msgstr "Получайте данные файла частями и записывайте на диск."
 
 #: ../../File_Transfer/File_Transfer.rst:90 4e1e81c46ed54668ba11626b2dd3c32a
-msgid "Acknowledge completion with ``server_reseived_file_data_sign``."
-msgstr "Подтвердите завершение с помощью ``server_reseived_file_data_sign``."
+msgid "Acknowledge completion with ``server_received_file_data_sign``."
+msgstr "Подтвердите завершение с помощью ``server_received_file_data_sign``."
 
 #: ../../File_Transfer/File_Transfer.rst:93 c78eee29443549389195514e46f1926e
 msgid ""

@@ -342,10 +342,10 @@ msgstr ""
 #: ../../Network_APIs/TCP_Client_APIs.rst:157 7bba7ce021074333b8ecead73d52a1f5
 msgid ""
 "continuously receiving raw bytes from the server socket using "
-"`recieve_message`"
+"`receive_message`"
 msgstr ""
 "непрерывное получение необработанных байтов из сокета сервера с "
-"использованием `recieve_message`"
+"использованием `receive_message`"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:158 4727b16225af4777b337afc3d28d157e
 msgid "buffering incoming data until newline-terminated messages are complete"
@@ -437,11 +437,11 @@ msgstr "регистрация ошибок и отключение, когда 
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:199 f98dc9ee2064472e868eddb537d90a65
 msgid ""
-"`recieve_message` is identical to the server version: it reads up to "
+"`receive_message` is identical to the server version: it reads up to "
 "``msg_length`` bytes from the given socket and returns the raw byte payload."
 " Message decoding and newline framing are handled by the caller."
 msgstr ""
-"`recieve_message` идентичен серверной версии: он считывает до ``msg_length``"
+"`receive_message` идентичен серверной версии: он считывает до ``msg_length``"
 " байт из данного сокета и возвращает необработанные байтовые полезные "
 "данные. Декодирование сообщения и кадрирование новой строки обрабатываются "
 "вызывающей стороной."
@@ -1016,8 +1016,8 @@ msgid "`handle_server_command`"
 msgstr "`handle_server_command`"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:591 3f9ca93d899b42178aeedc8f0b6b708e
-msgid "`recieve_message`"
-msgstr "`recieve_message`"
+msgid "`receive_message`"
+msgstr "`receive_message`"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:592 376056fb675747f588ffb1d1ef27d23b
 msgid "`send_message`"

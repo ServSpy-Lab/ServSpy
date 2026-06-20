@@ -302,8 +302,8 @@ msgstr ""
 #: ../../Network_APIs/TCP_Client_APIs.rst:157 7bba7ce021074333b8ecead73d52a1f5
 msgid ""
 "continuously receiving raw bytes from the server socket using "
-"`recieve_message`"
-msgstr "「recieve_message」を使用してサーバーソケットから生のバイトを継続的に受信します"
+"`receive_message`"
+msgstr "「receive_message」を使用してサーバーソケットから生のバイトを継続的に受信します"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:158 4727b16225af4777b337afc3d28d157e
 msgid "buffering incoming data until newline-terminated messages are complete"
@@ -382,11 +382,11 @@ msgstr "エラーをログに記録し、サーバーがソケットを閉じる
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:199 f98dc9ee2064472e868eddb537d90a65
 msgid ""
-"`recieve_message` is identical to the server version: it reads up to "
+"`receive_message` is identical to the server version: it reads up to "
 "``msg_length`` bytes from the given socket and returns the raw byte payload."
 " Message decoding and newline framing are handled by the caller."
 msgstr ""
-"`recieve_message` はサーバーバージョンと同じです。指定されたソケットから最大 `msg_length` "
+"`receive_message` はサーバーバージョンと同じです。指定されたソケットから最大 `msg_length` "
 "バイトを読み取り、生のバイトペイロードを返します。メッセージのデコードと改行フレーム化は呼び出し元によって処理されます。"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:212 c0540d984f584d009c9fb2f361a53871
@@ -902,7 +902,7 @@ msgid "`handle_server_command`"
 msgstr "`ハンドルサーバーコマンド`"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:591 3f9ca93d899b42178aeedc8f0b6b708e
-msgid "`recieve_message`"
+msgid "`receive_message`"
 msgstr "`受信メッセージ`"
 
 #: ../../Network_APIs/TCP_Client_APIs.rst:592 376056fb675747f588ffb1d1ef27d23b
