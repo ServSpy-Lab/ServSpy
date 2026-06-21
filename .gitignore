@@ -19,7 +19,8 @@ test/src/
 docs/_build/
 docs/build/
 docs/.doctrees/
-docs/locale/*/LC_MESSAGES/*.mo
+docs/locale/**/*.mo
+docs/.sync
 *.bak
 *~
 
