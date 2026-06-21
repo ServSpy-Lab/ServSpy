@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-20 22:54+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+
+#: ../../Network_APIs/UDP_APIs.rst:2 7ac70647d42046318dfab3dceb5f676e
+msgid "The UDP API"
+msgstr "UDP API"
+
+#: ../../Network_APIs/UDP_APIs.rst:5 fb9b5b772ae14d90a447cc256defff89
+msgid "UDP setup API"
+msgstr "UDPセットアップAPI"
+
+#: ../../Network_APIs/UDP_APIs.rst:7 bb47224d494c475181b63895cfd49494
+msgid ""
+"The UDP Setup API is used to create a UDP endpoint. The UDP endpoint in the "
+"protocol is usually used for service discovery, broadcast, and simple "
+"request-response communication."
+msgstr ""
+"UDP セットアップ API は、UDP エンドポイントを作成するために使用されます。プロトコル内の UDP "
+"エンドポイントは、通常、サービス検出、ブロードキャスト、および単純な要求と応答の通信に使用されます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:17 ffd0fd70856b4c5cacd0494ff5c22ddf
+msgid ""
+"The UDP endpoint is defined in the ``UDP`` class. The socket is created and "
+"bound in the constructor. Both ``SO_REUSEADDR`` and ``SO_BROADCAST`` are set"
+" automatically."
+msgstr ""
+"UDP エンドポイントは ``UDP`` クラスで定義されます。ソケットはコンストラクター内で作成され、バインドされます。 "
+"``SO_REUSEADDR`` と ``SO_BROADCAST`` は両方とも自動的に設定されます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:21 6e2bac787d354847b41912c1076b5b8b
+msgid "Parameters of the ``__init__`` method are as follows:"
+msgstr "__init__ メソッドのパラメータは次のとおりです。"
+
+#: ../../Network_APIs/UDP_APIs.rst:23 9820cd4f16d74b8c81448c9fd2d7e935
+msgid ""
+"``host``: The interface to bind to. Default is ``\"0.0.0.0\"`` (all "
+"interfaces)."
+msgstr "``host``: バインド先のインターフェース。デフォルトは ``\"0.0.0.0\" です (すべてのインターフェース)。"
+
+#: ../../Network_APIs/UDP_APIs.rst:25 386de0739f014490ad13bba46e82662c
+msgid ""
+"``port``: The port to bind to. Default is ``0``, which lets the OS choose an"
+" available port dynamically."
+msgstr "``port``: バインド先のポート。デフォルトは ``0`` で、OS は利用可能なポートを動的に選択できます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:28 19765b62119c4954b63c04fa3bd58de4
+msgid "Every parameter has a default value:"
+msgstr "すべてのパラメータにはデフォルト値があります。"
+
+#: ../../Network_APIs/UDP_APIs.rst:30 2f23661c675241bfa68d07923890e076
+msgid "``host``: Default is ``\"0.0.0.0\"``"
+msgstr "``host``: デフォルトは ``\"0.0.0.0\"`` です。"
+
+#: ../../Network_APIs/UDP_APIs.rst:31 24bb2177443b4f22af7be34449274a25
+msgid "``port``: Default is ``0``"
+msgstr "`port`: デフォルトは `0` です"
+
+#: ../../Network_APIs/UDP_APIs.rst:33 f757e6385e834ab1b9d4e3f47bb37115
+msgid "*Note: The public API of the UDP endpoint is based on IPv4 form.*"
+msgstr "*注意: UDP エンドポイントのパブリック API は IPv4 形式に基づいています。*"
+
+#: ../../Network_APIs/UDP_APIs.rst:36 675973bcdb5848d4ba04448e8e2697b7
+msgid "UDP endpoint API"
+msgstr "UDP エンドポイント API"
+
+#: ../../Network_APIs/UDP_APIs.rst:38 d5cb638128b54c0582d973e8ed9c58fb
+msgid "The public methods available on a ``UDP`` instance are:"
+msgstr "``UDP`` インスタンスで利用できるパブリック メソッドは次のとおりです。"
+
+#: ../../Network_APIs/UDP_APIs.rst:51 fd4534b1a64445a3a1526bdc080ed655
+msgid "``send``"
+msgstr "「送る」"
+
+#: ../../Network_APIs/UDP_APIs.rst:52 6dcc2e4e4d1045d2bb7131c1947cdb74
+msgid ""
+"Wraps ``socket.sendto(data, addr)``. The ``addr`` parameter should be a "
+"``(host, port)`` tuple. Raises ``OSError`` if the socket is closed or the "
+"address is invalid. Note that a successful return does not confirm delivery."
+msgstr ""
+"``socket.sendto(data, addr)`` をラップします。 ``addr`` パラメータは ``(host, port)`` "
+"タプルである必要があります。ソケットが閉じられている場合、またはアドレスが無効な場合は、 ``OSError`` "
+"を発生させます。返品が成功しても配達が確認されるわけではないことに注意してください。"
+
+#: ../../Network_APIs/UDP_APIs.rst:57 7f3bac732b644bc793e79ee3e939ed36
+msgid "``broadcast``"
+msgstr "「放送」"
+
+#: ../../Network_APIs/UDP_APIs.rst:58 f3766e77fd7c4254965f707ce89f3801
+msgid ""
+"Sends a datagram to the limited broadcast address ``255.255.255.255`` on the"
+" given port. This is implemented by calling ``send`` with the address "
+"``(\"255.255.255.255\", port)``."
+msgstr ""
+"指定されたポート上の限定されたブロードキャスト アドレス「255.255.255.255」にデータグラムを送信します。これは、アドレス "
+"``(\"255.255.255.255\", port) を指定して ``send`` を呼び出すことで実装されます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:62 ebd100f1bb5c40bba57dc3651aaac40a
+msgid "``listen``"
+msgstr "「聞いて」"
+
+#: ../../Network_APIs/UDP_APIs.rst:63 81c04a9418d14337962380e2a4abbed0
+msgid ""
+"Starts a daemon thread that receives incoming datagrams. The ``handler`` is "
+"a callable ``handler(data, addr)`` that is invoked for each datagram "
+"received. Handler exceptions are logged via the ``logging`` module rather "
+"than propagated, so a faulty handler does not terminate the receive loop. "
+"This method is idempotent: calling it while the receive thread is already "
+"running does nothing."
+msgstr ""
+"受信データグラムを受信するデーモン スレッドを開始します。 ``handler`` は、受信したデータグラムごとに呼び出される呼び出し可能な "
+"``handler(data, addr)`` "
+"です。ハンドラー例外は伝播されるのではなく、「logging」モジュールを介してログに記録されるため、ハンドラーに障害があっても受信ループは終了しません。このメソッドはべき等です。受信スレッドがすでに実行されている間にこのメソッドを呼び出しても何も起こりません。"
+
+#: ../../Network_APIs/UDP_APIs.rst:71 4cc3c9f1ef8442e09a85771e9d915686
+msgid "``close``"
+msgstr "「閉じる」"
+
+#: ../../Network_APIs/UDP_APIs.rst:72 a803a622d9094c33b30e339d7a04001e
+msgid ""
+"Signals the receive loop to exit and closes the underlying socket. The "
+"``_closed`` flag is set to ``True`` and the socket's ``close()`` method is "
+"called to interrupt any blocking ``recvfrom`` call. This method is "
+"idempotent: calling it multiple times does not raise an error."
+msgstr ""
+"受信ループに終了するよう信号を送り、基礎となるソケットを閉じます。 ``_closed`` フラグは ``True`` に設定され、ソケットの "
+"``close()`` メソッドが呼び出されて、ブロッキングしている ``recvfrom`` "
+"呼び出しを中断します。このメソッドはべき等です。複数回呼び出してもエラーは発生しません。"
+
+#: ../../Network_APIs/UDP_APIs.rst:78 1933f04ec7f14b4bbf14fe1b7ad4eb55
+msgid ""
+"*Note: When ``listen`` is called after ``close``, a* *``RuntimeError`` *with"
+" the message \"endpoint is closed\" is* *raised, because the underlying "
+"socket is no longer available.*"
+msgstr ""
+"*注意: ``close`` の後に ``listen`` が呼び出される場合、* *「エンドポイントが閉じられています」というメッセージを含む * "
+"*``RuntimeError`` が発生します。これは、基礎となるソケットが使用できなくなったためです。"
+
+#: ../../Network_APIs/UDP_APIs.rst:91 1203a76a754d4788afbc5f1433790b60
+msgid "``port``"
+msgstr "「ポート」"
+
+#: ../../Network_APIs/UDP_APIs.rst:92 922c0696bc7a4b86ac0fecc7c5bc3c42
+msgid ""
+"Returns the port number the socket is bound to. Useful when ``port=0`` was "
+"passed to the constructor and the OS assigned a dynamic port."
+msgstr ""
+"ソケットがバインドされているポート番号を返します。 ``port=0`` がコンストラクタに渡され、OS が動的ポートを割り当てた場合に便利です。"
+
+#: ../../Network_APIs/UDP_APIs.rst:96 07bfd5fbbcb84613a87204db7ec0fe46
+msgid "``local_addr``"
+msgstr "``local_addr``"
+
+#: ../../Network_APIs/UDP_APIs.rst:97 f8bf4023c83544ecbb2e5bb4905734ec
+msgid "Returns the full ``(host, port)`` tuple that the socket is bound to."
+msgstr "ソケットがバインドされている完全な ``(host, port)`` タプルを返します。"
+
+#: ../../Network_APIs/UDP_APIs.rst:100 fb97d4805526494e907992ef4aeb911d
+msgid ""
+"The ``UDP`` class also supports the context manager protocol, so it can be "
+"used in a ``with`` statement:"
+msgstr "``UDP`` クラスはコンテキストマネージャプロトコルもサポートしているため、``with`` ステートメントで使用できます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:108 e9449ba0c7c5420096778154a445bb60
+msgid ""
+"*Note: The context manager calls ``close`` automatically when* *the ``with``"
+" block exits.*"
+msgstr "*注意: コンテキスト マネージャーは、* *with ブロックが終了すると、自動的に ``close`` を呼び出します。*"
+
+#: ../../Network_APIs/UDP_APIs.rst:112 b23e6af001c14c8d8e60704aee0a6c32
+msgid "Key differences from TCP"
+msgstr "TCP との主な違い"
+
+#: ../../Network_APIs/UDP_APIs.rst:114 6e4aeae292844e47a99f9fdefba07b5b
+msgid ""
+"**No file transfer**. UDP is unreliable; use TCP classes for file transfers."
+msgstr "**ファイル転送はありません**。 UDP は信頼性がありません。ファイル転送には TCP クラスを使用します。"
+
+#: ../../Network_APIs/UDP_APIs.rst:115 7fc9094ac11e4f98a12ffa40b12212ae
+msgid ""
+"**No connection tracking**. Each datagram carries its own source address."
+msgstr "**接続追跡はありません**。各データグラムには独自の送信元アドレスが含まれます。"
+
+#: ../../Network_APIs/UDP_APIs.rst:116 bd05f8df219a40fbad4e3d300bbf0da2
+msgid ""
+"**No port allocation system**. UDP does not need ephemeral ports for data "
+"connections."
+msgstr "**ポート割り当てシステムはありません**。 UDP はデータ接続に一時ポートを必要としません。"
+
+#: ../../Network_APIs/UDP_APIs.rst:118 05ae0d338e1f49a9bda8378fafc899e1
+msgid ""
+"**Broadcast**. UDP's standout feature — one send reaches all listeners on "
+"the subnet."
+msgstr "**放送**。 UDP の傑出した機能 — 1 回の送信がサブネット上のすべてのリスナーに到達します。"
+
+#: ../../Network_APIs/UDP_APIs.rst:122 a3e53bc01af645319a8f91c49937be74
+msgid "See Also"
+msgstr "関連項目"
+
+#: ../../Network_APIs/UDP_APIs.rst:124 898847ec68f04de2be11cd912ba550ac
+msgid ":doc:`TCP_Server_APIs` — TCP server."
+msgstr ":doc:`TCP_Server_APIs` — TCP サーバー。"
+
+#: ../../Network_APIs/UDP_APIs.rst:125 f27ba0e1f1484cebbf6e3315ca5d1104
+msgid ":doc:`TCP_Client_APIs` — TCP client."
+msgstr ":doc:`TCP_Client_APIs` — TCP クライアント。"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PyFlow\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"POT-Creation-Date: 2026-06-20 22:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Generated-By: Babel 2.18.0\n"
+"Generated-By: Babel 2.10.3\n"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:2 5a421ef24110475b899096cc43e2ac88
+#: ../../Network_APIs/TCP_Server_APIs.rst:2 b52f792a421041dd9749521da6fbd4ec
 msgid "The TCP Server APIs"
 msgstr "TCP 서버 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:5 a3228124931944298a9e5aad0cb6086a
+#: ../../Network_APIs/TCP_Server_APIs.rst:5 207e3afc4b174d23b57784051252cd1a
 msgid "TCP Server setup API"
 msgstr "TCP 서버 설정 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:7 0ce0967d488143b9af0043046c9c55b1
+#: ../../Network_APIs/TCP_Server_APIs.rst:7 4b55c6a95a914e4b8125d0261e3e9ee1
 msgid ""
 "The TCP Server Setup API is used to create a TCP server. The server in the "
 "protocol is usually used to connect and listen to the TCP clients and handle"
@@ -36,7 +36,7 @@ msgstr ""
 "TCP 서버 설정 API는 TCP 서버를 생성하는 데 사용됩니다. 프로토콜의 서버는 일반적으로 TCP 클라이언트에 연결하고 수신하며 "
 "클라이언트의 데이터를 처리하는 데 사용됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:28 1a8c9d662af04ef2bf18e690089edcef
+#: ../../Network_APIs/TCP_Server_APIs.rst:29 bc025698b381404ab2b38255e6c9a378
 msgid ""
 "The TCP Server Setup API is defined in the ``TCP_Server_Base`` class. The "
 "parameters of the ``__init__`` method are as follows:"
@@ -44,106 +44,116 @@ msgstr ""
 "TCP 서버 설정 API는 ``TCP_Server_Base`` 클래스에 정의되어 있습니다. ``__init__`` 메소드의 매개변수는 "
 "다음과 같습니다:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:31 403b6a6ed777425a8f0a8601978a5772
+#: ../../Network_APIs/TCP_Server_APIs.rst:32 3fea17ba735b400ead6845660925c629
 msgid "``host``: The host IP address to bind the TCP server to."
 msgstr "``host``: TCP 서버를 바인딩할 호스트 IP 주소입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:32 3ca57bd587d44434ba5b8b213acfc022
+#: ../../Network_APIs/TCP_Server_APIs.rst:33 138fba525e3d4cc4b45de13d41dcccc8
 msgid "``port``: The port number to bind the TCP server to."
 msgstr "``port``: TCP 서버를 바인딩할 포트 번호입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:33 2eecd5ed457b4ac0974719d4fd85a685
+#: ../../Network_APIs/TCP_Server_APIs.rst:34 5d43377499e340799441608d4b8141ed
 msgid ""
 "``max_clients``: The maximum number of concurrent clients the server can "
 "handle."
 msgstr "``max_clients``: 서버가 처리할 수 있는 최대 동시 클라이언트 수입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:34 a2a2732c83ea4fbc856c15027a8d3088
+#: ../../Network_APIs/TCP_Server_APIs.rst:35 c38a7e31478d4959b7ca63b19d8a9058
 msgid "``port_add_step``: The step size for incrementing the port number."
 msgstr "``port_add_step``: 포트 번호를 증가시키는 단계 크기입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:35 2a39c5900ac54d66880ffc017eed17cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:36 6811a4baaf8d4e8286f8c3e91921a73f
 msgid "``port_range_num``: The number of ports to check in the range."
 msgstr "``port_range_num``: 범위에서 확인할 포트 수입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:36 cbf650430e6e4e71ba4167f9414b0158
+#: ../../Network_APIs/TCP_Server_APIs.rst:37 8faa3404fac041db9edc663744618cfd
 msgid ""
 "``max_file_transfer_thread_num``: The maximum number of threads for file "
 "transfer operations."
 msgstr "``max_file_transfer_thread_num``: 파일 전송 작업을 위한 최대 스레드 수입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:37 286b105e545647a5a756f181c1065d6a
+#: ../../Network_APIs/TCP_Server_APIs.rst:38 dacdadbcffa2491ca3ef7b17086d1fe7
 msgid ""
 "``is_hand_alloc_port``: A flag indicating whether to manually allocate the "
 "port."
 msgstr "``is_hand_alloc_port``: 포트를 수동으로 할당할지 여부를 나타내는 플래그입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:38 750df664c049460ba9051a611c3af425
+#: ../../Network_APIs/TCP_Server_APIs.rst:39 19d4f0e1e91e4e8a88fd29dd6d4029c4
 msgid ""
 "``is_input_command_in_console``: A flag indicating whether to input commands"
 " in the console."
 msgstr "``is_input_command_in_console``: 콘솔에 명령을 입력할지 여부를 나타내는 플래그입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:39 93a6c66af686404a9d5287e61679e642
+#: ../../Network_APIs/TCP_Server_APIs.rst:40 94c750b6d452441ea4ccaa1b972b3cd6
 msgid "``max_custom_workers``: The maximum number of custom worker threads."
 msgstr "``max_custom_workers``: 사용자 정의 작업자 스레드의 최대 수입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:41 6fadaa0fd92243e293cce702c069356e
+#: ../../Network_APIs/TCP_Server_APIs.rst:42 8658c4f5af2f4960865a233821bf2fb6
 msgid "All parameters have default values:"
 msgstr "모든 매개변수에는 모두 기본값이 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:43 54a71bc8046f4e6092f26e4151e66b8a
+#: ../../Network_APIs/TCP_Server_APIs.rst:44 b4b329e993944d9d8122d12b33b73324
 msgid "``host``: Default is ``'127.0.0.1'``"
 msgstr "``호스트``: 기본값은 ``'127.0.0.1'``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:44 e925e2d0a915486e8430fc531e3c8942
+#: ../../Network_APIs/TCP_Server_APIs.rst:45 666f7dab5e4a40ac8d3c751524db2b86
 msgid "``port``: Default is ``65432``"
 msgstr "``포트``: 기본값은 ``65432``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:45 830de1cad2824b738a17ba714732a670
+#: ../../Network_APIs/TCP_Server_APIs.rst:46 3b98135aa3ab4c0984ee844a7a263a11
 msgid "``max_clients``: Default is ``10``"
 msgstr "``max_clients``: 기본값은 ``10``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:46 8a1dd20e256348efbacfb96adb619622
+#: ../../Network_APIs/TCP_Server_APIs.rst:47 0d69de2576a94317b91bfb78b84e9c37
 msgid "``port_add_step``: Default is ``1``"
 msgstr "``port_add_step``: 기본값은 ``1``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:47 1610aebbfe1b431fa196ece0bcea7f25
+#: ../../Network_APIs/TCP_Server_APIs.rst:48 e29bb04c24e34a1ea6c02e6faee99584
 msgid "``port_range_num``: Default is ``100``"
 msgstr "``port_range_num``: 기본값은 ``100``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:48 949c322e7db742e99b6bfe412ca1ecb7
+#: ../../Network_APIs/TCP_Server_APIs.rst:49 c02189aa1c8e426287fe8d88d648ff94
 msgid "``max_file_transfer_thread_num``: Default is ``10``"
 msgstr "``max_file_transfer_thread_num``: 기본값은 ``10``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:49 b4651c3b171c46fba5d316737821af9d
+#: ../../Network_APIs/TCP_Server_APIs.rst:50 9932eb5d63f944c9b849bf2dee784ded
 msgid "``is_hand_alloc_port``: Default is ``False``"
 msgstr "``is_hand_alloc_port``: 기본값은 ``False``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:50 b0f005ffef314ddc81850270d682a60f
+#: ../../Network_APIs/TCP_Server_APIs.rst:51 81528c16c70543a7ad10852e80a6f13d
 msgid "``is_input_command_in_console``: Default is ``True``"
 msgstr "``is_input_command_in_console``: 기본값은 ``True``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:51 f0eee7c71caf462b966c45498520ab9d
+#: ../../Network_APIs/TCP_Server_APIs.rst:52 578be04f88374e2a973044e2dc61f7cb
 msgid "``max_custom_workers``: Default is ``10``"
 msgstr "``max_custom_workers``: 기본값은 ``10``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:53 9e401989a51f403a94b1032bcaaef8ee
+#: ../../Network_APIs/TCP_Server_APIs.rst:53 acaba660fce8404c84684d0e36d8cb7d
+msgid ""
+"``is_extend_command``: Default is ``False`` (when ``True``, ``__init__`` "
+"will not call ``start_TCP_Server()`` automatically)"
+msgstr ""
+"``is_extend_command``: 기본값은 ``False``입니다(``True``인 경우 ``__init__``는 "
+"``start_TCP_Server()``를 자동으로 호출하지 않습니다)"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:56 5ad538fcf7a047cb83c06430fc17868b
 msgid ""
 "The TCP Server Setup API will initialize all the necessary parameters and "
 "resources for the TCP server."
 msgstr "TCP 서버 설정 API는 TCP 서버에 필요한 모든 매개변수와 리소스를 초기화합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:56 1ac1631a523941638ecf3edeca3674e6
+#: ../../Network_APIs/TCP_Server_APIs.rst:59 12ea6aec06374e609665bec9743d0c2d
 msgid ""
-"*Note: In the main class of the TCP server setup API, we initialize the "
-"`start_TCP_Server` method to setup all functions which are needed in the TCP"
-" server, including the server socket or handle clients etc.*"
+"*Note: By default ``TCP_Server_Base.__init__`` calls ``start_TCP_Server()`` "
+"to start the server automatically. If you set ``is_extend_command=True``, "
+"the instance will not auto-start and you should call ``start_TCP_Server()`` "
+"manually when ready.*"
 msgstr ""
-"*참고: TCP 서버 설정 API의 메인 클래스에서는 `start_TCP_Server` 메소드를 초기화하여 서버 소켓이나 핸들 클라이언트"
-" 등을 포함하여 TCP 서버에 필요한 모든 기능을 설정합니다.*"
+"*참고: 기본적으로 ``TCP_Server_Base.__init__``는 ``start_TCP_Server()``를 호출하여 서버를 "
+"자동으로 시작합니다. ``is_extend_command=True``를 설정하면 인스턴스가 자동으로 시작되지 않으며 준비가 되면 수동으로"
+" ``start_TCP_Server()``를 호출해야 합니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:66 899a05f0223748a4bb24b76b5f25f48d
+#: ../../Network_APIs/TCP_Server_APIs.rst:70 4cb1d5f3304546ce882398fb5c0036ec
 msgid ""
 "In the `start_TCP_Server` method, we first create a TCP server socket and "
 "bind it to the ``self.host`` and ``self.port`` which are initialized in the "
@@ -152,13 +162,13 @@ msgstr ""
 "`start_TCP_Server` 메소드에서는 먼저 TCP 서버 소켓을 생성하고 이를 ``__init__`` 메소드에서 초기화되는 "
 "``self.host`` 및 ``self.port``에 바인딩합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:70 3059fbadc662418d8ea571638f1bec19
+#: ../../Network_APIs/TCP_Server_APIs.rst:74 6368d16aba2f4d86abe7e07314a8c506
 msgid ""
 "*Note: The server socket which is set up in the `start_TCP_Server` method is"
 " based on IPv4 form.*"
 msgstr "*참고: `start_TCP_Server` 메소드에 설정되는 서버 소켓은 IPv4 형식을 기반으로 합니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:73 01230c44e5e147a495292f10c25af0db
+#: ../../Network_APIs/TCP_Server_APIs.rst:77 9ae5345fad7a4ae89537ed31b57bd7c1
 msgid ""
 "Secondly, according to the ``self.is_input_command_in_console`` parameter, "
 "we will start a thread to listen to the console input of the server or not."
@@ -166,14 +176,14 @@ msgstr ""
 "둘째, ``self.is_input_command_in_console`` 매개변수에 따라 서버의 콘솔 입력을 수신할지 여부를 결정하는 "
 "스레드를 시작합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:77 84c82a4ced7546309c58a528c635bae2
+#: ../../Network_APIs/TCP_Server_APIs.rst:81 94e4ccbf323d4134b5297f8c0334ff36
 msgid "After that, a main loop to accept clients will be started."
 msgstr "그 후, 클라이언트를 받아들이는 메인 루프가 시작됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:79 bf84e3afce77402286e6fba63df9b0b9
+#: ../../Network_APIs/TCP_Server_APIs.rst:83 9416322bf1b64db09658b78f87467976
 msgid ""
-"*Note: there is another global variable ``self.running`` which is turned to"
-" ``True`` after the server socket is successfully created. The "
+"*Note: there is another global variable ``self.running`` which is turned to "
+"``True`` after the server socket is successfully created. The "
 "``self.running`` variable is used to control the main loop of the TCP "
 "server, and it will be turned to ``False`` when the server is shutting "
 "down.*"
@@ -182,7 +192,7 @@ msgstr ""
 "있습니다. ``self.running`` 변수는 TCP 서버의 메인 루프를 제어하는 ​​데 사용되며, 서버가 종료되면 ``False``로"
 " 변경됩니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:85 fd5c8fac322b4d89af8a773d9da1b203
+#: ../../Network_APIs/TCP_Server_APIs.rst:89 ae36a0bbc490438694c73f02a82e9b31
 msgid ""
 "The main loop of the TCP setup server function will first judge if the "
 "number of the clients which are connected to the server is over the max "
@@ -194,17 +204,19 @@ msgstr ""
 " 클라이언트 수 제한은 `TCP_Server_Base` 클래스의 인수인 클래스에서 초기화된 ``self.max_clients`` 변수에 "
 "의해 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:92 11d4441c1daa4a259bac9ea6bd4cc5df
+#: ../../Network_APIs/TCP_Server_APIs.rst:96 610f3d8802a54760b65ada6338002dd5
+#, fuzzy
 msgid ""
 "If the number of the clients is already over the limit of the connect "
-"number, the server will send an overload message and close the connection. But "
-"if it didn't over the limit, the server will setup a clients handlers "
-"function `handle_client` and the server handler function is defined as:"
+"number, the server will send an overload message and close the connection. "
+"But if it does not exceed the limit, the server will setup a clients "
+"handlers function `handle_client` and the server handler function is defined"
+" as:"
 msgstr ""
 "클라이언트 수가 이미 연결 수 제한을 초과한 경우 서버는 과부하 메시지를 보내고 연결을 닫습니다. 그러나 제한을 초과하지 않은 경우 "
 "서버는 클라이언트 핸들러 함수 `handle_client`를 설정하고 서버 핸들러 함수는 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:104 61ee15fc7596460b98b70060509c7151
+#: ../../Network_APIs/TCP_Server_APIs.rst:108 cb6a4d4fc9ba4dda90a5763a7364dbc9
 msgid ""
 "*Note: For more details of the `handle_client` function, see the :ref:`tcp-"
 "server-handling-information-api` section.*"
@@ -212,11 +224,11 @@ msgstr ""
 "*참고: `handle_client` 함수에 대한 자세한 내용은 :ref:`tcp-server-handling-information-"
 "api` 섹션을 참조하세요.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:107 ddee83c45291484493d3ebc5eb0dba07
+#: ../../Network_APIs/TCP_Server_APIs.rst:111 4d09d17dc1d84ddf903333007e3b65fc
 msgid "So what can the setup function do if it fails?"
 msgstr "그렇다면 실행이 실패한 경우 설정 기능은 무엇을 할 수 있습니까?"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:109 9fdccf4f47bf4c399cacedd29e616f64
+#: ../../Network_APIs/TCP_Server_APIs.rst:113 9abaea6541664937a99ee14811cdf79c
 msgid ""
 "First, the try and except code block in the main server loop will detect if "
 "the error is an ``OSError``. If it is, the main loop will exit directly."
@@ -224,7 +236,7 @@ msgstr ""
 "먼저, 메인 서버 루프의 try 및 Except 코드 블록은 오류가 ``OSError``인지 감지합니다. 그렇다면 메인 루프가 직접 "
 "종료됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:113 d2e58e7450e045b6a51a7930ac10fbda
+#: ../../Network_APIs/TCP_Server_APIs.rst:117 527c9ea4b40c48d786e37ae38639b643
 msgid ""
 "Secondly, if the error is from the network socket, it will first output the "
 "error message and also stop the server by calling the function `stop`. And "
@@ -233,7 +245,7 @@ msgstr ""
 "둘째, 오류가 네트워크 소켓에서 발생한 경우 먼저 오류 메시지를 출력하고 'stop' 함수를 호출하여 서버도 중지합니다. 그리고 정지 "
 "기능은 다음과 같이 정의되었습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:122 87133f48deab49178aa0f1357f1d5c85
+#: ../../Network_APIs/TCP_Server_APIs.rst:126 3c1ddc7066fe478fb72fe0440ac29069
 msgid ""
 "For the stop tcp server function, it first set the ``self.running`` variable"
 " to False, for stop the main loop of the server. After that, it calls the "
@@ -243,7 +255,7 @@ msgstr ""
 "TCP 서버 중지 기능의 경우 먼저 ``self.running`` 변수를 False로 설정하여 서버의 메인 루프를 중지합니다. 그 후 "
 "`free_port` 함수를 호출하여 할당된 포트를 해제합니다. 그리고 `free_port`는 다음과 같이 정의되었습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:133 ddd2cf5489784ada989595ece231e071
+#: ../../Network_APIs/TCP_Server_APIs.rst:137 0be2c10e6bd94c669310ff02fb804b29
 msgid ""
 "*Note: For more details of the `free_port` function, see the :ref:`tcp-"
 "server-port-allocation-api` section.*"
@@ -251,7 +263,7 @@ msgstr ""
 "*참고: `free_port` 함수에 대한 자세한 내용은 :ref:`tcp-server-port-allocation-api` 섹션을 "
 "참조하세요.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:136 129653913769472f8dccb88c7afa0d72
+#: ../../Network_APIs/TCP_Server_APIs.rst:140 2d161cae990b4bd8a0e7f76f6ae54e93
 msgid ""
 "At the end of the operations, the TCP server will close all of the sockets "
 "of clients which are accounted in the dictionary variable ``self.clients`` "
@@ -259,28 +271,31 @@ msgid ""
 msgstr ""
 "작업이 끝나면 TCP 서버는 사전 변수 ``self.clients``에 포함된 클라이언트의 모든 소켓을 닫고 서버 소켓도 닫습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:140 f562e30fd99747f88daf50c4bb7e9ae5
+#: ../../Network_APIs/TCP_Server_APIs.rst:144 8d9d72393f2c4d04b54a82b0e9ecb465
 msgid ""
-"*Note: The ``self.clients`` variable is a dictionary which is used to store "
-"the client sockets and their corresponding addresses. The key of the "
-"dictionary is the client socket, and the value is the client address. It has"
-" been defined in the ``__init__`` method.*"
+"*Note: The ``self.clients`` variable is a dictionary that maps client "
+"address tuples to an info dictionary. The key is the client address tuple "
+"(``(ip, port)``) and the value is a dictionary containing connection details"
+" such as ``'socket'``, ``'address'``, ``'id'``, and ``'connected_time'``. "
+"See the example below which shows how entries are stored.*"
 msgstr ""
-"*참고: ``self.clients`` 변수는 클라이언트 소켓과 해당 주소를 저장하는 데 사용되는 사전입니다. 사전의 키는 클라이언트 "
-"소켓이고 값은 클라이언트 주소입니다. ``__init__`` 메소드에 정의되어 있습니다.*"
+"*참고: ``self.clients`` 변수는 클라이언트 주소 튜플을 정보 사전에 매핑하는 사전입니다. The key is the "
+"client address tuple (``(ip, port)``) and the value is a dictionary "
+"containing connection details such as ``'socket'``, ``'address'``, ``'id'``,"
+" and ``'connected_time'``. 항목이 저장되는 방법을 보여주는 아래 예를 참조하세요.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:161 070355e1835f421d8b702f543790193d
+#: ../../Network_APIs/TCP_Server_APIs.rst:166 31136cb6ca1441a8ad56bf613f047ec0
 msgid "TCP Server handling information API"
 msgstr "TCP 서버 처리 정보 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:163 6bdeec5a0fbc4fdfad7e8e4c5080ea42
+#: ../../Network_APIs/TCP_Server_APIs.rst:168 e0eb184f7fc74d638df934dd3b70a69d
 msgid ""
 "The server handling information API documents the core TCP server methods "
 "that manage client sockets, receive raw data, and send messages."
 msgstr ""
 "서버 처리 정보 API는 클라이언트 소켓을 관리하고, 원시 데이터를 수신하고, 메시지를 보내는 핵심 TCP 서버 메서드를 문서화합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:175 bf29af8fe2234688985a8e46f31e98fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:180 caa9213378e14a5986804e4c09f272ec
 msgid ""
 "`handle_client` is the main per-client handler in ``TCP_Server_Base``. It is"
 " invoked after a client connection is accepted and is responsible for:"
@@ -288,27 +303,27 @@ msgstr ""
 "`handle_client`는 ``TCP_Server_Base``의 주요 클라이언트별 핸들러입니다. 클라이언트 연결이 승인된 후에 "
 "호출되며 다음을 담당합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:179 515a6bdc07ff49a98c6ff9d24c0b1cb0
+#: ../../Network_APIs/TCP_Server_APIs.rst:184 958c3272e38546309404822be5e43430
 msgid ""
 "adding the client entry into ``self.clients`` with socket, address, id, and "
 "connected time"
 msgstr "소켓, 주소, ID 및 연결 시간과 함께 클라이언트 항목을 ``self.clients``에 추가"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:180 facc3962428144b08b4a6cf92c814516
+#: ../../Network_APIs/TCP_Server_APIs.rst:185 b61e8c15a51a4fcd8aeedb87fb1206c1
 msgid "printing connection information and current client count"
 msgstr "연결 정보 및 현재 클라이언트 수 인쇄"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:181 ecf6098bbcb84fe685cbfc1d396ae7b7
+#: ../../Network_APIs/TCP_Server_APIs.rst:186 499853560e7c49fab4d3f4970e0836f8
 msgid "sending a welcome message to the client"
 msgstr "클라이언트에게 환영 메시지 보내기"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:182 de747640fa9b4621a648edf96bf7ac25
+#: ../../Network_APIs/TCP_Server_APIs.rst:187 480ca8697764498fb3b60bbad9672968
 msgid ""
 "broadcasting ``/client_alloc_port_range`` information to all clients "
 "depending on port allocation mode"
 msgstr "포트 할당 모드에 따라 ``/client_alloc_port_range`` 정보를 모든 클라이언트에 브로드캐스트"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:184 2e1b606db2b045848f542e132684b205
+#: ../../Network_APIs/TCP_Server_APIs.rst:189 d4f6ec581f71479f9accfc8e6ddfb44f
 msgid ""
 "*Note: You can specify the port allocation mode in the arguments which has "
 "been defined in the ``TCP_Server_Base`` class. The args which you can change"
@@ -317,56 +332,57 @@ msgstr ""
 "*참고: ``TCP_Server_Base`` 클래스에 정의된 인수에서 포트 할당 모드를 지정할 수 있습니다. 변경할 수 있는 인수는 "
 "``port_add_step``, ``port_range_num`` 및 ``is_hand_alloc_port``입니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:190 34fdceba026a4d05b1cc55db8268c470
+#: ../../Network_APIs/TCP_Server_APIs.rst:195 3332e60134c144818cbad9ee9670f3c9
 msgid "receiving raw bytes from the socket using `receive_message`"
 msgstr "`receive_message`를 사용하여 소켓에서 원시 바이트 수신"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:191 62e632417dc74e8f918dcdbc53cf7d33
+#: ../../Network_APIs/TCP_Server_APIs.rst:196 ffc19de5f2e6448f8dfa86382b72ea59
 msgid "buffering incoming data until newline-terminated messages are complete"
 msgstr "개행 문자로 끝나는 메시지가 완료될 때까지 들어오는 데이터 버퍼링"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:192 b8be4e68312d40cfb23e8b4a903f18a6
+#: ../../Network_APIs/TCP_Server_APIs.rst:197 5599c38881f743b2b285a43b57f80dba
 msgid "splitting and processing each message line-by-line"
 msgstr "각 메시지를 한 줄씩 분할하고 처리"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:193 b3c9b6c0edf34ae78535e51ae6cf478e
+#: ../../Network_APIs/TCP_Server_APIs.rst:198 4379426aed934a63ab888013c00c22e9
 msgid "routing special commands beginning with ``/`` to `handle_command`"
 msgstr "``/``로 시작하는 특수 명령을 `handle_command`로 라우팅"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:195 d2cfbcec1e60482b8e6455caeafb6647
+#: ../../Network_APIs/TCP_Server_APIs.rst:200 d2d782beecec4cd08c03aaa7200c92e9
 msgid "The `handle_command` function is defined as:"
 msgstr "`handle_command` 함수는 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:206 a952daec8aca4b72b02d6d40b25e15f7
+#: ../../Network_APIs/TCP_Server_APIs.rst:211 0e5be543d51b47c4b3d278ee1895e6e3
+#, fuzzy
 msgid ""
 "In `handle_command`, there are variable conditional branches to handle "
 "built-in commands like ``/help``, ``/time``, ``/clients``, ``/quit``, and "
 "some file transfer commands. If you already added more commands by the "
 "command extension API, the function will determine if the input message "
-"matched the extension commands."
+"matches the extension commands."
 msgstr ""
 "`handle_command`에는 ``/help``, ``/time``, ``/clients``, ``/quit`` 및 일부 파일 전송 "
 "명령과 같은 내장 명령을 처리하기 위한 가변 조건 분기가 있습니다. 명령 확장 API를 통해 이미 더 많은 명령을 추가한 경우 함수는 "
 "입력된 메시지가 확장 명령과 일치하는지 확인합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:214 c4d5c00ef1494d338870fa7c99311500
+#: ../../Network_APIs/TCP_Server_APIs.rst:219 5ec550e3acd6437faf76d3e4aa8d416c
 msgid ""
 "*Note: For more details of the command extension API and the built-in "
 "commands, see the :ref:`tcp-server-command-api` section.*"
 msgstr ""
 "*참고: 명령 확장 API 및 내장 명령에 대한 자세한 내용은 :ref:`tcp-server-command-api` 섹션을 참조하세요.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:217 9069336255824efda2f64d583b230659
+#: ../../Network_APIs/TCP_Server_APIs.rst:222 4973d45b4a6843c5a4f293cfd00d9075
 msgid "logging normal chat messages and acknowledging receipt"
 msgstr "일반 채팅 메시지 기록 및 수신 확인"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:218 eba4add974374bb094e7e782912d4246
+#: ../../Network_APIs/TCP_Server_APIs.rst:223 fd86dd8af215423baa10cd23496f4dd8
 msgid ""
 "removing the client from ``self.clients`` and closing the socket when the "
 "client disconnects or an error occurs"
 msgstr "``self.clients``에서 클라이언트를 제거하고 클라이언트 연결이 끊기거나 오류가 발생하면 소켓을 닫습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:228 c1c340a5e5584ee7a7119ebe7d1c306b
+#: ../../Network_APIs/TCP_Server_APIs.rst:233 d86a2ca1f2f54a2683d2bee076a5ee17
 msgid ""
 "`receive_message` is a thin wrapper around socket receive operations. It "
 "reads up to ``msg_length`` bytes from the given ``client_socket`` and "
@@ -377,7 +393,7 @@ msgstr ""
 "``msg_length`` 바이트를 읽고 원시 바이트 페이로드를 반환합니다. 메시지 디코딩 및 개행 메시지 프레이밍은 호출자가 "
 "처리합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:243 9d5693a2ac394fa8b159378a13a235ec
+#: ../../Network_APIs/TCP_Server_APIs.rst:248 ee8e9bc8f0c24169a41913335c71e20f
 msgid ""
 "`send_message` sends data back to a specific connected client. It verifies "
 "the server is running and the socket is valid, then:"
@@ -385,28 +401,28 @@ msgstr ""
 "`send_message`는 연결된 특정 클라이언트로 데이터를 다시 보냅니다. 서버가 실행 중이고 소켓이 유효한지 확인한 후 다음을 "
 "수행합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:246 87916d18ee3b42f8ae50d51ddf1bccbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:251 6bc8f2ed0c5b47ebae081500b4a8ee17
 msgid "accepts both ``str`` and ``bytes`` message payloads"
 msgstr "``str`` 및 ``bytes`` 메시지 페이로드를 모두 허용합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:247 ecfd10c187d64a48848792292c8480aa
+#: ../../Network_APIs/TCP_Server_APIs.rst:252 e8f911020564467da472399e31903bfc
 msgid "trims string payloads and appends a newline if missing"
 msgstr "문자열 페이로드를 자르고 누락된 경우 개행을 추가합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:248 ed83940c588a48ab8c62b3701e1ca7d6
+#: ../../Network_APIs/TCP_Server_APIs.rst:253 5264ca94bf774560b1546814589ce14e
 msgid "encodes string payloads as UTF-8"
 msgstr "문자열 페이로드를 UTF-8로 인코딩합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:249 236a9ae0cb68449dab8bf35c5a882ad3
+#: ../../Network_APIs/TCP_Server_APIs.rst:254 11fec3c3b8284477a1a186a65206010b
 msgid "sends the complete message with ``client_socket.sendall(data)``"
 msgstr "``client_socket.sendall(data)``를 사용하여 완전한 메시지를 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:250 ca17aaf273e9454aa1f021c22bb2fa60
+#: ../../Network_APIs/TCP_Server_APIs.rst:255 6850283513d84335a3dd665a2a3b1aec
 msgid ""
 "returns ``True`` on success, otherwise logs the error and returns ``False``"
 msgstr "성공하면 ``True``를 반환하고, 그렇지 않으면 오류를 기록하고 ``False``를 반환합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:252 9805ae426a764cab83a5a4e569a0a7bd
+#: ../../Network_APIs/TCP_Server_APIs.rst:257 a6d009915c714d0b91b27de9ab341828
 msgid ""
 "And there are also some other functions which are used to send message in "
 "bulk to the clients, such as the `broadcast` function and the "
@@ -415,7 +431,7 @@ msgstr ""
 "그리고 `broadcast` 함수와 `send_msg_to_special_client` 함수와 같이 클라이언트에 대량으로 메시지를 보내는"
 " 데 사용되는 다른 함수도 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:265 b52547de04fa46698820c9b6df576653
+#: ../../Network_APIs/TCP_Server_APIs.rst:270 b85e6f0b61eb4f388cc7c18c08d01c1d
 msgid ""
 "In `broadcast` function, it will send a message to all the clients which are"
 " in the ``self.clients`` variable, also delete the clients which are already"
@@ -427,7 +443,7 @@ msgstr ""
 "클라이언트도 삭제합니다. 그리고 ``exclude_client`` 매개변수가 ``None``이 아닌 경우 서버는 메시지를 보낼 때 "
 "``exclude_client`` 매개변수에 지정된 클라이언트를 제외합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:280 6c9ab282617242d8bf8f48d782916b11
+#: ../../Network_APIs/TCP_Server_APIs.rst:285 9b6a44f792db4afea1a0910d14bdfa54
 msgid ""
 "The `send_msg_to_specific_client` function is used to send one or more "
 "message to one or more specific clients by their client IDs. And the "
@@ -436,17 +452,17 @@ msgstr ""
 "`send_msg_to_특이적_client` 함수는 클라이언트 ID를 통해 하나 이상의 특정 클라이언트에 하나 이상의 메시지를 보내는 데"
 " 사용됩니다. 그리고 ``message`` 인수는 메시지 전송 명령을 입력해야 합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:285 f3b03ebf0f3c4c7ba7a8806cdddf27c3
+#: ../../Network_APIs/TCP_Server_APIs.rst:290 5c93a8b7df9c4ba592e31a8a7c5d7dad
 msgid ""
 "These methods form the server's client I/O loop and ensure reliable message "
 "exchange for connected TCP clients."
 msgstr "이러한 방법은 서버의 클라이언트 I/O 루프를 형성하고 연결된 TCP 클라이언트에 대한 안정적인 메시지 교환을 보장합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:292 1fc13aa10e3a4b03a36643995e3ba056
+#: ../../Network_APIs/TCP_Server_APIs.rst:297 fc06292f70904c668e628446b1338225
 msgid "TCP Server command API"
 msgstr "TCP 서버 명령 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:294 165d8a3c005b48afb74ae189b4a46306
+#: ../../Network_APIs/TCP_Server_APIs.rst:299 ba0fa4e7318744b8b676846bf49e4859
 msgid ""
 "The server supports several built-in commands and a command extension API. "
 "The main entry point is the `handle_command` method, which is invoked for "
@@ -455,7 +471,7 @@ msgstr ""
 "서버는 여러 내장 명령과 명령 확장 API를 지원합니다. 주요 진입점은 '/'로 시작하는 모든 메시지에 대해 호출되는 "
 "'handle_command' 메서드입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:299 5ca7babc4de4465e9eaf33533ddb30e5
+#: ../../Network_APIs/TCP_Server_APIs.rst:304 b5777f13d35f4f26ae617247f91c26b0
 msgid ""
 "We support two solutions for command handling, one is input a command in the"
 " console, and the other is receiving a command from other clients, and you "
@@ -464,51 +480,52 @@ msgstr ""
 "우리는 명령 처리를 위해 두 가지 솔루션을 지원합니다. 하나는 콘솔에 명령을 입력하는 것이고, 다른 하나는 다른 클라이언트로부터 명령을 "
 "수신하는 것이며, 코드에서 명령에 대해 정의된 함수를 호출할 수도 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:305 88e467b424694779867a52068a7ba74f
+#: ../../Network_APIs/TCP_Server_APIs.rst:310 55f3dddd875a4c9c8ae20b9136d46687
+#, fuzzy
 msgid ""
 "*Note: You can select the solution which you want to use by changing the "
 "args of the `TCP_Server_Base` class, the arg is "
-"``is_input_command_in_console``. ``True`` is allow the server to input the "
-"command in console, while ``False`` is don't allow.*"
+"``is_input_command_in_console``. ``True`` allows the server to input the "
+"command in console, while ``False`` does not allow it.*"
 msgstr ""
 "*참고: `TCP_Server_Base` 클래스의 인수를 변경하여 사용하려는 솔루션을 선택할 수 있습니다. 인수는 "
 "``is_input_command_in_console``입니다. ``True``는 서버가 콘솔에 명령을 입력하는 것을 허용하는 반면, "
 "``False``는 허용하지 않습니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:312 f4d25c3417554dcdb36b1012c7acbf23
+#: ../../Network_APIs/TCP_Server_APIs.rst:317 ad8952a11a4947988db649c68b52a743
 msgid "Built-in client commands include:"
 msgstr "내장 클라이언트 명령은 다음과 같습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:314 18424caf652742f380600485e2581c61
+#: ../../Network_APIs/TCP_Server_APIs.rst:319 39ff77f126e1412d8406d435655743e1
 msgid "``/help``: returns the available command list and usage hints."
 msgstr "``/help``: 사용 가능한 명령 목록과 사용법 힌트를 반환합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:315 273f4d0ef6554961bcbd37407cff3c3a
+#: ../../Network_APIs/TCP_Server_APIs.rst:320 78375e446e9d48f1958b500306d3c73c
 msgid "``/time``: returns the current server time."
 msgstr "``/time``: 현재 서버 시간을 반환합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:316 1b57543ac372476d991bf15948cba94e
+#: ../../Network_APIs/TCP_Server_APIs.rst:321 622d1d6fabab4e3c9871b3d9f231c352
 msgid "``/clients``: returns the list of connected client IDs."
 msgstr "``/clients``: 연결된 클라이언트 ID 목록을 반환합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:317 250e94649821406583d8673b164f3d82
+#: ../../Network_APIs/TCP_Server_APIs.rst:322 10f588280ba8440681dc59a414e3af8a
 msgid "``/quit``: returns a goodbye message and disconnects the client."
 msgstr "``/quit``: 작별 메시지를 반환하고 클라이언트 연결을 끊습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:318 a0ca6a21294b428584c46c7f90c25d58
+#: ../../Network_APIs/TCP_Server_APIs.rst:323 9be97d4482b24ae98c3d863f51128eea
 msgid ""
 "``/file <file_path> <client_id>``: starts a file transfer request from "
 "client to server."
 msgstr "``/file <file_path> <client_id>``: 클라이언트에서 서버로 파일 전송 요청을 시작합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:319 185ce5d8089345e4b98e35349e5e57ff
+#: ../../Network_APIs/TCP_Server_APIs.rst:324 bebd16ce5960408ebfd51b440943241c
 msgid ""
 "``/file_folder <folder_path> <client_id>``: starts a folder transfer request"
 " from client to server."
 msgstr ""
 "``/file_folder <folder_path> <client_id>``: 클라이언트에서 서버로 폴더 전송 요청을 시작합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:320 dbf9a8905fae492690e443ed9f6cb35a
+#: ../../Network_APIs/TCP_Server_APIs.rst:325 56efc16c32234ab28bae72fc31310836
 msgid ""
 "``/server_file_transfer_port <port> <client_id>``: internal protocol message"
 " used to coordinate file transfer ports."
@@ -516,7 +533,7 @@ msgstr ""
 "``/server_file_transfer_port <port> <client_id>``: 파일 전송 포트를 조정하는 데 사용되는 내부 "
 "프로토콜 메시지입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:322 f9e1c4772cea466d8423154e4cf9f416
+#: ../../Network_APIs/TCP_Server_APIs.rst:327 2f2a9a9f4bb74954b2da2e5e4d9f9169
 msgid ""
 "In `handle_command`, the server will first check if the command matches any "
 "built-in commands. If it does, the `handle_command` will call the functions "
@@ -525,7 +542,7 @@ msgstr ""
 "`handle_command`에서 서버는 먼저 명령이 내장 명령과 일치하는지 확인합니다. 처리하는 경우 `handle_command`는 "
 "명령에 대해 정의된 함수를 호출합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:327 ad51d8bdab054358b6eefd6c0d615cbf
+#: ../../Network_APIs/TCP_Server_APIs.rst:332 d5c00491ac2343c597c6bad8a8398ecc
 msgid ""
 "If a command is not recognized by the built-in handler, `handle_command` "
 "will check if it matches any registered custom commands from the command "
@@ -537,25 +554,25 @@ msgstr ""
 "확인합니다. 명령이 이미 등록된 경우 `handle_command`는 해당 명령에 대해 정의된 함수를 호출합니다. 명령 확장 API는 "
 "다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:345 ba982fcb2a03487c96decb630edb3659
+#: ../../Network_APIs/TCP_Server_APIs.rst:350 996f9af0f74e4e3a91427fe3c5ab134e
 msgid "The args of the `register_command` function are as follows:"
 msgstr "`register_command` 함수의 인수는 다음과 같습니다:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:348 9fcc4048307b4bcf9871c0165ac9dc9c
+#: ../../Network_APIs/TCP_Server_APIs.rst:353 1cecc25c6761455dbace5be3acfd7a86
 msgid "``command_name``: The name of the command to register."
 msgstr "``command_name``: 등록할 명령어의 이름입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:350 822ff8eb774647debd8dd9dfe6e8cc2b
+#: ../../Network_APIs/TCP_Server_APIs.rst:355 dcc654ebd8e442a8bdc84d7a10b6529c
 msgid ""
 "*Note: The ``command_name`` should start with a slash (e.g., "
 "``/my_command``) to be recognized as a command.*"
 msgstr "*참고: ``command_name``은 슬래시(예: ``/my_command``)로 시작해야 명령으로 인식됩니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:353 b2b58f69e9f448b7a21f64c9abeb5162
+#: ../../Network_APIs/TCP_Server_APIs.rst:358 318f344187d94270a1a4d72570885b0e
 msgid "``handler``: The function to call when the command is received."
 msgstr "``handler``: 명령이 수신될 때 호출할 함수입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:355 004fdd84d8884315944f5ae383f43443
+#: ../../Network_APIs/TCP_Server_APIs.rst:360 b1975fd3ac9b4b1d881ec7e426bde717
 msgid ""
 "*Note: The ``handler`` function must have and only have three parameters "
 "which are ``client_socket``, ``client_address``, and ``command``. "
@@ -569,17 +586,17 @@ msgstr ""
 "``client_address``는 명령을 보낸 클라이언트의 주소로 받아들여지며, ``command`` 매개변수에는 실제 명령 문자열이 "
 "포함됩니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:363 0ad91c46e6974c24b69523e952899e10
+#: ../../Network_APIs/TCP_Server_APIs.rst:368 41a12356235c4a84a313c89e9014dfd7
 msgid "``where_to_run``: Specifies where the command should be executed."
 msgstr "``where_to_run``: 명령이 실행되어야 하는 위치를 지정합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:364 55bc43997c794d8daf309862b4a68a77
+#: ../../Network_APIs/TCP_Server_APIs.rst:369 dbd6f0bf76c24392a9a8c8881a242f37
 msgid ""
 "``run_in_thread``: A boolean indicating whether to run the command in a "
 "separate thread."
 msgstr "``run_in_thread``: 별도의 스레드에서 명령을 실행할지 여부를 나타내는 부울입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:366 cd7017af3ce448b3aeae63584d74f616
+#: ../../Network_APIs/TCP_Server_APIs.rst:371 b01ae3ada1c24cd7893860085676d8ec
 msgid ""
 "This extension API allows server-side and console-side custom commands to be"
 " registered dynamically. Valid values for ``where_to_run`` are "
@@ -591,7 +608,7 @@ msgstr ""
 "값은 ``\"server\"`` 및 ``\"client\"``입니다. \"서버\"는 클라이언트가 명령을 보낼 때 명령이 처리된다는 "
 "의미이고, \"클라이언트\"는 서버가 콘솔에 명령을 입력하면 명령이 처리된다는 의미입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:375 88c585e04a674fc4bef74fe5de86ebbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:380 c6e04ec672f840a4b2825d247ea454b1
 msgid ""
 "*Note: It's true that the valid values for ``where_to_run`` are too strange,"
 " but we still didn't find a better way to define that.*"
@@ -599,7 +616,7 @@ msgstr ""
 "*참고: ``where_to_run``에 대한 유효한 값이 너무 이상하다는 것은 사실이지만, 우리는 이를 정의하는 더 좋은 방법을 찾지 "
 "못했습니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:379 f895a02c6ed741f28928770cafc149ab
+#: ../../Network_APIs/TCP_Server_APIs.rst:384 c16f63a156b94fec815ca854db5582e5
 msgid ""
 "The ways to run the command will be different according to the args "
 "``run_in_thread``. If ``run_in_thread`` is ``True``, the command handler "
@@ -611,15 +628,15 @@ msgstr ""
 " 핸들러는 서버의 스레드 풀과 별도의 스레드에서 실행됩니다. ``run_in_thread``가 ``False``이면 명령 핸들러는 메인 "
 "서버 스레드에서 동기적으로 실행됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:387 5c246f84fab2441ea1bb1c545ce68e59
+#: ../../Network_APIs/TCP_Server_APIs.rst:392 5bb8206ec18f4e30b041f59d8f01149b
 msgid ""
 "*Note: We store the registered commands in a list variable with two "
 "dictionary in its inner layer, and the list variable is defined as "
 "``self._custom_handlers`` which initialized in the `__init__` method. The "
 "command and its handler will be stored in the one of the dictionaries "
 "according to the value of ``where_to_run``. For ``\"server\"``, it will be "
-"stored in the first dictionary, otherwise in the second dictionary. And the"
-" key of the dictionaries are all the command name, and the value is another "
+"stored in the first dictionary, otherwise in the second dictionary. And the "
+"key of the dictionaries are all the command name, and the value is another "
 "dictionary containing the handler function. And there is also another list "
 "variable defined as ``self._custom_handler_threaded`` which initialized in "
 "the `__init__` method, it contains all the commands that should be run in a "
@@ -632,20 +649,20 @@ msgstr ""
 "``self._custom_handler_threaded``로 정의된 또 다른 목록 변수도 있는데, 여기에는 별도의 스레드에서 실행되어야"
 " 하는지 여부에 관계없이 모든 명령이 포함되어 있습니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:406 995661a3dbef417fba60d3c35c15ff84
+#: ../../Network_APIs/TCP_Server_APIs.rst:411 7c89b48e35294024ac14fbe88f8185c0
 msgid ""
 "After that, the command handler will be called according to the command "
 "name, and run them by a command executor which is defined as:"
 msgstr "그 후 명령 핸들러는 명령 이름에 따라 호출되고 다음과 같이 정의된 명령 실행기에 의해 실행됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:420 beca566245f34903aeb8724846eed5b2
+#: ../../Network_APIs/TCP_Server_APIs.rst:425 adad339fc05047dd81c3bd67171a6789
 msgid ""
-"In this executor function, there is a try and except code block to catch "
-"the error when running the command handler. If there is an error when "
-"running the command handler, the server will log the error message and also "
-"send the error message back to the client if the command is from the client "
-"side. And in the try code block, the command handler will be called with the"
-" command arguments, and also the client socket and client address if the "
+"In this executor function, there is a try and except code block to catch the"
+" error when running the command handler. If there is an error when running "
+"the command handler, the server will log the error message and also send the"
+" error message back to the client if the command is from the client side. "
+"And in the try code block, the command handler will be called with the "
+"command arguments, and also the client socket and client address if the "
 "command is from the client side."
 msgstr ""
 "이 실행기 함수에는 명령 핸들러를 실행할 때 오류를 포착하기 위한 try 및 Except 코드 블록이 있습니다. 명령 처리기를 실행할 때"
@@ -653,17 +670,18 @@ msgstr ""
 "try 코드 블록에서 명령 핸들러는 명령 인수를 사용하여 호출되며 명령이 클라이언트 측에서 오는 경우 클라이언트 소켓 및 클라이언트 "
 "주소도 호출됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:430 cdeb61f1177746d6a876c34952fd19fa
+#: ../../Network_APIs/TCP_Server_APIs.rst:435 310214b7550f4c098c28e4f100ef1382
+#, fuzzy
 msgid ""
-"If the command don't run in the thread, the command executor will be called "
-"directly in the `handle_command` function. But if the command should run in "
-"a separate thread, the command executor will be submitted to the server's "
-"thread pool using the `submit_task` method, which is defined as:"
+"If the command doesn't run in the thread, the command executor will be "
+"called directly in the `handle_command` function. But if the command should "
+"run in a separate thread, the command executor will be submitted to the "
+"server's thread pool using the `submit_task` method, which is defined as:"
 msgstr ""
 "명령이 스레드에서 실행되지 않으면 `handle_command` 함수에서 명령 실행기가 직접 호출됩니다. 그러나 명령이 별도의 스레드에서"
 " 실행되어야 하는 경우 명령 실행기는 다음과 같이 정의된 `submit_task` 메서드를 사용하여 서버의 스레드 풀에 제출됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:445 28e003d4cb4d4bf9b2e86761a627ceb8
+#: ../../Network_APIs/TCP_Server_APIs.rst:450 4f8e669268de4c1995128b1a5bc222cf
 msgid ""
 "The `submit_task` method is a helper function that submits a callable to the"
 " server's internal thread pool executor. It accepts a function and its "
@@ -675,7 +693,7 @@ msgstr ""
 "별도의 스레드에서 실행되도록 예약합니다. 이를 통해 주 서버 루프를 차단하지 않고 장기 실행 또는 차단 명령 처리기를 실행할 수 "
 "있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:452 f6c27cd90e544030b491071dd75f57ba
+#: ../../Network_APIs/TCP_Server_APIs.rst:457 ca419b79f5ee4a70bf4bb9da3b99b6d5
 msgid ""
 "As a high level TCP network protocol, A temporary TCP server and a client "
 "can also be created very simply. The temporary TCP server or client can be "
@@ -688,11 +706,11 @@ msgstr ""
 "클라이언트는 메인 서버나 클라이언트 루프와의 충돌을 피하기 위해 다른 소켓이나 포트가 필요한 기능을 만족시킬 수 있습니다. 예를 들어 "
 "파일 전송 기능이 있습니다. 임시 TCP 서버 및 클라이언트를 생성하는 API는 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:480 03472fb1d6504791b0c258649120fb4e
+#: ../../Network_APIs/TCP_Server_APIs.rst:485 eae1ee5c47054ae4b41768aa92968c4a
 msgid "TCP Server console commands"
 msgstr "TCP 서버 콘솔 명령"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:482 160f4a5ffb92405d87eefd2715f63a85
+#: ../../Network_APIs/TCP_Server_APIs.rst:487 b98ca5b9177e40598f33d3faba17a3c6
 msgid ""
 "The server console input thread accepts administrative commands when "
 "``is_input_command_in_console`` is ``True``. Supported console commands "
@@ -701,19 +719,19 @@ msgstr ""
 "서버 콘솔 입력 스레드는 ``is_input_command_in_console``이 ``True``일 때 관리 명령을 허용합니다. "
 "지원되는 콘솔 명령은 다음과 같습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:486 ff3c0e8e24c64b37be6989a02e74424e
+#: ../../Network_APIs/TCP_Server_APIs.rst:491 682feeccb237422984cfe829eb5c6e47
 msgid "``/stop``: stops the server and closes all active connections."
 msgstr "``/stop``: 서버를 중지하고 모든 활성 연결을 닫습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:487 bacd7486794245838af07e976011acd2
+#: ../../Network_APIs/TCP_Server_APIs.rst:492 7faacc60383b4bd8ae73abfa19246238
 msgid "``/status``: prints the current connection count and running state."
 msgstr "``/status``: 현재 연결 수와 실행 상태를 인쇄합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:488 dfa0f284b18344dfbc77bd6ea5c12186
+#: ../../Network_APIs/TCP_Server_APIs.rst:493 ec8be449dbe1480c88dffd6f3122b57b
 msgid "``/clients``: prints the connected clients and their connection times."
 msgstr "``/clients``: 연결된 클라이언트와 연결 시간을 인쇄합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:489 c04b7b915a284b438b0dc3a012daa5df
+#: ../../Network_APIs/TCP_Server_APIs.rst:494 2b9307a16cd34c37ba22d668072d7597
 msgid ""
 "``/send_msg <message...> <client_id1> <client_id2> ...``: sends one or more "
 "messages to specific clients."
@@ -721,19 +739,19 @@ msgstr ""
 "``/send_msg <message...> <client_id1> <client_id2> ...``: 특정 클라이언트에 하나 이상의 "
 "메시지를 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:490 d01fc9ec1cad4c2d8e86c209437470d5
+#: ../../Network_APIs/TCP_Server_APIs.rst:495 b962dfd9e7ab46c8886be80f394a35d1
 msgid ""
 "``/file <file_path> <client_id>``: sends a file from the server to a "
 "specific client."
 msgstr "``/file <file_path> <client_id>``: 서버에서 특정 클라이언트로 파일을 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:491 8078013bfbb048268f7bd541a7c8217b
+#: ../../Network_APIs/TCP_Server_APIs.rst:496 0ef5aed4f7394d4aad9114a638940911
 msgid ""
 "``/file_folder <folder_path> <client_id>``: sends a folder from the server "
 "to a specific client."
 msgstr "``/file_folder <folder_path> <client_id>``: 서버에서 특정 클라이언트로 폴더를 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:492 1badd171c83b436ca1831e77eb53ce4d
+#: ../../Network_APIs/TCP_Server_APIs.rst:497 0f1f7a88823d4b1db348a242bf91b718
 msgid ""
 "``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
 "...``: sends multiple files to multiple clients."
@@ -741,7 +759,7 @@ msgstr ""
 "``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
 "...``: 여러 클라이언트에 여러 파일을 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:493 d4bfff6ebe0f4323a368631d99b70110
+#: ../../Network_APIs/TCP_Server_APIs.rst:498 edd28071a328408494c4a3146b3644c2
 msgid ""
 "``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
 "<client2> ...``: sends different file lists to different clients."
@@ -749,84 +767,87 @@ msgstr ""
 "``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
 "<client2> ...``: 다른 클라이언트에 다른 파일 목록을 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:494 1019b8f7b8bf4f7e99c353ec5ad41056
+#: ../../Network_APIs/TCP_Server_APIs.rst:499 f2e3a54d683c46ddad18f2ab5454bc4d
 msgid "``/help``: prints a help summary of console commands."
 msgstr "``/help``: 콘솔 명령의 도움말 요약을 인쇄합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:496 4d6ed7e47b6e4b5090f31d546f96b1d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:501 7d665ee27bfa445bb3de5b96a7fcbcd4
 msgid ""
 "These console commands make it easy to manage the active server and perform "
 "server-initiated file transfers without modifying the code."
 msgstr "이러한 콘솔 명령을 사용하면 코드를 수정하지 않고도 활성 서버를 쉽게 관리하고 서버 시작 파일 전송을 수행할 수 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:500 7bfa13e1317b4e4087e0d4e8e67ad3e9
+#: ../../Network_APIs/TCP_Server_APIs.rst:505 ee9f05c9d0e44e98aa098d39a8c4547f
+#, fuzzy
 msgid ""
-"*Note: There is too long to introduce all the console commands, so for more "
+"*Note: It is too long to introduce all the console commands, so for more "
 "details see the :ref:`tcp-server-console-commands` section.*"
 msgstr ""
 "*참고: 모든 콘솔 명령을 소개하기에는 너무 길기 때문에 자세한 내용은 :ref:`tcp-server-console-commands` "
 "섹션을 참조하세요.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:504 a3ac35fb445b4a9da29da7acd0ca9253
+#: ../../Network_APIs/TCP_Server_APIs.rst:509 9a6656e057994b5b8b47f3646d5c5a1d
 msgid "TCP Server file transfer API"
 msgstr "TCP 서버 파일 전송 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:506 5997261b65bd4afebd3490c4c85542cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:511 70bed01dc4a7426a9d31f45ccc8a1141
 msgid ""
 "The TCP server contains a file transfer subsystem that supports both client-"
 "to-server and server-to-client transfers."
 msgstr "TCP 서버에는 클라이언트-서버 전송과 서버-클라이언트 전송을 모두 지원하는 파일 전송 하위 시스템이 포함되어 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:510 6a4303df7cfb4c36a0431dca3e1975fb
+#: ../../Network_APIs/TCP_Server_APIs.rst:515 61227e8f455a4391819284dd6c5dc630
 msgid ""
 "It's too long to introduce all the file transfer functions, so there are "
-"only the list of APIs for the file transfer functions, and for more details"
-" of the file transfer functions, please visit ..."
+"only the list of APIs for the file transfer functions, and for more details "
+"of the file transfer functions, please visit ..."
 msgstr ""
 "파일 전송 기능을 모두 소개하기에는 너무 길어서 파일 전송 기능에 대한 API 목록만 있으며, 파일 전송 기능에 대한 자세한 내용은 다음"
 " 사이트를 방문하시기 바랍니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:515 fdaf074c3893458489af7f2b517df69f
+#: ../../Network_APIs/TCP_Server_APIs.rst:520 9d0d52331dc8405197df72219eb9d0de
 msgid "The file transfer API for you to use includes:"
 msgstr "사용할 수 있는 파일 전송 API에는 다음이 포함됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:517 3698381e5d544c7d8afdf662941225aa
+#: ../../Network_APIs/TCP_Server_APIs.rst:522 02c69145e8b2499d8ac7feb19024ff31
 msgid ""
 "The basic function for the server-to-client file transfer is defined as:"
 msgstr "서버-클라이언트 파일 전송의 기본 기능은 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:528 9d08bcb691774e73995d2f2e0647eaa9
+#: ../../Network_APIs/TCP_Server_APIs.rst:533 cb4f860a695547b5b02a0a6a4507f508
 msgid ""
 "The file transfer function which will run in the threads is defined as:"
 msgstr "스레드에서 실행될 파일 전송 기능은 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:539 93fa90f9588b415b8153c36eab025461
+#: ../../Network_APIs/TCP_Server_APIs.rst:544 3f497ac55d4b4b758bd9bdf0fdc60a4c
 msgid "The folder transfer function is defined as:"
 msgstr "폴더 전송 기능은 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:548 a02e9e5d0caa4e91add6480273c2c42f
+#: ../../Network_APIs/TCP_Server_APIs.rst:553 ac2fdd4da021439bb8cfdc33bc6da55a
 msgid ""
 "The multiple files transfer to multiple clients function is defined as:"
 msgstr "여러 클라이언트로의 여러 파일 전송 기능은 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:558 02161728b70346598249cdfef72d1f26
+#: ../../Network_APIs/TCP_Server_APIs.rst:563 6256d2cfe8eb4c779a7f99795619944c
 msgid ""
 "The different multiple files transfer to the different multiple clients "
 "function is defined as:"
 msgstr "다양한 다중 클라이언트 기능으로의 다양한 다중 파일 전송은 다음과 같이 정의됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:568 98d8a31794944316abe50c4555265298
+#: ../../Network_APIs/TCP_Server_APIs.rst:573 f176a36916364c9ca6dd78d8246226bc
+#, fuzzy
 msgid ""
 "We recommend you that if you want to use the mono-file transfer function, "
 "use the `file_transfer_server_recv_client_start_thread` function first, "
 "unless the functions which called the mono-file transfer function are "
 "already in a separate thread, then you can call the "
 "`file_transfer_server_recv_client_start` function directly, or the file "
-"transfer functions are may not very stable. And for the other file "
-"transfer functions, we don't very recommend you to use them in threads, "
+"transfer functions are may not be very stable. And for the other file "
+"transfer functions, we don't strongly recommend you to use them in threads, "
 "because there are already some thread control mechanisms in the functions, "
-"so don't be worry about the concurrent performance. And if you call them in "
-"threads, there may be some unexpected errors and also unnecessary complexity."
+"so don't worry about the concurrent performance. And if you call them in "
+"threads, there may be some unexpected errors and also unnecessary "
+"complexity."
 msgstr ""
 "모노 파일 전송 함수를 사용하려면 `file_transfer_server_recv_client_start_thread` 함수를 먼저 "
 "사용하는 것이 좋습니다. 단, 모노 파일 전송 함수를 호출한 함수가 이미 별도의 스레드에 있는 경우가 아니면 "
@@ -835,7 +856,7 @@ msgstr ""
 " 일부 스레드 제어 메커니즘이 있으므로 동시 성능에 대해 걱정하지 마세요. 그리고 스레드에서 호출하면 예상치 못한 오류가 발생할 수도 "
 "있고 불필요하게 복잡해질 수도 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:582 d3f9165db6124b80bf57bf0cb5f26e9e
+#: ../../Network_APIs/TCP_Server_APIs.rst:587 8d5b255ca29042509aad566d071c2c58
 msgid ""
 "*Note: The file transfer API functions are designed to be called from the "
 "command handlers for both client-initiated and server-initiated transfers. "
@@ -845,15 +866,15 @@ msgstr ""
 "*참고: 파일 전송 API 기능은 클라이언트 시작 및 서버 시작 전송 모두에 대해 명령 처리기에서 호출되도록 설계되었습니다. 전송 포트,"
 " 클라이언트 연결 및 실제 파일 데이터 전송 작업의 조정을 처리합니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:588 e138890a93f84710b0c6411668de350c
+#: ../../Network_APIs/TCP_Server_APIs.rst:593 e267899fa3654422bf36e82e026c0f69
 msgid "Client-to-server transfer flow:"
 msgstr "클라이언트-서버 전송 흐름:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:590 df090c467cb64f9cb567336969092443
+#: ../../Network_APIs/TCP_Server_APIs.rst:595 dafc23a2cbc94d29adcba6e27c575daf
 msgid "The client sends ``/file`` or ``/file_folder`` to request a transfer."
 msgstr "클라이언트는 전송을 요청하기 위해 ``/file`` 또는 ``/file_folder``를 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:592 a17755bc1f374ec9a520b09b8ede17d3
+#: ../../Network_APIs/TCP_Server_APIs.rst:597 c82cac6540f445b9a8e8fe1d898958a3
 msgid ""
 "``handle_command`` starts a dedicated file-server thread using "
 "``file_transfer_server_recv_server_start_thread``."
@@ -861,7 +882,7 @@ msgstr ""
 "``handle_command``는 ``file_transfer_server_recv_server_start_thread``를 사용하여 "
 "전용 파일 서버 스레드를 시작합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:594 5c47ae452b7e442c930303ba39abc9a4
+#: ../../Network_APIs/TCP_Server_APIs.rst:599 0fb4e13e2f9a4c4f982abff5ce812d75
 msgid ""
 "The server allocates an ephemeral transfer port with ``palloc`` and sends "
 "``/server_file_transfer_port <port> <client_id>`` back to the client."
@@ -869,21 +890,21 @@ msgstr ""
 "서버는 ``palloc``으로 임시 전송 포트를 할당하고 ``/server_file_transfer_port <port> "
 "<client_id>``를 클라이언트로 다시 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:598 4451beeea4e94f54b1858f725aa9b8cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:603 66c6621aa97542b49c81ea27f0bc4267
 msgid ""
 "The client connects to that transfer port and sends file metadata, including"
 " length-prefixed filename and file size."
 msgstr "클라이언트는 해당 전송 포트에 연결하고 길이 접두사가 붙은 파일 이름 및 파일 크기를 포함한 파일 메타데이터를 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:601 a564b3a183464693974574995e854c5a
+#: ../../Network_APIs/TCP_Server_APIs.rst:606 7571fffe513045eaa747dc1b2d2876cc
 msgid "The server receives the file and writes it under ``received_files``."
 msgstr "서버는 파일을 받아 ``received_files``에 씁니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:604 459e778150884f89914d6b7601307f65
+#: ../../Network_APIs/TCP_Server_APIs.rst:609 5bbe70007f10457890789d86bc17b4c1
 msgid "Server-to-client transfer flow:"
 msgstr "서버에서 클라이언트로의 전송 흐름:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:606 7ef36ab55a75400dbcde93b9f89465fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:611 2a6a841109fc492d8308c012ae74c1fe
 msgid ""
 "``file_transfer_server_recv_client_start`` is used to initiate outgoing "
 "transfers from server to a connected client."
@@ -891,13 +912,13 @@ msgstr ""
 "``file_transfer_server_recv_client_start``는 서버에서 연결된 클라이언트로 나가는 전송을 시작하는 데 "
 "사용됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:608 a9f71275fe7c4b98a5f0d38aa57c9b8c
+#: ../../Network_APIs/TCP_Server_APIs.rst:613 e432fc7c6d80453da278dacde19cabab
 msgid ""
 "The server sends transfer commands to the client socket and waits for the "
 "client to establish the file transfer connection."
 msgstr "서버는 클라이언트 소켓에 전송 명령을 보내고 클라이언트가 파일 전송 연결을 설정할 때까지 기다립니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:610 b238217053744b82b81aded101cd43d1
+#: ../../Network_APIs/TCP_Server_APIs.rst:615 fe161c64ff2e4c53b7ce7e60589e3a24
 msgid ""
 "Folder transfers are performed recursively, with each file transfer "
 "respecting ``self.max_file_transfer_thread_num`` and the configured "
@@ -906,45 +927,45 @@ msgstr ""
 "폴더 전송은 ``self.max_file_transfer_thread_num`` 및 구성된 세마포어 제한을 준수하여 각 파일 전송을 통해"
 " 반복적으로 수행됩니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:613 d7a6960cd4ae43dfb42b4f8e69b965d7
+#: ../../Network_APIs/TCP_Server_APIs.rst:618 78c1e3f118574ccba8be241f9ee69dc4
 msgid "Common file transfer helper methods include:"
 msgstr "일반적인 파일 전송 도우미 방법은 다음과 같습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:615 23cb257977b54bd087bc15419455086c
+#: ../../Network_APIs/TCP_Server_APIs.rst:620 f9f1a987d43f49898a9e10e1db1f6f77
 msgid ""
 "``file_transfer_server_recv_server_start``: receives file data from a "
 "client."
 msgstr "``file_transfer_server_recv_server_start``: 클라이언트로부터 파일 데이터를 받습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:616 a8ca3493e4164bf59745b835710fb010
+#: ../../Network_APIs/TCP_Server_APIs.rst:621 0ee6e0a2d46e443591c8804f9d075576
 msgid ""
 "``file_transfer_server_recv_client_start``: sends a file or folder to a "
 "client."
 msgstr "``file_transfer_server_recv_client_start``: 파일이나 폴더를 클라이언트로 보냅니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:617 bc5d6dfe4f6f4f4591553b4728356e54
+#: ../../Network_APIs/TCP_Server_APIs.rst:622 6eb9f641886740e6a0115b15d5a9cc61
 msgid ""
 "``file_transfer_mode``: performs the low-level client-side transfer "
 "handshake."
 msgstr "``file_transfer_mode``: 낮은 수준의 클라이언트 측 전송 핸드셰이크를 수행합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:618 b1eebf39b4e24858b9f65f62958a0a97
+#: ../../Network_APIs/TCP_Server_APIs.rst:623 346b9f84a1a744478abea5beb22dd2d3
 msgid ""
 "``file_transfer_mode_recv``: performs the low-level receive-side transfer "
 "handshake."
 msgstr "``file_transfer_mode_recv``: 낮은 수준의 수신측 전송 핸드셰이크를 수행합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:623 ae07c5e8c8af466d8aab8eb360f8ecec
+#: ../../Network_APIs/TCP_Server_APIs.rst:628 d03bc27c716645e5a375244673b67e22
 msgid "Port allocation API"
 msgstr "포트 할당 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:625 08071868b4e743e6935f800b6fbe5f44
+#: ../../Network_APIs/TCP_Server_APIs.rst:630 a35924ac9bb34a308b1ff0edac57bd92
 msgid ""
 "The server allocation APIs allow you to allocate a new port for another "
 "servers. There are two kinds of port allocation modes."
 msgstr "서버 할당 API를 사용하면 다른 서버에 새 포트를 할당할 수 있습니다. 포트 할당 모드에는 두 가지 종류가 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:629 47add20f21ae4cb781a12c85017a50d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:634 c74252dd96b44f1db6b982a5b9888874
 msgid ""
 "For change the port allocation mode, you can set the args "
 "``is_hand_alloc_port`` in the server instance class. When input ``False``, "
@@ -954,7 +975,7 @@ msgstr ""
 "포트 할당 모드를 변경하려면 서버 인스턴스 클래스에서 ``is_hand_alloc_port`` 인수를 설정할 수 있습니다. "
 "``False``를 입력하면 서버 인스턴스는 자동 포트 할당 모드를 선택하고, ``False``를 입력하면 수동 할당 모드를 선택합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:635 58b7d1ef00f5464581f61417932a2bc5
+#: ../../Network_APIs/TCP_Server_APIs.rst:640 7aa3d163bf354e95931c7574b34fc6ba
 msgid ""
 "We most recommend you that to use the automatically port allocation mode, "
 "which is the default mode of the server, because the automatically port "
@@ -965,7 +986,7 @@ msgstr ""
 "자동 포트 할당 모드는 수동 포트 할당 모드보다 간편하고 안정적이므로 서버의 기본 모드인 자동 포트 할당 모드를 사용하는 것이 좋습니다."
 " 이 모드에서는 할당 API를 호출하면 '0'을 반환합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:642 c2ea6f63d89744c4a5e23bb92f70b8e6
+#: ../../Network_APIs/TCP_Server_APIs.rst:647 67b8c95463ac4d6ea023a2e7d15c6696
 msgid ""
 "*Note: The `bind` function in standard lib `socket` of the python executor, "
 "when input ``0`` to the port parameter, will automatically assign an "
@@ -974,18 +995,18 @@ msgstr ""
 "*참고: Python 실행기의 표준 lib `socket`에 있는 `bind` 함수는 포트 매개변수에 `0`을 입력하면 운영 체제별로 "
 "사용 ​​가능한 포트를 자동으로 할당합니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:647 b3f467b006c24c198355bba84566bcb5
+#: ../../Network_APIs/TCP_Server_APIs.rst:652 d18afcec308b4807a16019d98e92165e
+#, fuzzy
 msgid ""
-"The another port allocation mode is the manual port allocation mode, there "
-"is a port allocation range for the server. Please avoid to open other "
-"servers in the same host, because in the existing version, the port "
-"allocation range will be conflicted and some unexpected errors may be "
-"caused."
+"The other port allocation mode is the manual port allocation mode, there is "
+"a port allocation range for the server. Please avoid to open other servers "
+"in the same host, because in the existing version, the port allocation range"
+" will be conflicted and some unexpected errors may be caused."
 msgstr ""
 "또 다른 포트 할당 모드는 수동 포트 할당 모드이며, 서버에 대한 포트 할당 범위가 있습니다. 기존 버전에서는 포트 할당 범위가 충돌하여"
 " 예상치 못한 오류가 발생할 수 있으므로 동일한 호스트에서 다른 서버를 열지 마십시오."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:654 fcd9f7cb2f07435da45429c438e327cd
+#: ../../Network_APIs/TCP_Server_APIs.rst:659 c49291ef0a1b4dcb83297450887242aa
 msgid ""
 "The range of the port allocation is configured in the server settings. The "
 "minimum allocatable port is ``self.port-"
@@ -996,7 +1017,7 @@ msgstr ""
 "self.port_add_step*self.port_range_num``이며, 최대 할당 가능 포트는 "
 "``self.port+1+self.port_add_step*self.port_range_num``입니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:660 3fb39cdf6b6b45f898434906b07686ac
+#: ../../Network_APIs/TCP_Server_APIs.rst:665 0e9ecf5c00754955855f07a88e56410e
 msgid ""
 "*Note: The ``self.port`` is the args ``port`` of the server class. The "
 "``self.port_add_step`` is the args ``port_add_step`` of the server class. "
@@ -1007,11 +1028,11 @@ msgstr ""
 "``port_add_step`` 인수입니다. 그리고 ``self.port_range_num``은 서버 클래스의 "
 "``port_range_num`` 인수이기도 합니다.*"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:666 aae092cda1d54f5483ef0f11197c61ca
+#: ../../Network_APIs/TCP_Server_APIs.rst:671 3b99f158118341ffaaa6716669fc5703
 msgid "There are some relevant methods that can be used:"
 msgstr "사용할 수 있는 몇 가지 관련 방법이 있습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:673 4abeea57e0254835a731259b36d437e8
+#: ../../Network_APIs/TCP_Server_APIs.rst:678 8e9744f779214f81affafa1f446eaca4
 msgid ""
 "The `palloc` method allow you to get a port, for using this function, you "
 "don't need to worry about the port allocation mode, because an allocation "
@@ -1020,7 +1041,7 @@ msgstr ""
 "`palloc` 메소드를 사용하면 포트를 얻을 수 있습니다. 이 기능을 사용하기 위해 할당 모드 감지기가 이 메소드에 이미 작성되어 "
 "있으므로 포트 할당 모드에 대해 걱정할 필요가 없습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:685 6e1a96440603473482e7fec41712ed43
+#: ../../Network_APIs/TCP_Server_APIs.rst:690 b2a5f76b877b465980d6162e869921c4
 msgid ""
 "The `pfree` method allow you to free a port, as the same as `palloc` method,"
 " you don't need to care about the port allocation mode when using this "
@@ -1029,7 +1050,7 @@ msgstr ""
 "`pfree` 방법을 사용하면 `palloc` 방법과 마찬가지로 포트를 해제할 수 있으므로 이 방법을 사용할 때 포트 할당 모드에 신경 "
 "쓸 필요가 없습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:689 d73e972f42ef48c5a645607ccf5bce9c
+#: ../../Network_APIs/TCP_Server_APIs.rst:694 4058b14b49034f64a0c51e7a70f15de0
 msgid ""
 "And there are the main functions for you to call, and for more information "
 "about the port allocation functions, see the :ref:`tcp-server-port-"
@@ -1038,7 +1059,7 @@ msgstr ""
 "그리고 호출할 수 있는 주요 함수들이 있으며, 포트 할당 함수에 대한 자세한 내용은 :ref:`tcp-server-port-"
 "allocation-api` 섹션을 참조하세요."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:693 2b9b20eb947841a68769f2b536968cbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:698 385b478e6ab1489b84066e4f39e4b54a
 msgid ""
 "This mode is useful when you need a individual port for the server or  must "
 "reserve a controlled range of ports for client-file transfers by manual port"
@@ -1048,154 +1069,178 @@ msgstr ""
 "이 모드는 서버에 대한 개별 포트가 필요하거나 테스트 환경이나 여러 서버 프로세스가 동일한 호스트를 공유하는 경우와 같이 수동 포트 "
 "할당을 통해 클라이언트 파일 전송을 위해 제어된 포트 범위를 예약해야 하는 경우에 유용합니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:700 8f2f35b60ca743c490b4bbf99b297a78
+#: ../../Network_APIs/TCP_Server_APIs.rst:705 78ff6af82c8646cba4f4f016a457b9ad
 msgid "TCP Server APIs table"
 msgstr "TCP 서버 API 테이블"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:702 20b0e9d904b547ae823f510645f7d97f
+#: ../../Network_APIs/TCP_Server_APIs.rst:707 7bad5400d40540eda7a8137322b9bc2e
 msgid "In short, the table of contents of the public APIs are as follows:"
 msgstr "간단히 말해서 공개 API의 목차는 다음과 같습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:705 5ff85748585d46278172ef398e262759
+#: ../../Network_APIs/TCP_Server_APIs.rst:710 a0d1218edf0b488ea8c10dd51d49f4a2
 msgid "The server setup APIs:"
 msgstr "서버 설정 API:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:706 b613ebf542fc4c10b3db1d4c9811ef3a
+#: ../../Network_APIs/TCP_Server_APIs.rst:711 6acedad5f298426782dd60752e94c686
 msgid "`TCP_Server_Base`"
 msgstr "`TCP_서버_베이스`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:707 e4cb32ffa1a3401e89c7d63cd439ef02
+#: ../../Network_APIs/TCP_Server_APIs.rst:712 9518f57bd28c463b845d075f1f013f77
 msgid "`start_TCP_Server`"
 msgstr "`시작_TCP_서버`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:708 d5c8307bb43c4f78b942a78f8100c2bf
+#: ../../Network_APIs/TCP_Server_APIs.rst:713 4fecb922e3644c8199b8f5f71e031400
 msgid "`stop`"
 msgstr "'그만'"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:710 8b410315becc4dee8ee136e410154dbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:715 cea599b4dd354d0da4bafe27f332eeb8
 msgid "The server handling information APIs:"
 msgstr "서버 처리 정보 API:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:711 283a386b60b24c5a92e2453c195452fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:716 c1324a1071514492a94478a260f950e7
 msgid "`handle_client`"
 msgstr "`handle_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:712 bb2da75c5d5f406183ad3449e27b89d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:717 6a16ccedd4b649ce9e351ec1f9b10e73
 msgid "`handle_command`"
 msgstr "`handle_command`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:713 565aa08b59a8455496931d414a4e26bf
+#: ../../Network_APIs/TCP_Server_APIs.rst:718 2fde8cdec2f34a46943fedd7ab42768e
 msgid "`receive_message`"
 msgstr "`receive_message`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:714 8f805abe7646460898a77048190f5ea2
+#: ../../Network_APIs/TCP_Server_APIs.rst:719 03781998f89545eca994ec9e5f9602a5
 msgid "`send_message`"
 msgstr "`send_message`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:715 5ede936aa8984770852c58d54261920f
+#: ../../Network_APIs/TCP_Server_APIs.rst:720 756d847defeb4de4acbf3942180a3230
 msgid "`broadcast`"
 msgstr "'방송'"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:716 c97becc140b447aa9224dd882b948b37
+#: ../../Network_APIs/TCP_Server_APIs.rst:721 2edaae0d2bd84e27826b632834098b9f
 msgid "`send_msg_to_specific_client`"
 msgstr "`send_msg_to_특정_클라이언트`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:718 10580118e35142eaa5d3ac8b74cc2308
+#: ../../Network_APIs/TCP_Server_APIs.rst:723 9ad151a612894b9282ce451c1e4742f4
 msgid "The server command APIs:"
 msgstr "서버 명령 API:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:719 dd0fc783ad794fd5a7429ceca0fb9b13
+#: ../../Network_APIs/TCP_Server_APIs.rst:724 61051fec7b7249ba9e30e23583335975
 msgid "`register_command`"
 msgstr "`등록_명령`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:720 d0e8f2a1a67843428c16dd56d275cfbb
+#: ../../Network_APIs/TCP_Server_APIs.rst:725 89f76120884b4b21b59a30cf235646c7
 msgid "`_execute_custom_handler`"
 msgstr "`_execute_custom_handler`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:721 b1064bc554ad4fcd84c3f4e8c3ac1300
+#: ../../Network_APIs/TCP_Server_APIs.rst:726 c07b15d5c2d14d6db98000bc4b2fbc3f
 msgid "`submit_task`"
 msgstr "`제출_작업`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:722 64fbf59a6a2442d4a2f1f73fa49c9bec
+#: ../../Network_APIs/TCP_Server_APIs.rst:727 8c7db97993124d7990598ad66596391d
 msgid "`create_temporary_server`"
 msgstr "`생성_임시_서버`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:723 811676a1a7e1456eb31d65a360e57611
+#: ../../Network_APIs/TCP_Server_APIs.rst:728 2d6682632f5c4193b0f2a7cdcf48c6aa
 msgid "`create_temporary_client`"
 msgstr "`create_temporary_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:725 46dcf5ef45b148d59c079ac425fd0639
+#: ../../Network_APIs/TCP_Server_APIs.rst:730 96275784fb424eb5aa199320b37ca29d
 msgid "The server file transfer APIs:"
 msgstr "서버 파일 전송 API:"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:726 c5b74b75d2be476790ed90a407b4082c
+#: ../../Network_APIs/TCP_Server_APIs.rst:731 7c06a2027b1f46d5957e6ef82ee2c308
 msgid "`file_transfer_server_recv_client_start`"
 msgstr "`file_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:727 68259e5588e34b9db62e4e2f1e16c395
+#: ../../Network_APIs/TCP_Server_APIs.rst:732 3ac81ed7a85f476a9e24fc77ef770d49
 msgid "`file_transfer_server_recv_client_start_thread`"
 msgstr "`file_transfer_server_recv_client_start_thread`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:728 2f72e47dae90440b824a088e96aef0ab
+#: ../../Network_APIs/TCP_Server_APIs.rst:733 e48af56b8ad24bb088c44a1ef78eb2d7
 msgid "`folder_file_transfer_server_recv_client_start`"
 msgstr "`folder_file_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:729 83096aaef82e46afacd6aeda6d24cdc6
+#: ../../Network_APIs/TCP_Server_APIs.rst:734 3cdc6c6ae7b14e09a1b998af5bcbb89b
 msgid "`multiple_file_multiple_client_transfer_server_recv_client_start`"
 msgstr "`multiple_file_multiple_client_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:730 d55613c49c7444a285933b8b79d15619
+#: ../../Network_APIs/TCP_Server_APIs.rst:735 4f4caf6153294e2ca21576c7c5433ed8
 msgid ""
 "`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
 msgstr ""
 "`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:732 eba6298d68234f5fa91f19b07eafc1ac
+#: ../../Network_APIs/TCP_Server_APIs.rst:737 a6696629f8da41b0905886debd505110
 msgid "The server console commands:"
 msgstr "서버 콘솔 명령은 다음과 같습니다."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:733 8d76b88a5ea54eb1bdabee253af5b32a
+#: ../../Network_APIs/TCP_Server_APIs.rst:738 e0b47d044d1847e7ba34ae2ec85816eb
 msgid "`/stop`"
 msgstr "`/그만`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:734 cc19861327ec41f7b1534117b21be438
+#: ../../Network_APIs/TCP_Server_APIs.rst:739 5031d203c41244fba4f55c2bff44f8e0
 msgid "`/status`"
 msgstr "`/상태`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:735 0ba8452dba3b42f4b34f3a38c8a98ca2
+#: ../../Network_APIs/TCP_Server_APIs.rst:740 02750737b2394fe2bce87b2cb4195ff0
 msgid "`/clients`"
 msgstr "`/클라이언트`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:736 703b87e58e6949c18885db51d4d7ea54
+#: ../../Network_APIs/TCP_Server_APIs.rst:741 2e5780c85c1f43eab30511719da6042b
 msgid "`/send_msg`"
 msgstr "`/send_msg`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:737 436592f3767c40eeb2660a91b81f4b61
+#: ../../Network_APIs/TCP_Server_APIs.rst:742 755d1109eac54732bb549d57787549cc
 msgid "`/file`"
 msgstr "`/파일`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:738 a89456c362a74d3589d19ca956ddf988
+#: ../../Network_APIs/TCP_Server_APIs.rst:743 0cb2a82fdae24c4e9e76645e2a2de236
 msgid "`/file_folder`"
 msgstr "`/파일_폴더`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:739 de6b4ba533e24fe1a759a53b5d12a0b2
+#: ../../Network_APIs/TCP_Server_APIs.rst:744 ae5fe73511e24138840aa6e83360398a
 msgid "`/multiple_file_multiple_client`"
 msgstr "`/다중_파일_다중_클라이언트`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:740 a3922d63e130462e96499aa2f6e69686
+#: ../../Network_APIs/TCP_Server_APIs.rst:745 f220f2ebfbc9427297a13f528828cad9
 msgid "`/diff_multiple_file_diff_multiple_client`"
 msgstr "`/diff_multiple_file_diff_multiple_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:741 2b497bd8b81b484ab27e02dabc76d90e
+#: ../../Network_APIs/TCP_Server_APIs.rst:746 cc95234ff6234774822181df0b372a53
 msgid "`/help`"
 msgstr "`/도움말`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:744 5321930d5b24434fb2b39a180226cc93
+#: ../../Network_APIs/TCP_Server_APIs.rst:749 393ce16473754b79817c9951891ff65b
 msgid "See Also"
 msgstr "참조"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:746 b383207a815c49ec9596489f812bdde0
-msgid ""
-"For more information about the client APIs, please visit the client API "
-"documentation, at :doc:`TCP_Client_APIs`."
-msgstr "클라이언트 API에 대한 자세한 내용은 :doc:`TCP_Client_APIs`에서 클라이언트 API 설명서를 참조하세요."
+#: ../../Network_APIs/TCP_Server_APIs.rst:751 fe86f0dcf46a4097b285a7277637b437
+msgid ":doc:`TCP_Client_APIs` — TCP client."
+msgstr ":doc:`TCP_Client_APIs` — TCP 클라이언트."
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:752 27ef2ad7316a49fbac03a0d49b0f3517
+msgid ":doc:`UDP_APIs` — UDP endpoint."
+msgstr ":doc:`UDP_APIs` — UDP 끝점."
+
+#~ msgid ""
+#~ "*Note: In the main class of the TCP server setup API, we initialize the "
+#~ "`start_TCP_Server` method to setup all functions which are needed in the TCP"
+#~ " server, including the server socket or handle clients etc.*"
+#~ msgstr ""
+#~ "*참고: TCP 서버 설정 API의 메인 클래스에서는 `start_TCP_Server` 메소드를 초기화하여 서버 소켓이나 핸들 클라이언트"
+#~ " 등을 포함하여 TCP 서버에 필요한 모든 기능을 설정합니다.*"
+
+#~ msgid ""
+#~ "*Note: The ``self.clients`` variable is a dictionary which is used to store "
+#~ "the client sockets and their corresponding addresses. The key of the "
+#~ "dictionary is the client socket, and the value is the client address. It has"
+#~ " been defined in the ``__init__`` method.*"
+#~ msgstr ""
+#~ "*참고: ``self.clients`` 변수는 클라이언트 소켓과 해당 주소를 저장하는 데 사용되는 사전입니다. 사전의 키는 클라이언트 "
+#~ "소켓이고 값은 클라이언트 주소입니다. ``__init__`` 메소드에 정의되어 있습니다.*"
+
+#~ msgid ""
+#~ "For more information about the client APIs, please visit the client API "
+#~ "documentation, at :doc:`TCP_Client_APIs`."
+#~ msgstr "클라이언트 API에 대한 자세한 내용은 :doc:`TCP_Client_APIs`에서 클라이언트 API 설명서를 참조하세요."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PyFlow\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"POT-Creation-Date: 2026-06-20 22:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
@@ -17,133 +17,140 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Generated-By: Babel 2.18.0\n"
+"Generated-By: Babel 2.10.3\n"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:2 1f28394dcb394afb99e940706df543bb
+#: ../../Network_APIs/TCP_Client_APIs.rst:2 8b7abc9f05c7488a8b524be724872961
 msgid "The TCP Client APIs"
 msgstr "TCP 客户端 API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:5 e83da88e995849cca9ac6198ea22eab4
+#: ../../Network_APIs/TCP_Client_APIs.rst:5 ccd2ff049dc447beb949db644bc03eb9
 msgid "TCP Client setup API"
 msgstr "TCP 客户端设置 API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:7 72576ef5c3ea4e2a826f8e7c7d599615
+#: ../../Network_APIs/TCP_Client_APIs.rst:7 33aea8d522094bc7895c7d6cf02d412d
 msgid ""
 "The TCP Client Setup API is used to create a TCP client. The client in the "
 "protocol is usually used to connect to the TCP server and exchange data with"
 " the server."
 msgstr "TCP 客户端设置 API 用于创建 TCP 客户端。协议中的客户端通常用于连接TCP服务器并与服务器交换数据。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:28 2894f36ef2d94c8eafab2c22119d41fa
+#: ../../Network_APIs/TCP_Client_APIs.rst:29 37e6ad2f0b97496fb0a76f1d5e5bbfdf
 msgid ""
 "The TCP Client Setup API is defined in the ``TCP_Client_Base`` class. The "
 "parameters of the ``__init__`` method are as follows:"
 msgstr "TCP 客户端设置 API 在“TCP_Client_Base”类中定义。 ``__init__``方法的参数如下："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:31 891e2eae2b5848cf8bbc8f180280cf60
+#: ../../Network_APIs/TCP_Client_APIs.rst:32 5d93a1da4d254f129538d447dc62dd18
 msgid "``host``: The server host IP address to connect to."
 msgstr "``host``：要连接的服务器主机 IP 地址。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:32 6bfd78e389724251a1241e9657606e8a
+#: ../../Network_APIs/TCP_Client_APIs.rst:33 8f99464df5f8420abfc0aaa5f4c23888
 msgid ""
 "``client_host``: The local host IP address to bind the client socket to."
 msgstr "``client_host``：将客户端套接字绑定到的本地主机 IP 地址。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:33 fca27929c95545b79d5fd55dd81214f6
+#: ../../Network_APIs/TCP_Client_APIs.rst:34 443f4746519b4acdb95c213f93ea6db3
 msgid "``port``: The server port number to connect to."
 msgstr "``port``：要连接的服务器端口号。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:34 5299d745033942daafdb22324b83ec1f
+#: ../../Network_APIs/TCP_Client_APIs.rst:35 e0d9e785ebd64108ba362d7fc9c1d94d
 msgid ""
 "``client_port``: The local port number to bind the client socket to "
 "(``None`` means let the OS choose)."
 msgstr "``client_port``：将客户端套接字绑定到的本地端口号（``None`` 意味着让操作系统选择）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:35 92ed64d6d4d54aad8f53ee4aaa01c396
+#: ../../Network_APIs/TCP_Client_APIs.rst:36 faa56fa2788f49ee985f2f6b79ae8f58
 msgid ""
 "``timeout``: The socket timeout in seconds for connection and receive "
 "operations (``None`` means no timeout)."
 msgstr "“timeout”：连接和接收操作的套接字超时（以秒为单位）（“None”表示没有超时）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:36 59c1fb91ad8443bba475cdabc397c039
+#: ../../Network_APIs/TCP_Client_APIs.rst:37 f6f8b52f9a144bada532145c7a328a46
 msgid ""
 "``port_add_step``: The step size for incrementing the port number (used only"
 " in manual allocation mode)."
 msgstr "``port_add_step``：增加端口号的步长（仅在手动分配模式下使用）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:37 d68695bdacb143dfa91bcb07e56b8c51
+#: ../../Network_APIs/TCP_Client_APIs.rst:38 acc7d47c54344a909760bed60ff944ff
 msgid ""
 "``max_thread_num``: The maximum number of threads for concurrent file "
 "transfer operations."
 msgstr "``max_thread_num``：并发文件传输操作的最大线程数。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:38 191d2c161ca34b4a8d7923b2a891c2dd
+#: ../../Network_APIs/TCP_Client_APIs.rst:39 c4d53662993e4b19b01432536bc540d1
 msgid ""
 "``is_input_command_in_console``: A flag indicating whether to input commands"
 " in the console (interactive mode)."
 msgstr "``is_input_command_in_console``：指示是否在控制台中输入命令的标志（交互模式）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:39 b382538558324e9e9581a11d1e100ff0
+#: ../../Network_APIs/TCP_Client_APIs.rst:40 78d832eb2d4d4e078b175f8d6e5b5a66
 msgid ""
 "``is_wait_server``: A flag indicating whether to keep retrying connection "
 "until the server is available."
 msgstr "``is_wait_server``：指示是否继续重试连接直到服务器可用的标志。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:40 a62d81bb0d5d41b2978bb6b12834dbeb
+#: ../../Network_APIs/TCP_Client_APIs.rst:41 d6d4e234aaa04fc9800f755b8f2702e7
 msgid "``max_custom_workers``: The maximum number of custom worker threads."
 msgstr "``max_custom_workers``：自定义工作线程的最大数量。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:42 8d128bcdb00e4eacaca6a96c85a2f2b3
+#: ../../Network_APIs/TCP_Client_APIs.rst:43 407f5f93d7864489ab5ae5c7b7e42446
 msgid "Every parameter has default values:"
 msgstr "每个参数都有默认值："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:44 7194cfd2a6f74116b94fa63c2d582a0e
+#: ../../Network_APIs/TCP_Client_APIs.rst:45 738e855b38bc4b53ad676ac69bcae169
 msgid "``host``: Default is ``None`` (must be provided before connecting)"
 msgstr "``host``：默认为``None``（必须在连接前提供）"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:45 fcbc72d9623f4380866d83b1f3660c21
+#: ../../Network_APIs/TCP_Client_APIs.rst:46 acb29f2d519549d29fbd9f2813f2084c
 msgid "``client_host``: Default is ``'127.0.0.1'``"
 msgstr "“client_host”：默认为“127.0.0.1”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:46 a4f7b8c8dda74500aa357de72b30be28
+#: ../../Network_APIs/TCP_Client_APIs.rst:47 51055c853765474f88284b811dfb2a9a
 msgid "``port``: Default is ``65432``"
 msgstr "“端口”：默认为“65432”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:47 c37e2b82bc5c479795dc5a692111df31
+#: ../../Network_APIs/TCP_Client_APIs.rst:48 a7c7269e72de486c9e86d2076e7cb4cb
 msgid "``client_port``: Default is ``None`` (OS assigns ephemeral port)"
 msgstr "“client_port”：默认为“None”（操作系统分配临时端口）"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:48 350cdb88ad8948f0a49479e41b382494
+#: ../../Network_APIs/TCP_Client_APIs.rst:49 f9e4d6caa6804e73954bbdab083d5125
 msgid "``timeout``: Default is ``None``"
 msgstr "“超时”：默认为“无”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:49 9687af61f4ee49c69c45584a92563de7
+#: ../../Network_APIs/TCP_Client_APIs.rst:50 16ced2e4ddc44de6b0918a497dc09e4d
 msgid "``port_add_step``: Default is ``1``"
 msgstr "“port_add_step”：默认为“1”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:50 c6193fdd4f8a4e089ea248602cb87076
+#: ../../Network_APIs/TCP_Client_APIs.rst:51 ef484b91eb0a4b238bb170c319bea7dd
 msgid "``max_thread_num``: Default is ``10``"
 msgstr "“max_thread_num”：默认为“10”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:51 5d368cfa622e4db0afa328a6e183c16c
+#: ../../Network_APIs/TCP_Client_APIs.rst:52 1985545b5d474b639e908f2eac383842
 msgid "``is_input_command_in_console``: Default is ``True``"
 msgstr "“is_input_command_in_console”：默认为“True”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:52 b98da03ca9cb4025ab3747763d5b5f48
+#: ../../Network_APIs/TCP_Client_APIs.rst:53 d093fdc6d831472f936bff4b78484b34
 msgid "``is_wait_server``: Default is ``True``"
 msgstr "``is_wait_server``：默认为``True``"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:53 a1b6223680444d95ba52dff21106fd82
+#: ../../Network_APIs/TCP_Client_APIs.rst:54 a555b48eece24e0fa0437ddf16d6cc63
 msgid "``max_custom_workers``: Default is ``10``"
 msgstr "“max_custom_workers”：默认为“10”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:55 1ae3ae743cc349d3aeb37865aed66eaf
+#: ../../Network_APIs/TCP_Client_APIs.rst:55 da0179d4edcf4183a2d0fbd60ecaf060
+msgid ""
+"``is_extend_command``: Default is ``False`` (when ``True``, ``__init__`` "
+"will not call ``start_TCP_client()`` automatically)"
+msgstr ""
+"“is_extend_command”：默认为“False”（当“True”时，“__init__”不会自动调用“start_TCP_client()”）"
+
+#: ../../Network_APIs/TCP_Client_APIs.rst:58 7fbcdad2b5364e908ea6c7d503bfdbd2
 msgid ""
 "The TCP Client Setup API will initialize all the necessary parameters and "
 "resources for the TCP client."
 msgstr "TCP 客户端设置 API 将为 TCP 客户端初始化所有必需的参数和资源。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:58 3d6655ed1f5943acbb7231853eda86b2
+#: ../../Network_APIs/TCP_Client_APIs.rst:61 9bfa7bb5c0434d76bbe8d6c4737684dc
 msgid ""
 "*Note: In the main class of the TCP client setup API, we initialize the "
 "`start_TCP_client` method to setup all functions which are needed in the TCP"
@@ -153,7 +160,25 @@ msgstr ""
 "*注意：在 TCP 客户端设置 API 的主类中，我们初始化 `start_TCP_client` 方法来设置 TCP "
 "客户端所需的所有功能，包括连接到服务器、处理传入消息和管理用户输入。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:69 f4258bb3d32b45c5a5b35e78a07177f4
+#: ../../Network_APIs/TCP_Client_APIs.rst:67 d8951235a8dd4ac49bbcf84c5ec1ec6b
+msgid ""
+"*Note: By default ``TCP_Client_Base.__init__`` calls ``start_TCP_client()`` "
+"to connect and enter interactive mode. If you set "
+"``is_extend_command=True``, the instance will not auto-start and you should "
+"call ``start_TCP_client()`` manually when ready.*"
+msgstr ""
+"*注意：默认情况下``TCP_Client_Base.__init__`` 调用``start_TCP_client()`` "
+"进行连接并进入交互模式。如果您设置“is_extend_command=True”，实例将不会自动启动，您应该在准备好时手动调用“start_TCP_client()”。*"
+
+#: ../../Network_APIs/TCP_Client_APIs.rst:73 eb54ae8af8f346d394022801aa45383d
+msgid ""
+"*Note: If you set ``is_wait_server=True``, the ``timeout`` parameter must be"
+" ``None``. The constructor will raise a ``ValueError`` if ``is_wait_server``"
+" is ``True`` and ``timeout`` is not ``None``.*"
+msgstr ""
+"*注意：如果设置“is_wait_server=True”，则“timeout”参数必须为“None”。如果“is_wait_server”为“True”且“timeout”不是“None”，则构造函数将引发“ValueError”。*"
+
+#: ../../Network_APIs/TCP_Client_APIs.rst:83 f8bb074f7c7c4ce5bdeff15bfbddb197
 msgid ""
 "In the `start_TCP_client` method, we first attempt to connect to the server "
 "by calling the `connect` method. If the connection fails and "
@@ -162,7 +187,7 @@ msgid ""
 msgstr ""
 "在`start_TCP_client`方法中，我们首先尝试通过调用`connect`方法连接到服务器。如果连接失败并且“is_wait_server”为“True”，客户端将不断重试；否则它将退出。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:74 c07552006ac44d4ebe4e186384d27c54
+#: ../../Network_APIs/TCP_Client_APIs.rst:88 d3e8e408bd7a4365b64e0618a8b03841
 msgid ""
 "*Note: The client socket created in the `start_TCP_client` method is based "
 "on IPv4 and uses the parameters ``self.host`` and ``self.port`` which are "
@@ -170,7 +195,7 @@ msgid ""
 msgstr ""
 "*注意：在`start_TCP_client`方法中创建的客户端套接字基于IPv4，并使用创建客户端实例时提供的参数“self.host”和“self.port”。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:79 54dcfab86f16402d9afd4fd64b48365d
+#: ../../Network_APIs/TCP_Client_APIs.rst:93 b9dafcc191d24f9ba5531225a2392c08
 msgid ""
 "Secondly, according to the ``self.is_input_command_in_console`` parameter, "
 "we will either start the interactive input loop (`interactive_mode`) or "
@@ -178,14 +203,14 @@ msgid ""
 msgstr ""
 "其次，根据“self.is_input_command_in_console”参数，我们将启动交互式输入循环（“interactive_mode”）或简单地保持连接处于活动状态（无控制台输入）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:84 62b6c712c6e04bcfbe54e2cd8d1be75b
+#: ../../Network_APIs/TCP_Client_APIs.rst:98 c4d0985827814097a029dfc6cfef0afe
 msgid ""
 "After that, if the interactive mode is enabled, the client will read user "
 "input from the console and send messages to the server until the connection "
 "is closed."
 msgstr "之后，如果启用了交互模式，客户端将从控制台读取用户输入并向服务器发送消息，直到连接关闭。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:88 987f46dbca404fa08496ba4ff5315c84
+#: ../../Network_APIs/TCP_Client_APIs.rst:102 75ead842cc7841f4bfa35149fc2bf3ab
 msgid ""
 "*Note: There is a global variable ``self.running`` which is turned to "
 "``True`` after the client successfully connects to the server. The "
@@ -195,7 +220,7 @@ msgstr ""
 "*注意：有一个全局变量“self.running”，在客户端成功连接到服务器后，该变量将变为“True”。 "
 "“self.running”变量用于控制主接收循环，当客户端关闭时它将变为“False”。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:94 e07734e48dc147f2a570071e11dc5ff5
+#: ../../Network_APIs/TCP_Client_APIs.rst:108 91313852c04a4b709fd2c46fc4f3a86d
 msgid ""
 "The `connect` method will try to establish a TCP connection to the server. "
 "If a ``client_port`` is specified, the client will bind to that local port "
@@ -205,29 +230,29 @@ msgstr ""
 "`connect` 方法将尝试建立到服务器的 TCP "
 "连接。如果指定了“client_port”，客户端将在连接之前绑定到该本地端口。该方法将优雅地处理超时和连接拒绝错误，特别是当启用“is_wait_server”时。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:100 ac78595a9d994e0fb0c54a5094c19557
+#: ../../Network_APIs/TCP_Client_APIs.rst:114 c64113fd2a1b491bba7044ba92704c74
 msgid ""
 "When the connection is established, a background thread `receive_messages` "
 "is started to continuously read data from the server."
 msgstr "当连接建立后，会启动一个后台线程receive_messages，不断从服务器读取数据。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:104 13b6bc6715494d0f852d1ed0cf3c9d22
+#: ../../Network_APIs/TCP_Client_APIs.rst:118 d62ee221715e478eb2d31e1b35c95d95
 msgid "So what can the setup function do if the connection fails?"
 msgstr "那么如果连接失败的话setup函数可以做什么呢？"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:106 8c8224387fd44801ba76c91e64018c1e
+#: ../../Network_APIs/TCP_Client_APIs.rst:120 88613d70877541e28b7c7fe85b650301
 msgid ""
 "First, if the connection attempt times out, the client will either wait and "
 "retry (if ``is_wait_server`` is ``True``) or exit with an error."
 msgstr "首先，如果连接尝试超时，客户端将等待并重试（如果“is_wait_server”为“True”）或错误退出。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:110 886cd4ef91014a2ebc6da8553d306acf
+#: ../../Network_APIs/TCP_Client_APIs.rst:124 ae39b230e6de4fb2b13aae8a25859679
 msgid ""
 "Secondly, if the server is not running (connection refused), the behaviour "
 "is the same: retry or exit based on ``is_wait_server``."
 msgstr "其次，如果服务器未运行（连接被拒绝），行为是相同的：根据“is_wait_server”重试或退出。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:114 3a4a6091f37a45678470edbf444628b4
+#: ../../Network_APIs/TCP_Client_APIs.rst:128 60d4cebfe1da45b2adba73708226a41a
 msgid ""
 "If any other socket error occurs, the client will print the error message "
 "and return ``False``, and the `start_TCP_client` method will call "
@@ -235,11 +260,11 @@ msgid ""
 msgstr ""
 "如果发生任何其他套接字错误，客户端将打印错误消息并返回“False”，并且“start_TCP_client”方法将调用“sys.exit(1)”。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:118 9c74a5fcc6004aa98c419824e15620de
+#: ../../Network_APIs/TCP_Client_APIs.rst:132 4d62ed82ac8147dfa2ad9661f98fe0a4
 msgid "For shutting down the client, the `close` method is defined as:"
 msgstr "为了关闭客户端，“close”方法定义为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:125 2447167f23ef4dc9940be2753b6fccc3
+#: ../../Network_APIs/TCP_Client_APIs.rst:139 5055de71fc99452ca0658b37de7d5653
 msgid ""
 "In the `close` method, we set ``self.running`` to ``False``, free any "
 "allocated ports by calling `free_port`, and then close the client socket. "
@@ -247,92 +272,92 @@ msgid ""
 msgstr ""
 "在“close”方法中，我们将“self.running”设置为“False”，通过调用“free_port”释放所有分配的端口，然后关闭客户端套接字。这确保了干净的断开。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:129 fb8126d9df874688be50e596ac4fbd31
+#: ../../Network_APIs/TCP_Client_APIs.rst:143 ea053302e1f646118223e9a5a5643fd5
 msgid ""
 "*Note: The `free_port` method works similarly to the server side, releasing "
 "any manually allocated ports if manual allocation mode is enabled.*"
 msgstr "*注意：“free_port”方法的工作方式与服务器端类似，如果启用了手动分配模式，则释放任何手动分配的端口。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:136 f595aa8bb0764fc1b4f5234dede28154
+#: ../../Network_APIs/TCP_Client_APIs.rst:150 0d0a5ca9a83d476aa3468b98daa4e966
 msgid "TCP Client handling information API"
 msgstr "TCP客户端处理信息API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:138 82a14a114b6a4e099822308712897706
+#: ../../Network_APIs/TCP_Client_APIs.rst:152 579d22b1793a4433a142baa1f66c8178
 msgid ""
 "The client handling information API documents the core TCP client methods "
 "that manage the server connection, receive raw data, and send messages."
 msgstr "客户端处理信息 API 记录了管理服务器连接、接收原始数据和发送消息的核心 TCP 客户端方法。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:143 33c17700327b4fab85c59ba5af133c36
+#: ../../Network_APIs/TCP_Client_APIs.rst:157 d52222f2c1ff42b8a3e58ce469a0c836
 msgid ""
 "Unlike the server, the client maintains only a single connection and does "
 "not provide broadcast or ``send_msg_to_specific_client`` methods."
 msgstr "与服务器不同，客户端仅维护单个连接，并且不提供广播或“send_msg_to_specific_client”方法。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:153 70f4096013b5402092857698fb6a1949
+#: ../../Network_APIs/TCP_Client_APIs.rst:167 d8b4b5a64ce744298bb6a38dd5e5b2a6
 msgid ""
 "`receive_messages` is the main background thread function in "
 "``TCP_Client_Base``. It is started after a successful connection and is "
 "responsible for:"
 msgstr "`receive_messages` 是 `TCP_Client_Base` 中的主要后台线程函数。它在连接成功后启动，负责："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:157 7bba7ce021074333b8ecead73d52a1f5
+#: ../../Network_APIs/TCP_Client_APIs.rst:171 7b45ee33156c4c73bffc80b9de299b3d
 msgid ""
 "continuously receiving raw bytes from the server socket using "
 "`receive_message`"
 msgstr "使用“receive_message”连续从服务器套接字接收原始字节"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:158 4727b16225af4777b337afc3d28d157e
+#: ../../Network_APIs/TCP_Client_APIs.rst:172 2400897fcb80478689a33d7bc28fe070
 msgid "buffering incoming data until newline-terminated messages are complete"
 msgstr "缓冲传入数据，直到换行符终止的消息完成"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:159 cb0fdcac83ff431dbdfb03922bce5b6c
+#: ../../Network_APIs/TCP_Client_APIs.rst:173 5835dafd012249b19cc29e00e71a8eaf
 msgid "splitting and processing each message line-by-line"
 msgstr "逐行拆分和处理每条消息"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:160 f7b37a795e24436292531944f7456576
+#: ../../Network_APIs/TCP_Client_APIs.rst:174 1a4b2c3ad66040cdad02f8bf112e87cf
 msgid ""
 "routing special commands (starting with ``/``) that come from the server to "
 "`handle_server_command`"
 msgstr "将来自服务器的特殊命令（以“/”开头）路由到“handle_server_command”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:161 ef1cb08474da416c87792f0efe904616
+#: ../../Network_APIs/TCP_Client_APIs.rst:175 8031f977222449e9b76db73178368765
 msgid ""
 "printing normal (non‑command) messages to the console with a ``[server]`` "
 "prefix"
 msgstr "使用“[server]”前缀将正常（非命令）消息打印到控制台"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:162 f759079172cb4eb490bf58d2be611a0f
+#: ../../Network_APIs/TCP_Client_APIs.rst:176 14c08cc15df047b4bcab924351823c91
 msgid ""
 "handling connection resets and other socket errors, and cleaning up when the"
 " server closes the connection"
 msgstr "处理连接重置和其他套接字错误，并在服务器关闭连接时进行清理"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:171 ff66522b4fe64ffebe967865f419ce8b
+#: ../../Network_APIs/TCP_Client_APIs.rst:185 5c1224c896094644ba99fd071b605fdf
 msgid ""
 "In `handle_server_command`, the client processes built-in commands sent by "
 "the server, such as:"
 msgstr "在`handle_server_command`中，客户端处理服务器发送的内置命令，例如："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:174 a6c98e2b56054ba8b0ac5f1a105716da
+#: ../../Network_APIs/TCP_Client_APIs.rst:188 4af524d146654f3aa498d8e8d9b723c2
 msgid ""
 "``/client_alloc_port_range``: configures the clients manual port allocation "
 "range based on server broadcast."
 msgstr "``/client_alloc_port_range``：根据服务器广播配置客户端手动端口分配范围。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:176 9add0fc4f3f0445c957342f279506c6b
+#: ../../Network_APIs/TCP_Client_APIs.rst:190 b8b0aa2f3e84419b9ce7b32376ad4fce
 msgid ""
 "``/server_file_transfer_port``: receives the file transfer port assigned by "
 "the server for an ongoing file operation."
 msgstr "``/server_file_transfer_port``：接收服务器为正在进行的文件操作分配的文件传输端口。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:178 90dd925f4e7c4cfc9b0a20226c94f7f1
+#: ../../Network_APIs/TCP_Client_APIs.rst:192 baa78c3255e4413489265dc771dc9611
 msgid ""
 "``/file`` and ``/file_folder``: handle file transfer requests initiated by "
 "the server (server-to-client transfers)."
 msgstr "``/file`` 和 ``/file_folder``：处理服务器发起的文件传输请求（服务器到客户端传输）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:181 115e18e321874d13a7efe0ac093c94f3
+#: ../../Network_APIs/TCP_Client_APIs.rst:195 c279edb215b848e3848e6f7d9c8cc161
 msgid ""
 "If you have registered custom commands using the command extension API, "
 "`handle_server_command` will also check if the incoming command matches any "
@@ -341,17 +366,17 @@ msgstr ""
 "如果您使用命令扩展 API "
 "注册了自定义命令，“handle_server_command”还将检查传入命令是否与任何已注册的处理程序匹配并相应地执行它。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:186 fb26dc8fff0f4324b56b01d62738df63
+#: ../../Network_APIs/TCP_Client_APIs.rst:200 6924f99170b84134b1658f6700f8b7ae
 msgid ""
 "*Note: For more details of the command extension API, see the :ref:`tcp-"
 "client-command-api` section.*"
 msgstr "*注意：有关命令扩展 API 的更多详细信息，请参阅 :ref:`tcp-client-command-api` 部分。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:189 84d4f070f4b148908051ae7f91ef0c21
+#: ../../Network_APIs/TCP_Client_APIs.rst:203 cf383e3013c7490cb0a919ba396bd58a
 msgid "logging errors and disconnecting when the server closes the socket."
 msgstr "当服务器关闭套接字时记录错误并断开连接。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:199 f98dc9ee2064472e868eddb537d90a65
+#: ../../Network_APIs/TCP_Client_APIs.rst:213 287dfacf407a4c50b0f4882fb676affd
 msgid ""
 "`receive_message` is identical to the server version: it reads up to "
 "``msg_length`` bytes from the given socket and returns the raw byte payload."
@@ -359,44 +384,44 @@ msgid ""
 msgstr ""
 "“receive_message”与服务器版本相同：它从给定套接字读取最多“msg_length”字节并返回原始字节有效负载。消息解码和换行帧由调用者处理。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:212 c0540d984f584d009c9fb2f361a53871
+#: ../../Network_APIs/TCP_Client_APIs.rst:226 4b914b45e23e426d8228aa37bddca9ed
 msgid ""
 "`send_message` sends data from the client to the server. It verifies the "
 "client is still running and the socket is valid, then:"
 msgstr "`send_message` 将数据从客户端发送到服务器。它验证客户端仍在运行并且套接字有效，然后："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:215 d049f548e97f42259618f275cf224255
+#: ../../Network_APIs/TCP_Client_APIs.rst:229 ac9307d6104143ec93051651ae32cce4
 msgid "accepts both ``str`` and ``bytes`` message payloads"
 msgstr "接受“str”和“bytes”消息负载"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:216 a6739bd9875b40039220a6a47ac714e6
+#: ../../Network_APIs/TCP_Client_APIs.rst:230 bdaea61188774e77b565973c1c4cd5d7
 msgid "trims string payloads and appends a newline if missing"
 msgstr "修剪字符串有效负载并在丢失时附加换行符"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:217 b3db22495fe24e8e8c9753166340a62c
+#: ../../Network_APIs/TCP_Client_APIs.rst:231 14c5c9722299459aa94483305c50d133
 msgid "encodes string payloads as UTF-8"
 msgstr "将字符串有效负载编码为 UTF-8"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:218 efee420822744d1393940393ba7ed9c3
+#: ../../Network_APIs/TCP_Client_APIs.rst:232 38b7d94527b6442cbd733b62605a6ddb
 msgid "sends the complete message with ``client_socket.sendall(data)``"
 msgstr "使用“client_socket.sendall(data)”发送完整消息"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:219 418b0f3ffe2543d398c14ba9c11c439f
+#: ../../Network_APIs/TCP_Client_APIs.rst:233 4605777680f64e04912c95d89e87a23c
 msgid ""
 "returns ``True`` on success, otherwise logs the error and returns ``False``"
 msgstr "成功时返回“True”，否则记录错误并返回“False”"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:221 eab90d1e1d734eb6b94026a9790d6b82
+#: ../../Network_APIs/TCP_Client_APIs.rst:235 7efb20fbbfef42ae9ce518c67bda8427
 msgid ""
 "The client also provides an interactive input loop (`interactive_mode`) that"
 " reads user input from the console and sends messages to the server."
 msgstr "客户端还提供交互式输入循环（“interactive_mode”），用于从控制台读取用户输入并将消息发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:228 50dbf396ad2946f7985029de6780fecd
+#: ../../Network_APIs/TCP_Client_APIs.rst:242 6d2a02504482470cac47851ab5eebfd3
 msgid "TCP Client command API"
 msgstr "TCP 客户端命令 API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:230 ab75221a8da242aaad859aa891a801c4
+#: ../../Network_APIs/TCP_Client_APIs.rst:244 fbd60b293a644abdb0890fca8b54034c
 msgid ""
 "The client supports both built-in commands that the user can type in the "
 "console, and a command extension API similar to the server. The main entry "
@@ -406,7 +431,7 @@ msgstr ""
 "客户端既支持用户可以在控制台中键入的内置命令，也支持类似于服务器的命令扩展 "
 "API。传入服务器命令的主要入口点是“handle_server_command”，而用户输入的命令在“interactive_mode”下处理。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:236 d5c0393b9dcc4af09b691a20fe75b73d
+#: ../../Network_APIs/TCP_Client_APIs.rst:250 347c728fa4764b5088117bd8c27ecd45
 msgid ""
 "The client supports two modes of operation: interactive console input (when "
 "``is_input_command_in_console`` is ``True``) or programmatic control (when "
@@ -415,39 +440,39 @@ msgstr ""
 "客户端支持两种操作模式：交互式控制台输入（当 is_input_command_in_console 为 True 时）或编程控制（当为 False "
 "时）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:240 7933a73eef2d4855b95706e8082ba467
+#: ../../Network_APIs/TCP_Client_APIs.rst:254 090639db57e64dfb85e25f193c96409b
 msgid "Built-in client console commands (user-typed) include:"
 msgstr "内置客户端控制台命令（用户输入）包括："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:242 46e0fc1514ce4cdab885d1cd76142772
+#: ../../Network_APIs/TCP_Client_APIs.rst:256 d2228bf3025e4f2b9fd4fa30dadf54d3
 msgid ""
 "``/quit``: sends a quit message to the server and closes the connection."
 msgstr "``/quit``：向服务器发送退出消息并关闭连接。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:243 390c459840ad43a89ff03140c1c3952b
+#: ../../Network_APIs/TCP_Client_APIs.rst:257 6c8f5298fa434db3b63bc8bc3ffaa777
 msgid "``/file <file_path>``: starts a file transfer from client to server."
 msgstr "``/file <file_path>``：启动从客户端到服务器的文件传输。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:244 8b69081c4e204b1b87ed3fff4d77bcdb
+#: ../../Network_APIs/TCP_Client_APIs.rst:258 b39ba297ef5d4dad828c32f27c943038
 msgid ""
 "``/multiple_file <file1> <file2> ...``: sends multiple files from client to "
 "server (each in its own thread, respecting the semaphore limit)."
 msgstr ""
 "``/multiple_file <file1> <file2> ...``：从客户端发送多个文件到服务器（每个文件在其自己的线程中，遵守信号量限制）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:246 d6f08bdbc05845cc99d9743409dc234f
+#: ../../Network_APIs/TCP_Client_APIs.rst:260 0b7636b078f54ef1847e5915bef8882b
 msgid ""
 "``/file_folder <folder_path>``: sends an entire folder from client to "
 "server, preserving the directory structure."
 msgstr "``/file_folder <folder_path>``：将整个文件夹从客户端发送到服务器，保留目录结构。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:248 4c06a615d1104a46a9f9f98b80326375
+#: ../../Network_APIs/TCP_Client_APIs.rst:262 59291bafc5094aeb84fa2df77781c886
 msgid ""
 "``/multiple_file_folder <folder1> <folder2> ...``: sends multiple folders "
 "from client to server."
 msgstr "``/multiple_file_folder <folder1> <folder2> ...``：将多个文件夹从客户端发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:251 24eb3fc0db9c4c92b44acd29f0bb9d52
+#: ../../Network_APIs/TCP_Client_APIs.rst:265 e33010b288984dda90858f847a0d721f
 msgid ""
 "*Note: Unlike the server, the client does not have built-in ``/help``, "
 "``/time``, or ``/clients`` commands because those are typically handled by "
@@ -456,7 +481,7 @@ msgid ""
 msgstr ""
 "*注意：与服务器不同，客户端没有内置的“/help”、“/time”或“/clients”命令，因为这些命令通常由服务器处理。客户端的``/help``命令没有执行；用户应参阅服务器文档以获取可用命令。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:257 19ea9cf511e84d369c18a2f1642b5cb1
+#: ../../Network_APIs/TCP_Client_APIs.rst:271 e8e2e712f5934a73876d212da574be8b
 msgid ""
 "If a user types a command that is not built-in, the client will check if it "
 "matches any registered custom commands (see command extension API below). If"
@@ -466,23 +491,23 @@ msgstr ""
 "如果用户键入非内置命令，客户端将检查它是否与任何已注册的自定义命令匹配（请参阅下面的命令扩展 "
 "API）。如果是，客户端将调用关联的处理程序；否则，该消息将作为普通聊天消息发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:263 334cf9b7bafb4a01afde61e4d793622a
+#: ../../Network_APIs/TCP_Client_APIs.rst:277 c8b40f3f22e141518d0b09a366bb5958
 msgid "The command extension API for the client is defined as:"
 msgstr "客户端的命令扩展 API 定义为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:275 2b696e4aa0954d11a7ce4c2a85d8955b
+#: ../../Network_APIs/TCP_Client_APIs.rst:289 90da3c66bdff4263a56ef1142e8e6e3b
 msgid ""
 "The arguments of the `register_command` function are the same as on the "
 "server side:"
 msgstr "`register_command` 函数的参数与服务器端相同："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:278 a3011575068b4f91a020f9066020a1db
+#: ../../Network_APIs/TCP_Client_APIs.rst:292 35f7277df99f4c8db35f5a2f12f537bf
 msgid ""
 "``command_name``: The name of the command to register (should start with a "
 "slash, e.g., ``/mycmd``)."
 msgstr "``command_name``：要注册的命令的名称（应以斜杠开头，例如``/mycmd``）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:280 7e6d1cef9805466784e226417c944c48
+#: ../../Network_APIs/TCP_Client_APIs.rst:294 0b4a51502abc48a7a371412df8c98073
 msgid ""
 "``handler``: The function to call when the command is received. The handler "
 "must accept three parameters: ``client_socket``, ``client_address``, and "
@@ -490,7 +515,7 @@ msgid ""
 msgstr ""
 "``handler``：收到命令时调用的函数。处理程序必须接受三个参数：“client_socket”、“client_address”和“command”。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:282 3c45eccdabab4fb887e550e9e6836651
+#: ../../Network_APIs/TCP_Client_APIs.rst:296 a861f127c11646b7b19b2964a08ff174
 msgid ""
 "``where_to_run``: Specifies where the command should be executed. Valid "
 "values are ``\"server\"`` (command sent from the server) or ``\"client\"`` "
@@ -498,13 +523,13 @@ msgid ""
 msgstr ""
 "``where_to_run``：指定应执行命令的位置。有效值为“服务器”（从服务器发送的命令）或“客户端”（在客户端控制台中键入的命令）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:284 9790e4c2e6184e53afcd91d4718ad142
+#: ../../Network_APIs/TCP_Client_APIs.rst:298 107060b5ad244287986f590d2d36e528
 msgid ""
 "``run_in_thread``: A boolean indicating whether to run the handler in a "
 "separate thread from the thread pool."
 msgstr "“run_in_thread”：一个布尔值，指示是否在线程池中的单独线程中运行处理程序。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:287 b93f454dbb34495b9650af6063f85d59
+#: ../../Network_APIs/TCP_Client_APIs.rst:301 8af67bc690c94fb98e06b19e646ff722
 #, python-brace-format
 msgid ""
 "*Note: The client stores registered commands in the same structure as the "
@@ -515,7 +540,7 @@ msgstr ""
 "*注意：客户端以与服务器相同的结构存储注册命令：``self._custom_handlers = [{}, {}]``，其中索引 0 "
 "用于来自服务器的命令，索引 1 用于在客户端控制台中键入的命令。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:292 5962fdf0f6b84278a2a36f6af9b0424f
+#: ../../Network_APIs/TCP_Client_APIs.rst:306 8667db3c5e5b47ef8a80bc7b1a57498d
 msgid ""
 "The client also provides the `submit_task` method to submit functions to its"
 " internal thread pool executor, and `_execute_custom_handler` to safely "
@@ -523,7 +548,7 @@ msgid ""
 msgstr ""
 "客户端还提供“submit_task”方法来将函数提交到其内部线程池执行器，并提供“_execute_custom_handler”来安全地执行带有错误处理的注册处理程序。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:306 72c0f44f40f041cbb66fcbeb5db75e3f
+#: ../../Network_APIs/TCP_Client_APIs.rst:320 df897664ab704aa1a7d85b29bfbc860b
 msgid ""
 "The `submit_task` method works identically to the server version: it submits"
 " a callable to the client's thread pool, using a semaphore to limit "
@@ -531,18 +556,18 @@ msgid ""
 msgstr ""
 "“submit_task”方法的工作方式与服务器版本相同：它向客户端线程池提交一个可调用函数，使用信号量将并发限制为“max_custom_workers”。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:311 27e0bec4e1e94132be77226b06f23b3d
+#: ../../Network_APIs/TCP_Client_APIs.rst:325 6c7578e086c448f990ea8b8b37525435
 msgid "Temporary server and client creation"
 msgstr "临时服务器和客户端创建"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:313 94a3b8aa6d074735a61dcecc36e268b8
+#: ../../Network_APIs/TCP_Client_APIs.rst:327 c3b3550b66f24bc7874755b2459c5c31
 msgid ""
 "The client also includes temporary TCP server and client creation APIs. They"
 " are similar to those in the server class but use `self.client_host` as the "
 "local binding address."
 msgstr "客户端还包括临时 TCP 服务器和客户端创建 API。它们与服务器类中的类似，但使用 self.client_host 作为本地绑定地址。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:326 4f6f26c21d01447dbadf008afd31a16a
+#: ../../Network_APIs/TCP_Client_APIs.rst:340 959fa1011635477994608bfcc873caa5
 msgid ""
 "`create_temporary_server` binds to ``(self.client_host, port)``. If ``port``"
 " is ``None``, it calls ``self.palloc()`` to obtain a port (in manual mode) "
@@ -553,7 +578,7 @@ msgstr ""
 "port)``。如果“port”为“None”，它将调用“self.palloc()”来获取端口（在手动模式下）或返回“0”（操作系统分配）。它返回一个元组“(port,"
 " server_thread, stop_event)”。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:341 9899dd5ba074401cb96a965f701b61d5
+#: ../../Network_APIs/TCP_Client_APIs.rst:355 d2f364adb9ed42ea8637ca48dd8d0595
 msgid ""
 "`create_temporary_client` connects to the specified server. If ``bind_port``"
 " is given, it binds to ``(self.client_host, bind_port)``. If ``bind_port`` "
@@ -564,18 +589,18 @@ msgstr ""
 "`create_temporary_client` "
 "连接到指定的服务器。如果给出了“bind_port”，它将绑定到“(self.client_host，bind_port)”。如果“bind_port”为“None”，它将通过“self.palloc()”获取端口并自动绑定。它返回一个元组``（client_sock，recv_thread，stop_event）``。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:347 eb888f42584f489cb36b9c779042d2bb
+#: ../../Network_APIs/TCP_Client_APIs.rst:361 a2fa8686e07d4c68949292a6788ec2f6
 msgid ""
 "These methods allow the client to act as a temporary server or to spawn a "
 "separate client connection for auxiliary tasks (such as file transfers), "
 "without interfering with the main connection."
 msgstr "这些方法允许客户端充当临时服务器或为辅助任务（例如文件传输）生成单独的客户端连接，而不会干扰主连接。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:353 b053b5aa388941679b821963708ccd06
+#: ../../Network_APIs/TCP_Client_APIs.rst:367 5642f99e69174da78793e6cbc9eb76f4
 msgid "TCP Client console commands (interactive mode)"
 msgstr "TCP 客户端控制台命令（交互模式）"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:355 e40f7eacb43a408a9444da857b8e8ae8
+#: ../../Network_APIs/TCP_Client_APIs.rst:369 88b59527ea854c36b08d49fdf25ea0b6
 msgid ""
 "When the client is started with ``is_input_command_in_console=True`` (the "
 "default), the `interactive_mode` method is invoked. This method reads lines "
@@ -583,51 +608,51 @@ msgid ""
 msgstr ""
 "当客户端以“is_input_command_in_console=True”（默认值）启动时，将调用“interactive_mode”方法。此方法从标准输入读取行并处理它们。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:359 4941f73848b849ce8e4d25121379a0b1
+#: ../../Network_APIs/TCP_Client_APIs.rst:373 50ba899556a847e1a75d0f25cd7fe2d6
 msgid "Supported console commands (user-typed) include:"
 msgstr "支持的控制台命令（用户输入）包括："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:361 672c2568d0704e36b3352cb03a375101
+#: ../../Network_APIs/TCP_Client_APIs.rst:375 41aff323a0ca45e4956349da8188b827
 msgid "``/quit``: closes the connection and exits the client."
 msgstr "``/quit``：关闭连接并退出客户端。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:362 c93abdfa645a482f9ff5930a5b26e354
+#: ../../Network_APIs/TCP_Client_APIs.rst:376 79bd91d3227f4a4380a275c7c66badc4
 msgid "``/file <file_path>``: sends a single file to the server."
 msgstr "``/file <file_path>``：将单个文件发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:363 670198eb673b4b92a6b9ba3a964e14ae
+#: ../../Network_APIs/TCP_Client_APIs.rst:377 e052489f58284ed785609691c6faf299
 msgid ""
 "``/multiple_file <file1> <file2> ...``: sends multiple files to the server "
 "concurrently (limited by ``max_thread_num``)."
 msgstr ""
 "``/multiple_file <file1> <file2> ...``：同时发送多个文件到服务器（受``max_thread_num`` 限制）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:364 3a560c842e9e42acbd4e0356ad6b32e6
+#: ../../Network_APIs/TCP_Client_APIs.rst:378 c02efdf8d4db4093bf7010e9b5cd1190
 msgid ""
 "``/file_folder <folder_path>``: sends an entire folder to the server, "
 "recursively."
 msgstr "``/file_folder <folder_path>``：递归地将整个文件夹发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:365 0b51772d1afa4dbba3bab2036dccc82e
+#: ../../Network_APIs/TCP_Client_APIs.rst:379 6890978f8c57457dae871840f2e52d1d
 msgid ""
 "``/multiple_file_folder <folder1> <folder2> ...``: sends multiple folders to"
 " the server."
 msgstr "``/multiple_file_folder <folder1> <folder2> ...``：将多个文件夹发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:366 3009c5b9306345e6943dcc6a4f65ed2c
+#: ../../Network_APIs/TCP_Client_APIs.rst:380 eb50001ce2ef4a62b79e3cc3cf78e31d
 msgid ""
 "Any other text not starting with ``/`` is sent as a normal chat message to "
 "the server."
 msgstr "任何不以“/”开头的其他文本都会作为普通聊天消息发送到服务器。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:369 4e955420a43c48dea2b884a3759c83eb
+#: ../../Network_APIs/TCP_Client_APIs.rst:383 ce5de1ebe30a4545ae4f62426b18df14
 msgid ""
 "The client does not have a built-in ``/help`` command. Please refer to the "
 "server's help for available commands (e.g., by typing ``/help`` after "
 "connecting to the server)."
 msgstr "客户端没有内置的“/help”命令。请参阅服务器的帮助以获取可用命令（例如，在连接到服务器后键入“/help”）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:373 9deaa8c8e1a94965b24f1a00436a38d9
+#: ../../Network_APIs/TCP_Client_APIs.rst:387 5ddc240e5bab4f95ac404ece507fbfcb
 msgid ""
 "If a user types a custom command that has been registered with "
 "``register_command(..., where_to_run=\"client\")``, the client will execute "
@@ -636,73 +661,73 @@ msgstr ""
 "如果用户键入已使用“register_command(..., "
 "where_to_run=\"client\")”注册的自定义命令，客户端将执行关联的处理程序（同步或在线程中，根据配置）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:378 c33d8f70c777488e8b44b2e9fad7361b
+#: ../../Network_APIs/TCP_Client_APIs.rst:392 78d4d1ea9dac4b429eb10549bd635efb
 msgid ""
 "*Note: The client will print an error message for unknown commands that "
 "start with ``/``.*"
 msgstr "*注意：对于以``/``开头的未知命令，客户端将打印一条错误消息。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:381 aedd3d94ed264a788808e2e447fd7332
+#: ../../Network_APIs/TCP_Client_APIs.rst:395 dd97e2c92f4447e1bf153b30202072cc
 msgid "Example interactive session::"
 msgstr "交互式会话示例::"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:394 754b2367cd0b48f181e6962a4c96dbae
+#: ../../Network_APIs/TCP_Client_APIs.rst:408 169cd228a1fc4073bc934c73b707d52a
 msgid "TCP Client file transfer API"
 msgstr "TCP客户端文件传输API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:396 d07de7a40c9941de9b2c8ab53bd4e510
+#: ../../Network_APIs/TCP_Client_APIs.rst:410 1f297ae5a02a42f58e750021b8fd8cce
 msgid ""
 "The TCP client contains a file transfer subsystem that supports both client-"
 "to-server and server-to-client transfers, using the same underlying protocol"
 " as the server."
 msgstr "TCP 客户端包含一个文件传输子系统，支持客户端到服务器和服务器到客户端传输，使用与服务器相同的底层协议。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:400 146235f85aab40e298063c086d802005
+#: ../../Network_APIs/TCP_Client_APIs.rst:414 6d315aa1ee264adfb15ae595127cf661
 msgid ""
 "As with the server documentation, only the list of APIs is provided here. "
 "For detailed internal flow, please refer to the server documentation or the "
 "source code."
 msgstr "与服务器文档一样，此处仅提供 API 列表。详细的内部流程请参考服务器文档或者源码。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:404 6aee1257a4d64b4da2cd75ca16a0f895
+#: ../../Network_APIs/TCP_Client_APIs.rst:418 8a23cc9d286f48a5845795ec935cbc1b
 msgid "The file transfer API for the client includes:"
 msgstr "客户端的文件传输API包括："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:406 f083516a3386496aada2910cd21b553a
+#: ../../Network_APIs/TCP_Client_APIs.rst:420 1b1ab906105541d9a988a8af54e5af94
 msgid "The basic function for client-to-server file transfer is:"
 msgstr "客户端到服务器文件传输的基本功能是："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:416 1d1cc5f061e44c62bab2b912fa705e0a
+#: ../../Network_APIs/TCP_Client_APIs.rst:430 882c8313c9d0485886e2ea067b7aaa03
 msgid "The thread-safe version (recommended for direct calls) is:"
 msgstr "线程安全版本（推荐直接调用）是："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:426 bdc396173fae438d8f6f067c372336dd
+#: ../../Network_APIs/TCP_Client_APIs.rst:440 29662fdeaab8494e9f7fe879a62f5f0a
 msgid "The folder transfer function (client-to-server) is:"
 msgstr "文件夹传输函数（客户端到服务器）为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:435 52bc8fbea1d146a593e908c8f8ba6b87
+#: ../../Network_APIs/TCP_Client_APIs.rst:449 74145548707a4208a4db45a73312bc51
 msgid "The multiple files transfer function (client-to-server) is:"
 msgstr "多文件传输功能（客户端到服务器）是："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:444 8ecdde98375541d490b36f631167c540
+#: ../../Network_APIs/TCP_Client_APIs.rst:458 96baf1f10afd42f48c0b6d79828ff35c
 msgid "The multiple folders transfer function is:"
 msgstr "多文件夹传输函数为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:453 6c9569e879b7401f9f9440d91c1bc23c
+#: ../../Network_APIs/TCP_Client_APIs.rst:467 c3bdbafe138e4af1a03937c9c0ab5987
 msgid ""
 "For server-initiated transfers (server-to-client), the client provides these"
 " handlers:"
 msgstr "对于服务器发起的传输（服务器到客户端），客户端提供以下处理程序："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:481 eaf48cdecab14255a6eea1dfa217d985
+#: ../../Network_APIs/TCP_Client_APIs.rst:495 33811f9100604b81a291bba70b308a61
 msgid "The low-level receive mode function is:"
 msgstr "低级接收模式函数为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:496 55938a6a9ca142edbbf463c0bff3c35e
+#: ../../Network_APIs/TCP_Client_APIs.rst:510 06c76a36053e40b2a6bd528a272531bd
 msgid "And the low-level send mode function is:"
 msgstr "低层发送模式函数为："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:508 df079ea056fe41b7b248d6819742e5cc
+#: ../../Network_APIs/TCP_Client_APIs.rst:522 26db4a518a9a4f1b9475a7a1ef4f722c
 msgid ""
 "We recommend that for client-to-server file transfers, you use the console "
 "commands (``/file``, ``/file_folder``, etc.) rather than calling these APIs "
@@ -715,7 +740,7 @@ msgstr ""
 "API，因为控制台命令已经正确处理线程和信号量限制。如果您需要直接调用 API，请使用 `_thread` "
 "版本（例如，`file_transfer_client_recv_client_start_thread`）以避免阻塞主线程。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:517 dd9bc2ded07743c29024cf29178478af
+#: ../../Network_APIs/TCP_Client_APIs.rst:531 6787a427e6b14e8a8e43e8bc076b7b3e
 msgid ""
 "*Note: The file transfer API functions follow the same handshake protocol as"
 " the server: the initiator sends a command over the main connection, then a "
@@ -724,11 +749,11 @@ msgid ""
 msgstr ""
 "*注意：文件传输 API 函数遵循与服务器相同的握手协议：发起者通过主连接发送命令，然后协商临时端口，并通过单独的 TCP 连接传输实际文件数据。*"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:524 1abf6c56feab409f817557d675f4acd9
+#: ../../Network_APIs/TCP_Client_APIs.rst:538 2fad9776a48344b5ad7538b4fb611529
 msgid "Port allocation API"
 msgstr "端口分配API"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:526 e0ad6c4893324e62bfcd860d98ed8a44
+#: ../../Network_APIs/TCP_Client_APIs.rst:540 5268492432ab4b56b31657dbe06a7be3
 msgid ""
 "The client port allocation APIs are nearly identical to those of the server."
 " They allow you to allocate ephemeral ports either automatically (by "
@@ -736,7 +761,7 @@ msgid ""
 msgstr ""
 "客户端端口分配 API 与服务器的端口分配 API 几乎相同。它们允许您自动分配临时端口（通过返回 0，让操作系统选择）或在配置的范围内手动分配。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:531 a3ed3ea077d740858b52f94f7e1b9041
+#: ../../Network_APIs/TCP_Client_APIs.rst:545 0e605c10bcd54a51a8b2b59287deb005
 msgid ""
 "To change the port allocation mode, the client listens to the server's "
 "broadcast of ``/client_alloc_port_range``. When the server sends that "
@@ -747,7 +772,7 @@ msgstr ""
 "要更改端口分配模式，客户端侦听服务器的“/client_alloc_port_range”广播。当服务器发送带有数字的命令时，客户端设置“self.is_hand_alloc_port"
 " = True”并配置范围。如果服务器发送“NO_LIMIT”，则客户端使用自动分配（从分配调用返回 0）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:538 e89d00e2fd4c4d95abc5c19989bdf45b
+#: ../../Network_APIs/TCP_Client_APIs.rst:552 faa64b601f724aebaf4b7f481e9f41cd
 msgid ""
 "In manual allocation mode, the port range is determined by the server's "
 "broadcast value. The client maintains its own range based on ``self.port`` "
@@ -759,11 +784,11 @@ msgstr ""
 " - self.port_add_step *each_client_port_range”，最大端口为“self.port + 1 + "
 "self.port_add_step *each_client_port_range”。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:546 b89ca759fd3047558ccb350c73f1f92a
+#: ../../Network_APIs/TCP_Client_APIs.rst:560 ecd4af8a50c74013bf03f8eace25b63f
 msgid "The main methods for port allocation are:"
 msgstr "端口分配的主要方法有："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:553 1ce4acafd5fb43bbbd4ca9b5e4382ec4
+#: ../../Network_APIs/TCP_Client_APIs.rst:567 a83c279f3ce44785994831361b60fca3
 msgid ""
 "`palloc` returns an available port (either 0 for automatic mode, or a "
 "concrete port number from the manual range). It internally calls "
@@ -773,14 +798,14 @@ msgstr ""
 "`palloc` 返回一个可用端口（自动模式为 "
 "0，或者手动范围内的具体端口号）。它在内部循环调用“file_palloc”（加法分配）和“spy_palloc”（减法分配）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:565 5c0c6e6b473e4abcae1297d68f556f9e
+#: ../../Network_APIs/TCP_Client_APIs.rst:579 d9f1616d056947cc919f8b02702e555a
 msgid ""
 "`pfree` releases a previously allocated port. In manual mode, it removes the"
 " port from the internal list and adjusts the latest port pointers. In "
 "automatic mode, it does nothing."
 msgstr "`pfree` 释放先前分配的端口。在手动模式下，它将端口从内部列表中删除并调整最新的端口指针。在自动模式下，它不执行任何操作。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:570 2ba1f99051c9467b9be7eb94ba97cfb8
+#: ../../Network_APIs/TCP_Client_APIs.rst:584 e8bec0b5e4f24e35ba4bd8fdde0992da
 msgid ""
 "As with the server, the automatic mode (returning 0) is recommended for most"
 " use cases because it avoids port conflicts and simplifies code. Manual mode"
@@ -789,156 +814,163 @@ msgid ""
 msgstr ""
 "与服务器一样，建议大多数用例使用自动模式（返回 0），因为它可以避免端口冲突并简化代码。手动模式适用于必须严格控制端口范围的环境（例如防火墙或测试）。"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:577 4ab3b128584c4cccbcf199a6a15b77cc
+#: ../../Network_APIs/TCP_Client_APIs.rst:591 6f8647e930984ea0b55f4974b8c746ee
 msgid "TCP Client APIs table"
 msgstr "TCP 客户端 API 表"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:579 3639b6a47ab84148a4cc44c17bf6432e
+#: ../../Network_APIs/TCP_Client_APIs.rst:593 87f94971d9eb4aedabd77da2e39c5a54
 msgid "In short, the table of contents of the public APIs are as follows:"
 msgstr "简而言之，公共API的目录如下："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:582 a94f55334af34960b0c254b4935a2e93
+#: ../../Network_APIs/TCP_Client_APIs.rst:596 3ef9e8bdf0de4dd6bf1f7fab94791ef0
 msgid "The client setup APIs:"
 msgstr "客户端设置 API："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:583 e7d68b9160fb4e90a118a4bb72b5cec4
+#: ../../Network_APIs/TCP_Client_APIs.rst:597 3b11e19eee2f4a09990d9066c92b27bc
 msgid "`TCP_Client_Base`"
 msgstr "`TCP_Client_Base`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:584 884c3680a3fe4242af29fdaaeca56e61
+#: ../../Network_APIs/TCP_Client_APIs.rst:598 c56acd7ebb10410f98295e2c580d6ddd
 msgid "`start_TCP_client`"
 msgstr "`启动_TCP_客户端`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:585 77e2b0526b7b42668f1251784814fc69
+#: ../../Network_APIs/TCP_Client_APIs.rst:599 35928e0cfbda47b082b3c85bee2426c1
 msgid "`connect`"
 msgstr "`连接`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:586 2f5be16c80f9450cbe54c37cb768e84c
+#: ../../Network_APIs/TCP_Client_APIs.rst:600 e42772de8df642888dd617e757f84643
 msgid "`close`"
 msgstr "`关闭`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:588 91537cb9d370468a91969112558c4a26
+#: ../../Network_APIs/TCP_Client_APIs.rst:602 f8df2e41432a47c0ae4f8f18553dab5f
 msgid "The client handling information APIs:"
 msgstr "客户端处理信息API："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:589 4d27ac4f4d994abaaa5a36770a205666
+#: ../../Network_APIs/TCP_Client_APIs.rst:603 da09cd847e734a3ca725874cd4f91820
 msgid "`receive_messages`"
 msgstr "`接收消息`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:590 31614d1d41d14f51be88595b13413d9a
+#: ../../Network_APIs/TCP_Client_APIs.rst:604 41b2ffc90c654b0a93eb545037f753b1
 msgid "`handle_server_command`"
 msgstr "`处理服务器命令`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:591 3f9ca93d899b42178aeedc8f0b6b708e
+#: ../../Network_APIs/TCP_Client_APIs.rst:605 51895b485dd34210baaf04545b1ae69a
 msgid "`receive_message`"
 msgstr "`接收消息`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:592 376056fb675747f588ffb1d1ef27d23b
+#: ../../Network_APIs/TCP_Client_APIs.rst:606 d57a12920adf4dd983a450ca5700aa85
 msgid "`send_message`"
 msgstr "`发送消息`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:593 bf2c940bf3354db5b6b63e8f0c6c3cd0
+#: ../../Network_APIs/TCP_Client_APIs.rst:607 c77756587a9f4be2a4f031823b7c847d
 msgid "`interactive_mode`"
 msgstr "`交互模式`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:595 4f1baf4c03484385816c6a0a6cfeabdb
+#: ../../Network_APIs/TCP_Client_APIs.rst:609 2612b604a3824206a4e5dac6ebde241e
 msgid "The client command APIs:"
 msgstr "客户端命令API："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:596 c020608c52f24ef29194bd1f39d05320
+#: ../../Network_APIs/TCP_Client_APIs.rst:610 0759f093e3ce4fc6a9eeec5a559f5135
 msgid "`register_command`"
 msgstr "`注册命令`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:597 7020a97239c040ba9889458754903116
+#: ../../Network_APIs/TCP_Client_APIs.rst:611 adf7e8f1871745b1ba8c889b894b6f36
 msgid "`_execute_custom_handler`"
 msgstr "`_execute_custom_handler`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:598 08975f1335e544949dcda92497c62265
+#: ../../Network_APIs/TCP_Client_APIs.rst:612 dd16a2c2039340829f5ad47171cdfe53
 msgid "`submit_task`"
 msgstr "`提交任务`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:599 05f3d3703be9473e9207941e54d6bd16
+#: ../../Network_APIs/TCP_Client_APIs.rst:613 1be3026524a04204baa85c94ef80e223
 msgid "`create_temporary_server`"
 msgstr "`创建临时服务器`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:600 e3908d4f2701495fb9ccfe21864d712d
+#: ../../Network_APIs/TCP_Client_APIs.rst:614 38857e73eb0640e18e428d6ef1f000bf
 msgid "`create_temporary_client`"
 msgstr "`创建临时客户端`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:602 ea496fa14ac749aea182975e8c8efbe3
+#: ../../Network_APIs/TCP_Client_APIs.rst:616 d72d840f60154cdf9d90248a15bad9c7
 msgid "The client file transfer APIs:"
 msgstr "客户端文件传输API："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:603 519701d92ab541288d944385e7ae5f99
+#: ../../Network_APIs/TCP_Client_APIs.rst:617 a263b56c2d2d435eb5b3c01eb673db14
 msgid "`file_transfer_client_recv_client_start`"
 msgstr "`file_transfer_client_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:604 d8d16e1a4d084117b9f8327c79e717fa
+#: ../../Network_APIs/TCP_Client_APIs.rst:618 befdda74dd4d46989c8eecc34791474e
 msgid "`file_transfer_client_recv_client_start_thread`"
 msgstr "`file_transfer_client_recv_client_start_thread`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:605 eb6c0e4ab9684f0d85406615b442fa00
+#: ../../Network_APIs/TCP_Client_APIs.rst:619 c6188aba9859499ba0794ce6858693f1
 msgid "`folder_file_transfer_client_recv_client_start`"
 msgstr "`folder_file_transfer_client_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:606 9f14d23736b24eb7ae429e992df0c4c7
+#: ../../Network_APIs/TCP_Client_APIs.rst:620 ff78436e7eb24dd19cbe4825015f8828
 msgid "`multiple_file_transfer_client_recv_client_start`"
 msgstr "`multiple_file_transfer_client_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:607 8a9fd2ada1e545cd96d2a2b37e448083
+#: ../../Network_APIs/TCP_Client_APIs.rst:621 49d8c37f75784a5babf650e6812d1958
 msgid "`multiple_folder_file_transfer_client_recv_client_start`"
 msgstr "`multiple_folder_file_transfer_client_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:608 881d59a53518402382622aeb8a6031c1
+#: ../../Network_APIs/TCP_Client_APIs.rst:622 f716310ec8d5413c8d3681abcb8e20c5
 msgid "`file_transfer_client_recv_server_start`"
 msgstr "`file_transfer_client_recv_server_start`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:609 5d4b982d67204b938b36c73e33a3b292
+#: ../../Network_APIs/TCP_Client_APIs.rst:623 213d1e20073f48d0ab4bfa40f4802ecc
 msgid "`file_transfer_client_recv_server_start_thread`"
 msgstr "`file_transfer_client_recv_server_start_thread`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:610 2af7f3004a2d4c0a93992ca7a6eee759
+#: ../../Network_APIs/TCP_Client_APIs.rst:624 2904d623fb3945a4bf765161df1010b6
 msgid "`file_folder_transfer_client_recv_server_start_thread`"
 msgstr "`file_folder_transfer_client_recv_server_start_thread`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:611 360eebe76e86472e924a66f185948f79
+#: ../../Network_APIs/TCP_Client_APIs.rst:625 2b37749681d04c2189da298afbc37a9c
 msgid "`file_transfer_mode_recv`"
 msgstr "`文件传输模式_接收`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:612 c40c2d3d5c6e4ec4a67781bebd53f40c
+#: ../../Network_APIs/TCP_Client_APIs.rst:626 7d808959dd404a37b84751f18f4f97ab
 msgid "`file_transfer_mode`"
 msgstr "`文件传输模式`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:614 6bf8586eca944d618f7d378486c85fd1
+#: ../../Network_APIs/TCP_Client_APIs.rst:628 22fff416b2de49b4a990313c09d2bdb8
 msgid "The client console commands (interactive mode):"
 msgstr "客户端控制台命令（交互模式）："
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:615 90e576ff5eae4284b6dfba694090c4c7
+#: ../../Network_APIs/TCP_Client_APIs.rst:629 20deb7f928564eaf9696e9368bcc58ca
 msgid "`/quit`"
 msgstr "`/退出`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:616 385cedd5f7c248de91304ad3948a79ff
+#: ../../Network_APIs/TCP_Client_APIs.rst:630 24b2938e2b97479b89830e942cec25f6
 msgid "`/file`"
 msgstr "`/文件`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:617 57606c1bd6564a6fa4e9b6a74923c497
+#: ../../Network_APIs/TCP_Client_APIs.rst:631 e8b4dcf8a8b948c7bc387d1bbb80940b
 msgid "`/multiple_file`"
 msgstr "`/多个文件`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:618 cbb8602a1c3a4d64a0d330c1ec02976b
+#: ../../Network_APIs/TCP_Client_APIs.rst:632 d8ac3c78f9a4435ebdd46a657d3e9d64
 msgid "`/file_folder`"
 msgstr "`/文件文件夹`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:619 408b06cff35048cea4ea2b19f533bc31
+#: ../../Network_APIs/TCP_Client_APIs.rst:633 5dd0f10c02d14eaabbb9aac63a7aabe5
 msgid "`/multiple_file_folder`"
 msgstr "`/多个文件文件夹`"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:622 3a6b280ea6dc414d99ed06678db3724b
+#: ../../Network_APIs/TCP_Client_APIs.rst:636 999f277a1054439eb06a68030e00efb1
 msgid "See Also"
 msgstr "参见"
 
-#: ../../Network_APIs/TCP_Client_APIs.rst:624 de9b90d8615a4b7f87168eb53306f1f3
-msgid ""
-"For more information about the server APIs, please visit the server API "
-"documentation, at :doc:`TCP_Server_APIs`."
-msgstr "有关服务器 API 的更多信息，请访问服务器 API 文档，网址为：doc:`TCP_Server_APIs`。"
+#: ../../Network_APIs/TCP_Client_APIs.rst:638 0eb5ad362c8a481f9f16a441ce19853f
+msgid ":doc:`TCP_Server_APIs` — TCP server."
+msgstr ":doc:`TCP_Server_APIs` — TCP 服务器。"
+
+#: ../../Network_APIs/TCP_Client_APIs.rst:639 13bb1727ee954f5ebbaef0615f72bf79
+msgid ":doc:`UDP_APIs` — UDP endpoint."
+msgstr ":doc:`UDP_APIs` — UDP 端点。"
+
+#~ msgid ""
+#~ "For more information about the server APIs, please visit the server API "
+#~ "documentation, at :doc:`TCP_Server_APIs`."
+#~ msgstr "有关服务器 API 的更多信息，请访问服务器 API 文档，网址为：doc:`TCP_Server_APIs`。"

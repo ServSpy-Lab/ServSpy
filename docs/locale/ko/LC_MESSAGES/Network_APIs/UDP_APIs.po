@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, RayXu
+# This file is distributed under the same license as the PyFlow package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyFlow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-20 22:54+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+
+#: ../../Network_APIs/UDP_APIs.rst:2 7ac70647d42046318dfab3dceb5f676e
+msgid "The UDP API"
+msgstr "UDP API"
+
+#: ../../Network_APIs/UDP_APIs.rst:5 fb9b5b772ae14d90a447cc256defff89
+msgid "UDP setup API"
+msgstr "UDP 설정 API"
+
+#: ../../Network_APIs/UDP_APIs.rst:7 bb47224d494c475181b63895cfd49494
+msgid ""
+"The UDP Setup API is used to create a UDP endpoint. The UDP endpoint in the "
+"protocol is usually used for service discovery, broadcast, and simple "
+"request-response communication."
+msgstr ""
+"UDP 설정 API는 UDP 엔드포인트를 생성하는 데 사용됩니다. 프로토콜의 UDP 끝점은 일반적으로 서비스 검색, 브로드캐스트 및 "
+"간단한 요청-응답 통신에 사용됩니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:17 ffd0fd70856b4c5cacd0494ff5c22ddf
+msgid ""
+"The UDP endpoint is defined in the ``UDP`` class. The socket is created and "
+"bound in the constructor. Both ``SO_REUSEADDR`` and ``SO_BROADCAST`` are set"
+" automatically."
+msgstr ""
+"UDP 끝점은 ``UDP`` 클래스에 정의되어 있습니다. 소켓은 생성자에서 생성되고 바인딩됩니다. ``SO_REUSEADDR``과 "
+"``SO_BROADCAST``는 모두 자동으로 설정됩니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:21 6e2bac787d354847b41912c1076b5b8b
+msgid "Parameters of the ``__init__`` method are as follows:"
+msgstr "``__init__`` 메소드의 매개변수는 다음과 같습니다:"
+
+#: ../../Network_APIs/UDP_APIs.rst:23 9820cd4f16d74b8c81448c9fd2d7e935
+msgid ""
+"``host``: The interface to bind to. Default is ``\"0.0.0.0\"`` (all "
+"interfaces)."
+msgstr "``host``: 바인딩할 인터페이스입니다. 기본값은 ``0.0.0.0\"``(모든 인터페이스)입니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:25 386de0739f014490ad13bba46e82662c
+msgid ""
+"``port``: The port to bind to. Default is ``0``, which lets the OS choose an"
+" available port dynamically."
+msgstr ""
+"``port``: 바인딩할 포트입니다. 기본값은 ``0``이며, 이를 통해 OS는 사용 가능한 포트를 동적으로 선택할 수 있습니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:28 19765b62119c4954b63c04fa3bd58de4
+msgid "Every parameter has a default value:"
+msgstr "모든 매개변수에는 기본값이 있습니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:30 2f23661c675241bfa68d07923890e076
+msgid "``host``: Default is ``\"0.0.0.0\"``"
+msgstr "``호스트``: 기본값은 ``\"0.0.0.0\"``입니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:31 24bb2177443b4f22af7be34449274a25
+msgid "``port``: Default is ``0``"
+msgstr "``포트``: 기본값은 ``0``입니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:33 f757e6385e834ab1b9d4e3f47bb37115
+msgid "*Note: The public API of the UDP endpoint is based on IPv4 form.*"
+msgstr "*참고: UDP 엔드포인트의 공개 API는 IPv4 형식을 기반으로 합니다.*"
+
+#: ../../Network_APIs/UDP_APIs.rst:36 675973bcdb5848d4ba04448e8e2697b7
+msgid "UDP endpoint API"
+msgstr "UDP 엔드포인트 API"
+
+#: ../../Network_APIs/UDP_APIs.rst:38 d5cb638128b54c0582d973e8ed9c58fb
+msgid "The public methods available on a ``UDP`` instance are:"
+msgstr "``UDP`` 인스턴스에서 사용할 수 있는 공개 메소드는 다음과 같습니다:"
+
+#: ../../Network_APIs/UDP_APIs.rst:51 fd4534b1a64445a3a1526bdc080ed655
+msgid "``send``"
+msgstr "``보내다``"
+
+#: ../../Network_APIs/UDP_APIs.rst:52 6dcc2e4e4d1045d2bb7131c1947cdb74
+msgid ""
+"Wraps ``socket.sendto(data, addr)``. The ``addr`` parameter should be a "
+"``(host, port)`` tuple. Raises ``OSError`` if the socket is closed or the "
+"address is invalid. Note that a successful return does not confirm delivery."
+msgstr ""
+"``socket.sendto(data, addr)``를 래핑합니다. ``addr`` 매개변수는 ``(host, port)`` 튜플이어야 "
+"합니다. 소켓이 닫혀 있거나 주소가 유효하지 않으면 ``OSError``가 발생합니다. 성공적인 반품이 배송을 확인하는 것은 아닙니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:57 7f3bac732b644bc793e79ee3e939ed36
+msgid "``broadcast``"
+msgstr "'방송'"
+
+#: ../../Network_APIs/UDP_APIs.rst:58 f3766e77fd7c4254965f707ce89f3801
+msgid ""
+"Sends a datagram to the limited broadcast address ``255.255.255.255`` on the"
+" given port. This is implemented by calling ``send`` with the address "
+"``(\"255.255.255.255\", port)``."
+msgstr ""
+"지정된 포트의 제한된 브로드캐스트 주소 '255.255.255.255'로 데이터그램을 보냅니다. 이는 "
+"``(\"255.255.255.255\", 포트)`` 주소로 ``send``를 호출하여 구현됩니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:62 ebd100f1bb5c40bba57dc3651aaac40a
+msgid "``listen``"
+msgstr "``들어봐``"
+
+#: ../../Network_APIs/UDP_APIs.rst:63 81c04a9418d14337962380e2a4abbed0
+msgid ""
+"Starts a daemon thread that receives incoming datagrams. The ``handler`` is "
+"a callable ``handler(data, addr)`` that is invoked for each datagram "
+"received. Handler exceptions are logged via the ``logging`` module rather "
+"than propagated, so a faulty handler does not terminate the receive loop. "
+"This method is idempotent: calling it while the receive thread is already "
+"running does nothing."
+msgstr ""
+"들어오는 데이터그램을 수신하는 데몬 스레드를 시작합니다. ``handler``는 수신된 각 데이터그램에 대해 호출되는 호출 가능한 "
+"``handler(data, addr)``입니다. 핸들러 예외는 전파되지 않고 ``logging`` 모듈을 통해 기록되므로 잘못된 "
+"핸들러는 수신 루프를 종료하지 않습니다. 이 메서드는 멱등적입니다. 수신 스레드가 이미 실행 중인 동안 호출하면 아무 작업도 수행되지 "
+"않습니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:71 4cc3c9f1ef8442e09a85771e9d915686
+msgid "``close``"
+msgstr "``닫다``"
+
+#: ../../Network_APIs/UDP_APIs.rst:72 a803a622d9094c33b30e339d7a04001e
+msgid ""
+"Signals the receive loop to exit and closes the underlying socket. The "
+"``_closed`` flag is set to ``True`` and the socket's ``close()`` method is "
+"called to interrupt any blocking ``recvfrom`` call. This method is "
+"idempotent: calling it multiple times does not raise an error."
+msgstr ""
+"수신 루프에 종료 신호를 보내고 기본 소켓을 닫습니다. ``_closed`` 플래그는 ``True``로 설정되고 소켓의 "
+"``close()`` 메소드는 차단 ``recvfrom`` 호출을 중단하기 위해 호출됩니다. 이 메서드는 멱등적입니다. 여러 번 호출해도"
+" 오류가 발생하지 않습니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:78 1933f04ec7f14b4bbf14fe1b7ad4eb55
+msgid ""
+"*Note: When ``listen`` is called after ``close``, a* *``RuntimeError`` *with"
+" the message \"endpoint is closed\" is* *raised, because the underlying "
+"socket is no longer available.*"
+msgstr ""
+"*참고: ``close`` 후에 ``listen``이 호출되면, 기본 소켓을 더 이상 사용할 수 없기 때문에 "
+"*``RuntimeError`` *\"endpoint is close\" 메시지와 함께* *발생합니다.*"
+
+#: ../../Network_APIs/UDP_APIs.rst:91 1203a76a754d4788afbc5f1433790b60
+msgid "``port``"
+msgstr "``항구``"
+
+#: ../../Network_APIs/UDP_APIs.rst:92 922c0696bc7a4b86ac0fecc7c5bc3c42
+msgid ""
+"Returns the port number the socket is bound to. Useful when ``port=0`` was "
+"passed to the constructor and the OS assigned a dynamic port."
+msgstr "소켓이 바인딩된 포트 번호를 반환합니다. ``port=0``이 생성자에 전달되고 OS가 동적 포트를 할당할 때 유용합니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:96 07bfd5fbbcb84613a87204db7ec0fe46
+msgid "``local_addr``"
+msgstr "``로컬_주소``"
+
+#: ../../Network_APIs/UDP_APIs.rst:97 f8bf4023c83544ecbb2e5bb4905734ec
+msgid "Returns the full ``(host, port)`` tuple that the socket is bound to."
+msgstr "소켓이 바인딩된 전체 ``(host, port)`` 튜플을 반환합니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:100 fb97d4805526494e907992ef4aeb911d
+msgid ""
+"The ``UDP`` class also supports the context manager protocol, so it can be "
+"used in a ``with`` statement:"
+msgstr "``UDP`` 클래스는 컨텍스트 관리자 프로토콜도 지원하므로 ``with`` 문에서 사용할 수 있습니다:"
+
+#: ../../Network_APIs/UDP_APIs.rst:108 e9449ba0c7c5420096778154a445bb60
+msgid ""
+"*Note: The context manager calls ``close`` automatically when* *the ``with``"
+" block exits.*"
+msgstr "*참고: 컨텍스트 관리자는 *``with`` 블록이 종료될 때 자동으로 ``close``를 호출합니다.*"
+
+#: ../../Network_APIs/UDP_APIs.rst:112 b23e6af001c14c8d8e60704aee0a6c32
+msgid "Key differences from TCP"
+msgstr "TCP와의 주요 차이점"
+
+#: ../../Network_APIs/UDP_APIs.rst:114 6e4aeae292844e47a99f9fdefba07b5b
+msgid ""
+"**No file transfer**. UDP is unreliable; use TCP classes for file transfers."
+msgstr "**파일 전송이 없습니다**. UDP는 신뢰할 수 없습니다. 파일 전송에는 TCP 클래스를 사용하십시오."
+
+#: ../../Network_APIs/UDP_APIs.rst:115 7fc9094ac11e4f98a12ffa40b12212ae
+msgid ""
+"**No connection tracking**. Each datagram carries its own source address."
+msgstr "**연결 추적 없음**. 각 데이터그램은 자체 소스 주소를 전달합니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:116 bd05f8df219a40fbad4e3d300bbf0da2
+msgid ""
+"**No port allocation system**. UDP does not need ephemeral ports for data "
+"connections."
+msgstr "**포트 할당 시스템 없음**. UDP에는 데이터 연결을 위한 임시 포트가 필요하지 않습니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:118 05ae0d338e1f49a9bda8378fafc899e1
+msgid ""
+"**Broadcast**. UDP's standout feature — one send reaches all listeners on "
+"the subnet."
+msgstr "**방송**. UDP의 뛰어난 기능은 하나의 전송이 서브넷의 모든 수신기에 도달한다는 것입니다."
+
+#: ../../Network_APIs/UDP_APIs.rst:122 a3e53bc01af645319a8f91c49937be74
+msgid "See Also"
+msgstr "참조"
+
+#: ../../Network_APIs/UDP_APIs.rst:124 898847ec68f04de2be11cd912ba550ac
+msgid ":doc:`TCP_Server_APIs` — TCP server."
+msgstr ":doc:`TCP_Server_APIs` — TCP 서버."
+
+#: ../../Network_APIs/UDP_APIs.rst:125 f27ba0e1f1484cebbf6e3315ca5d1104
+msgid ":doc:`TCP_Client_APIs` — TCP client."
+msgstr ":doc:`TCP_Client_APIs` — TCP 클라이언트."

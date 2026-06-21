@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PyFlow\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 19:17+0800\n"
+"POT-Creation-Date: 2026-06-20 22:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
@@ -17,128 +17,138 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Generated-By: Babel 2.18.0\n"
+"Generated-By: Babel 2.10.3\n"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:2 5a421ef24110475b899096cc43e2ac88
+#: ../../Network_APIs/TCP_Server_APIs.rst:2 b52f792a421041dd9749521da6fbd4ec
 msgid "The TCP Server APIs"
 msgstr "TCP 伺服器 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:5 a3228124931944298a9e5aad0cb6086a
+#: ../../Network_APIs/TCP_Server_APIs.rst:5 207e3afc4b174d23b57784051252cd1a
 msgid "TCP Server setup API"
 msgstr "TCP 伺服器設定 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:7 0ce0967d488143b9af0043046c9c55b1
+#: ../../Network_APIs/TCP_Server_APIs.rst:7 4b55c6a95a914e4b8125d0261e3e9ee1
 msgid ""
 "The TCP Server Setup API is used to create a TCP server. The server in the "
 "protocol is usually used to connect and listen to the TCP clients and handle"
 " the data from the clients."
 msgstr "TCP 伺服器設定 API 用於建立 TCP 伺服器。協定中的伺服器通常用於連接和監聽TCP客戶端並處理來自客戶端的資料。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:28 1a8c9d662af04ef2bf18e690089edcef
+#: ../../Network_APIs/TCP_Server_APIs.rst:29 bc025698b381404ab2b38255e6c9a378
 msgid ""
 "The TCP Server Setup API is defined in the ``TCP_Server_Base`` class. The "
 "parameters of the ``__init__`` method are as follows:"
 msgstr "TCP 伺服器設定 API 在「TCP_Server_Base」類別中定義。 ``__init__``方法的參數如下："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:31 403b6a6ed777425a8f0a8601978a5772
+#: ../../Network_APIs/TCP_Server_APIs.rst:32 3fea17ba735b400ead6845660925c629
 msgid "``host``: The host IP address to bind the TCP server to."
 msgstr "``host``：綁定 TCP 伺服器的主機 IP 位址。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:32 3ca57bd587d44434ba5b8b213acfc022
+#: ../../Network_APIs/TCP_Server_APIs.rst:33 138fba525e3d4cc4b45de13d41dcccc8
 msgid "``port``: The port number to bind the TCP server to."
 msgstr "``port``：綁定 TCP 伺服器的連接埠號碼。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:33 2eecd5ed457b4ac0974719d4fd85a685
+#: ../../Network_APIs/TCP_Server_APIs.rst:34 5d43377499e340799441608d4b8141ed
 msgid ""
 "``max_clients``: The maximum number of concurrent clients the server can "
 "handle."
 msgstr "``max_clients``：伺服器可以處理的並發客戶端的最大數量。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:34 a2a2732c83ea4fbc856c15027a8d3088
+#: ../../Network_APIs/TCP_Server_APIs.rst:35 c38a7e31478d4959b7ca63b19d8a9058
 msgid "``port_add_step``: The step size for incrementing the port number."
 msgstr "``port_add_step``：增加連接埠號碼的步長。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:35 2a39c5900ac54d66880ffc017eed17cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:36 6811a4baaf8d4e8286f8c3e91921a73f
 msgid "``port_range_num``: The number of ports to check in the range."
 msgstr "``port_range_num``：範圍內要檢查的連接埠數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:36 cbf650430e6e4e71ba4167f9414b0158
+#: ../../Network_APIs/TCP_Server_APIs.rst:37 8faa3404fac041db9edc663744618cfd
 msgid ""
 "``max_file_transfer_thread_num``: The maximum number of threads for file "
 "transfer operations."
 msgstr "``max_file_transfer_thread_num``：檔案傳輸操作的最大執行緒數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:37 286b105e545647a5a756f181c1065d6a
+#: ../../Network_APIs/TCP_Server_APIs.rst:38 dacdadbcffa2491ca3ef7b17086d1fe7
 msgid ""
 "``is_hand_alloc_port``: A flag indicating whether to manually allocate the "
 "port."
 msgstr "``is_hand_alloc_port``：指示是否手動分配連接埠的標誌。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:38 750df664c049460ba9051a611c3af425
+#: ../../Network_APIs/TCP_Server_APIs.rst:39 19d4f0e1e91e4e8a88fd29dd6d4029c4
 msgid ""
 "``is_input_command_in_console``: A flag indicating whether to input commands"
 " in the console."
 msgstr "``is_input_command_in_console``：指示是否在控制台中輸入指令的標誌。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:39 93a6c66af686404a9d5287e61679e642
+#: ../../Network_APIs/TCP_Server_APIs.rst:40 94c750b6d452441ea4ccaa1b972b3cd6
 msgid "``max_custom_workers``: The maximum number of custom worker threads."
 msgstr "``max_custom_workers``：自訂工作執行緒的最大數量。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:41 6fadaa0fd92243e293cce702c069356e
+#: ../../Network_APIs/TCP_Server_APIs.rst:42 8658c4f5af2f4960865a233821bf2fb6
 msgid "All parameters have default values:"
 msgstr "每個參數都有預設值："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:43 54a71bc8046f4e6092f26e4151e66b8a
+#: ../../Network_APIs/TCP_Server_APIs.rst:44 b4b329e993944d9d8122d12b33b73324
 msgid "``host``: Default is ``'127.0.0.1'``"
 msgstr "“主機”：預設為“127.0.0.1”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:44 e925e2d0a915486e8430fc531e3c8942
+#: ../../Network_APIs/TCP_Server_APIs.rst:45 666f7dab5e4a40ac8d3c751524db2b86
 msgid "``port``: Default is ``65432``"
 msgstr "“連接埠”：預設為“65432”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:45 830de1cad2824b738a17ba714732a670
+#: ../../Network_APIs/TCP_Server_APIs.rst:46 3b98135aa3ab4c0984ee844a7a263a11
 msgid "``max_clients``: Default is ``10``"
 msgstr "“max_clients”：預設為“10”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:46 8a1dd20e256348efbacfb96adb619622
+#: ../../Network_APIs/TCP_Server_APIs.rst:47 0d69de2576a94317b91bfb78b84e9c37
 msgid "``port_add_step``: Default is ``1``"
 msgstr "“port_add_step”：預設為“1”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:47 1610aebbfe1b431fa196ece0bcea7f25
+#: ../../Network_APIs/TCP_Server_APIs.rst:48 e29bb04c24e34a1ea6c02e6faee99584
 msgid "``port_range_num``: Default is ``100``"
 msgstr "“port_range_num”：預設為“100”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:48 949c322e7db742e99b6bfe412ca1ecb7
+#: ../../Network_APIs/TCP_Server_APIs.rst:49 c02189aa1c8e426287fe8d88d648ff94
 msgid "``max_file_transfer_thread_num``: Default is ``10``"
 msgstr "“max_file_transfer_thread_num”：預設為“10”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:49 b4651c3b171c46fba5d316737821af9d
+#: ../../Network_APIs/TCP_Server_APIs.rst:50 9932eb5d63f944c9b849bf2dee784ded
 msgid "``is_hand_alloc_port``: Default is ``False``"
 msgstr "“is_hand_alloc_port”：預設為“False”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:50 b0f005ffef314ddc81850270d682a60f
+#: ../../Network_APIs/TCP_Server_APIs.rst:51 81528c16c70543a7ad10852e80a6f13d
 msgid "``is_input_command_in_console``: Default is ``True``"
 msgstr "“is_input_command_in_console”：預設為“True”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:51 f0eee7c71caf462b966c45498520ab9d
+#: ../../Network_APIs/TCP_Server_APIs.rst:52 578be04f88374e2a973044e2dc61f7cb
 msgid "``max_custom_workers``: Default is ``10``"
 msgstr "“max_custom_workers”：預設為“10”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:53 9e401989a51f403a94b1032bcaaef8ee
+#: ../../Network_APIs/TCP_Server_APIs.rst:53 acaba660fce8404c84684d0e36d8cb7d
+msgid ""
+"``is_extend_command``: Default is ``False`` (when ``True``, ``__init__`` "
+"will not call ``start_TCP_Server()`` automatically)"
+msgstr ""
+"“is_extend_command”：預設為“False”（當“True”時，“__init__”不會自動呼叫“start_TCP_Server()”）"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:56 5ad538fcf7a047cb83c06430fc17868b
 msgid ""
 "The TCP Server Setup API will initialize all the necessary parameters and "
 "resources for the TCP server."
 msgstr "TCP 伺服器設定 API 將初始化 TCP 伺服器的所有必要參數和資源。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:56 1ac1631a523941638ecf3edeca3674e6
+#: ../../Network_APIs/TCP_Server_APIs.rst:59 12ea6aec06374e609665bec9743d0c2d
 msgid ""
-"*Note: In the main class of the TCP server setup API, we initialize the "
-"`start_TCP_Server` method to setup all functions which are needed in the TCP"
-" server, including the server socket or handle clients etc.*"
+"*Note: By default ``TCP_Server_Base.__init__`` calls ``start_TCP_Server()`` "
+"to start the server automatically. If you set ``is_extend_command=True``, "
+"the instance will not auto-start and you should call ``start_TCP_Server()`` "
+"manually when ready.*"
 msgstr ""
-"*注意：在TCP伺服器設定API的主類別中，我們初始化`start_TCP_Server`方法來設定TCP伺服器中所需的所有功能，包括伺服器套接字或處理客戶端等..*"
+"*注意：預設情況下``TCP_Server_Base.__init__`` 呼叫``start_TCP_Server()`` "
+"自動啟動伺服器。如果您設定“is_extend_command=True”，實例將不會自動啟動，您應該在準備好時手動呼叫“start_TCP_Server()”。"
+" *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:66 899a05f0223748a4bb24b76b5f25f48d
+#: ../../Network_APIs/TCP_Server_APIs.rst:70 4cb1d5f3304546ce882398fb5c0036ec
 msgid ""
 "In the `start_TCP_Server` method, we first create a TCP server socket and "
 "bind it to the ``self.host`` and ``self.port`` which are initialized in the "
@@ -146,27 +156,27 @@ msgid ""
 msgstr ""
 "在`start_TCP_Server`方法中，我們先建立一個TCP伺服器套接字並將其綁定到在`__init__`方法中初始化的`self.host`和`self.port`。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:70 3059fbadc662418d8ea571638f1bec19
+#: ../../Network_APIs/TCP_Server_APIs.rst:74 6368d16aba2f4d86abe7e07314a8c506
 msgid ""
 "*Note: The server socket which is set up in the `start_TCP_Server` method is"
 " based on IPv4 form.*"
 msgstr "*注意：`start_TCP_Server`方法中設定的伺服器套接字是基於IPv4形式的。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:73 01230c44e5e147a495292f10c25af0db
+#: ../../Network_APIs/TCP_Server_APIs.rst:77 9ae5345fad7a4ae89537ed31b57bd7c1
 msgid ""
 "Secondly, according to the ``self.is_input_command_in_console`` parameter, "
 "we will start a thread to listen to the console input of the server or not."
 msgstr ""
 "其次，根據``self.is_input_command_in_console``參數，我們會啟動一個執行緒來監聽或不監聽伺服器的控制台輸入。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:77 84c82a4ced7546309c58a528c635bae2
+#: ../../Network_APIs/TCP_Server_APIs.rst:81 94e4ccbf323d4134b5297f8c0334ff36
 msgid "After that, a main loop to accept clients will be started."
 msgstr "之後，將啟動接受客戶端的主循環。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:79 bf84e3afce77402286e6fba63df9b0b9
+#: ../../Network_APIs/TCP_Server_APIs.rst:83 9416322bf1b64db09658b78f87467976
 msgid ""
-"*Note: there is another global variable ``self.running`` which is turned to"
-" ``True`` after the server socket is successfully created. The "
+"*Note: there is another global variable ``self.running`` which is turned to "
+"``True`` after the server socket is successfully created. The "
 "``self.running`` variable is used to control the main loop of the TCP "
 "server, and it will be turned to ``False`` when the server is shutting "
 "down.*"
@@ -174,7 +184,7 @@ msgstr ""
 "*注意：還有另一個全域變數“self.running”，在伺服器套接字成功建立後，該變數將變為“True”。 ``self.running`` "
 "變數用於控制 TCP 伺服器的主循環，當伺服器關閉時它將變為 ``False``。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:85 fd5c8fac322b4d89af8a773d9da1b203
+#: ../../Network_APIs/TCP_Server_APIs.rst:89 ae36a0bbc490438694c73f02a82e9b31
 msgid ""
 "The main loop of the TCP setup server function will first judge if the "
 "number of the clients which are connected to the server is over the max "
@@ -184,16 +194,18 @@ msgid ""
 msgstr ""
 "TCP建立伺服器函數的主循環首先判斷連接到伺服器的客戶端數量是否超過最大客戶端數量。順便說一句，最大客戶端數量限制是由「TCP_Server_Base」類別的參數定義的，即在類別中初始化的「self.max_clients」變數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:92 11d4441c1daa4a259bac9ea6bd4cc5df
+#: ../../Network_APIs/TCP_Server_APIs.rst:96 610f3d8802a54760b65ada6338002dd5
+#, fuzzy
 msgid ""
 "If the number of the clients is already over the limit of the connect "
-"number, the server will send an overload message and close the connection. But "
-"if it didn't over the limit, the server will setup a clients handlers "
-"function `handle_client` and the server handler function is defined as:"
+"number, the server will send an overload message and close the connection. "
+"But if it does not exceed the limit, the server will setup a clients "
+"handlers function `handle_client` and the server handler function is defined"
+" as:"
 msgstr ""
 "如果客戶端數量已經超過連線數量限制，伺服器將發送過載訊息並關閉連線。但如果沒有超過限制，伺服器將設定一個客戶端處理函數“handle_client”，伺服器處理函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:104 61ee15fc7596460b98b70060509c7151
+#: ../../Network_APIs/TCP_Server_APIs.rst:108 cb6a4d4fc9ba4dda90a5763a7364dbc9
 msgid ""
 "*Note: For more details of the `handle_client` function, see the :ref:`tcp-"
 "server-handling-information-api` section.*"
@@ -201,24 +213,24 @@ msgstr ""
 "*注意：有關“handle_client”函數的更多詳細信息，請參閱 :ref:`tcp-server-handling-information-"
 "api` 部分。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:107 ddee83c45291484493d3ebc5eb0dba07
+#: ../../Network_APIs/TCP_Server_APIs.rst:111 4d09d17dc1d84ddf903333007e3b65fc
 msgid "So what can the setup function do if it fails?"
 msgstr "那如果setup函式運行失敗了怎麼辦呢？"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:109 9fdccf4f47bf4c399cacedd29e616f64
+#: ../../Network_APIs/TCP_Server_APIs.rst:113 9abaea6541664937a99ee14811cdf79c
 msgid ""
 "First, the try and except code block in the main server loop will detect if "
 "the error is an ``OSError``. If it is, the main loop will exit directly."
 msgstr "首先，主伺服器循環中的 try 和 except 程式碼區塊將偵測錯誤是否為「OSError」。如果是，主循環將直接退出。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:113 d2e58e7450e045b6a51a7930ac10fbda
+#: ../../Network_APIs/TCP_Server_APIs.rst:117 527c9ea4b40c48d786e37ae38639b643
 msgid ""
 "Secondly, if the error is from the network socket, it will first output the "
 "error message and also stop the server by calling the function `stop`. And "
 "the stop function has been defined as:"
 msgstr "其次，如果錯誤來自網路套接字，它會先輸出錯誤訊息，並透過呼叫函數「stop」來停止伺服器。停止函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:122 87133f48deab49178aa0f1357f1d5c85
+#: ../../Network_APIs/TCP_Server_APIs.rst:126 3c1ddc7066fe478fb72fe0440ac29069
 msgid ""
 "For the stop tcp server function, it first set the ``self.running`` variable"
 " to False, for stop the main loop of the server. After that, it calls the "
@@ -228,67 +240,69 @@ msgstr ""
 "對於停止 tcp 伺服器功能，它首先將 self.running 變數設為 "
 "False，以停止伺服器的主循環。之後，它會呼叫“free_port”函數來釋放已指派的連接埠。 `free_port` 被定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:133 ddd2cf5489784ada989595ece231e071
+#: ../../Network_APIs/TCP_Server_APIs.rst:137 0be2c10e6bd94c669310ff02fb804b29
 msgid ""
 "*Note: For more details of the `free_port` function, see the :ref:`tcp-"
 "server-port-allocation-api` section.*"
 msgstr ""
 "*注意：有關 `free_port` 函數的更多詳細信息，請參閱 :ref:`tcp-server-port-allocation-api` 部分。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:136 129653913769472f8dccb88c7afa0d72
+#: ../../Network_APIs/TCP_Server_APIs.rst:140 2d161cae990b4bd8a0e7f76f6ae54e93
 msgid ""
 "At the end of the operations, the TCP server will close all of the sockets "
 "of clients which are accounted in the dictionary variable ``self.clients`` "
 "and also close the server socket."
 msgstr "在操作結束時，TCP伺服器將關閉字典變數「self.clients」中記錄的所有客戶端套接字，並關閉伺服器套接字。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:140 f562e30fd99747f88daf50c4bb7e9ae5
+#: ../../Network_APIs/TCP_Server_APIs.rst:144 8d9d72393f2c4d04b54a82b0e9ecb465
 msgid ""
-"*Note: The ``self.clients`` variable is a dictionary which is used to store "
-"the client sockets and their corresponding addresses. The key of the "
-"dictionary is the client socket, and the value is the client address. It has"
-" been defined in the ``__init__`` method.*"
+"*Note: The ``self.clients`` variable is a dictionary that maps client "
+"address tuples to an info dictionary. The key is the client address tuple "
+"(``(ip, port)``) and the value is a dictionary containing connection details"
+" such as ``'socket'``, ``'address'``, ``'id'``, and ``'connected_time'``. "
+"See the example below which shows how entries are stored.*"
 msgstr ""
-"*注意：「self.clients」變數是一個字典，用於儲存客戶端套接字及其對應的位址。字典的鍵是客戶端套接字，值是客戶端位址。它已在“__init__”方法中定義。"
-" *"
+"*注意：「self.clients」變數是一個字典，它將客戶端位址元組對應到資訊字典。鍵是客戶端位址元組（``(ip, "
+"port)``），值是包含連接詳細資訊的字典，例如``'socket'``、``'address'``、``'id'`` "
+"和``'connected_time'``。請參閱下面的範例，其中顯示了條目的儲存方式。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:161 070355e1835f421d8b702f543790193d
+#: ../../Network_APIs/TCP_Server_APIs.rst:166 31136cb6ca1441a8ad56bf613f047ec0
 msgid "TCP Server handling information API"
 msgstr "TCP伺服器處理資訊API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:163 6bdeec5a0fbc4fdfad7e8e4c5080ea42
+#: ../../Network_APIs/TCP_Server_APIs.rst:168 e0eb184f7fc74d638df934dd3b70a69d
 msgid ""
 "The server handling information API documents the core TCP server methods "
 "that manage client sockets, receive raw data, and send messages."
 msgstr "伺服器處理資訊 API 記錄了管理客戶端套接字、接收原始資料和發送訊息的核心 TCP 伺服器方法。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:175 bf29af8fe2234688985a8e46f31e98fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:180 caa9213378e14a5986804e4c09f272ec
 msgid ""
 "`handle_client` is the main per-client handler in ``TCP_Server_Base``. It is"
 " invoked after a client connection is accepted and is responsible for:"
 msgstr "`handle_client` 是 `TCP_Server_Base` 中主要的每個客戶端處理程序。它在客戶端連接被接受後被調用，並負責："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:179 515a6bdc07ff49a98c6ff9d24c0b1cb0
+#: ../../Network_APIs/TCP_Server_APIs.rst:184 958c3272e38546309404822be5e43430
 msgid ""
 "adding the client entry into ``self.clients`` with socket, address, id, and "
 "connected time"
 msgstr "將客戶端條目新增至「self.clients」中，其中包含套接字、位址、id 和連接時間"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:180 facc3962428144b08b4a6cf92c814516
+#: ../../Network_APIs/TCP_Server_APIs.rst:185 b61e8c15a51a4fcd8aeedb87fb1206c1
 msgid "printing connection information and current client count"
 msgstr "列印連線資訊和當前客戶端計數"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:181 ecf6098bbcb84fe685cbfc1d396ae7b7
+#: ../../Network_APIs/TCP_Server_APIs.rst:186 499853560e7c49fab4d3f4970e0836f8
 msgid "sending a welcome message to the client"
 msgstr "向客戶發送歡迎訊息"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:182 de747640fa9b4621a648edf96bf7ac25
+#: ../../Network_APIs/TCP_Server_APIs.rst:187 480ca8697764498fb3b60bbad9672968
 msgid ""
 "broadcasting ``/client_alloc_port_range`` information to all clients "
 "depending on port allocation mode"
 msgstr "根據連接埠分配模式向所有客戶端廣播“/client_alloc_port_range”訊息"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:184 2e1b606db2b045848f542e132684b205
+#: ../../Network_APIs/TCP_Server_APIs.rst:189 d4f6ec581f71479f9accfc8e6ddfb44f
 msgid ""
 "*Note: You can specify the port allocation mode in the arguments which has "
 "been defined in the ``TCP_Server_Base`` class. The args which you can change"
@@ -297,54 +311,55 @@ msgstr ""
 "*注意：您可以在「TCP_Server_Base」類別中定義的參數中指定連接埠分配模式。您可以變更的參數是“port_add_step”、“port_range_num”和“is_hand_alloc_port”。"
 " *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:190 34fdceba026a4d05b1cc55db8268c470
+#: ../../Network_APIs/TCP_Server_APIs.rst:195 3332e60134c144818cbad9ee9670f3c9
 msgid "receiving raw bytes from the socket using `receive_message`"
 msgstr "使用“receive_message”從套接字接收原始位元組"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:191 62e632417dc74e8f918dcdbc53cf7d33
+#: ../../Network_APIs/TCP_Server_APIs.rst:196 ffc19de5f2e6448f8dfa86382b72ea59
 msgid "buffering incoming data until newline-terminated messages are complete"
 msgstr "緩衝傳入數據，直到換行符終止的訊息完成"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:192 b8be4e68312d40cfb23e8b4a903f18a6
+#: ../../Network_APIs/TCP_Server_APIs.rst:197 5599c38881f743b2b285a43b57f80dba
 msgid "splitting and processing each message line-by-line"
 msgstr "逐行拆分並處理每個訊息"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:193 b3c9b6c0edf34ae78535e51ae6cf478e
+#: ../../Network_APIs/TCP_Server_APIs.rst:198 4379426aed934a63ab888013c00c22e9
 msgid "routing special commands beginning with ``/`` to `handle_command`"
 msgstr "將以 ``/`` 開頭的特殊命令路由到 `handle_command`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:195 d2cfbcec1e60482b8e6455caeafb6647
+#: ../../Network_APIs/TCP_Server_APIs.rst:200 d2d782beecec4cd08c03aaa7200c92e9
 msgid "The `handle_command` function is defined as:"
 msgstr "“handle_command”函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:206 a952daec8aca4b72b02d6d40b25e15f7
+#: ../../Network_APIs/TCP_Server_APIs.rst:211 0e5be543d51b47c4b3d278ee1895e6e3
+#, fuzzy
 msgid ""
 "In `handle_command`, there are variable conditional branches to handle "
 "built-in commands like ``/help``, ``/time``, ``/clients``, ``/quit``, and "
 "some file transfer commands. If you already added more commands by the "
 "command extension API, the function will determine if the input message "
-"matched the extension commands."
+"matches the extension commands."
 msgstr ""
 "在「handle_command」中，有可變條件分支來處理內建指令，如「/help」、「/time」、「/clients」、「/quit」以及一些檔案傳輸指令。如果您已經透過命令擴充"
 " API 新增了更多命令，則函數將確定輸入的訊息是否與擴充命令相符。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:214 c4d5c00ef1494d338870fa7c99311500
+#: ../../Network_APIs/TCP_Server_APIs.rst:219 5ec550e3acd6437faf76d3e4aa8d416c
 msgid ""
 "*Note: For more details of the command extension API and the built-in "
 "commands, see the :ref:`tcp-server-command-api` section.*"
 msgstr "*注意：有關命令擴展 API 和內建命令的更多詳細信息，請參閱 :ref:`tcp-server-command-api` 部分。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:217 9069336255824efda2f64d583b230659
+#: ../../Network_APIs/TCP_Server_APIs.rst:222 4973d45b4a6843c5a4f293cfd00d9075
 msgid "logging normal chat messages and acknowledging receipt"
 msgstr "記錄正常聊天訊息並確認收到"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:218 eba4add974374bb094e7e782912d4246
+#: ../../Network_APIs/TCP_Server_APIs.rst:223 fd86dd8af215423baa10cd23496f4dd8
 msgid ""
 "removing the client from ``self.clients`` and closing the socket when the "
 "client disconnects or an error occurs"
 msgstr "從“self.clients”中刪除客戶端，並在客戶端斷開連接或發生錯誤時關閉套接字"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:228 c1c340a5e5584ee7a7119ebe7d1c306b
+#: ../../Network_APIs/TCP_Server_APIs.rst:233 d86a2ca1f2f54a2683d2bee076a5ee17
 msgid ""
 "`receive_message` is a thin wrapper around socket receive operations. It "
 "reads up to ``msg_length`` bytes from the given ``client_socket`` and "
@@ -354,41 +369,41 @@ msgstr ""
 "`receive_message` "
 "是套接字接收操作的一個薄包裝器。它從給定的“client_socket”讀取最多“msg_length”位元組並返回原始位元組有效負載。訊息解碼和換行訊息幀由呼叫者處理。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:243 9d5693a2ac394fa8b159378a13a235ec
+#: ../../Network_APIs/TCP_Server_APIs.rst:248 ee8e9bc8f0c24169a41913335c71e20f
 msgid ""
 "`send_message` sends data back to a specific connected client. It verifies "
 "the server is running and the socket is valid, then:"
 msgstr "`send_message` 將資料傳回特定的連線客戶端。它驗證伺服器正在運行並且套接字有效，然後："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:246 87916d18ee3b42f8ae50d51ddf1bccbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:251 6bc8f2ed0c5b47ebae081500b4a8ee17
 msgid "accepts both ``str`` and ``bytes`` message payloads"
 msgstr "接受“str”和“bytes”訊息負載"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:247 ecfd10c187d64a48848792292c8480aa
+#: ../../Network_APIs/TCP_Server_APIs.rst:252 e8f911020564467da472399e31903bfc
 msgid "trims string payloads and appends a newline if missing"
 msgstr "修剪字串有效負載並在遺失時附加換行符"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:248 ed83940c588a48ab8c62b3701e1ca7d6
+#: ../../Network_APIs/TCP_Server_APIs.rst:253 5264ca94bf774560b1546814589ce14e
 msgid "encodes string payloads as UTF-8"
 msgstr "將字串有效負載編碼為 UTF-8"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:249 236a9ae0cb68449dab8bf35c5a882ad3
+#: ../../Network_APIs/TCP_Server_APIs.rst:254 11fec3c3b8284477a1a186a65206010b
 msgid "sends the complete message with ``client_socket.sendall(data)``"
 msgstr "使用“client_socket.sendall(data)”發送完整訊息"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:250 ca17aaf273e9454aa1f021c22bb2fa60
+#: ../../Network_APIs/TCP_Server_APIs.rst:255 6850283513d84335a3dd665a2a3b1aec
 msgid ""
 "returns ``True`` on success, otherwise logs the error and returns ``False``"
 msgstr "成功時傳回“True”，否則記錄錯誤並傳回“False”"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:252 9805ae426a764cab83a5a4e569a0a7bd
+#: ../../Network_APIs/TCP_Server_APIs.rst:257 a6d009915c714d0b91b27de9ab341828
 msgid ""
 "And there are also some other functions which are used to send message in "
 "bulk to the clients, such as the `broadcast` function and the "
 "`send_msg_to_specific_client` function."
 msgstr "還有一些其他函數用於向客戶端批量發送訊息，例如“broadcast”函數和“send_msg_to_specific_client”函數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:265 b52547de04fa46698820c9b6df576653
+#: ../../Network_APIs/TCP_Server_APIs.rst:270 b85e6f0b61eb4f388cc7c18c08d01c1d
 msgid ""
 "In `broadcast` function, it will send a message to all the clients which are"
 " in the ``self.clients`` variable, also delete the clients which are already"
@@ -398,7 +413,7 @@ msgid ""
 msgstr ""
 "在「broadcast」函數中，它將向「self.clients」變數中的所有用戶端發送訊息，並刪除已經與伺服器斷開連接的用戶端。如果“exclude_client”參數不是“None”，則伺服器在傳送訊息時將排除“exclude_client”參數指定的用戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:280 6c9ab282617242d8bf8f48d782916b11
+#: ../../Network_APIs/TCP_Server_APIs.rst:285 9b6a44f792db4afea1a0910d14bdfa54
 msgid ""
 "The `send_msg_to_specific_client` function is used to send one or more "
 "message to one or more specific clients by their client IDs. And the "
@@ -407,79 +422,80 @@ msgstr ""
 "`send_msg_to_specific_client` 函數用於透過客戶端 ID "
 "向一個或多個特定客戶端發送一條或多個訊息。並且“message”參數應該輸入發送訊息命令。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:285 f3b03ebf0f3c4c7ba7a8806cdddf27c3
+#: ../../Network_APIs/TCP_Server_APIs.rst:290 5c93a8b7df9c4ba592e31a8a7c5d7dad
 msgid ""
 "These methods form the server's client I/O loop and ensure reliable message "
 "exchange for connected TCP clients."
 msgstr "這些方法會形成伺服器的客戶端 I/O 循環，並確保連線的 TCP 用戶端進行可靠的訊息交換。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:292 1fc13aa10e3a4b03a36643995e3ba056
+#: ../../Network_APIs/TCP_Server_APIs.rst:297 fc06292f70904c668e628446b1338225
 msgid "TCP Server command API"
 msgstr "TCP 伺服器命令 API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:294 165d8a3c005b48afb74ae189b4a46306
+#: ../../Network_APIs/TCP_Server_APIs.rst:299 ba0fa4e7318744b8b676846bf49e4859
 msgid ""
 "The server supports several built-in commands and a command extension API. "
 "The main entry point is the `handle_command` method, which is invoked for "
 "any message starting with ``/``."
 msgstr "伺服器支援多個內建命令和命令擴展 API。主要入口點是「handle_command」方法，任何以「/」開頭的訊息都會呼叫該方法。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:299 5ca7babc4de4465e9eaf33533ddb30e5
+#: ../../Network_APIs/TCP_Server_APIs.rst:304 b5777f13d35f4f26ae617247f91c26b0
 msgid ""
 "We support two solutions for command handling, one is input a command in the"
 " console, and the other is receiving a command from other clients, and you "
 "can also call the functions which are defined for the commands in the code."
 msgstr "我們支援兩種命令處理方案，一種是在控制台輸入命令，另一種是從其他用戶端接收命令，您也可以呼叫程式碼中為命令定義的函數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:305 88e467b424694779867a52068a7ba74f
+#: ../../Network_APIs/TCP_Server_APIs.rst:310 55f3dddd875a4c9c8ae20b9136d46687
+#, fuzzy
 msgid ""
 "*Note: You can select the solution which you want to use by changing the "
 "args of the `TCP_Server_Base` class, the arg is "
-"``is_input_command_in_console``. ``True`` is allow the server to input the "
-"command in console, while ``False`` is don't allow.*"
+"``is_input_command_in_console``. ``True`` allows the server to input the "
+"command in console, while ``False`` does not allow it.*"
 msgstr ""
 "*注意：您可以透過變更「TCP_Server_Base」類別的參數來選擇要使用的解決方案，該參數為「is_input_command_in_console」。"
 " ``True`` 允許伺服器在控制台輸入指令，而``False`` 不允許。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:312 f4d25c3417554dcdb36b1012c7acbf23
+#: ../../Network_APIs/TCP_Server_APIs.rst:317 ad8952a11a4947988db649c68b52a743
 msgid "Built-in client commands include:"
 msgstr "內建客戶端指令包括："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:314 18424caf652742f380600485e2581c61
+#: ../../Network_APIs/TCP_Server_APIs.rst:319 39ff77f126e1412d8406d435655743e1
 msgid "``/help``: returns the available command list and usage hints."
 msgstr "``/help``：傳回可用的指令清單和使用提示。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:315 273f4d0ef6554961bcbd37407cff3c3a
+#: ../../Network_APIs/TCP_Server_APIs.rst:320 78375e446e9d48f1958b500306d3c73c
 msgid "``/time``: returns the current server time."
 msgstr "``/time``：傳回目前伺服器時間。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:316 1b57543ac372476d991bf15948cba94e
+#: ../../Network_APIs/TCP_Server_APIs.rst:321 622d1d6fabab4e3c9871b3d9f231c352
 msgid "``/clients``: returns the list of connected client IDs."
 msgstr "``/clients``：傳回已連線的客戶端 ID 清單。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:317 250e94649821406583d8673b164f3d82
+#: ../../Network_APIs/TCP_Server_APIs.rst:322 10f588280ba8440681dc59a414e3af8a
 msgid "``/quit``: returns a goodbye message and disconnects the client."
 msgstr "``/quit``：傳回一條再見訊息並中斷客戶端連線。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:318 a0ca6a21294b428584c46c7f90c25d58
+#: ../../Network_APIs/TCP_Server_APIs.rst:323 9be97d4482b24ae98c3d863f51128eea
 msgid ""
 "``/file <file_path> <client_id>``: starts a file transfer request from "
 "client to server."
 msgstr "``/file <file_path> <client_id>``：啟動從客戶端到伺服器的檔案傳輸請求。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:319 185ce5d8089345e4b98e35349e5e57ff
+#: ../../Network_APIs/TCP_Server_APIs.rst:324 bebd16ce5960408ebfd51b440943241c
 msgid ""
 "``/file_folder <folder_path> <client_id>``: starts a folder transfer request"
 " from client to server."
 msgstr "``/file_folder <folder_path> <client_id>``：啟動從客戶端到伺服器的資料夾傳輸請求。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:320 dbf9a8905fae492690e443ed9f6cb35a
+#: ../../Network_APIs/TCP_Server_APIs.rst:325 56efc16c32234ab28bae72fc31310836
 msgid ""
 "``/server_file_transfer_port <port> <client_id>``: internal protocol message"
 " used to coordinate file transfer ports."
 msgstr "``/server_file_transfer_port <port> <client_id>``：用於協調檔案傳輸連接埠的內部協定訊息。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:322 f9e1c4772cea466d8423154e4cf9f416
+#: ../../Network_APIs/TCP_Server_APIs.rst:327 2f2a9a9f4bb74954b2da2e5e4d9f9169
 msgid ""
 "In `handle_command`, the server will first check if the command matches any "
 "built-in commands. If it does, the `handle_command` will call the functions "
@@ -487,7 +503,7 @@ msgid ""
 msgstr ""
 "在`handle_command`中，伺服器將首先檢查該命令是否與任何內建命令相符。如果這樣做，「handle_command」將呼叫為命令定義的函數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:327 ad51d8bdab054358b6eefd6c0d615cbf
+#: ../../Network_APIs/TCP_Server_APIs.rst:332 d5c00491ac2343c597c6bad8a8398ecc
 msgid ""
 "If a command is not recognized by the built-in handler, `handle_command` "
 "will check if it matches any registered custom commands from the command "
@@ -498,25 +514,25 @@ msgstr ""
 "如果內建處理程序無法識別命令，「handle_command」將檢查它是否與命令擴充 API "
 "中註冊的任何自訂命令相符。如果該命令已註冊，則「handle_command」將呼叫為該命令定義的函數。命令擴充 API 定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:345 ba982fcb2a03487c96decb630edb3659
+#: ../../Network_APIs/TCP_Server_APIs.rst:350 996f9af0f74e4e3a91427fe3c5ab134e
 msgid "The args of the `register_command` function are as follows:"
 msgstr "`register_command` 函數的參數如下："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:348 9fcc4048307b4bcf9871c0165ac9dc9c
+#: ../../Network_APIs/TCP_Server_APIs.rst:353 1cecc25c6761455dbace5be3acfd7a86
 msgid "``command_name``: The name of the command to register."
 msgstr "``command_name``：要註冊的命令的名稱。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:350 822ff8eb774647debd8dd9dfe6e8cc2b
+#: ../../Network_APIs/TCP_Server_APIs.rst:355 dcc654ebd8e442a8bdc84d7a10b6529c
 msgid ""
 "*Note: The ``command_name`` should start with a slash (e.g., "
 "``/my_command``) to be recognized as a command.*"
 msgstr "*注意：``command_name`` 應以斜線開頭（例如，``/my_command``）才能被辨識為指令。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:353 b2b58f69e9f448b7a21f64c9abeb5162
+#: ../../Network_APIs/TCP_Server_APIs.rst:358 318f344187d94270a1a4d72570885b0e
 msgid "``handler``: The function to call when the command is received."
 msgstr "``handler``：收到指令時呼叫的函數。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:355 004fdd84d8884315944f5ae383f43443
+#: ../../Network_APIs/TCP_Server_APIs.rst:360 b1975fd3ac9b4b1d881ec7e426bde717
 msgid ""
 "*Note: The ``handler`` function must have and only have three parameters "
 "which are ``client_socket``, ``client_address``, and ``command``. "
@@ -529,17 +545,17 @@ msgstr ""
 "``client_socket`` 將被接受為發送命令的網路套接字對象，``client_address`` "
 "將被接受為發送命令的客戶端的地址，而``command`` 參數將包含實際的命令字串。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:363 0ad91c46e6974c24b69523e952899e10
+#: ../../Network_APIs/TCP_Server_APIs.rst:368 41a12356235c4a84a313c89e9014dfd7
 msgid "``where_to_run``: Specifies where the command should be executed."
 msgstr "``where_to_run``：指定應執行指令的位置。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:364 55bc43997c794d8daf309862b4a68a77
+#: ../../Network_APIs/TCP_Server_APIs.rst:369 dbd6f0bf76c24392a9a8c8881a242f37
 msgid ""
 "``run_in_thread``: A boolean indicating whether to run the command in a "
 "separate thread."
 msgstr "``run_in_thread``：一個布林值，指示是否在單獨的執行緒中執行指令。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:366 cd7017af3ce448b3aeae63584d74f616
+#: ../../Network_APIs/TCP_Server_APIs.rst:371 b01ae3ada1c24cd7893860085676d8ec
 msgid ""
 "This extension API allows server-side and console-side custom commands to be"
 " registered dynamically. Valid values for ``where_to_run`` are "
@@ -550,13 +566,13 @@ msgstr ""
 "此擴充 API 允許動態註冊伺服器端和控制台端自訂命令。 “where_to_run” 的有效值為「伺服器」和「客戶端」。 "
 "「伺服器」表示當客戶端發送命令時將處理該命令，而「客戶端」表示當伺服器在控制台中輸入命令時將處理該命令。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:375 88c585e04a674fc4bef74fe5de86ebbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:380 c6e04ec672f840a4b2825d247ea454b1
 msgid ""
 "*Note: It's true that the valid values for ``where_to_run`` are too strange,"
 " but we still didn't find a better way to define that.*"
 msgstr "*注意：確實，``where_to_run`` 的有效值太奇怪了，但我們沒有找到更好的方法來定義它。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:379 f895a02c6ed741f28928770cafc149ab
+#: ../../Network_APIs/TCP_Server_APIs.rst:384 c16f63a156b94fec815ca854db5582e5
 msgid ""
 "The ways to run the command will be different according to the args "
 "``run_in_thread``. If ``run_in_thread`` is ``True``, the command handler "
@@ -566,15 +582,15 @@ msgid ""
 msgstr ""
 "根據參數“run_in_thread”，運行命令的方式會有所不同。如果“run_in_thread”為“True”，則命令處理程序將在伺服器執行緒池中的單獨執行緒中執行。如果“run_in_thread”為“False”，則命令處理程序將在主伺服器執行緒中同步執行。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:387 5c246f84fab2441ea1bb1c545ce68e59
+#: ../../Network_APIs/TCP_Server_APIs.rst:392 5bb8206ec18f4e30b041f59d8f01149b
 msgid ""
 "*Note: We store the registered commands in a list variable with two "
 "dictionary in its inner layer, and the list variable is defined as "
 "``self._custom_handlers`` which initialized in the `__init__` method. The "
 "command and its handler will be stored in the one of the dictionaries "
 "according to the value of ``where_to_run``. For ``\"server\"``, it will be "
-"stored in the first dictionary, otherwise in the second dictionary. And the"
-" key of the dictionaries are all the command name, and the value is another "
+"stored in the first dictionary, otherwise in the second dictionary. And the "
+"key of the dictionaries are all the command name, and the value is another "
 "dictionary containing the handler function. And there is also another list "
 "variable defined as ``self._custom_handler_threaded`` which initialized in "
 "the `__init__` method, it contains all the commands that should be run in a "
@@ -583,36 +599,37 @@ msgstr ""
 "*注意：我們將註冊的命令儲存在一個列表變數中，該列表變數的內層有兩個字典，該列表變數定義為“self._custom_handlers”，在“__init__”方法中初始化。命令及其處理程序將根據“where_to_run”的值儲存在其中一個字典中。對於``“server”``，它將儲存在第一個字典中，否則儲存在第二個字典中。字典的鍵都是指令名，值是另一個包含處理函數的字典。還有另一個清單變數定義為“self._custom_handler_threaded”，它在“__init__”方法中初始化，它包含所有應該在單獨執行緒中執行或不執行的命令。"
 " *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:406 995661a3dbef417fba60d3c35c15ff84
+#: ../../Network_APIs/TCP_Server_APIs.rst:411 7c89b48e35294024ac14fbe88f8185c0
 msgid ""
 "After that, the command handler will be called according to the command "
 "name, and run them by a command executor which is defined as:"
 msgstr "之後，命令處理程序將根據命令名稱被調用，並由命令執行器運行它們，命令執行器定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:420 beca566245f34903aeb8724846eed5b2
+#: ../../Network_APIs/TCP_Server_APIs.rst:425 adad339fc05047dd81c3bd67171a6789
 msgid ""
-"In this executor function, there is a try and except code block to catch "
-"the error when running the command handler. If there is an error when "
-"running the command handler, the server will log the error message and also "
-"send the error message back to the client if the command is from the client "
-"side. And in the try code block, the command handler will be called with the"
-" command arguments, and also the client socket and client address if the "
+"In this executor function, there is a try and except code block to catch the"
+" error when running the command handler. If there is an error when running "
+"the command handler, the server will log the error message and also send the"
+" error message back to the client if the command is from the client side. "
+"And in the try code block, the command handler will be called with the "
+"command arguments, and also the client socket and client address if the "
 "command is from the client side."
 msgstr ""
 "在此執行器函數中，有一個 try 和 except "
 "程式碼區塊來捕獲執行命令處理程序時的錯誤。如果執行命令處理程序時發生錯誤，伺服器將記錄錯誤訊息，如果命令來自用戶端，也會將錯誤訊息傳送回用戶端。在 "
 "try 程式碼區塊中，將使用命令參數呼叫命令處理程序，如果命令來自客戶端，也會使用客戶端套接字和客戶端位址。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:430 cdeb61f1177746d6a876c34952fd19fa
+#: ../../Network_APIs/TCP_Server_APIs.rst:435 310214b7550f4c098c28e4f100ef1382
+#, fuzzy
 msgid ""
-"If the command don't run in the thread, the command executor will be called "
-"directly in the `handle_command` function. But if the command should run in "
-"a separate thread, the command executor will be submitted to the server's "
-"thread pool using the `submit_task` method, which is defined as:"
+"If the command doesn't run in the thread, the command executor will be "
+"called directly in the `handle_command` function. But if the command should "
+"run in a separate thread, the command executor will be submitted to the "
+"server's thread pool using the `submit_task` method, which is defined as:"
 msgstr ""
 "如果命令不在執行緒中執行，則命令執行器將直接在「handle_command」函數中呼叫。但是如果命令應該在單獨的執行緒中運行，則命令執行器將使用「submit_task」方法提交到伺服器的執行緒池，該方法定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:445 28e003d4cb4d4bf9b2e86761a627ceb8
+#: ../../Network_APIs/TCP_Server_APIs.rst:450 4f8e669268de4c1995128b1a5bc222cf
 msgid ""
 "The `submit_task` method is a helper function that submits a callable to the"
 " server's internal thread pool executor. It accepts a function and its "
@@ -622,7 +639,7 @@ msgid ""
 msgstr ""
 "「submit_task」方法是一個輔助函數，它將可呼叫函數提交給伺服器的內部執行緒池執行器。它接受一個函數及其參數，並安排它在單獨的線程中執行。這允許長時間運行或阻塞命令處理程序運行而不會阻塞主伺服器循環。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:452 f6c27cd90e544030b491071dd75f57ba
+#: ../../Network_APIs/TCP_Server_APIs.rst:457 ca419b79f5ee4a70bf4bb9da3b99b6d5
 msgid ""
 "As a high level TCP network protocol, A temporary TCP server and a client "
 "can also be created very simply. The temporary TCP server or client can be "
@@ -634,49 +651,49 @@ msgstr ""
 "作為高級TCP網路協議，臨時TCP伺服器和客戶端也可以非常簡單地建立。臨時TCP伺服器或用戶端可以滿足需要其他套接字或連接埠的功能，以避免與主伺服器或用戶端循環發生衝突。例如檔案傳輸功能。建立臨時"
 " TCP 伺服器和客戶端的 API 定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:480 03472fb1d6504791b0c258649120fb4e
+#: ../../Network_APIs/TCP_Server_APIs.rst:485 eae1ee5c47054ae4b41768aa92968c4a
 msgid "TCP Server console commands"
 msgstr "TCP 伺服器控制台命令"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:482 160f4a5ffb92405d87eefd2715f63a85
+#: ../../Network_APIs/TCP_Server_APIs.rst:487 b98ca5b9177e40598f33d3faba17a3c6
 msgid ""
 "The server console input thread accepts administrative commands when "
 "``is_input_command_in_console`` is ``True``. Supported console commands "
 "include:"
 msgstr "當“is_input_command_in_console”為“True”時，伺服器控制台輸入執行緒接受管理命令。支援的控制台命令包括："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:486 ff3c0e8e24c64b37be6989a02e74424e
+#: ../../Network_APIs/TCP_Server_APIs.rst:491 682feeccb237422984cfe829eb5c6e47
 msgid "``/stop``: stops the server and closes all active connections."
 msgstr "``/stop``：停止伺服器並關閉所有活動連線。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:487 bacd7486794245838af07e976011acd2
+#: ../../Network_APIs/TCP_Server_APIs.rst:492 7faacc60383b4bd8ae73abfa19246238
 msgid "``/status``: prints the current connection count and running state."
 msgstr "``/status``：列印目前連線計數和運行狀態。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:488 dfa0f284b18344dfbc77bd6ea5c12186
+#: ../../Network_APIs/TCP_Server_APIs.rst:493 ec8be449dbe1480c88dffd6f3122b57b
 msgid "``/clients``: prints the connected clients and their connection times."
 msgstr "``/clients``：列印連線的客戶端及其連線時間。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:489 c04b7b915a284b438b0dc3a012daa5df
+#: ../../Network_APIs/TCP_Server_APIs.rst:494 2b9307a16cd34c37ba22d668072d7597
 msgid ""
 "``/send_msg <message...> <client_id1> <client_id2> ...``: sends one or more "
 "messages to specific clients."
 msgstr ""
 "``/send_msg <message...> <client_id1> <client_id2> ...``：向特定客戶端發送一條或多條訊息。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:490 d01fc9ec1cad4c2d8e86c209437470d5
+#: ../../Network_APIs/TCP_Server_APIs.rst:495 b962dfd9e7ab46c8886be80f394a35d1
 msgid ""
 "``/file <file_path> <client_id>``: sends a file from the server to a "
 "specific client."
 msgstr "``/file <file_path> <client_id>``：將檔案從伺服器傳送到特定客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:491 8078013bfbb048268f7bd541a7c8217b
+#: ../../Network_APIs/TCP_Server_APIs.rst:496 0ef5aed4f7394d4aad9114a638940911
 msgid ""
 "``/file_folder <folder_path> <client_id>``: sends a folder from the server "
 "to a specific client."
 msgstr "``/file_folder <folder_path> <client_id>``：將資料夾從伺服器傳送到特定客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:492 1badd171c83b436ca1831e77eb53ce4d
+#: ../../Network_APIs/TCP_Server_APIs.rst:497 0f1f7a88823d4b1db348a242bf91b718
 msgid ""
 "``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
 "...``: sends multiple files to multiple clients."
@@ -684,7 +701,7 @@ msgstr ""
 "``/multiple_file_multiple_client <file1> <file2> ... <client1> <client2> "
 "...``：將多個檔案傳送到多個客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:493 d4bfff6ebe0f4323a368631d99b70110
+#: ../../Network_APIs/TCP_Server_APIs.rst:498 edd28071a328408494c4a3146b3644c2
 msgid ""
 "``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
 "<client2> ...``: sends different file lists to different clients."
@@ -692,89 +709,92 @@ msgstr ""
 "``/diff_multiple_file_diff_multiple_client <file1> <file2> ... <client1> "
 "<client2> ...``：將不同的檔案清單傳送到不同的客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:494 1019b8f7b8bf4f7e99c353ec5ad41056
+#: ../../Network_APIs/TCP_Server_APIs.rst:499 f2e3a54d683c46ddad18f2ab5454bc4d
 msgid "``/help``: prints a help summary of console commands."
 msgstr "``/help``：列印控制台指令的幫助摘要。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:496 4d6ed7e47b6e4b5090f31d546f96b1d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:501 7d665ee27bfa445bb3de5b96a7fcbcd4
 msgid ""
 "These console commands make it easy to manage the active server and perform "
 "server-initiated file transfers without modifying the code."
 msgstr "這些控制台命令可以輕鬆管理活動伺服器並執行伺服器啟動的檔案傳輸，而無需修改程式碼。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:500 7bfa13e1317b4e4087e0d4e8e67ad3e9
+#: ../../Network_APIs/TCP_Server_APIs.rst:505 ee9f05c9d0e44e98aa098d39a8c4547f
+#, fuzzy
 msgid ""
-"*Note: There is too long to introduce all the console commands, so for more "
+"*Note: It is too long to introduce all the console commands, so for more "
 "details see the :ref:`tcp-server-console-commands` section.*"
 msgstr ""
 "*注意：由於篇幅太長，無法介紹所有控制台命令，因此有關更多詳細信息，請參閱 :ref:`tcp-server-console-commands` 部分。"
 " *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:504 a3ac35fb445b4a9da29da7acd0ca9253
+#: ../../Network_APIs/TCP_Server_APIs.rst:509 9a6656e057994b5b8b47f3646d5c5a1d
 msgid "TCP Server file transfer API"
 msgstr "TCP伺服器檔案傳輸API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:506 5997261b65bd4afebd3490c4c85542cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:511 70bed01dc4a7426a9d31f45ccc8a1141
 msgid ""
 "The TCP server contains a file transfer subsystem that supports both client-"
 "to-server and server-to-client transfers."
 msgstr "TCP 伺服器包含一個檔案傳輸子系統，支援客戶端到伺服器和伺服器到客戶端傳輸。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:510 6a4303df7cfb4c36a0431dca3e1975fb
+#: ../../Network_APIs/TCP_Server_APIs.rst:515 61227e8f455a4391819284dd6c5dc630
 msgid ""
 "It's too long to introduce all the file transfer functions, so there are "
-"only the list of APIs for the file transfer functions, and for more details"
-" of the file transfer functions, please visit ..."
+"only the list of APIs for the file transfer functions, and for more details "
+"of the file transfer functions, please visit ..."
 msgstr "由於篇幅太長，無法介紹所有文件傳輸功能，因此僅列出了文件傳輸功能的 API 列表，想要了解更多文件傳輸功能的詳細信息，請訪問..."
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:515 fdaf074c3893458489af7f2b517df69f
+#: ../../Network_APIs/TCP_Server_APIs.rst:520 9d0d52331dc8405197df72219eb9d0de
 msgid "The file transfer API for you to use includes:"
 msgstr "供您使用的文件傳輸 API 包括："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:517 3698381e5d544c7d8afdf662941225aa
+#: ../../Network_APIs/TCP_Server_APIs.rst:522 02c69145e8b2499d8ac7feb19024ff31
 msgid ""
 "The basic function for the server-to-client file transfer is defined as:"
 msgstr "伺服器到客戶端文件傳輸的基本函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:528 9d08bcb691774e73995d2f2e0647eaa9
+#: ../../Network_APIs/TCP_Server_APIs.rst:533 cb4f860a695547b5b02a0a6a4507f508
 msgid ""
 "The file transfer function which will run in the threads is defined as:"
 msgstr "將在執行緒中運行的文件傳輸函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:539 93fa90f9588b415b8153c36eab025461
+#: ../../Network_APIs/TCP_Server_APIs.rst:544 3f497ac55d4b4b758bd9bdf0fdc60a4c
 msgid "The folder transfer function is defined as:"
 msgstr "資料夾傳輸函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:548 a02e9e5d0caa4e91add6480273c2c42f
+#: ../../Network_APIs/TCP_Server_APIs.rst:553 ac2fdd4da021439bb8cfdc33bc6da55a
 msgid ""
 "The multiple files transfer to multiple clients function is defined as:"
 msgstr "多個檔案傳輸到多個客戶端功能定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:558 02161728b70346598249cdfef72d1f26
+#: ../../Network_APIs/TCP_Server_APIs.rst:563 6256d2cfe8eb4c779a7f99795619944c
 msgid ""
 "The different multiple files transfer to the different multiple clients "
 "function is defined as:"
 msgstr "不同的多個檔案傳輸到不同的多個客戶端函數定義為："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:568 98d8a31794944316abe50c4555265298
+#: ../../Network_APIs/TCP_Server_APIs.rst:573 f176a36916364c9ca6dd78d8246226bc
+#, fuzzy
 msgid ""
 "We recommend you that if you want to use the mono-file transfer function, "
 "use the `file_transfer_server_recv_client_start_thread` function first, "
 "unless the functions which called the mono-file transfer function are "
 "already in a separate thread, then you can call the "
 "`file_transfer_server_recv_client_start` function directly, or the file "
-"transfer functions are may not very stable. And for the other file "
-"transfer functions, we don't very recommend you to use them in threads, "
+"transfer functions are may not be very stable. And for the other file "
+"transfer functions, we don't strongly recommend you to use them in threads, "
 "because there are already some thread control mechanisms in the functions, "
-"so don't be worry about the concurrent performance. And if you call them in "
-"threads, there may be some unexpected errors and also unnecessary complexity."
+"so don't worry about the concurrent performance. And if you call them in "
+"threads, there may be some unexpected errors and also unnecessary "
+"complexity."
 msgstr ""
 "我們建議您如果要使用單一檔案傳輸函數，請先使用 file_transfer_server_recv_client_start_thread "
 "函數，除非呼叫單一檔案傳輸函數的函數已經在單獨的執行緒中，那麼您可以直接呼叫 "
 "file_transfer_server_recv_client_start "
 "函數，否則檔案傳輸函數可能不太穩定。而對於其他檔案傳輸函數，我們不太建議您在線程中使用它們，因為函數中已經有一些線程控制機制，所以不必擔心並發效能。如果你在執行緒中呼叫它們，可能會出現一些意想不到的錯誤，而且也可能會變得不必要的複雜性。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:582 d3f9165db6124b80bf57bf0cb5f26e9e
+#: ../../Network_APIs/TCP_Server_APIs.rst:587 8d5b255ca29042509aad566d071c2c58
 msgid ""
 "*Note: The file transfer API functions are designed to be called from the "
 "command handlers for both client-initiated and server-initiated transfers. "
@@ -784,22 +804,22 @@ msgstr ""
 "*注意：文件傳輸 API 函數設計為從命令處理程序調用，以進行客戶端啟動和伺服器啟動的傳輸。它們處理傳輸連接埠、客戶端連接和實際檔案資料傳輸操作的協調。"
 " *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:588 e138890a93f84710b0c6411668de350c
+#: ../../Network_APIs/TCP_Server_APIs.rst:593 e267899fa3654422bf36e82e026c0f69
 msgid "Client-to-server transfer flow:"
 msgstr "客戶端到伺服器的傳輸流程："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:590 df090c467cb64f9cb567336969092443
+#: ../../Network_APIs/TCP_Server_APIs.rst:595 dafc23a2cbc94d29adcba6e27c575daf
 msgid "The client sends ``/file`` or ``/file_folder`` to request a transfer."
 msgstr "客戶端發送``/file`` 或``/file_folder`` 來請求傳輸。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:592 a17755bc1f374ec9a520b09b8ede17d3
+#: ../../Network_APIs/TCP_Server_APIs.rst:597 c82cac6540f445b9a8e8fe1d898958a3
 msgid ""
 "``handle_command`` starts a dedicated file-server thread using "
 "``file_transfer_server_recv_server_start_thread``."
 msgstr ""
 "「handle_command」使用「file_transfer_server_recv_server_start_thread」啟動專用檔案伺服器執行緒。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:594 5c47ae452b7e442c930303ba39abc9a4
+#: ../../Network_APIs/TCP_Server_APIs.rst:599 0fb4e13e2f9a4c4f982abff5ce812d75
 msgid ""
 "The server allocates an ephemeral transfer port with ``palloc`` and sends "
 "``/server_file_transfer_port <port> <client_id>`` back to the client."
@@ -807,78 +827,78 @@ msgstr ""
 "伺服器使用“palloc”分配臨時傳輸連接埠並將“/server_file_transfer_port <port> "
 "<client_id>”傳回客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:598 4451beeea4e94f54b1858f725aa9b8cb
+#: ../../Network_APIs/TCP_Server_APIs.rst:603 66c6621aa97542b49c81ea27f0bc4267
 msgid ""
 "The client connects to that transfer port and sends file metadata, including"
 " length-prefixed filename and file size."
 msgstr "用戶端連接到該傳輸連接埠並發送文件元數據，包括帶有長度前綴的檔案名稱和檔案大小。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:601 a564b3a183464693974574995e854c5a
+#: ../../Network_APIs/TCP_Server_APIs.rst:606 7571fffe513045eaa747dc1b2d2876cc
 msgid "The server receives the file and writes it under ``received_files``."
 msgstr "伺服器接收檔案並將其寫入“received_files”下。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:604 459e778150884f89914d6b7601307f65
+#: ../../Network_APIs/TCP_Server_APIs.rst:609 5bbe70007f10457890789d86bc17b4c1
 msgid "Server-to-client transfer flow:"
 msgstr "伺服器到客戶端的傳輸流程："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:606 7ef36ab55a75400dbcde93b9f89465fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:611 2a6a841109fc492d8308c012ae74c1fe
 msgid ""
 "``file_transfer_server_recv_client_start`` is used to initiate outgoing "
 "transfers from server to a connected client."
 msgstr "``file_transfer_server_recv_client_start`` 用於啟動從伺服器到連線的客戶端的傳出傳輸。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:608 a9f71275fe7c4b98a5f0d38aa57c9b8c
+#: ../../Network_APIs/TCP_Server_APIs.rst:613 e432fc7c6d80453da278dacde19cabab
 msgid ""
 "The server sends transfer commands to the client socket and waits for the "
 "client to establish the file transfer connection."
 msgstr "伺服器向客戶端套接字發送傳輸命令，並等待客戶端建立檔案傳輸連線。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:610 b238217053744b82b81aded101cd43d1
+#: ../../Network_APIs/TCP_Server_APIs.rst:615 fe161c64ff2e4c53b7ce7e60589e3a24
 msgid ""
 "Folder transfers are performed recursively, with each file transfer "
 "respecting ``self.max_file_transfer_thread_num`` and the configured "
 "semaphore limit."
 msgstr "資料夾傳輸以遞歸方式執行，每個檔案傳輸都遵循“self.max_file_transfer_thread_num”和配置的信號量限制。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:613 d7a6960cd4ae43dfb42b4f8e69b965d7
+#: ../../Network_APIs/TCP_Server_APIs.rst:618 78c1e3f118574ccba8be241f9ee69dc4
 msgid "Common file transfer helper methods include:"
 msgstr "常見的文件傳輸幫助方法包括："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:615 23cb257977b54bd087bc15419455086c
+#: ../../Network_APIs/TCP_Server_APIs.rst:620 f9f1a987d43f49898a9e10e1db1f6f77
 msgid ""
 "``file_transfer_server_recv_server_start``: receives file data from a "
 "client."
 msgstr "``file_transfer_server_recv_server_start``：從客戶端接收檔案資料。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:616 a8ca3493e4164bf59745b835710fb010
+#: ../../Network_APIs/TCP_Server_APIs.rst:621 0ee6e0a2d46e443591c8804f9d075576
 msgid ""
 "``file_transfer_server_recv_client_start``: sends a file or folder to a "
 "client."
 msgstr "``file_transfer_server_recv_client_start``：將檔案或資料夾傳送到客戶端。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:617 bc5d6dfe4f6f4f4591553b4728356e54
+#: ../../Network_APIs/TCP_Server_APIs.rst:622 6eb9f641886740e6a0115b15d5a9cc61
 msgid ""
 "``file_transfer_mode``: performs the low-level client-side transfer "
 "handshake."
 msgstr "``file_transfer_mode``：執行低階客戶端傳輸握手。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:618 b1eebf39b4e24858b9f65f62958a0a97
+#: ../../Network_APIs/TCP_Server_APIs.rst:623 346b9f84a1a744478abea5beb22dd2d3
 msgid ""
 "``file_transfer_mode_recv``: performs the low-level receive-side transfer "
 "handshake."
 msgstr "``file_transfer_mode_recv``：執行低階接收端傳輸握手。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:623 ae07c5e8c8af466d8aab8eb360f8ecec
+#: ../../Network_APIs/TCP_Server_APIs.rst:628 d03bc27c716645e5a375244673b67e22
 msgid "Port allocation API"
 msgstr "連接埠分配API"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:625 08071868b4e743e6935f800b6fbe5f44
+#: ../../Network_APIs/TCP_Server_APIs.rst:630 a35924ac9bb34a308b1ff0edac57bd92
 msgid ""
 "The server allocation APIs allow you to allocate a new port for another "
 "servers. There are two kinds of port allocation modes."
 msgstr "伺服器分配 API 允許您為其他伺服器指派新連接埠。連接埠分配方式有兩種。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:629 47add20f21ae4cb781a12c85017a50d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:634 c74252dd96b44f1db6b982a5b9888874
 msgid ""
 "For change the port allocation mode, you can set the args "
 "``is_hand_alloc_port`` in the server instance class. When input ``False``, "
@@ -887,7 +907,7 @@ msgid ""
 msgstr ""
 "若要變更連接埠指派模式，您可以在伺服器實例類別中設定參數「is_hand_alloc_port」。當輸入“False”時，伺服器實例將選擇自動連接埠分配模式，或輸入“False”時，伺服器實例將選擇手動分配模式。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:635 58b7d1ef00f5464581f61417932a2bc5
+#: ../../Network_APIs/TCP_Server_APIs.rst:640 7aa3d163bf354e95931c7574b34fc6ba
 msgid ""
 "We most recommend you that to use the automatically port allocation mode, "
 "which is the default mode of the server, because the automatically port "
@@ -897,7 +917,7 @@ msgid ""
 msgstr ""
 "我們最推薦您使用自動連接埠分配模式，這是伺服器的預設模式，因為自動連接埠分配模式比手動連接埠分配模式更簡單，也更穩定。在此模式下，呼叫分配API時，將傳回``0``。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:642 c2ea6f63d89744c4a5e23bb92f70b8e6
+#: ../../Network_APIs/TCP_Server_APIs.rst:647 67b8c95463ac4d6ea023a2e7d15c6696
 msgid ""
 "*Note: The `bind` function in standard lib `socket` of the python executor, "
 "when input ``0`` to the port parameter, will automatically assign an "
@@ -905,17 +925,17 @@ msgid ""
 msgstr ""
 "*注意：python執行器的標準lib `socket`中的`bind`函數，當連接埠參數輸入``0`時，作業系統會自動分配一個可用的連接埠。 *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:647 b3f467b006c24c198355bba84566bcb5
+#: ../../Network_APIs/TCP_Server_APIs.rst:652 d18afcec308b4807a16019d98e92165e
+#, fuzzy
 msgid ""
-"The another port allocation mode is the manual port allocation mode, there "
-"is a port allocation range for the server. Please avoid to open other "
-"servers in the same host, because in the existing version, the port "
-"allocation range will be conflicted and some unexpected errors may be "
-"caused."
+"The other port allocation mode is the manual port allocation mode, there is "
+"a port allocation range for the server. Please avoid to open other servers "
+"in the same host, because in the existing version, the port allocation range"
+" will be conflicted and some unexpected errors may be caused."
 msgstr ""
 "另一種連接埠分配方式是手動連接埠分配方式，伺服器有一個連接埠分配範圍。請避免在同一台主機上開啟其他伺服器，因為在現有版本中，連接埠分配範圍會發生衝突，並可能導致一些意外錯誤。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:654 fcd9f7cb2f07435da45429c438e327cd
+#: ../../Network_APIs/TCP_Server_APIs.rst:659 c49291ef0a1b4dcb83297450887242aa
 msgid ""
 "The range of the port allocation is configured in the server settings. The "
 "minimum allocatable port is ``self.port-"
@@ -925,7 +945,7 @@ msgstr ""
 "連接埠分配的範圍在伺服器設定中配置。最小可分配連接埠為“self.port-"
 "self.port_add_step*self.port_range_num”，最大可指派連接埠為“self.port+1+self.port_add_step*self.port_range_num”。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:660 3fb39cdf6b6b45f898434906b07686ac
+#: ../../Network_APIs/TCP_Server_APIs.rst:665 0e9ecf5c00754955855f07a88e56410e
 msgid ""
 "*Note: The ``self.port`` is the args ``port`` of the server class. The "
 "``self.port_add_step`` is the args ``port_add_step`` of the server class. "
@@ -936,25 +956,25 @@ msgstr ""
 "「self.port_add_step」是伺服器類別的參數「port_add_step」。而「self.port_range_num」也是伺服器類別的參數「port_range_num」。"
 " *"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:666 aae092cda1d54f5483ef0f11197c61ca
+#: ../../Network_APIs/TCP_Server_APIs.rst:671 3b99f158118341ffaaa6716669fc5703
 msgid "There are some relevant methods that can be used:"
 msgstr "有一些相關的方法可以使用："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:673 4abeea57e0254835a731259b36d437e8
+#: ../../Network_APIs/TCP_Server_APIs.rst:678 8e9744f779214f81affafa1f446eaca4
 msgid ""
 "The `palloc` method allow you to get a port, for using this function, you "
 "don't need to worry about the port allocation mode, because an allocation "
 "mode detector is already be wrote in this method."
 msgstr "`palloc`方法允許你獲取一個端口，使用這個函數，你不需要擔心端口分配模式，因為這個方法中已經編寫了一個分配模式檢測器。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:685 6e1a96440603473482e7fec41712ed43
+#: ../../Network_APIs/TCP_Server_APIs.rst:690 b2a5f76b877b465980d6162e869921c4
 msgid ""
 "The `pfree` method allow you to free a port, as the same as `palloc` method,"
 " you don't need to care about the port allocation mode when using this "
 "method."
 msgstr "`pfree` 方法允許您釋放一個端口，與 `palloc` 方法相同，使用該方法時不需要關心端口分配模式。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:689 d73e972f42ef48c5a645607ccf5bce9c
+#: ../../Network_APIs/TCP_Server_APIs.rst:694 4058b14b49034f64a0c51e7a70f15de0
 msgid ""
 "And there are the main functions for you to call, and for more information "
 "about the port allocation functions, see the :ref:`tcp-server-port-"
@@ -962,7 +982,7 @@ msgid ""
 msgstr ""
 "還有主要的函數供您調用，有關連接埠分配函數的更多信息，請參閱 :ref:`tcp-server-port-allocation-api` 部分。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:693 2b9b20eb947841a68769f2b536968cbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:698 385b478e6ab1489b84066e4f39e4b54a
 msgid ""
 "This mode is useful when you need a individual port for the server or  must "
 "reserve a controlled range of ports for client-file transfers by manual port"
@@ -971,154 +991,177 @@ msgid ""
 msgstr ""
 "當您需要伺服器的單獨連接埠或必須透過手動連接埠指派為用戶端檔案傳輸保留受控連接埠範圍時（例如在測試環境中或多個伺服器進程共用相同主機時），此模式非常有用。"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:700 8f2f35b60ca743c490b4bbf99b297a78
+#: ../../Network_APIs/TCP_Server_APIs.rst:705 78ff6af82c8646cba4f4f016a457b9ad
 msgid "TCP Server APIs table"
 msgstr "TCP 伺服器 API 表"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:702 20b0e9d904b547ae823f510645f7d97f
+#: ../../Network_APIs/TCP_Server_APIs.rst:707 7bad5400d40540eda7a8137322b9bc2e
 msgid "In short, the table of contents of the public APIs are as follows:"
 msgstr "簡而言之，公共API的目錄如下："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:705 5ff85748585d46278172ef398e262759
+#: ../../Network_APIs/TCP_Server_APIs.rst:710 a0d1218edf0b488ea8c10dd51d49f4a2
 msgid "The server setup APIs:"
 msgstr "伺服器設定 API："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:706 b613ebf542fc4c10b3db1d4c9811ef3a
+#: ../../Network_APIs/TCP_Server_APIs.rst:711 6acedad5f298426782dd60752e94c686
 msgid "`TCP_Server_Base`"
 msgstr "`TCP_伺服器_基礎`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:707 e4cb32ffa1a3401e89c7d63cd439ef02
+#: ../../Network_APIs/TCP_Server_APIs.rst:712 9518f57bd28c463b845d075f1f013f77
 msgid "`start_TCP_Server`"
 msgstr "`啟動_TCP_伺服器`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:708 d5c8307bb43c4f78b942a78f8100c2bf
+#: ../../Network_APIs/TCP_Server_APIs.rst:713 4fecb922e3644c8199b8f5f71e031400
 msgid "`stop`"
 msgstr "`停止`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:710 8b410315becc4dee8ee136e410154dbd
+#: ../../Network_APIs/TCP_Server_APIs.rst:715 cea599b4dd354d0da4bafe27f332eeb8
 msgid "The server handling information APIs:"
 msgstr "伺服器處理資訊API："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:711 283a386b60b24c5a92e2453c195452fd
+#: ../../Network_APIs/TCP_Server_APIs.rst:716 c1324a1071514492a94478a260f950e7
 msgid "`handle_client`"
 msgstr "`handle_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:712 bb2da75c5d5f406183ad3449e27b89d9
+#: ../../Network_APIs/TCP_Server_APIs.rst:717 6a16ccedd4b649ce9e351ec1f9b10e73
 msgid "`handle_command`"
 msgstr "`處理指令`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:713 565aa08b59a8455496931d414a4e26bf
+#: ../../Network_APIs/TCP_Server_APIs.rst:718 2fde8cdec2f34a46943fedd7ab42768e
 msgid "`receive_message`"
 msgstr "`接收訊息`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:714 8f805abe7646460898a77048190f5ea2
+#: ../../Network_APIs/TCP_Server_APIs.rst:719 03781998f89545eca994ec9e5f9602a5
 msgid "`send_message`"
 msgstr "`發送訊息`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:715 5ede936aa8984770852c58d54261920f
+#: ../../Network_APIs/TCP_Server_APIs.rst:720 756d847defeb4de4acbf3942180a3230
 msgid "`broadcast`"
 msgstr "`廣播`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:716 c97becc140b447aa9224dd882b948b37
+#: ../../Network_APIs/TCP_Server_APIs.rst:721 2edaae0d2bd84e27826b632834098b9f
 msgid "`send_msg_to_specific_client`"
 msgstr "`發送訊息到特定客戶端`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:718 10580118e35142eaa5d3ac8b74cc2308
+#: ../../Network_APIs/TCP_Server_APIs.rst:723 9ad151a612894b9282ce451c1e4742f4
 msgid "The server command APIs:"
 msgstr "伺服器命令API："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:719 dd0fc783ad794fd5a7429ceca0fb9b13
+#: ../../Network_APIs/TCP_Server_APIs.rst:724 61051fec7b7249ba9e30e23583335975
 msgid "`register_command`"
 msgstr "`註冊命令`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:720 d0e8f2a1a67843428c16dd56d275cfbb
+#: ../../Network_APIs/TCP_Server_APIs.rst:725 89f76120884b4b21b59a30cf235646c7
 msgid "`_execute_custom_handler`"
 msgstr "`_execute_custom_handler`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:721 b1064bc554ad4fcd84c3f4e8c3ac1300
+#: ../../Network_APIs/TCP_Server_APIs.rst:726 c07b15d5c2d14d6db98000bc4b2fbc3f
 msgid "`submit_task`"
 msgstr "`提交任務`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:722 64fbf59a6a2442d4a2f1f73fa49c9bec
+#: ../../Network_APIs/TCP_Server_APIs.rst:727 8c7db97993124d7990598ad66596391d
 msgid "`create_temporary_server`"
 msgstr "`建立臨時伺服器`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:723 811676a1a7e1456eb31d65a360e57611
+#: ../../Network_APIs/TCP_Server_APIs.rst:728 2d6682632f5c4193b0f2a7cdcf48c6aa
 msgid "`create_temporary_client`"
 msgstr "`建立臨時客戶端`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:725 46dcf5ef45b148d59c079ac425fd0639
+#: ../../Network_APIs/TCP_Server_APIs.rst:730 96275784fb424eb5aa199320b37ca29d
 msgid "The server file transfer APIs:"
 msgstr "伺服器檔案傳輸API："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:726 c5b74b75d2be476790ed90a407b4082c
+#: ../../Network_APIs/TCP_Server_APIs.rst:731 7c06a2027b1f46d5957e6ef82ee2c308
 msgid "`file_transfer_server_recv_client_start`"
 msgstr "`file_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:727 68259e5588e34b9db62e4e2f1e16c395
+#: ../../Network_APIs/TCP_Server_APIs.rst:732 3ac81ed7a85f476a9e24fc77ef770d49
 msgid "`file_transfer_server_recv_client_start_thread`"
 msgstr "`file_transfer_server_recv_client_start_thread`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:728 2f72e47dae90440b824a088e96aef0ab
+#: ../../Network_APIs/TCP_Server_APIs.rst:733 e48af56b8ad24bb088c44a1ef78eb2d7
 msgid "`folder_file_transfer_server_recv_client_start`"
 msgstr "`folder_file_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:729 83096aaef82e46afacd6aeda6d24cdc6
+#: ../../Network_APIs/TCP_Server_APIs.rst:734 3cdc6c6ae7b14e09a1b998af5bcbb89b
 msgid "`multiple_file_multiple_client_transfer_server_recv_client_start`"
 msgstr "`multiple_file_multiple_client_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:730 d55613c49c7444a285933b8b79d15619
+#: ../../Network_APIs/TCP_Server_APIs.rst:735 4f4caf6153294e2ca21576c7c5433ed8
 msgid ""
 "`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
 msgstr ""
 "`diff_multiple_file_diff_multiple_client_transfer_server_recv_client_start`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:732 eba6298d68234f5fa91f19b07eafc1ac
+#: ../../Network_APIs/TCP_Server_APIs.rst:737 a6696629f8da41b0905886debd505110
 msgid "The server console commands:"
 msgstr "伺服器控制台命令："
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:733 8d76b88a5ea54eb1bdabee253af5b32a
+#: ../../Network_APIs/TCP_Server_APIs.rst:738 e0b47d044d1847e7ba34ae2ec85816eb
 msgid "`/stop`"
 msgstr "`/停止`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:734 cc19861327ec41f7b1534117b21be438
+#: ../../Network_APIs/TCP_Server_APIs.rst:739 5031d203c41244fba4f55c2bff44f8e0
 msgid "`/status`"
 msgstr "`/狀態`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:735 0ba8452dba3b42f4b34f3a38c8a98ca2
+#: ../../Network_APIs/TCP_Server_APIs.rst:740 02750737b2394fe2bce87b2cb4195ff0
 msgid "`/clients`"
 msgstr "`/客戶`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:736 703b87e58e6949c18885db51d4d7ea54
+#: ../../Network_APIs/TCP_Server_APIs.rst:741 2e5780c85c1f43eab30511719da6042b
 msgid "`/send_msg`"
 msgstr "`/發送訊息`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:737 436592f3767c40eeb2660a91b81f4b61
+#: ../../Network_APIs/TCP_Server_APIs.rst:742 755d1109eac54732bb549d57787549cc
 msgid "`/file`"
 msgstr "`/檔案`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:738 a89456c362a74d3589d19ca956ddf988
+#: ../../Network_APIs/TCP_Server_APIs.rst:743 0cb2a82fdae24c4e9e76645e2a2de236
 msgid "`/file_folder`"
 msgstr "`/檔案資料夾`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:739 de6b4ba533e24fe1a759a53b5d12a0b2
+#: ../../Network_APIs/TCP_Server_APIs.rst:744 ae5fe73511e24138840aa6e83360398a
 msgid "`/multiple_file_multiple_client`"
 msgstr "`/multiple_file_multiple_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:740 a3922d63e130462e96499aa2f6e69686
+#: ../../Network_APIs/TCP_Server_APIs.rst:745 f220f2ebfbc9427297a13f528828cad9
 msgid "`/diff_multiple_file_diff_multiple_client`"
 msgstr "`/diff_multiple_file_diff_multiple_client`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:741 2b497bd8b81b484ab27e02dabc76d90e
+#: ../../Network_APIs/TCP_Server_APIs.rst:746 cc95234ff6234774822181df0b372a53
 msgid "`/help`"
 msgstr "`/幫助`"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:744 5321930d5b24434fb2b39a180226cc93
+#: ../../Network_APIs/TCP_Server_APIs.rst:749 393ce16473754b79817c9951891ff65b
 msgid "See Also"
 msgstr "參見"
 
-#: ../../Network_APIs/TCP_Server_APIs.rst:746 b383207a815c49ec9596489f812bdde0
-msgid ""
-"For more information about the client APIs, please visit the client API "
-"documentation, at :doc:`TCP_Client_APIs`."
-msgstr "有關客戶端 API 的更多信息，請訪問客戶端 API 文檔，網址為：doc:`TCP_Client_APIs`。"
+#: ../../Network_APIs/TCP_Server_APIs.rst:751 fe86f0dcf46a4097b285a7277637b437
+msgid ":doc:`TCP_Client_APIs` — TCP client."
+msgstr ":doc:`TCP_Client_APIs` — TCP 客戶端。"
+
+#: ../../Network_APIs/TCP_Server_APIs.rst:752 27ef2ad7316a49fbac03a0d49b0f3517
+msgid ":doc:`UDP_APIs` — UDP endpoint."
+msgstr ":doc:`UDP_APIs` — UDP 端點。"
+
+#~ msgid ""
+#~ "*Note: In the main class of the TCP server setup API, we initialize the "
+#~ "`start_TCP_Server` method to setup all functions which are needed in the TCP"
+#~ " server, including the server socket or handle clients etc.*"
+#~ msgstr ""
+#~ "*注意：在TCP伺服器設定API的主類別中，我們初始化`start_TCP_Server`方法來設定TCP伺服器中所需的所有功能，包括伺服器套接字或處理客戶端等..*"
+
+#~ msgid ""
+#~ "*Note: The ``self.clients`` variable is a dictionary which is used to store "
+#~ "the client sockets and their corresponding addresses. The key of the "
+#~ "dictionary is the client socket, and the value is the client address. It has"
+#~ " been defined in the ``__init__`` method.*"
+#~ msgstr ""
+#~ "*注意：「self.clients」變數是一個字典，用於儲存客戶端套接字及其對應的位址。字典的鍵是客戶端套接字，值是客戶端位址。它已在“__init__”方法中定義。"
+#~ " *"
+
+#~ msgid ""
+#~ "For more information about the client APIs, please visit the client API "
+#~ "documentation, at :doc:`TCP_Client_APIs`."
+#~ msgstr "有關客戶端 API 的更多信息，請訪問客戶端 API 文檔，網址為：doc:`TCP_Client_APIs`。"
