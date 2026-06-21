@@ -5,8 +5,6 @@ import pytest
 
 from src.connect_udp import UDP
 
-UDP_BROADCAST_PORT = 65030
-
 
 def test_udp_server_init(udp_server):
     assert udp_server.port > 0
@@ -50,12 +48,12 @@ def test_udp_send_and_reply():
 def test_udp_broadcast():
     received = threading.Event()
 
-    s1 = UDP("0.0.0.0", UDP_BROADCAST_PORT)
+    s1 = UDP("0.0.0.0", 0)
     s1.listen(lambda data, addr: received.set())
 
     c = UDP("0.0.0.0")
     try:
-        c.broadcast(b"/probe", UDP_BROADCAST_PORT)
+        c.broadcast(b"/probe", s1.port)
         assert received.wait(timeout=2), "did not receive broadcast"
     finally:
         c.close()
