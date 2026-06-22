@@ -1033,7 +1033,7 @@ class TCP_Server_Base:  # TCP server class
                     return False
             waiting_time = 0
             file_size = os.path.getsize(filename)
-            file_name_encoded = filename.encode('utf-8')
+            file_name_encoded = os.path.basename(filename).encode('utf-8')
             name_len = len(file_name_encoded)
             self.send_message(client_file_socket, name_len.to_bytes(4, 'big'))
             self.send_message(client_file_socket, file_name_encoded)
@@ -1969,7 +1969,7 @@ class TCP_Client_Base:  # TCP client class
                     return False
             waiting_time = 0
             file_size = os.path.getsize(filename)
-            file_name_encoded = filename.encode('utf-8')
+            file_name_encoded = os.path.basename(filename).encode('utf-8')
             name_len = len(file_name_encoded)
             self.send_message(client_file_socket, name_len.to_bytes(4, 'big'))
             self.send_message(client_file_socket, file_name_encoded)
