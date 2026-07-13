@@ -7,7 +7,7 @@ import tempfile
 import argparse
 import subprocess
 import traceback
-from network_api.connect_tcp import TCP_Server_Base, TCP_Client_Base
+from .network_api.connect_tcp import TCP_Server_Base, TCP_Client_Base
 
 SERVER_DEFAULTS = {
     'host': '127.0.0.1',
