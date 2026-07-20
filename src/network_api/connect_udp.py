@@ -12,6 +12,7 @@ class UDP:
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        self._socket.settimeout(0.1)
         self._socket.bind((host, port))
         self._addr = self._socket.getsockname()
         self._recv_thread = None
@@ -40,7 +41,6 @@ class UDP:
         self._recv_thread.start()
 
     def _run(self, handler):
-        self._socket.settimeout(0.1)
         while True:
             try:
                 data, addr = self._socket.recvfrom(MAX_DATAGRAM)
