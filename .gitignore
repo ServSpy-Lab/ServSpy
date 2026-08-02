@@ -31,3 +31,23 @@ src/setup.json
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #cmake-build-*
+
+# ss_crypto build and test artifacts
+/build/
+crypto/build/
+crypto/tests/*.log
+crypto/tests/*.out
+crypto/tests/*.err
+crypto/tests/*.tmp
+crypto/tests/*.key
+crypto/tests/*.pem
+*.o
+*.d
+*.so
+*.a
+*.dll
+*.dylib
+*.exe
+*.core
+*.pdb
+*.map

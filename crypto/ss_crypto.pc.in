@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: ss_crypto
+Description: ServSpy C/OpenSSL cryptography library (RSA-OAEP, ECDH, HKDF, AES-256-GCM)
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lss_crypto
+Libs.private: -lcrypto
+Cflags: -I${includedir}

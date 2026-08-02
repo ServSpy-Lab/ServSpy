@@ -3,37 +3,22 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  # C_test:
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 30
-  #
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v6.0.2
-  #
-  #   - name: Install C dependencies (Ubuntu)
-  #     if: matrix.os == 'ubuntu-latest'
-  #     run: |
-  #       sudo apt-get remove needrestart
-  #       sudo apt-get update
-  #       sudo apt-get install -y cmake
-  #
-  #   - name: Build C code
-  #     run: |
-  #       mkdir -p build
-  #       cd build
-  #       cmake ..
-  #       make
-  #
-  #   - name: Run C tests
-  #     run: |
-  #       cd build
-  #       ctest
-
+  C_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+      - name: Install C dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libssl-dev build-essential
+      - name: Build C code
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Compile C code
+        run: cmake --build build --parallel
+      - name: Run C tests
+        run: ctest --test-dir build --output-on-failure
   Lint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
